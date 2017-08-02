@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import org.xutils.x;
 
@@ -17,6 +18,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        AutoLayoutConifg.getInstance().useDeviceSize();
         initLog();
         initNet();
     }

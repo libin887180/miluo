@@ -4,6 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
+
         applicationId "com.zhongdi.miluo"
         minSdkVersion 19
         targetSdkVersion 26
@@ -36,4 +37,5 @@ dependencies {
     compile 'org.xutils:xutils:3.5.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.orhanobut:logger:1.15'
+    compile 'com.zhy:autolayout:1.4.5'
 }

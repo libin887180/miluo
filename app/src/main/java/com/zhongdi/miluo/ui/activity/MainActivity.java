@@ -1,10 +1,9 @@
-package com.zhongdi.miluo.activity;
+package com.zhongdi.miluo.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -12,8 +11,8 @@ import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.fragment.DemoFragment;
-import com.zhongdi.miluo.fragment.HomeFragment;
+import com.zhongdi.miluo.ui.fragment.DemoFragment;
+import com.zhongdi.miluo.ui.fragment.HomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
