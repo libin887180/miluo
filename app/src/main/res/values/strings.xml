@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">miluo</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">首页</string>
+    <string name="title_market">超市</string>
+    <string name="title_self">自选</string>
+    <string name="title_mine">我的</string>
+</resources>
