@@ -13,49 +13,5 @@
         android:layout_height="150dp"
         app:title_height="30dp"/>
 
-    <com.zhongdi.miluo.view.MutiProgress2
-        android:id="@+id/mp_1"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        app:nodesNum="4"
-        app:currNodeState="1"
-        app:currNodeNO="2"
-        app:nodeRadius="10dp"
-        app:processingLineColor="#7B68EE"
-        app:unprogressingDrawable="@drawable/ic_round_ddd"
-        app:progressingDrawable="@drawable/ic_completed"
-        app:progresFailDrawable="@drawable/ic_error"
-        app:progresSuccDrawable="@drawable/ic_checked"/>
-    <com.zhongdi.miluo.view.MutiProgress
-        android:id="@+id/mp_2"
-        android:layout_below="@+id/mp_1"
-        android:layout_marginTop="20dp"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        app:nodesNum="10"
-        app:currNodeState="1"
-        app:currNodeNO="6"
-        app:nodeRadius="6dp"
-        app:processingLineColor="#7B68EE"
-        app:progressingDrawable="@drawable/ic_completed"
-        app:unprogressingDrawable="@drawable/ic_round_ddd"
-        app:progresFailDrawable="@drawable/ic_error"
-        app:progresSuccDrawable="@drawable/ic_checked"/>
-    <com.zhongdi.miluo.view.MutiProgress
-        android:id="@+id/mp_3"
-        android:layout_below="@+id/mp_2"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:nodesNum="15"
-        app:currNodeState="0"
-        app:currNodeNO="10"
-        app:nodeRadius="4dp"
-        app:processingLineColor="#FF00FF"
-        app:progressingDrawable="@drawable/ic_completed"
-        app:unprogressingDrawable="@drawable/ic_round_ddd"
-        app:progresFailDrawable="@drawable/ic_error"
-        app:progresSuccDrawable="@drawable/ic_checked"/>
 
 </LinearLayout>
