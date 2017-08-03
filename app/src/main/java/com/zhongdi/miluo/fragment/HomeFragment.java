@@ -23,7 +23,8 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private List<String> images;
-    private  List<String> titles;
+    private List<String> titles;
+
     public static HomeFragment newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -56,7 +57,6 @@ public class HomeFragment extends Fragment {
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190135_14593482_3_640_427.jpg");
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190134_14593482_2_640_446.jpg");
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190133_14593482_1_640_397.jpg");
-
         titles = new ArrayList<>();
         titles.add("1111111111111");
         titles.add("22222222222");
