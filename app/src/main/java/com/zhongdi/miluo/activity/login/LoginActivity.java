@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.activity.MainActivity;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
@@ -91,8 +93,8 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                login();
-//                startActivity(new Intent(applica, MainActivity.class));
+//                login();
+                startActivity(new Intent(applica, MainActivity.class));
                 Toast.makeText(applica, "登录" + etUsername.getText().toString(), Toast
                         .LENGTH_SHORT).show();
                 break;

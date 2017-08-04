@@ -3,6 +3,7 @@ package com.zhongdi.miluo.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.HomePageAdapter;
 import com.zhongdi.miluo.util.GlideImageLoader;
+import com.zhongdi.miluo.view.NOScollListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private List<String> images;
     private List<String> titles;
+    private NOScollListView lv;
+    private LinearLayoutManager mLayoutManager;
 
     public static HomeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -48,6 +53,17 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         initBanner(view);
+        images = new ArrayList<String>();
+        images.add("股票基金奥斯卡几点来");
+        images.add("奥术大师多");
+        images.add("的范德萨发");
+        titles = new ArrayList<String>();
+        titles.add("1");
+        titles.add("2");
+        titles.add("3");
+        lv = view.findViewById(R.id.lv);
+        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(),titles,images);
+        lv.setAdapter(homePageAdapter);
         return view;
     }
 
