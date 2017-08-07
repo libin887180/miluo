@@ -30,10 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView"
             android:layout_marginTop="60dp"
-            android:drawablePadding="10dp"
-            android:hint="输入手机号"
-
             android:background="@drawable/et_input_bg"
+            android:drawablePadding="10dp"
+
+            android:hint="输入手机号"
             android:imeOptions="actionNext"
             android:maxLines="1"
             android:nextFocusForward="@+id/et_password"
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_username"
             android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
             android:background="@drawable/et_input_bg"
+            android:drawablePadding="10dp"
             android:hint="输入密码"
             android:imeActionId="@+id/login"
             android:imeOptions="actionDone"
@@ -68,6 +68,7 @@
             android:gravity="center"
             android:text="登录"
             android:textColor="@android:color/black" />
+
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"

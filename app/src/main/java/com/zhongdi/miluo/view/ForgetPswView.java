@@ -8,10 +8,7 @@ import com.zhongdi.miluo.model.Manager;
  * Created by isfaaghyth on 6/17/17.
  */
 
-public interface LoginView extends BaseView {
-    void openMain();
-    void openRegister();
-    void findPsw();
+public interface ForgetPswView extends BaseView {
     void onSuccess(Manager model);
     void onError(String message);
 }

@@ -41,7 +41,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_register})
+    @OnClick({R.id.btn_login, R.id.btn_register,R.id.tv_forget_psw})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -51,6 +51,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.btn_register:
                 openRegister();
 
+                break;
+            case R.id.tv_forget_psw:
+                findPsw();
                 break;
         }
     }
@@ -75,6 +78,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void openRegister() {
         startActivity(new Intent(applica, RegisterActivity.class));
+    }
+
+    @Override
+    public void findPsw() {
+        startActivity(new Intent(applica, ForgetPswActivity.class));
     }
 
     @Override
