@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.view.MarqueeView;
+import com.zhongdi.miluo.widget.MarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,6 @@ public class HomePageAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        Logger.i(position + "");
         return position == 1 ? TYPE_2 : TYPE_1;
     }
 
@@ -72,22 +69,18 @@ public class HomePageAdapter extends BaseAdapter {
 
         //无convertView，需要new出各个控件
         if (convertView == null) {
-            Log.e("convertView = ", " NULL");
             //按当前所需的样式，确定new的布局
             switch (type) {
                 case TYPE_1:
                     convertView = inflater.inflate(R.layout.home_list_item, parent, false);
                     holder1 = new ViewHolder1();
-                    Log.e("convertView = ", "NULL TYPE_1");
                     convertView.setTag(holder1);
                     break;
                 case TYPE_2:
                     convertView = inflater.inflate(R.layout.home_list_item2, parent, false);
                     holder2 = new ViewHolder2();
-                    Log.e("convertView = ", "NULL TYPE_2");
                     //初始化布局的控件
                     marqueeView1 = (MarqueeView) convertView.findViewById(R.id.upview1);
-
                     List<View> views2 = new ArrayList<>();
                     views2.clear();//记得加这句话，不然可能会产生重影现象
                     for (int i = 0; i < msgs.size(); i++) {
@@ -122,11 +115,9 @@ public class HomePageAdapter extends BaseAdapter {
             switch (type) {
                 case TYPE_1:
                     holder1 = (ViewHolder1) convertView.getTag();
-                    Log.e("convertView !!!!!!= ", "NULL TYPE_1");
                     break;
                 case TYPE_2:
                     holder2 = (ViewHolder2) convertView.getTag();
-                    Log.e("convertView !!!!!!= ", "NULL TYPE_2");
                     break;
             }
         }

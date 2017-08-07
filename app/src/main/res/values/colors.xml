@@ -8,6 +8,10 @@
     <color name="transparent">#00000000</color>
     <color name="divider_list">#d4d4d4</color>
     <color name="red">#FF4242</color>
+    <color name="grey">#999999</color>
+    <color name="btn_yzm_color">#128C2F</color>
+    <color name="btn_yzm_color_pressed">#026C2F</color>
     <!--默认文字颜色-->
+    <color name="text_color_normal">#787878</color>
     <color name="sub_text_color">#343434</color>
 </resources>

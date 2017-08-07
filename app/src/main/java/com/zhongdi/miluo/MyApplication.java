@@ -30,7 +30,7 @@ public class MyApplication extends Application {
 //                .tag("KENN")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
 //                .build();
 //        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
-        Logger.init("KENN")
+        Logger.init("miluo")
                 .methodCount(2) // 方法栈打印的个数，默认是 2
 //                .hideThreadInfo() // // 隐藏线程信息，默认显示
                 .methodOffset(2) // 设置调用堆栈的函数偏移值，默认是 0

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <com.zhongdi.miluo.view.MarqueeView
+        <com.zhongdi.miluo.widget.MarqueeView
             android:id="@+id/upview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

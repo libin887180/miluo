@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.fragment;
+package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.HomePageAdapter;
 import com.zhongdi.miluo.util.GlideImageLoader;
-import com.zhongdi.miluo.view.NOScollListView;
+import com.zhongdi.miluo.widget.NOScollListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = bundle.get("info").toString();
-            Logger.d("HomeFragment", name);
+//            Logger.d("HomeFragment", name);
         }
     }
 

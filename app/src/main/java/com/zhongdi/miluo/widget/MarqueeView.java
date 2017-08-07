@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.view;
+package com.zhongdi.miluo.widget;
 
 
 import android.content.Context;

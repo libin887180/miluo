@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.fragment;
+package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

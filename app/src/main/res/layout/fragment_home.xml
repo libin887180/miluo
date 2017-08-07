@@ -36,7 +36,7 @@
                 android:text="立即登录" />
         </RelativeLayout>
 
-        <com.zhongdi.miluo.view.NOScollListView
+        <com.zhongdi.miluo.widget.NOScollListView
             android:id="@+id/lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

@@ -15,13 +15,13 @@ import java.util.List;
  * Created by libin on 2017/8/3.
  */
 
-public class HomeAdapter extends RecyclerView.Adapter {
+public class RecycleAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<String> datas;
     private List<String> msgs;
 
     //适配器初始化
-    public HomeAdapter(Context context, List<String> datas, List<String> msgs) {
+    public RecycleAdapter(Context context, List<String> datas, List<String> msgs) {
         mContext = context;
         this.datas = datas;
         this.msgs = msgs;
