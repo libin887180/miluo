@@ -34,7 +34,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     @BindView(R.id.head)
     RelativeLayout head;
     private View rootView;
-    private  PopupWindow window ;
+    private PopupWindow window;
+    private List<String> datas;
 
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -53,25 +54,34 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_market, container, false);
-        binding();
         unbinder = ButterKnife.bind(this, rootView);
-        initPopWin();
+        binding();
+        initSortPop(datas);
         return rootView;
 
     }
 
-    private void initPopWin() {
-        // TODO: 2016/5/17 构建一个popupwindow的布局
-        View  popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
-        List<String>  datas = new ArrayList<>();
+    @Override
+    public void doSomething() {
+    }
+
+    @Override
+    public void initSortPop(List<String> datas) {
+        if(datas!=null){
+            datas.clear();
+        }else{
+            datas = new ArrayList<>();
+        }
+
+        datas.add("默认");
         datas.add("正序");
         datas.add("倒序");
-        // TODO: 2016/5/17 为了演示效果，简单的设置了一些数据，实际中大家自己设置数据即可，相信大家都会。
+        // TODO: 2016/5/17 构建一个popupwindow的布局
+        View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
         ListView lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
         lsvMore.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, datas));
-
         // TODO: 2016/5/17 创建PopupWindow对象，指定宽度和高度
-         window = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        window = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         // TODO: 2016/5/17 设置动画
 //        window.setAnimationStyle(R.style.popup_window_anim);
         // TODO: 2016/5/17 设置背景颜色
@@ -82,11 +92,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         window.setOutsideTouchable(true);
         // TODO：更新popupwindow的状态
         window.update();
-
-    }
-
-    @Override
-    public void doSomething() {
     }
 
     @Override
