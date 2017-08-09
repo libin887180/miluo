@@ -4,15 +4,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MarketPresenter;
 import com.zhongdi.miluo.view.MarketView;
@@ -33,6 +37,14 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     Unbinder unbinder;
     @BindView(R.id.head)
     RelativeLayout head;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.rl_orther)
+    LinearLayout rlOrther;
+    @BindView(R.id.rl_huobi)
+    LinearLayout rlHuobi;
     private View rootView;
     private PopupWindow window;
     private List<String> datas;
@@ -57,8 +69,62 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         unbinder = ButterKnife.bind(this, rootView);
         binding();
         initSortPop(datas);
+        initTabLayout();
         return rootView;
 
+    }
+
+    private void initTabLayout() {
+        List<String> tabs = new ArrayList<>();
+        tabs.add("股票");
+        tabs.add("债券");
+        tabs.add("混合");
+        tabs.add("货币");
+        tabs.add("指数");
+        tabs.add("保本");
+        tablayout.removeAllTabs();
+        for (int i = 0; i < tabs.size(); i++) {
+            String itemName = tabs.get(i);
+            if (i == 0) {
+                tablayout.addTab(tablayout.newTab().setText(itemName), true);
+            } else {
+                tablayout.addTab(tablayout.newTab().setText(itemName), false);
+            }
+        }
+
+
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getActivity(), getChildFragmentManager(), tabs);
+
+        adapter.addFragment(FundFragment.newInstance("股票"));
+        adapter.addFragment(DemoFragment.newInstance("债券"));
+        adapter.addFragment(DemoFragment.newInstance("混合"));
+        adapter.addFragment(DemoFragment.newInstance("货币"));
+        adapter.addFragment(DemoFragment.newInstance("指数"));
+        adapter.addFragment(DemoFragment.newInstance("保本"));
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 3) {
+                    rlHuobi.setVisibility(View.VISIBLE);
+                    rlOrther.setVisibility(View.GONE);
+                }else{
+                    rlHuobi.setVisibility(View.GONE);
+                    rlOrther.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        tablayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -67,9 +133,9 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     public void initSortPop(List<String> datas) {
-        if(datas!=null){
+        if (datas != null) {
             datas.clear();
-        }else{
+        } else {
             datas = new ArrayList<>();
         }
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
 import com.zhongdi.miluo.R;
 
 import java.util.List;
@@ -27,41 +26,19 @@ public class RecycleAdapter extends RecyclerView.Adapter {
         this.msgs = msgs;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        Logger.i(position+"");
-        return position == 1 ? 1 : 0;
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == 0) {
             View view = LayoutInflater.from(mContext
-            ).inflate(R.layout.home_list_item, parent,
+            ).inflate(R.layout.fund_list_item, parent,
                     false);//这个布局推荐基金
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
-        } else {
-            View view = LayoutInflater.from(mContext
-            ).inflate(R.layout.home_list_item2, parent,
-                    false);//这个布局是资讯
-
-            MsgViewHodler holder = new MsgViewHodler(view);
-
-            return holder;
-        }
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof MsgViewHodler){
-
-
-        }else if(holder instanceof MyViewHolder){
-
-
-        }
 
     }
 
@@ -83,17 +60,4 @@ public class RecycleAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public static class MsgViewHodler extends RecyclerView.ViewHolder {
-
-        public MsgViewHodler(View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                }
-            });
-        }
-    }
 }
