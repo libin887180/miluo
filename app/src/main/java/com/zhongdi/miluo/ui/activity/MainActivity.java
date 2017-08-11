@@ -10,14 +10,15 @@ import android.widget.Toast;
 import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
-import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.base.BaseActivity2;
 import com.zhongdi.miluo.ui.fragment.DemoFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment;
+import com.zhongdi.miluo.ui.fragment.MarketFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity2 {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(HomeFragment.newInstance("首页"));
-        adapter.addFragment(DemoFragment.newInstance("超市"));
+        adapter.addFragment(MarketFragment.newInstance("超市"));
         adapter.addFragment(DemoFragment.newInstance("自选"));
         adapter.addFragment(DemoFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.net.xutils;
+package com.zhongdi.miluo.net;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;

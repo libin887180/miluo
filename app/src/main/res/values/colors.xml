@@ -7,6 +7,20 @@
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="divider_list">#d4d4d4</color>
+    <color name="red">#FF4242</color>
+    <color name="grey">#999999</color>
+    <color name="btn_yzm_color">#128C2F</color>
+    <color name="btn_yzm_color_pressed">#026C2F</color>
     <!--默认文字颜色-->
+    <color name="text_color_normal">#6F6F6F</color>
+    <color name="text_color_light_grey">#A7A7A7</color>
     <color name="sub_text_color">#343434</color>
+    <color name="text_blue">#5BC2E1</color>
+    <color name="grey_bg">#F3F5F5</color>
+    <color name="tab_text_selected">#FF3F51</color>
+<!--ios7dialog-->
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
 </resources>
