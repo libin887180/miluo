@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
     private List<String> titles;
     private NOScollListView lv;
     private LinearLayoutManager mLayoutManager;
+    private Banner banner;
 
     public static HomeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -47,11 +48,18 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        banner.stopAutoPlay();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         initBanner(view);
+
         images = new ArrayList<String>();
         images.add("股票基金奥斯卡几点来");
         images.add("奥术大师多");
@@ -61,10 +69,12 @@ public class HomeFragment extends Fragment {
         titles.add("2");
         titles.add("3");
         lv = view.findViewById(R.id.lv);
+        lv.setFocusable(false);
         HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(),titles,images);
         lv.setAdapter(homePageAdapter);
         return view;
     }
+
 
     private void initBanner(View view) {
         images = new ArrayList<>();
@@ -77,15 +87,15 @@ public class HomeFragment extends Fragment {
         titles.add("22222222222");
         titles.add("3333333333333");
         titles.add("4444444444444");
-        Banner banner = (Banner) view.findViewById(R.id.banner);
+        banner = (Banner) view.findViewById(R.id.banner);
         //设置banner样式
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
         banner.setImages(images);
         //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
+        banner.setBannerAnimation(Transformer.Default);
         //设置标题集合（当banner样式有显示title时）
         banner.setBannerTitles(titles);
         //设置自动轮播，默认为true

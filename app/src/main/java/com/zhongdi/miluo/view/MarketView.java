@@ -2,8 +2,6 @@ package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
 
-import java.util.List;
-
 
 /**
  * Created by isfaaghyth on 6/17/17.
@@ -11,5 +9,5 @@ import java.util.List;
 
 public interface MarketView extends BaseView {
     void doSomething();
-    void initSortPop( List<String> datas );
+    void initSortPop( );
 }

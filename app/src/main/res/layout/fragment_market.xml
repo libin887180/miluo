@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
+        android:background="@drawable/title_bg"
         android:padding="12dp">
 
         <ImageView
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="超市"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageView
@@ -64,7 +65,7 @@
             android:layout_marginRight="10dp"
             android:clickable="true"
             android:text="排序"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/white"
             android:textSize="14sp"
            />
     </RelativeLayout>
@@ -80,11 +81,12 @@
         app:tabMode="scrollable"
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"
-        app:tabSelectedTextColor="#F49D0C"
+        app:tabIndicatorColor="@color/tab_text_selected"
+        app:tabSelectedTextColor="@color/tab_text_selected"
         app:tabTextColor="@color/text_color_normal" />
     <LinearLayout
         android:id="@+id/rl_orther"
-        android:background="@color/grey"
+        android:background="@color/grey_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -96,6 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
+            android:textColor="@color/text_color_light_grey"
             android:paddingLeft="10dp"
             android:text="基金名称" />
 
@@ -103,12 +106,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textColor="@color/text_color_light_grey"
             android:gravity="center_horizontal"
             android:text="最近净值" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_light_grey"
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="日涨幅" />
@@ -117,7 +122,7 @@
     <LinearLayout
         android:id="@+id/rl_huobi"
         android:visibility="gone"
-        android:background="@color/grey"
+        android:background="@color/grey_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

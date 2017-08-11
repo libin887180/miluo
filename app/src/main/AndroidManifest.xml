@@ -22,9 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.login.RegisterActivity" />
-        <activity android:name=".ui.activity.login.ForgetPswActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity"  android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.login.RegisterActivity" android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.login.ForgetPswActivity"  android:launchMode="singleTask" ></activity>
+        <activity android:name=".ui.activity.login.QuickLoginActivity"  android:launchMode="singleTask" ></activity>
     </application>
 
 </manifest>

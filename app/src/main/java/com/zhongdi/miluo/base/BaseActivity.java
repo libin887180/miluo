@@ -1,15 +1,15 @@
 package com.zhongdi.miluo.base;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.MyApplication;
+import com.zhongdi.miluo.widget.AlertDialog;
 
 import butterknife.ButterKnife;
 
@@ -21,7 +21,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected Context mContext;
     protected MyApplication applica;
     protected P presenter;
+
     protected abstract P initPresenter();
+
     protected abstract void initialize();
 
     protected void binding(int layoutId) {
@@ -43,16 +45,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (presenter != null) presenter.dettachView();
     }
 
-    protected void showAlertMessage(String message) {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {}
-        });
-        alert.show();
-    }
-
     public void showToast(String text) {
         Toast.makeText(this, "" + text, Toast.LENGTH_SHORT).show();
     }
@@ -60,6 +52,22 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void showToast(int resId) {
         Toast.makeText(this, this.getResources().getText(resId), Toast.LENGTH_SHORT).show();
     }
+
+    public void showDialog(String title, String messsage, String positiveMsg,  View.OnClickListener okListener, String negative,
+                          View.OnClickListener cancleListener) {
+
+        AlertDialog dialog = new AlertDialog(mContext).builder();
+        if (!TextUtils.isEmpty(title)) {
+            dialog.setTitle(title);
+        }
+        if (!TextUtils.isEmpty(messsage)) {
+            dialog.setMsg(messsage);
+        }
+        dialog.setPositiveButton("找回密码", okListener).setNegativeButton("重新输入", cancleListener);
+
+        dialog.show();
+    }
+
 
     public void back(View targv) {
         finish();

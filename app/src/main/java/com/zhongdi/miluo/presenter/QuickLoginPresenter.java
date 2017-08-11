@@ -6,7 +6,7 @@ import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.net.NetRequestUtil;
-import com.zhongdi.miluo.view.LoginView;
+import com.zhongdi.miluo.view.QuickLoginView;
 
 import org.xutils.common.Callback;
 
@@ -18,9 +18,9 @@ import java.util.Map;
  * Created by isfaaghyth on 6/17/17.
  */
 
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
 
-    public LoginPresenter(LoginView view) {
+    public QuickLoginPresenter(QuickLoginView view) {
         super.attachView(view);
     }
 
@@ -35,9 +35,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     /**
      * 账号格式验证
      */
-    public boolean isEmailValid(String email) {
+    private boolean isEmailValid(String email) {
         boolean flag = false;
         String[] accountArray = email.split("@");
+        System.out.println("accountArray.length=" + accountArray.length);
         if (accountArray.length == 2 && !"".equals(accountArray[0]) && !"".equals
                 (accountArray[1])) {
             flag = true;

@@ -5,5 +5,4 @@ package com.zhongdi.miluo.base;
  */
 
 public interface BaseView {
-
 }

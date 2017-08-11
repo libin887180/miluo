@@ -98,7 +98,6 @@ public class HomePageAdapter extends BaseAdapter {
 
                             }
                         });
-
                         //进行对控件赋值
                         tv1.setText(msgs.get(i).toString());
 

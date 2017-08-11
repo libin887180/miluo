@@ -11,13 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.Manager;
-import com.zhongdi.miluo.presenter.LoginPresenter;
+import com.zhongdi.miluo.presenter.QuickLoginPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
-import com.zhongdi.miluo.view.LoginView;
+import com.zhongdi.miluo.view.QuickLoginView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView {
+public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implements QuickLoginView {
     @BindView(R.id.et_username)
     EditText etUsername;
     @BindView(R.id.et_password)
@@ -37,47 +38,44 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     TextView btnRegister;
     @BindView(R.id.email_login_form)
     RelativeLayout emailLoginForm;
+    @BindView(R.id.tv_send_code)
+    TextView tvSendCode;
+
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tvSendCode.setText(millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            tvSendCode.setEnabled(true);
+            tvSendCode.setText("获取验证码");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding(R.layout.activity_login);
+        binding(R.layout.activity_quick_login);
     }
 
-
-    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw, R.id.tv_phone_login})
+    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw,R.id.tv_send_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-
+                presenter.login("admin", "123456");
                 openMain();
-//                if (presenter.isEmailValid(etUsername.getText().toString())) {
-//                    openMain();
-//                } else {
-//                    showDialog("", "登录密码错误，还剩4次机会", "找回密码", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    }, "重新输入", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    });
-//                }
-//
-//                presenter.login("admin", "123456");
-
                 break;
             case R.id.tv_title_right:
-                openRegister();
                 break;
             case R.id.tv_forget_psw:
-                findPsw();
                 break;
-            case R.id.tv_phone_login:
-                quickLogin();
+            case R.id.tv_send_code:
+                view.setEnabled(false);
+                timer.start();
+
                 break;
         }
     }
@@ -105,29 +103,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void quickLogin() {
-        startActivity(new Intent(applica, QuickLoginActivity.class));
-    }
-
-    @Override
     public void openMain() {
         startActivity(new Intent(applica, MainActivity.class));
-    }
-
-    @Override
-    public void openRegister() {
-        startActivity(new Intent(applica, RegisterActivity.class));
-    }
-
-    @Override
-    public void findPsw() {
-        startActivity(new Intent(applica, ForgetPswActivity.class));
+        Toast.makeText(applica, "登录" + etUsername.getText().toString(), Toast
+                .LENGTH_SHORT).show();
     }
 
 
     @Override
-    protected LoginPresenter initPresenter() {
-        return new LoginPresenter(this);
+    protected QuickLoginPresenter initPresenter() {
+        return new QuickLoginPresenter(this);
     }
 
     @Override
@@ -176,6 +161,5 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             }
         });
     }
-
 }
 
