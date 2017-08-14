@@ -95,41 +95,36 @@
                 android:textColor="@color/text_color_org"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="73.12"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="73.12"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="总资产（元）"
-                    android:textColor="@color/text_color_org"
-                    android:textSize="12sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="总资产（元）"
+                android:textColor="@color/text_color_org"
+                android:textSize="12sp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,31 +141,16 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
-        app:tabBackground="@color/white"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed"
-        app:tabPaddingEnd="0dp"
-        app:tabPaddingStart="0dp"
-        app:tabIndicatorColor="@color/tab_text_selected"
-        app:tabSelectedTextColor="@color/tab_text_selected"
-        app:tabTextColor="@color/text_color_normal"
         android:layout_height="wrap_content">
-
         <android.support.design.widget.TabItem
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="当前资产" />
+            android:text="当前资产"
 
-        <android.support.design.widget.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="历史资产" />
+            android:layout_height="match_parent" />
+
     </android.support.design.widget.TabLayout>
-
-
 
 
 </LinearLayout>
