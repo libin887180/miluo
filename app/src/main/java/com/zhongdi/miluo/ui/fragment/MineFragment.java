@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.view.BaseFragmentAdapter;
 import com.zhongdi.miluo.view.ListFragment;
+import com.zhongdi.miluo.widget.RiseNumberTextView2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,14 @@ public class MineFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout)  view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+        //获取到RiseNumberTextView对象
+        RiseNumberTextView2 rnTextView = (RiseNumberTextView2) view.findViewById(R.id.rise_tv);
+        // 设置数据
+        rnTextView.withNumber(892666.50f);
+        // 设置动画播放时间
+        rnTextView.setDuration(1000);
+        // 开始播放动画
+        rnTextView.start();
 
         return view;
     }

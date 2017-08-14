@@ -42,7 +42,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.zhongdi.miluo.widget.RiseNumberTextView
+                            android:id="@+id/rise_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="89273.12"
