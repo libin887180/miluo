@@ -14,6 +14,7 @@ import com.zhongdi.miluo.base.BaseActivity2;
 import com.zhongdi.miluo.ui.fragment.DemoFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
+import com.zhongdi.miluo.ui.fragment.MineFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +45,7 @@ public class MainActivity extends BaseActivity2 {
         adapter.addFragment(HomeFragment.newInstance("首页"));
         adapter.addFragment(MarketFragment.newInstance("超市"));
         adapter.addFragment(DemoFragment.newInstance("自选"));
-        adapter.addFragment(DemoFragment.newInstance("我的"));
+        adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
     }
 
