@@ -3,7 +3,6 @@ package com.zhongdi.miluo.ui.activity.login;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
