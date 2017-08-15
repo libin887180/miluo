@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
 
     private void initBanner(View view) {
         images = new ArrayList<>();
-        images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190138_14593482_5_640_448.jpg");
+        images.add("http://img02.yohoboys.com/contentimg/2017/08/04/17/0276499b03621c6eb67d6557c2cda3912e.gif");
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190135_14593482_3_640_427.jpg");
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190134_14593482_2_640_446.jpg");
         images.add("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190133_14593482_1_640_397.jpg");
@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间
-        banner.setDelayTime(1500);
+        banner.setDelayTime(3500);
         //设置指示器位置（当banner模式中有指示器时）
         banner.setIndicatorGravity(BannerConfig.NUM_INDICATOR_TITLE);
         //banner设置方法全部调用完毕时最后调用

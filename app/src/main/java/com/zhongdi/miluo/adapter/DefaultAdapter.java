@@ -46,7 +46,7 @@ public abstract class DefaultAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         notifyItemInserted(mDatas.size() - 1);
     }
 
-    public void addDates(List<T> dates, int position) {
+    public void addDatas(List<T> dates, int position) {
         if (dates == null || dates.size() == 0)
             return;
         mDatas.addAll(position, dates);
@@ -81,15 +81,15 @@ public abstract class DefaultAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     /**
      * 将一个List添加到列表中
      */
-    public void addDates(List<T> dates, boolean isNotify) {
-        if (dates == null || dates.size() == 0) {
+    public void addDatas(List<T> datas, boolean isNotify) {
+        if (datas == null || datas.size() == 0) {
             return;
         }
 //        int oldSize = this.mDatas.size();
 //        int newSize = dates.size();
 //        this.mDatas.addAll(dates);
 //        notifyItemRangeInserted(oldSize, newSize);
-        this.mDatas.addAll(dates);
+        this.mDatas.addAll(datas);
         if(true){
             notifyDataSetChanged();
         }
@@ -99,8 +99,8 @@ public abstract class DefaultAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     }
 
 
-    public void addDates(List<T> dates) {
-      this.addDates(dates,false);
+    public void addDatas(List<T> dates) {
+      this.addDatas(dates,false);
 
 
     }
