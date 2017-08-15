@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.view;
+package com.zhongdi.miluo.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

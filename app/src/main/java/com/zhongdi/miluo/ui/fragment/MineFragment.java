@@ -11,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.view.BaseFragmentAdapter;
-import com.zhongdi.miluo.view.ListFragment;
+import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 
 import java.util.ArrayList;
@@ -29,9 +28,7 @@ public class MineFragment extends Fragment {
     List<Fragment> mFragments;
     Toolbar mToolbar;
 
-    String[]  mTitles=new String[]{
-            "主页","微博","相册"
-    };
+    List<String> mTitles = new ArrayList<>();
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
         MineFragment fragment = new MineFragment();
@@ -66,12 +63,14 @@ public class MineFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         mFragments=new ArrayList<>();
-        for(int i=0;i<mTitles.length;i++){
-            ListFragment listFragment = ListFragment.newInstance(mTitles[i]);
+        mTitles.add("当前资产");
+        mTitles.add("历史资产");
+        for(int i=0;i<mTitles.size();i++){
+            ListFragment listFragment = ListFragment.newInstance(mTitles.get(i));
             mFragments.add(listFragment);
         }
-        BaseFragmentAdapter adapter =
-                new BaseFragmentAdapter(getChildFragmentManager(),mFragments,mTitles);
+        MyFragmentPagerAdapter adapter =
+                new MyFragmentPagerAdapter(getChildFragmentManager(),mFragments,mTitles);
 
 
 

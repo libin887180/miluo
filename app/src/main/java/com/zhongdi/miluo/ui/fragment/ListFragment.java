@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.view;
+package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,16 +9,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.ItemAdapter;
+import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.presenter.ListFragmentPresenter;
+import com.zhongdi.miluo.view.ListFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @ explain:
- * @ author：xujun on 2016/10/18 17:21
- * @ email：gdutxiaoxu@163.com
+ * @ author：libin
+ * @ email：libin887180@163.com
  */
-public class ListFragment extends BaseFragment {
+public class ListFragment extends BaseFragment<ListFragmentPresenter> implements ListFragmentView {
 
     RecyclerView mRecyclerView;
     private static final String KEY = "key";
@@ -34,6 +38,11 @@ public class ListFragment extends BaseFragment {
         bundle.putString(KEY, title);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    protected ListFragmentPresenter initPresenter() {
+        return new ListFragmentPresenter(this);
     }
 
     @Override

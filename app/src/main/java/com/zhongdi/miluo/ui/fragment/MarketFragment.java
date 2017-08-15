@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -33,21 +31,20 @@ import butterknife.Unbinder;
  */
 
 public class MarketFragment extends BaseFragment<MarketPresenter> implements MarketView {
-    Unbinder unbinder;
     @BindView(R.id.head)
     RelativeLayout head;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
-    @BindView(R.id.viewPager)
-    ViewPager viewPager;
     @BindView(R.id.rl_orther)
     LinearLayout rlOrther;
     @BindView(R.id.rl_huobi)
     LinearLayout rlHuobi;
-    private View rootView;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    Unbinder unbinder;
     private PopupWindow window;
-    private List<String> datas;
     private SortAdapter sortAdapter;
+
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
@@ -61,19 +58,25 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         return new MarketPresenter(this);
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_market, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
-        binding();
+    protected void initView(View view) {
         initSortPop();
         initTabLayout();
-        return rootView;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_market;
+    }
+
+    @Override
+    public void fetchData() {
 
     }
 
     private void initTabLayout() {
+
         List<String> tabs = new ArrayList<>();
         tabs.add("股票");
         tabs.add("债券");
@@ -91,9 +94,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             }
         }
 
-
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getActivity(), getChildFragmentManager(), tabs);
-
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), tabs);
         adapter.addFragment(FundFragment.newInstance("股票"));
         adapter.addFragment(DemoFragment.newInstance("债券"));
         adapter.addFragment(DemoFragment.newInstance("混合"));
@@ -135,7 +136,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         // TODO: 2016/5/17 构建一个popupwindow的布局
         View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
         ListView lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
-      sortAdapter = new SortAdapter(mContext);
+        sortAdapter = new SortAdapter(mContext);
         lsvMore.setAdapter(sortAdapter);
         lsvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -157,12 +158,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         window.setOutsideTouchable(true);
         // TODO：更新popupwindow的状态
         window.update();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
 

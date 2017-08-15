@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,22 +15,29 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> mTitleList;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
-    private Context mContext;
+    public MyFragmentPagerAdapter(FragmentManager fm) {
+        this(fm, null);
+    }
 
-    public MyFragmentPagerAdapter(Context context, FragmentManager fm,
+    public MyFragmentPagerAdapter(FragmentManager fm,
                                   List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
+        if (fragmentList == null) {
+            fragmentList = new ArrayList<>();
+        }
         this.fragmentList = fragmentList;
-        this.mContext = context;
-        this.mTitleList = titleList;
-    }
-    public MyFragmentPagerAdapter(Context context, FragmentManager fm,
-                                  List<String> titleList) {
-        super(fm);
-        this.mContext = context;
         this.mTitleList = titleList;
     }
 
+
+    public MyFragmentPagerAdapter(FragmentManager fm,
+                                  List<String> titleList) {
+        this(fm, null,titleList);
+    }
+    public boolean isEmpty() {
+        return fragmentList == null;
+
+    }
     public void addFragment(Fragment fragment) {
         fragmentList.add(fragment);
     }
