@@ -41,6 +41,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     LinearLayout rlHuobi;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+
+    private  ListView lsvMore;
     private PopupWindow window;
     private SortAdapter sortAdapter;
 
@@ -56,7 +58,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     protected MarketPresenter initPresenter() {
         return new MarketPresenter(this);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +79,49 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     }
 
     @Override
+    protected void initListener() {
+        super.initListener();
+        /**
+         * 设置viewpager的选择事件
+         */
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 3) {
+                    rlHuobi.setVisibility(View.VISIBLE);
+                    rlOrther.setVisibility(View.GONE);
+                } else {
+                    rlHuobi.setVisibility(View.GONE);
+                    rlOrther.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        /**
+         * 设置筛选的点击事件
+         */
+        lsvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                sortAdapter.setCheck(i);
+                window.dismiss();
+
+            }
+        });
+
+    }
+
+    @Override
     protected void initView(View view) {
         initSortPop();
         initTabLayout();
@@ -93,7 +137,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     }
 
-    private void initTabLayout() {
+    @Override
+    public void initTabLayout() {
 
         List<String> tabs = new ArrayList<>();
         tabs.add("股票");
@@ -120,28 +165,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         adapter.addFragment(DemoFragment.newInstance("指数"));
         adapter.addFragment(DemoFragment.newInstance("保本"));
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 3) {
-                    rlHuobi.setVisibility(View.VISIBLE);
-                    rlOrther.setVisibility(View.GONE);
-                } else {
-                    rlHuobi.setVisibility(View.GONE);
-                    rlOrther.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         tablayout.setupWithViewPager(viewPager);
     }
 
@@ -153,17 +177,9 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public void initSortPop() {
         // TODO: 2016/5/17 构建一个popupwindow的布局
         View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
-        ListView lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
+         lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
         sortAdapter = new SortAdapter(mContext);
         lsvMore.setAdapter(sortAdapter);
-        lsvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                sortAdapter.setCheck(i);
-                window.dismiss();
-
-            }
-        });
         // TODO: 2016/5/17 创建PopupWindow对象，指定宽度和高度
         window = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         // TODO: 2016/5/17 设置动画
