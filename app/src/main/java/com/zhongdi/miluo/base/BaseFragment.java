@@ -2,16 +2,12 @@ package com.zhongdi.miluo.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.MyApplication;
 
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -21,11 +17,10 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
     protected P presenter;
-
     protected abstract P initPresenter();
-
-    protected View mView;
+    protected View rootView;
     protected MyApplication applica;
+    protected Unbinder unbinder;
     /**
      * 表示View是否被初始化
      */
@@ -39,36 +34,20 @@ public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
      */
     protected boolean isDataInitiated;
     protected Context mContext;
-    protected Unbinder mUnbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
-        if (mView == null) {
-            applica = MyApplication.getInstance();
-            presenter = initPresenter();
-            mContext = getContext();
-            mView = View.inflate(mContext, getLayoutId(), null);
 
-            mUnbinder=  ButterKnife.bind(this, mView);//同样把 ButterKnife 抽出来
-
-            initView(mView);
-        } else {
-            // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
-            // 要不然会发生这个rootview已经有parent的错误。
-            ViewGroup parent = (ViewGroup) mView.getParent();
-            if (parent != null) {
-                parent.removeView(mView);
-            }
-        }
-        return mView;
+    protected void binding(){
+        applica = MyApplication.getInstance();
+        presenter = initPresenter();
+        mContext = getContext();
     }
+
 
     protected abstract void initView(View view);
 
@@ -133,12 +112,12 @@ public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
     public void back(View targv) {
         getActivity().finish();
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mUnbinder != Unbinder.EMPTY){
-            mUnbinder.unbind();
+        if(unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
         }
     }
+
 }

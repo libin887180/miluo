@@ -1,34 +1,45 @@
 package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
+import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.presenter.MineFragPresenter;
+import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by Administrator on 2017/7/24.
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment<MineFragPresenter> implements MineFragmentView {
 
 
-    ViewPager mViewPager;
     List<Fragment> mFragments;
-    Toolbar mToolbar;
-
     List<String> mTitles = new ArrayList<>();
+    @BindView(R.id.rise_tv)
+    RiseNumberTextView rnTextView;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
+    @BindView(R.id.viewpage)
+    ViewPager viewpage;
+
+
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
         MineFragment fragment = new MineFragment();
@@ -38,42 +49,80 @@ public class MineFragment extends Fragment {
     }
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine2, null);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpage);
-        setupViewPager(viewPager);
+    protected MineFragPresenter initPresenter() {
+        return new MineFragPresenter(this);
+    }
 
-        TabLayout tabLayout = (TabLayout)  view.findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(viewPager);
-        //获取到RiseNumberTextView对象
-        RiseNumberTextView rnTextView = (RiseNumberTextView) view.findViewById(R.id.rise_tv);
+
+    @Override
+    protected void initView(View view) {
+        setupViewPager(viewpage);
+
         // 设置数据
         rnTextView.withNumber(892666.50f);
         // 设置动画播放时间
         rnTextView.setDuration(1000);
         // 开始播放动画
         rnTextView.start();
+    }
 
-        return view;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_mine2;
+    }
+
+    @Override
+    public void fetchData() {
+
     }
 
 
-
-    private void setupViewPager(ViewPager viewPager) {
-        mFragments=new ArrayList<>();
+    @Override
+    public void setupViewPager(ViewPager viewPager) {
+        mFragments = new ArrayList<>();
         mTitles.add("当前资产");
         mTitles.add("历史资产");
-        for(int i=0;i<mTitles.size();i++){
+        for (int i = 0; i < mTitles.size(); i++) {
             ListFragment listFragment = ListFragment.newInstance(mTitles.get(i));
             mFragments.add(listFragment);
         }
-        MyFragmentPagerAdapter adapter =
-                new MyFragmentPagerAdapter(getChildFragmentManager(),mFragments,mTitles);
-
-
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(),
+                mFragments, mTitles);
 
         viewPager.setAdapter(adapter);
+        tablayout.setupWithViewPager(viewpage);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        if (rootView == null) {
+            rootView = inflater.inflate(getLayoutId(),container, false);
+            unbinder=  ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            initView(rootView);
+        } else {
+            // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
+            // 要不然会发生这个rootview已经有parent的错误。
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        }
+        return rootView;
+    }
+
+    @OnClick({R.id.rise_tv, R.id.tv_title_left, R.id.tv_title_right})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rise_tv:
+                break;
+            case R.id.tv_title_left:
+                break;
+            case R.id.tv_title_right:
+                break;
+        }
+    }
+
+
 }

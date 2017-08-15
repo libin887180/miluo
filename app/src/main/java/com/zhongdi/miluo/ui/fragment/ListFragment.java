@@ -5,7 +5,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
@@ -16,6 +18,8 @@ import com.zhongdi.miluo.view.ListFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
 
 /**
  * @ explain:
@@ -44,7 +48,23 @@ public class ListFragment extends BaseFragment<ListFragmentPresenter> implements
     protected ListFragmentPresenter initPresenter() {
         return new ListFragmentPresenter(this);
     }
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        if (rootView == null) {
+            rootView = inflater.inflate(getLayoutId(),container, false);
+            unbinder=  ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            initView(rootView);
+        } else {
+            // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
+            // 要不然会发生这个rootview已经有parent的错误。
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        }
+        return rootView;
+    }
     @Override
     protected void initView(View view) {
         Bundle arguments = getArguments();
