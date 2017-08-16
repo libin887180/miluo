@@ -8,11 +8,11 @@
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:background="@drawable/title_bg"
-        android:padding="12dp">
+      >
 
         <ImageView
             android:id="@+id/btn_back"
@@ -20,6 +20,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:onClick="back"
+            android:layout_marginLeft="@dimen/title_img_margin"
             android:visibility="gone"
             android:src="@drawable/nav_icon_back"
             android:scaleType="centerInside" />
@@ -31,6 +32,7 @@
             android:layout_centerVertical="true"
             android:clickable="true"
             android:text=""
+            android:layout_marginLeft="@dimen/title_text_margin"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -50,7 +52,7 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             android:scaleType="centerCrop"
@@ -62,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:text="排序"
             android:textColor="@color/white"

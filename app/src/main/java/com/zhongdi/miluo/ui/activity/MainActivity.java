@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
@@ -85,19 +84,15 @@ public class MainActivity extends BaseActivity2 {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
-                    Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_market:
                     viewPager.setCurrentItem(1);
-                    Toast.makeText(MainActivity.this, "market", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_self:
                     viewPager.setCurrentItem(2);
-                    Toast.makeText(MainActivity.this, "self", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_mine:
                     viewPager.setCurrentItem(3);
-                    Toast.makeText(MainActivity.this, "mine", Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;

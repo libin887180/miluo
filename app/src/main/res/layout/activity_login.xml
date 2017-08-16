@@ -8,10 +8,10 @@
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
-        android:padding="12dp">
+        >
 
         <ImageView
             android:id="@+id/btn_back"
@@ -20,6 +20,7 @@
             android:layout_centerVertical="true"
             android:onClick="back"
             android:scaleType="centerInside"
+            android:layout_marginLeft="@dimen/title_img_margin"
             android:src="@drawable/nav_icon_back" />
 
         <TextView
@@ -29,6 +30,8 @@
             android:layout_centerVertical="true"
             android:clickable="true"
             android:text=""
+            android:layout_marginLeft="@dimen/title_text_margin"
+
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -48,9 +51,9 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:scaleType="centerCrop"
             android:visibility="gone" />
 
@@ -60,12 +63,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:text="注册"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_list" />
 
     <RelativeLayout
         android:id="@+id/email_login_form"

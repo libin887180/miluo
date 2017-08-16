@@ -15,17 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.login.LoginActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"  android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.login.RegisterActivity" android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.login.ForgetPswActivity"  android:launchMode="singleTask" ></activity>
-        <activity android:name=".ui.activity.login.QuickLoginActivity"  android:launchMode="singleTask" ></activity>
+        <activity
+            android:name=".ui.activity.login.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.login.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.login.ForgetPswActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.login.QuickLoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.SettingActivity"></activity>
     </application>
 
 </manifest>

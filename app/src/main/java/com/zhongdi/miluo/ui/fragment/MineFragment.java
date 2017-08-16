@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
+import com.zhongdi.miluo.ui.activity.SettingActivity;
 import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 
@@ -117,6 +119,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             case R.id.rise_tv:
                 break;
             case R.id.tv_title_left:
+
+                startActivity(new Intent(mContext, SettingActivity.class));
                 break;
             case R.id.tv_title_right:
                 break;

@@ -10,16 +10,17 @@
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
-        android:padding="12dp">
+       >
 
 
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginLeft="@dimen/title_img_margin"
             android:layout_centerVertical="true"
             android:onClick="back"
             android:scaleType="centerInside"
@@ -32,6 +33,7 @@
             android:layout_centerVertical="true"
             android:clickable="true"
             android:text="发布"
+            android:layout_marginLeft="@dimen/title_text_margin"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -51,7 +53,7 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             android:scaleType="centerCrop"
@@ -63,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:text="保存"
             android:textColor="@android:color/white"
@@ -87,7 +89,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="horizontal">
 
             <EditText

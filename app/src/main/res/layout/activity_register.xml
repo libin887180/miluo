@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_find_psw"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_find_psw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -10,25 +10,26 @@
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_img_margin"
             android:onClick="back"
-            android:src="@drawable/nav_icon_back"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"
+            android:src="@drawable/nav_icon_back" />
 
         <TextView
             android:id="@+id/tv_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
             android:text=""
             android:textSize="14sp"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="注册"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <ImageView
@@ -50,7 +51,7 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             android:scaleType="centerCrop"
@@ -62,18 +63,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:text="保存"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:visibility="gone" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_list"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/divider_list" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,9 +98,9 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_below="@+id/imageView"
+                android:layout_marginRight="10dp"
                 android:layout_weight="5"
                 android:background="@drawable/et_input_bg"
-                android:layout_marginRight="10dp"
                 android:drawableLeft="@drawable/img_username"
                 android:drawablePadding="10dp"
                 android:hint="输入手机号码"
@@ -119,6 +122,7 @@
                 android:textColor="@color/white" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,26 +147,26 @@
                 android:textColorHint="@color/text_color_normal"
                 android:textSize="14sp" />
         </LinearLayout>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/pwdLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true"
-            >
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/et_psw"
-                android:background="@drawable/et_input_bg"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/imageView"
+                android:background="@drawable/et_input_bg"
                 android:drawableLeft="@drawable/login_psw"
                 android:drawablePadding="10dp"
                 android:hint="输入密码"
-                android:maxLines="1"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:padding="13dp"
                 android:textColorHint="@color/text_color_normal"
                 android:textSize="14sp" />
