@@ -21,7 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/7/24.
@@ -84,7 +83,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         mTitles.add("当前资产");
         mTitles.add("历史资产");
         for (int i = 0; i < mTitles.size(); i++) {
-            ListFragment listFragment = ListFragment.newInstance(mTitles.get(i));
+            CurAssetFragment listFragment = CurAssetFragment.newInstance(mTitles.get(i));
             mFragments.add(listFragment);
         }
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(),
