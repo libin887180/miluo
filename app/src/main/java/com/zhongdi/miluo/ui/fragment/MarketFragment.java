@@ -42,7 +42,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
-    private  ListView lsvMore;
+    private ListView lsvMore;
     private PopupWindow window;
     private SortAdapter sortAdapter;
 
@@ -63,8 +63,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         if (rootView == null) {
-            rootView = inflater.inflate(getLayoutId(),container, false);
-            unbinder=  ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            rootView = inflater.inflate(getLayoutId(), container, false);
+            unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
 
             initView(rootView);
         } else {
@@ -75,6 +75,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 parent.removeView(rootView);
             }
         }
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -118,6 +119,10 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
             }
         });
+
+
+
+
 
     }
 
@@ -177,7 +182,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public void initSortPop() {
         // TODO: 2016/5/17 构建一个popupwindow的布局
         View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
-         lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
+        lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
         sortAdapter = new SortAdapter(mContext);
         lsvMore.setAdapter(sortAdapter);
         // TODO: 2016/5/17 创建PopupWindow对象，指定宽度和高度
@@ -198,6 +203,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     @OnClick(R.id.tv_title_right)
     public void onViewClicked() {
         if (window.isShowing()) {
+
         } else {
             // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
             window.showAsDropDown(head);

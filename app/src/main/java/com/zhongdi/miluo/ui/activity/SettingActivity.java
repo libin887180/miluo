@@ -12,7 +12,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        binding(R.layout.activity_setting);
     }
 
     @Override
