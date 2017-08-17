@@ -69,7 +69,7 @@ public class FundFragment extends Fragment {
                 Log.i("11","登录");
             }
         });
-        stateLayout.showErrorView();
+//        stateLayout.showErrorView();
         return view;
     }
 

@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -19,16 +23,25 @@ import com.zhongdi.miluo.widget.NOScollListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by Administrator on 2017/7/24.
  */
 
 public class HomeFragment extends Fragment {
+    @BindView(R.id.banner)
+    Banner banner;
+    @BindView(R.id.lv)
+    NOScollListView lv;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+    Unbinder unbinder;
     private List<String> images;
     private List<String> titles;
-    private NOScollListView lv;
     private LinearLayoutManager mLayoutManager;
-    private Banner banner;
 
     public static HomeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -70,8 +83,10 @@ public class HomeFragment extends Fragment {
         titles.add("3");
         lv = view.findViewById(R.id.lv);
         lv.setFocusable(false);
-        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(),titles,images);
+        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, images);
         lv.setAdapter(homePageAdapter);
+        unbinder = ButterKnife.bind(this, view);
+        setupRefreshView();
         return view;
     }
 
@@ -106,5 +121,42 @@ public class HomeFragment extends Fragment {
         banner.setIndicatorGravity(BannerConfig.NUM_INDICATOR_TITLE);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+    }
+
+    private void setupRefreshView() {
+        SinaRefreshView headerView = new SinaRefreshView(getActivity());
+        headerView.setArrowResource(R.drawable.arrow);
+        headerView.setTextColor(0xff745D5C);
+//        TextHeaderView headerView = (TextHeaderView) View.inflate(this,R.layout.header_tv,null);
+        refreshLayout.setHeaderView(headerView);
+//        LoadingView loadingView = new LoadingView(getActivity());
+//        refreshLayout.setBottomView(loadingView);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishRefreshing();
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishLoadmore();
+                    }
+                }, 2000);
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
