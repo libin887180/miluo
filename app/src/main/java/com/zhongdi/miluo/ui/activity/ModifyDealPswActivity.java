@@ -6,22 +6,22 @@ import android.view.View;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.presenter.SettingPresenter;
-import com.zhongdi.miluo.view.SettingView;
+import com.zhongdi.miluo.presenter.ModifyDealPswPresenter;
+import com.zhongdi.miluo.view.ModifyDealPswView;
 
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseActivity<SettingPresenter> implements SettingView {
+public class ModifyDealPswActivity extends BaseActivity<ModifyDealPswPresenter> implements ModifyDealPswView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding(R.layout.activity_setting);
+        binding(R.layout.activity_modify_deal_psw);
     }
 
     @Override
-    protected SettingPresenter initPresenter() {
-        return new SettingPresenter(this);
+    protected ModifyDealPswPresenter initPresenter() {
+        return new ModifyDealPswPresenter(this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.ui.fragment;
+package com.zhongdi.miluo.ui.fragment.login;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
-import com.zhongdi.miluo.widget.ClearEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,18 +24,18 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/24.
  */
 
-public class OpenStep1Fragment extends Fragment {
+public class OpenStep2Fragment extends Fragment {
     Unbinder unbinder;
-    @BindView(R.id.et_phnoe)
-    ClearEditText etPhnoe;
-    @BindView(R.id.et_id_card)
-    ClearEditText etIdCard;
     @BindView(R.id.btn_next)
     Button btnNext;
+    @BindView(R.id.et_password1)
+    EditText etPassword1;
+    @BindView(R.id.et_password2)
+    EditText etPassword2;
 
-    public static OpenStep1Fragment newInstance(String info) {
+    public static OpenStep2Fragment newInstance(String info) {
         Bundle args = new Bundle();
-        OpenStep1Fragment fragment = new OpenStep1Fragment();
+        OpenStep2Fragment fragment = new OpenStep2Fragment();
         args.putString("info", info);
         fragment.setArguments(args);
         return fragment;
@@ -45,7 +45,7 @@ public class OpenStep1Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_open_step1, null);
+        View view = inflater.inflate(R.layout.fragment_open_step2, null);
         unbinder = ButterKnife.bind(this, view);
         initialize();
         disableNextBtn();
@@ -53,7 +53,7 @@ public class OpenStep1Fragment extends Fragment {
     }
 
     private void initialize() {
-        etPhnoe.addTextChangedListener(new TextWatcher() {
+        etPassword1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -66,7 +66,7 @@ public class OpenStep1Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPhnoe.getText().length() > 0 && etIdCard.getText().length() > 0) {
+                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -74,7 +74,7 @@ public class OpenStep1Fragment extends Fragment {
 
             }
         });
-        etIdCard.addTextChangedListener(new TextWatcher() {
+        etPassword2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -87,7 +87,7 @@ public class OpenStep1Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPhnoe.getText().length() > 0 && etIdCard.getText().length() > 0) {
+                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -96,6 +96,7 @@ public class OpenStep1Fragment extends Fragment {
             }
         });
     }
+
     public void disableNextBtn() {
         btnNext.setEnabled(false);
         btnNext.setTextColor(getResources().getColor(R.color.text_color_light_grey));
@@ -115,6 +116,6 @@ public class OpenStep1Fragment extends Fragment {
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
         OpenAccountActivity activity = (OpenAccountActivity) getActivity();
-        activity.swapViewPagerTo(1);
+        activity.swapViewPagerTo(2);
     }
 }

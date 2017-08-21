@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.ui.fragment;
+package com.zhongdi.miluo.ui.fragment.login;
 
 import android.graphics.Color;
 import android.os.Bundle;

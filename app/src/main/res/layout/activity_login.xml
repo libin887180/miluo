@@ -169,7 +169,7 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/common_btn_height"
             android:layout_below="@+id/tv_forget_psw"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_login"

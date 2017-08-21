@@ -67,7 +67,7 @@
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/common_btn_height"
         android:layout_below="@+id/pwd_layout"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"

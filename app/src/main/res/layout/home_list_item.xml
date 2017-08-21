@@ -137,7 +137,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/common_btn_height"
                 android:layout_margin="30dp"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_login"

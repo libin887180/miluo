@@ -79,10 +79,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
+        android:padding="10dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:padding="5dp">
+       >
 
         <ImageView
             android:id="@+id/icon_appraise"
@@ -111,11 +112,13 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_bank_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
+        android:padding="10dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-         android:padding="5dp">
+       >
 
         <ImageView
             android:id="@+id/icon_bank_card"
@@ -130,7 +133,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/icon_bank_card"
-            android:text="风险测评"
+            android:text="我的银行卡"
             android:textColor="@color/black" />
 
         <TextView
@@ -149,10 +152,11 @@
         android:layout_alignParentBottom="true"
         android:background="@color/divider_list" />
     <RelativeLayout
+        android:id="@+id/rl_safe_center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@color/white"
-         android:padding="5dp">
+        android:layout_height="@dimen/title_height"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/icon_secure"
@@ -174,10 +178,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-         android:padding="5dp">
+        android:layout_height="@dimen/title_height"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/icon_about_us"
@@ -192,7 +196,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/icon_about_us"
-            android:text="风险测评"
+            android:text="关于我们"
             android:textColor="@color/black" />
 
         <TextView
@@ -211,9 +215,9 @@
         android:background="@color/divider_list" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@color/white"
-         android:padding="5dp">
+        android:layout_height="@dimen/title_height"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/icon_service"
