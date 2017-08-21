@@ -26,5 +26,16 @@
         <attr name="load_success_color" format="color" />
         <attr name="load_failure_color" format="color" />
     </declare-styleable>
-
+    <declare-styleable name="StepView">
+        <attr name="svCircleColor" format="color"/>
+        <attr name="svTextColor" format="color"/>
+        <attr name="svSelectedTextColor" format="color"/>
+        <attr name="svFillRadius" format="dimension"/>
+        <attr name="svStrokeWidth" format="dimension"/>
+        <attr name="svLineWidth" format="dimension"/>
+        <attr name="svTextSize" format="dimension"/>
+        <attr name="svDrawablePadding" format="dimension"/>
+        <attr name="svStepNumColor" format="color"/>
+        <attr name="svLineColor" format="color"/>
+    </declare-styleable>
 </resources>

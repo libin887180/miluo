@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -54,6 +55,8 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_open:
+                startActivity(new Intent(mContext,OpenAccountActivity.class));
+                finish();
                 break;
             case R.id.btn_main:
                 break;

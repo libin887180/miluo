@@ -4,7 +4,6 @@
     android:id="@+id/activity_find_psw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -20,7 +19,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/title_img_margin"
-            android:onClick="back"
+            android:visibility="gone"
             android:scaleType="centerInside"
             android:src="@drawable/nav_icon_back" />
 
@@ -31,9 +30,10 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
-            android:text=""
+            android:text="上一步"
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:visibility="gone" />
+            />
 
 
         <TextView
@@ -75,4 +75,22 @@
             android:background="@color/divider_list"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
+    <com.zhongdi.miluo.widget.StepView
+        android:id="@+id/step_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/title_bg"
+        app:svCircleColor="@android:color/white"
+        app:svTextColor="#66ffffff"
+        app:svSelectedTextColor="@android:color/white"
+        app:svStepNumColor="#FF2C3F"
+        app:svLineColor="#66ffffff"
+        android:paddingBottom="8dp"
+        android:paddingTop="30dp"/>
+    <com.zhongdi.miluo.widget.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.zhongdi.miluo.widget.NoScrollViewPager>
 </LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:padding="10dp"
+            app:hintEnabled="false">
+
+            <com.zhongdi.miluo.widget.ClearEditText
+                android:id="@+id/et_phnoe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:background="@null"
+                android:hint="手机号"
+                android:imeOptions="actionNext"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:phoneNumber="true"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/divider_list" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:padding="10dp"
+            app:hintEnabled="false">
+
+            <com.zhongdi.miluo.widget.ClearEditText
+                android:id="@+id/et_id_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:minHeight="60dp"
+                android:hint="身份证号"
+                android:imeOptions="actionNext"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:phoneNumber="true"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+    android:id="@+id/btn_next"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_below="@+id/pwd_layout"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/btn_login"
+    android:gravity="center"
+    android:text="下一步"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:textColor="@android:color/white"
+    android:textSize="16sp" />
+</LinearLayout>

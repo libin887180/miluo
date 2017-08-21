@@ -76,6 +76,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
     public void onSuccess() {
         showToast("注册成功");
         startActivity(new Intent(mContext,RegistSuccessActivity.class));
+        finish();
     }
 
     @Override

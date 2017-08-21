@@ -46,6 +46,13 @@ public class FundFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fund1, null);
         unbinder = ButterKnife.bind(this, view);
+        initialize();
+//        stateLayout.showErrorView();
+        return view;
+    }
+
+    private void initialize() {
+
         List<String> strings = new ArrayList<>();
         strings.add("aaa");
         strings.add("bbb");
@@ -69,8 +76,6 @@ public class FundFragment extends Fragment {
                 Log.i("11","登录");
             }
         });
-//        stateLayout.showErrorView();
-        return view;
     }
 
     @Override

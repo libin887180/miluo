@@ -30,8 +30,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-    public MyFragmentPagerAdapter(FragmentManager fm,
-                                  List<String> titleList) {
+    public MyFragmentPagerAdapter(FragmentManager fm,List<String> titleList) {
         this(fm, null,titleList);
     }
     public boolean isEmpty() {
