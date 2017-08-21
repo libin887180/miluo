@@ -9,5 +9,8 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface RegistView extends BaseView {
     void openLogin();
+    void disableLoginBtn();
+    void enableLoginBtn();
     void onError(String message);
+    void onSuccess();
 }

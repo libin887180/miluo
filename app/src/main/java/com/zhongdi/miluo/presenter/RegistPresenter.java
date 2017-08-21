@@ -12,5 +12,7 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         super.attachView(view);
     }
 
-
+    public void regist() {
+        view.onSuccess();
+    }
 }

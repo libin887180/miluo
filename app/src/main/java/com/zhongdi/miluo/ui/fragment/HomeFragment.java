@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.HomePageAdapter;
+import com.zhongdi.miluo.ui.activity.login.RegisterActivity;
 import com.zhongdi.miluo.util.GlideImageLoader;
 import com.zhongdi.miluo.widget.NOScollListView;
 
@@ -25,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -72,7 +75,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         initBanner(view);
-
         images = new ArrayList<String>();
         images.add("股票基金奥斯卡几点来");
         images.add("奥术大师多");
@@ -158,5 +160,19 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick({R.id.img_msg, R.id.et_search, R.id.btn_login})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_msg:
+                break;
+            case R.id.et_search:
+                break;
+            case R.id.btn_login:
+
+                startActivity(new Intent(getActivity(), RegisterActivity.class));
+                break;
+        }
     }
 }
