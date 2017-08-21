@@ -38,6 +38,7 @@
         <activity android:name=".ui.activity.login.RegistSuccessActivity"></activity>
         <activity android:name=".ui.activity.login.OpenAccountActivity"></activity>
         <activity android:name=".ui.activity.SafeCenterActivity"></activity>
+        <activity android:name=".ui.activity.ModifyDealPswActivity"></activity>
     </application>
 
 </manifest>
