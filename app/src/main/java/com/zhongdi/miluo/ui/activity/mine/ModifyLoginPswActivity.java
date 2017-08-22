@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.ui.activity;
+package com.zhongdi.miluo.ui.activity.mine;
 
 import android.os.Bundle;
 

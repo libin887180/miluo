@@ -34,15 +34,15 @@
         <activity
             android:name=".ui.activity.login.QuickLoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.SettingActivity"  ></activity>
+        <activity android:name=".ui.activity.mine.SettingActivity"  ></activity>
         <activity android:name=".ui.activity.login.RegistSuccessActivity"></activity>
         <activity android:name=".ui.activity.login.OpenAccountActivity"></activity>
-        <activity android:name=".ui.activity.SafeCenterActivity"></activity>
-        <activity android:name=".ui.activity.SendCodeActivity"></activity>
-        <activity android:name=".ui.activity.ModifyLoginPswActivity"></activity>
-        <activity android:name=".ui.activity.ModifyDealPswActivity"></activity>
-        <activity android:name=".ui.activity.CheckDealPswActivity"></activity>
-        <activity android:name=".ui.activity.ModifyPhoneNumActivity"></activity>
+        <activity android:name=".ui.activity.mine.SafeCenterActivity"></activity>
+        <activity android:name=".ui.activity.mine.SendCodeActivity"></activity>
+        <activity android:name=".ui.activity.mine.ModifyLoginPswActivity"></activity>
+        <activity android:name=".ui.activity.mine.ModifyDealPswActivity"></activity>
+        <activity android:name=".ui.activity.mine.CheckDealPswActivity"></activity>
+        <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class SortAdapter extends BaseAdapter {
     private Context mContext;
-    int selectPosotion = -1;
+    int selectPosotion = 0;
     private  String[] dataList;
 
     public SortAdapter(Context context) {

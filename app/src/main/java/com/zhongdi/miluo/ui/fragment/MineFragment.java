@@ -13,7 +13,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
-import com.zhongdi.miluo.ui.activity.SettingActivity;
+import com.zhongdi.miluo.ui.activity.mine.SettingActivity;
 import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 
