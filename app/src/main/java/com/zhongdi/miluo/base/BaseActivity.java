@@ -55,6 +55,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         Toast.makeText(this, this.getResources().getText(resId), Toast.LENGTH_SHORT).show();
     }
 
+
     public void showDialog(String title, String messsage, String positiveMsg,  View.OnClickListener okListener, String negative,
                           View.OnClickListener cancleListener) {
 

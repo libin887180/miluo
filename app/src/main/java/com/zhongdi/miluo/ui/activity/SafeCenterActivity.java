@@ -45,6 +45,7 @@ private static  int DEAL_PSW=1;
                 startActivity(intent_deal);
                 break;
             case R.id.rl_modify_tel:
+                startActivity(new Intent(mContext, CheckDealPswActivity.class));
                 break;
             case R.id.rl_quit:
                 showQuitDialog();

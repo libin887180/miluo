@@ -41,6 +41,8 @@
         <activity android:name=".ui.activity.SendCodeActivity"></activity>
         <activity android:name=".ui.activity.ModifyLoginPswActivity"></activity>
         <activity android:name=".ui.activity.ModifyDealPswActivity"></activity>
+        <activity android:name=".ui.activity.CheckDealPswActivity"></activity>
+        <activity android:name=".ui.activity.ModifyPhoneNumActivity"></activity>
     </application>
 
 </manifest>
