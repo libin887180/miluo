@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.presenter.ModifyDealPswPresenter;
-import com.zhongdi.miluo.view.ModifyDealPswView;
+import com.zhongdi.miluo.presenter.SendCoderesenter;
+import com.zhongdi.miluo.view.SendCodeView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SendCodeActivity extends BaseActivity<ModifyDealPswPresenter> implements ModifyDealPswView {
+public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements SendCodeView {
 
     @BindView(R.id.et_tel)
     EditText etTel;
@@ -37,8 +37,8 @@ public class SendCodeActivity extends BaseActivity<ModifyDealPswPresenter> imple
     }
 
     @Override
-    protected ModifyDealPswPresenter initPresenter() {
-        return new ModifyDealPswPresenter(this);
+    protected SendCoderesenter initPresenter() {
+        return new SendCoderesenter(this);
     }
 
     @Override

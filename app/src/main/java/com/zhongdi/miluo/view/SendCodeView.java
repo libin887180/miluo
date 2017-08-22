@@ -7,5 +7,5 @@ import com.zhongdi.miluo.base.BaseView;
  * Created by isfaaghyth on 6/17/17.
  */
 
-public interface ModifyPswView extends BaseView {
+public interface SendCodeView extends BaseView {
 }
