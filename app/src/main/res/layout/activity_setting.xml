@@ -79,7 +79,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/commen_item_height"
         android:padding="10dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
@@ -114,7 +114,7 @@
     <RelativeLayout
         android:id="@+id/rl_bank_card"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/commen_item_height"
         android:padding="10dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
@@ -155,7 +155,7 @@
         android:id="@+id/rl_safe_center"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/commen_item_height"
         android:padding="10dp">
 
         <ImageView
@@ -180,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/commen_item_height"
         android:padding="10dp">
 
         <ImageView
@@ -216,7 +216,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/commen_item_height"
         android:padding="10dp">
 
         <ImageView
