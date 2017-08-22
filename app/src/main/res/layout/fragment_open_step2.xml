@@ -14,7 +14,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
+            android:layout_height="wrap_content"
             app:hintEnabled="false"
             android:padding="10dp"
             app:passwordToggleEnabled="true">
@@ -29,7 +29,6 @@
                 android:inputType="numberPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:minHeight="60dp"
                 android:phoneNumber="true"
                 android:textSize="16sp" />
 
@@ -43,7 +42,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
+            android:layout_height="wrap_content"
             app:hintEnabled="false"
             android:padding="10dp"
             app:passwordToggleEnabled="true">
@@ -58,7 +57,6 @@
                 android:inputType="numberPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:minHeight="60dp"
                 android:phoneNumber="true"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>

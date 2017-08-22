@@ -13,8 +13,9 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             app:hintEnabled="false">
 
             <com.zhongdi.miluo.widget.ClearEditText
@@ -26,7 +27,7 @@
                 android:imeOptions="actionNext"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:minHeight="60dp"
+                android:padding="10dp"
                 android:phoneNumber="true"
                 android:textSize="16sp" />
 
@@ -36,12 +37,12 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
             android:background="@color/divider_list" />
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             app:hintEnabled="false">
 
             <com.zhongdi.miluo.widget.ClearEditText
@@ -52,8 +53,8 @@
                 android:hint="身份证号"
                 android:imeOptions="actionNext"
                 android:maxLength="11"
+                android:padding="10dp"
                 android:maxLines="1"
-                android:minHeight="60dp"
                 android:phoneNumber="true"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
