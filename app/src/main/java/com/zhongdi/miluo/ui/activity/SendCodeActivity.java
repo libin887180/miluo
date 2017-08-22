@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -95,7 +96,12 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-//startActivity();
+        if(from==0){
+            startActivity(new Intent(mContext,ModifyLoginPswActivity.class));
+        }else{
+            startActivity(new Intent(mContext,ModifyDealPswActivity.class));
+        }
+
 
     }
 
