@@ -9,10 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
+import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -20,7 +21,9 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.HomePageAdapter;
 import com.zhongdi.miluo.ui.activity.login.RegisterActivity;
 import com.zhongdi.miluo.util.GlideImageLoader;
+import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.NOScollListView;
+import com.zhongdi.miluo.widget.ObservableScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/24.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements  ObservableScrollView.OnObservableScrollViewListener {
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.lv)
@@ -42,9 +45,14 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.head)
+    RelativeLayout head;
+    @BindView(R.id.mScrollView)
+    ObservableScrollView mScrollView;
     private List<String> images;
     private List<String> titles;
     private LinearLayoutManager mLayoutManager;
+
 
     public static HomeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -61,6 +69,7 @@ public class HomeFragment extends Fragment {
         if (bundle != null) {
             String name = bundle.get("info").toString();
 //            Logger.d("HomeFragment", name);
+
         }
     }
 
@@ -89,6 +98,9 @@ public class HomeFragment extends Fragment {
         lv.setAdapter(homePageAdapter);
         unbinder = ButterKnife.bind(this, view);
         setupRefreshView();
+        head.getBackground().setAlpha(0);
+        mScrollView.setOnObservableScrollViewListener(this);
+
         return view;
     }
 
@@ -126,9 +138,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRefreshView() {
-        SinaRefreshView headerView = new SinaRefreshView(getActivity());
+        MyRefreshView headerView = new MyRefreshView(getActivity());
         headerView.setArrowResource(R.drawable.arrow);
         headerView.setTextColor(0xff745D5C);
+        headerView.setOnPullListener(new MyRefreshView.OnPullListener() {
+            @Override
+            public void onPull(float fraction) {
+                if(fraction>0){
+                    head.setVisibility(View.GONE);
+                }else{
+                    head.setVisibility(View.VISIBLE);
+                    head.getBackground().setAlpha(0);
+                }
+            }
+        });
 //        TextHeaderView headerView = (TextHeaderView) View.inflate(this,R.layout.header_tv,null);
         refreshLayout.setHeaderView(headerView);
 //        LoadingView loadingView = new LoadingView(getActivity());
@@ -174,5 +197,25 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), RegisterActivity.class));
                 break;
         }
+    }
+
+
+    @Override
+    public void onObservableScrollViewListener(int l, int t, int oldl, int oldt) {
+        float scale;
+//        Logger.i(t+"滑动高度");
+        if (t > head.getHeight()* 2.5f) {
+            scale = 1;
+        } else {
+            scale = t / (head.getHeight() * 2.5f);
+        }
+        float alpha =  (255 * scale);
+        Logger.e(alpha+"--scale"+scale);
+        if(alpha<35){
+            alpha = 0;
+        }
+
+        head.getBackground().setAlpha((int)alpha);
+
     }
 }
