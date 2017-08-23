@@ -43,6 +43,8 @@
         <activity android:name=".ui.activity.mine.ModifyDealPswActivity"></activity>
         <activity android:name=".ui.activity.mine.CheckDealPswActivity"></activity>
         <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity"></activity>
+        <activity android:name=".ui.activity.mine.BankCardListActivity"></activity>
+        <activity android:name=".ui.activity.mine.AddBankCardActivity"></activity>
     </application>
 
 </manifest>

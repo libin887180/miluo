@@ -33,6 +33,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
+                startActivity(new Intent(mContext,BankCardListActivity.class));
                 break;
             case R.id.rl_safe_center:
                 startActivity(new Intent(mContext,SafeCenterActivity.class));
