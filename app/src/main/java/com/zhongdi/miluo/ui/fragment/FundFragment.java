@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.fingdo.statelayout.StateLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.FundAdapter;
+import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class FundFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fund1, null);
+        View view = inflater.inflate(R.layout.fragment_fund, null);
         unbinder = ButterKnife.bind(this, view);
         initialize();
 //        stateLayout.showErrorView();
@@ -58,22 +59,21 @@ public class FundFragment extends Fragment {
         strings.add("bbb");
         strings.add("vvv");
         strings.add("ccc");
+        rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         FundAdapter fundAdapter = new FundAdapter(getActivity(), strings);
         rvFunds.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFunds.setAdapter(fundAdapter);
-
-
         stateLayout.setUseAnimation(true);
 //        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                Log.i("11","刷新");
+                Log.i("11", "刷新");
             }
 
             @Override
             public void loginClick() {
-                Log.i("11","登录");
+                Log.i("11", "登录");
             }
         });
     }
