@@ -1,14 +1,15 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 
 import java.util.List;
 
@@ -66,7 +67,8 @@ public class FundAdapter extends RecyclerView.Adapter<FundAdapter.MyViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "aaa", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "aaa", Toast.LENGTH_SHORT).show();
+                    mContext.startActivity(new Intent(mContext, FundDetailActivity.class));
                 }
             });
         }
