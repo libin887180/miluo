@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -210,7 +209,6 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
             scale = t / (head.getHeight() * 2.5f);
         }
         float alpha =  (255 * scale);
-        Logger.e(alpha+"--scale"+scale);
         if(alpha<35){
             alpha = 0;
         }
