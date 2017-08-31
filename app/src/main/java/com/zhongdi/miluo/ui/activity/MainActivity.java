@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity2 {
         adapter.addFragment(DemoFragment.newInstance("自选"));
         adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     private void initView() {

@@ -36,7 +36,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/24.
  */
 
-public class HomeFragment extends Fragment implements  ObservableScrollView.OnObservableScrollViewListener {
+public class HomeFragment extends Fragment implements ObservableScrollView.OnObservableScrollViewListener {
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.lv)
@@ -48,6 +48,8 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
     RelativeLayout head;
     @BindView(R.id.mScrollView)
     ObservableScrollView mScrollView;
+
+    private View rootView;
     private List<String> images;
     private List<String> titles;
     private LinearLayoutManager mLayoutManager;
@@ -81,8 +83,37 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, null);
-        initBanner(view);
+
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_home, null);
+            unbinder = ButterKnife.bind(this, rootView);
+            initData();
+            initView();
+        } else {
+            // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
+            // 要不然会发生这个rootview已经有parent的错误。
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        }
+
+        return rootView;
+    }
+
+    private void initView() {
+        initBanner(rootView);
+        setupRefreshView();
+        lv = rootView.findViewById(R.id.lv);
+        lv.setFocusable(false);
+        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, images);
+        lv.setAdapter(homePageAdapter);
+        head.getBackground().setAlpha(0);
+        mScrollView.setOnObservableScrollViewListener(this);
+    }
+
+    private void initData() {
+
         images = new ArrayList<String>();
         images.add("股票基金奥斯卡几点来");
         images.add("奥术大师多");
@@ -91,16 +122,6 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
         titles.add("1");
         titles.add("2");
         titles.add("3");
-        lv = view.findViewById(R.id.lv);
-        lv.setFocusable(false);
-        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, images);
-        lv.setAdapter(homePageAdapter);
-        unbinder = ButterKnife.bind(this, view);
-        setupRefreshView();
-        head.getBackground().setAlpha(0);
-        mScrollView.setOnObservableScrollViewListener(this);
-
-        return view;
     }
 
 
@@ -143,9 +164,9 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
         headerView.setOnPullListener(new MyRefreshView.OnPullListener() {
             @Override
             public void onPull(float fraction) {
-                if(fraction>0){
+                if (fraction > 0) {
                     head.setVisibility(View.GONE);
-                }else{
+                } else {
                     head.setVisibility(View.VISIBLE);
                     head.getBackground().setAlpha(0);
                 }
@@ -203,17 +224,17 @@ public class HomeFragment extends Fragment implements  ObservableScrollView.OnOb
     public void onObservableScrollViewListener(int l, int t, int oldl, int oldt) {
         float scale;
 //        Logger.i(t+"滑动高度");
-        if (t > head.getHeight()* 2.5f) {
+        if (t > head.getHeight() * 2.5f) {
             scale = 1;
         } else {
             scale = t / (head.getHeight() * 2.5f);
         }
-        float alpha =  (255 * scale);
-        if(alpha<35){
+        float alpha = (255 * scale);
+        if (alpha < 35) {
             alpha = 0;
         }
 
-        head.getBackground().setAlpha((int)alpha);
+        head.getBackground().setAlpha((int) alpha);
 
     }
 }

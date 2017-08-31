@@ -75,7 +75,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 parent.removeView(rootView);
             }
         }
-        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
