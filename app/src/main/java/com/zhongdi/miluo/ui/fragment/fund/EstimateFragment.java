@@ -51,7 +51,7 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
     protected void initView(View view) {
         mChart.getDescription().setEnabled(false);//描述不可见
 //        mChart.setTouchEnabled(false);//不可触摸
-        mChart.setDragEnabled(true);//不可拖拽
+        mChart.setDragEnabled(true);//不可拖拽，高亮线
         mChart.setScaleEnabled(false);//不可伸缩
         XAxis xAxis = mChart.getXAxis();
         xAxis.setTextSize(11f);
@@ -67,7 +67,6 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
         leftAxis.setGranularity(50);
         leftAxis.setDrawZeroLine(false);
         leftAxis.setDrawAxisLine(false);
-
 
         mChart.getAxisRight().setEnabled(false);
         setData();
