@@ -641,6 +641,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_fund_manager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -695,6 +696,7 @@
                     android:background="@color/divider_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_fund_notice"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">

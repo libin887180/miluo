@@ -1,7 +1,9 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -13,6 +15,7 @@ import com.zhongdi.miluo.widget.NoScrollViewPager;
 import com.zhongdi.miluo.widget.SegmentControl;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implements FundDetailView {
 
@@ -73,4 +76,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     }
 
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_fund_manager:
+                break;
+            case R.id.rl_fund_notice:
+                startActivity(new Intent(mContext,FundNoticeActivity.class));
+                break;
+        }
+    }
 }
