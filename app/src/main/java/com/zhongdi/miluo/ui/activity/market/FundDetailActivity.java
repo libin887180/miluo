@@ -80,6 +80,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
+                startActivity(new Intent(mContext,ManagerDetailActivity.class));
                 break;
             case R.id.rl_fund_notice:
                 startActivity(new Intent(mContext,FundNoticeActivity.class));

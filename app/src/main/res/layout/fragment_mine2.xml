@@ -52,7 +52,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="总资产（元）"
-                            android:textColor="@color/text_color_org"
+                            android:textColor="@color/white_70"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -79,7 +79,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="总资产（元）"
-                                android:textColor="@color/text_color_org"
+                                android:textColor="@color/white_70"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -101,7 +101,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="累计收益（元）"
-                                android:textColor="@color/text_color_org"
+                                android:textColor="@color/white_70"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
