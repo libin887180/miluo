@@ -388,6 +388,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_premium"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">
