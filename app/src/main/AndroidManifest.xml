@@ -49,6 +49,7 @@
         <activity android:name=".ui.activity.market.FundNoticeActivity"></activity>
         <activity android:name=".ui.activity.market.ManagerDetailActivity"></activity>
         <activity android:name=".ui.activity.market.PremiumActivity"></activity>
+        <activity android:name=".ui.activity.market.FundAchivesActivity"></activity>
     </application>
 
 </manifest>

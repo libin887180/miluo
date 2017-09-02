@@ -355,6 +355,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_archives"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">
@@ -392,7 +393,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">
-
 
                     <TextView
                         android:layout_width="wrap_content"

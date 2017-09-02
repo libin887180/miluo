@@ -119,10 +119,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             }
         });
 
-
-
-
-
     }
 
     @Override

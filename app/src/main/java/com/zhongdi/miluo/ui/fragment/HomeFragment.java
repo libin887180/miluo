@@ -202,7 +202,9 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
+        };
     }
 
     @OnClick({R.id.img_msg, R.id.et_search, R.id.btn_login})

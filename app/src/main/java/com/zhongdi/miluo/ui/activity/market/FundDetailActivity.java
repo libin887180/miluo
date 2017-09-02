@@ -41,7 +41,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         segmentControl.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
             @Override
             public void onSegmentControlClick(int index) {
-
                 mViewPager.setCurrentItem(index);
             }
         });
@@ -76,18 +75,22 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice,R.id.rl_premium})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium,R.id.rl_archives})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
-                startActivity(new Intent(mContext,ManagerDetailActivity.class));
+                startActivity(new Intent(mContext, ManagerDetailActivity.class));
                 break;
             case R.id.rl_fund_notice:
-                startActivity(new Intent(mContext,FundNoticeActivity.class));
+                startActivity(new Intent(mContext, FundNoticeActivity.class));
                 break;
             case R.id.rl_premium:
-                startActivity(new Intent(mContext,PremiumActivity.class));
+                startActivity(new Intent(mContext, PremiumActivity.class));
+                break;
+            case R.id.rl_archives:
+                startActivity(new Intent(mContext, FundAchivesActivity.class));
                 break;
         }
     }
+
 }

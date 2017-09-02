@@ -81,6 +81,8 @@ public class FundFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
+        }
     }
 }

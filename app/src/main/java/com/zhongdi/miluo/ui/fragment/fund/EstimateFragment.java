@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 基金图表Fragment
  * Created by Administrator on 2017/7/24.
  */
 
