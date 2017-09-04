@@ -8,7 +8,8 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.FundAchivesPresenter;
-import com.zhongdi.miluo.ui.fragment.DemoFragment;
+import com.zhongdi.miluo.ui.fragment.fund.FundCombinationFragment;
+import com.zhongdi.miluo.ui.fragment.fund.FundDistributeFragment;
 import com.zhongdi.miluo.ui.fragment.fund.FundGeneralFragment;
 import com.zhongdi.miluo.view.FundArchivesView;
 
@@ -55,8 +56,8 @@ public class FundAchivesActivity extends BaseActivity<FundAchivesPresenter> impl
         }
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), tabs);
         adapter.addFragment(FundGeneralFragment.newInstance("基金概况"));
-        adapter.addFragment(DemoFragment.newInstance("投资组合"));
-        adapter.addFragment(DemoFragment.newInstance("分红配送"));
+        adapter.addFragment(FundCombinationFragment.newInstance("投资组合"));
+        adapter.addFragment(FundDistributeFragment.newInstance("分红配送"));
         viewPager.setAdapter(adapter);
 
         tablayout.setupWithViewPager(viewPager);
