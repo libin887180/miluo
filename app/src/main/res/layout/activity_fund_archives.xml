@@ -75,6 +75,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/divider_list" />
     </RelativeLayout>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"

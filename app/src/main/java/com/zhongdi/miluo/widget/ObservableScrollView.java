@@ -50,8 +50,8 @@ public class ObservableScrollView extends ScrollView {
      * {@link #scrollBy(int, int)} or {@link #scrollTo(int, int)} having been
      * called.
      *
-     * @param l Current horizontal scroll origin. 当前滑动的x轴距离
-     * @param t Current vertical scroll origin. 当前滑动的y轴距离
+     * @param l    Current horizontal scroll origin. 当前滑动的x轴距离
+     * @param t    Current vertical scroll origin. 当前滑动的y轴距离
      * @param oldl Previous horizontal scroll origin. 上一次滑动的x轴距离
      * @param oldt Previous vertical scroll origin. 上一次滑动的y轴距离
      */

@@ -29,24 +29,24 @@ public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
     Context mContext;
 
     public BaseRecyclerHolder(View itemView) {
-        this(itemView,itemView.getContext());
+        this(itemView, itemView.getContext());
     }
 
     public BaseRecyclerHolder(View itemView, Context context) {
         super(itemView);
-        mContext=context;
+        mContext = context;
         mConvertView = itemView;
         mViews = new SparseArray<>();
         mConvertView.setTag(this);
     }
 
     public static BaseRecyclerHolder createViewHolder(View itemView) {
-       return createViewHolder(itemView.getContext(),itemView);
+        return createViewHolder(itemView.getContext(), itemView);
     }
 
     public static BaseRecyclerHolder createViewHolder(Context context, View itemView) {
 
-        BaseRecyclerHolder holder = new BaseRecyclerHolder(itemView,context);
+        BaseRecyclerHolder holder = new BaseRecyclerHolder(itemView, context);
         return holder;
     }
 
@@ -54,7 +54,7 @@ public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
         View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
                 false);
 
-        return createViewHolder(context,itemView);
+        return createViewHolder(context, itemView);
     }
 
     /**

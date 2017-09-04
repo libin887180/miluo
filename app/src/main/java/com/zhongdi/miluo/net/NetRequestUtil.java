@@ -44,7 +44,7 @@ public class NetRequestUtil {
     public abstract static class NetResponseListener<T> {
         public abstract void onSuccess(T response, int requestCode);
 
-        public abstract void onFailed(Throwable  e);
+        public abstract void onFailed(Throwable e);
     }
 
     /**
@@ -65,8 +65,6 @@ public class NetRequestUtil {
     }
 
 
-
-
     /**
      * 异步get请求
      *
@@ -76,7 +74,7 @@ public class NetRequestUtil {
      * @param listener
      * @return
      */
-    public Callback.Cancelable get(String url, Map<String, String> maps, final int requestCode,  final NetResponseListener listener) {
+    public Callback.Cancelable get(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
@@ -87,7 +85,7 @@ public class NetRequestUtil {
         Callback.Cancelable cancelable = x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                MResponse mResponse= gson.fromJson(result, getType(listener));//按正常响应解析
+                MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                 listener.onSuccess(mResponse, requestCode);
             }
 
@@ -130,8 +128,8 @@ public class NetRequestUtil {
         Callback.Cancelable cancelable = x.http().get(params, new Callback.CacheCallback<String>() {
             @Override
             public boolean onCache(String result) {
-                Logger.e("走的cache"+result);
-                MResponse mResponse= gson.fromJson(result, getType(listener));//按正常响应解析
+                Logger.e("走的cache" + result);
+                MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                 listener.onSuccess(mResponse, requestCode);
 
                 return true;//这里返回一个true, 就是走了cache就不再发起网络请求了, 返回一个false, 就是不信任缓存数据, 再次发起网络请求
@@ -140,9 +138,9 @@ public class NetRequestUtil {
             @Override
             public void onSuccess(String result) {
                 if (result != null) {
-                    Logger.w("没走cache"+result);
+                    Logger.w("没走cache" + result);
                     //如果走了cache方法返回了true, 将不再发起网络请求, 这里拿到的result就是null,
-                    MResponse mResponse= gson.fromJson(result, getType(listener));//按正常响应解析
+                    MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
                 }
             }
@@ -162,6 +160,7 @@ public class NetRequestUtil {
         });
         return cancelable;
     }
+
     /**
      * 获取第一级type
      *
@@ -182,6 +181,7 @@ public class NetRequestUtil {
         }
         return finalNeedType;
     }
+
     /**
      * 异步post请求
      *
@@ -191,10 +191,10 @@ public class NetRequestUtil {
      * @param listener
      * @return
      */
-    public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode,  final NetResponseListener listener) {
+    public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
         Logger.t("Url").i(url);
-        params.setHeader("plam","andorid");
+        params.setHeader("plam", "andorid");
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
                 params.addBodyParameter(entry.getKey(), entry.getValue());
@@ -206,7 +206,7 @@ public class NetRequestUtil {
 
             @Override
             public void onSuccess(String result) {
-                if(result!=null) {
+                if (result != null) {
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
                 }
@@ -238,7 +238,7 @@ public class NetRequestUtil {
      * @param listener
      * @return
      */
-    public Callback.Cancelable postCache(String url, Map<String, String> maps, final int requestCode,  final NetResponseListener listener) {
+    public Callback.Cancelable postCache(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
@@ -251,15 +251,15 @@ public class NetRequestUtil {
 
             @Override
             public boolean onCache(String result) {
-                Logger.e("走的cache"+result);
-                MResponse mResponse= gson.fromJson(result, getType(listener));//按正常响应解析
+                Logger.e("走的cache" + result);
+                MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                 listener.onSuccess(mResponse, requestCode);
                 return true;//这里返回一个true, 就是走了cache就不再发起网络请求了, 返回一个false, 就是不信任缓存数据, 再次发起网络请求
             }
 
             @Override
             public void onSuccess(String result) {
-                if(result!=null) {
+                if (result != null) {
                     Logger.i(result);
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
@@ -282,6 +282,7 @@ public class NetRequestUtil {
         });
         return post;
     }
+
     /**
      * 文件上传
      *
@@ -351,6 +352,7 @@ public class NetRequestUtil {
 
     /**
      * 文件下载
+     *
      * @param url
      * @param filepath
      * @param requestCode

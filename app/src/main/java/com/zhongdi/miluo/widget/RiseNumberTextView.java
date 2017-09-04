@@ -10,8 +10,7 @@ import android.widget.TextView;
 /**
  * 数字动画自定义
  *
- * @author zengtao 2015年7月17日 上午11:48:03 
- *
+ * @author zengtao 2015年7月17日 上午11:48:03
  */
 public class RiseNumberTextView extends TextView implements RiseNumberBase {
 
@@ -35,7 +34,7 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
 
     private EndListener mEndListener = null;
 
-    final static int[] sizeTable = { 9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE };
+    final static int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, Integer.MAX_VALUE};
 
     public RiseNumberTextView(Context context) {
         super(context);
@@ -105,7 +104,7 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
     }
 
     static int sizeOfInt(int x) {
-        for (int i = 0;; i++)
+        for (int i = 0; ; i++)
             if (x <= sizeTable[i])
                 return i + 1;
     }

@@ -110,7 +110,7 @@ public class OpenStep2Fragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+        if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
     }

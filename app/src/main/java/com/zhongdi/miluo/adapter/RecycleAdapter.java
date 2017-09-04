@@ -29,11 +29,11 @@ public class RecycleAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext
-            ).inflate(R.layout.fund_list_item, parent,
-                    false);//这个布局推荐基金
-            MyViewHolder holder = new MyViewHolder(view);
-            return holder;
+        View view = LayoutInflater.from(mContext
+        ).inflate(R.layout.fund_list_item, parent,
+                false);//这个布局推荐基金
+        MyViewHolder holder = new MyViewHolder(view);
+        return holder;
 
     }
 

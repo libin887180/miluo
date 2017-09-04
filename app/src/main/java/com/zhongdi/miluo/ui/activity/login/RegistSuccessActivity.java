@@ -48,14 +48,13 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
     protected void initialize() {
 
 
-
     }
 
     @OnClick({R.id.btn_open, R.id.btn_main})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_open:
-                startActivity(new Intent(mContext,OpenAccountActivity.class));
+                startActivity(new Intent(mContext, OpenAccountActivity.class));
                 finish();
                 break;
             case R.id.btn_main:

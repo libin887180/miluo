@@ -152,7 +152,7 @@ public class MutiProgress2 extends View {
         }
 
 
-            startAnimation();
+        startAnimation();
 
     }
 
@@ -167,7 +167,7 @@ public class MutiProgress2 extends View {
 
     private void startAnimation() {
 
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(0,nodes.get(currNodeNO).mPoint.x);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, nodes.get(currNodeNO).mPoint.x);
         //从头开始动画
 //        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -183,6 +183,7 @@ public class MutiProgress2 extends View {
 
 
     }
+
     public void setNode(int i) {
         currNodeNO = i;
         invalidate();

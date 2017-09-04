@@ -20,7 +20,7 @@ public class CurAssetAdapter extends BaseRecyclerAdapter<String> {
 
     @Override
     public void convert(BaseRecyclerHolder holder, String item, int position) {
-        TextView tv=holder.getView(R.id.tv_fund_name);
+        TextView tv = holder.getView(R.id.tv_fund_name);
         tv.setText(item);
 
     }

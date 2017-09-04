@@ -9,6 +9,8 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface MarketView extends BaseView {
     void doSomething();
-    void initSortPop( );
-    void  initTabLayout();
+
+    void initSortPop();
+
+    void initTabLayout();
 }

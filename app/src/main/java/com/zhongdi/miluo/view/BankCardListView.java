@@ -9,6 +9,8 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface BankCardListView extends BaseView {
     void setupRefreshView();
+
     void setupStatusView();
+
     void setupHeadView();
 }

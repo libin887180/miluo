@@ -15,9 +15,11 @@ import butterknife.Unbinder;
  * @ author：xujun on 2016-8-11 16:16
  * @ email：gdutxiaoxu@163.com
  */
-public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     protected P presenter;
+
     protected abstract P initPresenter();
+
     protected View rootView;
     protected MyApplication applica;
     protected Unbinder unbinder;
@@ -42,7 +44,7 @@ public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
     }
 
 
-    protected void binding(){
+    protected void binding() {
         applica = MyApplication.getInstance();
         presenter = initPresenter();
         mContext = getContext();
@@ -101,6 +103,7 @@ public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
 
     protected void initData() {
     }
+
     public void showToast(String text) {
         Toast.makeText(getActivity(), "" + text, Toast.LENGTH_SHORT).show();
     }
@@ -112,10 +115,11 @@ public abstract class BaseFragment<P extends BasePresenter>  extends Fragment {
     public void back(View targv) {
         getActivity().finish();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+        if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
     }

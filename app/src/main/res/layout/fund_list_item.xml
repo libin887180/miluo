@@ -9,6 +9,7 @@
     android:minHeight="@dimen/commen_item_height"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="000061" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"

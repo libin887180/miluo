@@ -14,7 +14,7 @@
             android:id="@+id/tv_fund_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:textSize="18sp"
+            android:textSize="18sp"
             android:text="博时宝泰保本A" />
 
         <TextView
@@ -36,8 +36,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_asset"

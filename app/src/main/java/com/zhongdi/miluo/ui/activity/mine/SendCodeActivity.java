@@ -32,7 +32,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        from = getIntent().getIntExtra("from",0);
+        from = getIntent().getIntExtra("from", 0);
         binding(R.layout.activity_send_code);
 
     }
@@ -46,7 +46,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     protected void initialize() {
         if (from == 0) {
             title.setText("登录密码修改");
-        }else{
+        } else {
             title.setText("交易密码修改");
         }
         disableNextBtn();
@@ -96,10 +96,10 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-        if(from==0){
-            startActivity(new Intent(mContext,ModifyLoginPswActivity.class));
-        }else{
-            startActivity(new Intent(mContext,ModifyDealPswActivity.class));
+        if (from == 0) {
+            startActivity(new Intent(mContext, ModifyLoginPswActivity.class));
+        } else {
+            startActivity(new Intent(mContext, ModifyDealPswActivity.class));
         }
 
 

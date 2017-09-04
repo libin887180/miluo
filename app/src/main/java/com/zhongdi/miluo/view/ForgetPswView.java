@@ -10,5 +10,6 @@ import com.zhongdi.miluo.model.Manager;
 
 public interface ForgetPswView extends BaseView {
     void onSuccess(Manager model);
+
     void onError(String message);
 }

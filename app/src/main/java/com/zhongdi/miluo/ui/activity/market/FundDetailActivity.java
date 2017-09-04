@@ -75,7 +75,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium,R.id.rl_archives,R.id.rl_fund_history})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:

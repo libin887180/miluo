@@ -32,6 +32,7 @@ public class FundDistributeFragment extends Fragment {
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     FundDistributeAdapter adapter;
+
     public static FundDistributeFragment newInstance(String info) {
         Bundle args = new Bundle();
         FundDistributeFragment fragment = new FundDistributeFragment();
@@ -70,14 +71,14 @@ public class FundDistributeFragment extends Fragment {
         datas.add("保本");
         datas.add("保本");
         datas.add("保本");
-        adapter = new FundDistributeAdapter(getActivity(),datas);
+        adapter = new FundDistributeAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onDestroyView() {
-        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+        if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
         super.onDestroyView();

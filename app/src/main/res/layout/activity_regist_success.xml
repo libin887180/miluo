@@ -97,13 +97,14 @@
             app:progress_color="#25BB28"
             app:progress_radius="60dp"
             app:progress_width="4dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册成功"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_open"

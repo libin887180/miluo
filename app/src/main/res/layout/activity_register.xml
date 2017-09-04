@@ -70,11 +70,12 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:visibility="gone" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/divider_list"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
 
@@ -111,6 +112,7 @@
                 android:nextFocusForward="@+id/et_password"
                 android:phoneNumber="true"
                 android:textSize="16sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -150,6 +152,7 @@
                     android:phoneNumber="true"
                     android:textSize="16sp" />
             </android.support.design.widget.TextInputLayout>
+
             <View
                 android:id="@+id/devider"
                 android:layout_width="1px"
@@ -157,6 +160,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/type"
                 android:background="@color/divider_list" />
+
             <TextView
                 android:id="@+id/tv_send_code"
                 android:layout_width="0dp"
@@ -165,6 +169,7 @@
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
         <View
             android:id="@+id/view_divier"
             android:layout_below="@+id/yzm_layout"
@@ -195,6 +200,7 @@
                 android:imeActionId="@+id/login"
                 android:maxLines="1"
                 android:textSize="16sp" />
+
             <View
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

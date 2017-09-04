@@ -12,8 +12,7 @@
         android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
-        android:background="@drawable/title_bg"
-      >
+        android:background="@drawable/title_bg">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -69,8 +68,7 @@
             android:clickable="true"
             android:text="排序"
             android:textColor="@color/white"
-            android:textSize="14sp"
-           />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout
@@ -87,6 +85,7 @@
         app:tabIndicatorColor="@color/tab_text_selected"
         app:tabSelectedTextColor="@color/tab_text_selected"
         app:tabTextColor="@color/text_color_normal" />
+
     <LinearLayout
         android:id="@+id/rl_orther"
         android:background="@color/grey_bg"
@@ -97,6 +96,7 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="12">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -133,6 +133,7 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="12">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

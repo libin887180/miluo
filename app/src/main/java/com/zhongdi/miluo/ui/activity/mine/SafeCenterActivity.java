@@ -13,8 +13,9 @@ import com.zhongdi.miluo.widget.AlertDialog;
 import butterknife.OnClick;
 
 public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implements SafeCenterView {
-private static  int LOGIN_PSW= 0;
-private static  int DEAL_PSW=1;
+    private static int LOGIN_PSW = 0;
+    private static int DEAL_PSW = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +37,12 @@ private static  int DEAL_PSW=1;
         switch (view.getId()) {
             case R.id.rl_login_psw:
                 Intent intent = new Intent(mContext, SendCodeActivity.class);
-                intent.putExtra("from",LOGIN_PSW);
+                intent.putExtra("from", LOGIN_PSW);
                 startActivity(intent);
                 break;
             case R.id.rl_modify_deal_psw:
                 Intent intent_deal = new Intent(mContext, SendCodeActivity.class);
-                intent_deal.putExtra("from",DEAL_PSW);
+                intent_deal.putExtra("from", DEAL_PSW);
                 startActivity(intent_deal);
                 break;
             case R.id.rl_modify_tel:

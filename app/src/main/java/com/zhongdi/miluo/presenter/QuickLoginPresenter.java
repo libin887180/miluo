@@ -46,10 +46,11 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
 
         return flag;
     }
-    public void request_post_3(String mobile, String validateseq)  {
-        Map<String,String> map = new HashMap<>();
-        map.put("mobile",mobile);
-        map.put("validateseq",validateseq);
+
+    public void request_post_3(String mobile, String validateseq) {
+        Map<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        map.put("validateseq", validateseq);
         Callback.Cancelable post = NetRequestUtil.getInstance().post("http://192.168.64.121:8085/lead/mobile/v1/user/pay", map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
 
@@ -65,16 +66,17 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     }
                 });
     }
+
     public void login(String email, String password) {
-        Map<String,String> map = new HashMap<>();
-        map.put("username",email);
-        map.put("password",password);
+        Map<String, String> map = new HashMap<>();
+        map.put("username", email);
+        map.put("password", password);
         Callback.Cancelable post = netRequestUtil.post("http://192.168.64.121:8085/login", map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
                     @Override
                     public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
                         Logger.w(response.getCode());
-                        request_post_3("admin","1123456");
+                        request_post_3("admin", "1123456");
                     }
 
                     @Override

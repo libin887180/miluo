@@ -75,16 +75,16 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
     @Override
     public void swapViewPagerTo(int index) {
-        currentIndex =index;
+        currentIndex = index;
         viewPager.setCurrentItem(currentIndex);
     }
 
     @OnClick(R.id.tv_title_left)
     public void onViewClicked() {
-        if(currentIndex>0) {
+        if (currentIndex > 0) {
             currentIndex = currentIndex - 1;
             viewPager.setCurrentItem(currentIndex);
-        }else{
+        } else {
             finish();
         }
     }

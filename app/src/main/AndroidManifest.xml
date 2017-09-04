@@ -34,7 +34,7 @@
         <activity
             android:name=".ui.activity.login.QuickLoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.mine.SettingActivity"  ></activity>
+        <activity android:name=".ui.activity.mine.SettingActivity"></activity>
         <activity android:name=".ui.activity.login.RegistSuccessActivity"></activity>
         <activity android:name=".ui.activity.login.OpenAccountActivity"></activity>
         <activity android:name=".ui.activity.mine.SafeCenterActivity"></activity>

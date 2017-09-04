@@ -8,5 +8,5 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface FundArchivesView extends BaseView {
-    void  initTabLayout();
+    void initTabLayout();
 }

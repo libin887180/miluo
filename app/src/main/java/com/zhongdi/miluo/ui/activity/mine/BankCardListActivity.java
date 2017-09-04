@@ -73,7 +73,7 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
 
     @OnClick(R.id.img_title_right)
     public void onViewClicked() {
-        startActivity(new Intent(mContext,AddBankCardActivity.class));
+        startActivity(new Intent(mContext, AddBankCardActivity.class));
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.zhongdi.miluo.model;
  * Created by libin on 2017/8/1.
  */
 
-public class MResponse <T> {
+public class MResponse<T> {
     private String code;
     private String msg;
     private T body;

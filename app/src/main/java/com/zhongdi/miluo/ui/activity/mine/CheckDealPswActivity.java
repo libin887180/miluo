@@ -50,7 +50,7 @@ public class CheckDealPswActivity extends BaseActivity2 {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etDealPassword.getText().length() > 0 ) {
+                if (etDealPassword.getText().length() > 0) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();

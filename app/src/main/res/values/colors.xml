@@ -26,7 +26,7 @@
     <color name="grey_light_bg">#F2F4F4</color>
     <color name="tab_text_selected">#FF3F51</color>
 
-<!--ios7dialog-->
+    <!--ios7dialog-->
     <color name="alertdialog_line">#c6c6c6</color>
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>

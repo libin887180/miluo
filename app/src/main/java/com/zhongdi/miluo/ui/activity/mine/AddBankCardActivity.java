@@ -29,7 +29,8 @@ public class AddBankCardActivity extends BaseActivity<AddBankCardPresenter> impl
     ClearEditText etBankPhone;
     @BindView(R.id.btn_finish)
     Button btnFinish;
-     CodeAlertDialog codeAlertDialog;
+    CodeAlertDialog codeAlertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

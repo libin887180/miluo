@@ -96,6 +96,7 @@ public class OpenStep1Fragment extends Fragment {
             }
         });
     }
+
     public void disableNextBtn() {
         btnNext.setEnabled(false);
         btnNext.setTextColor(getResources().getColor(R.color.text_color_light_grey));
@@ -109,7 +110,7 @@ public class OpenStep1Fragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(unbinder!=null &&unbinder != Unbinder.EMPTY){
+        if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
     }

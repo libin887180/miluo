@@ -75,6 +75,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/divider_list" />
     </RelativeLayout>
+
     <com.fingdo.statelayout.StateLayout
         android:id="@+id/state_layout"
         android:layout_width="match_parent"
@@ -91,19 +92,20 @@
         sl:noNetworkText="@string/no_network_tip"
         sl:timeOutImg="@drawable/ic_state_time_out"
         sl:timeOutText="@string/time_out_tip">
-    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        android:id="@+id/refreshLayout"
-        app:tr_enable_loadmore="false"
-        app:tr_head_height="60dp"
-        app:tr_max_head_height="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
+            app:tr_enable_loadmore="false"
+            app:tr_head_height="60dp"
+            app:tr_max_head_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-</com.fingdo.statelayout.StateLayout>
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+    </com.fingdo.statelayout.StateLayout>
 </LinearLayout>

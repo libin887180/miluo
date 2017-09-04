@@ -90,17 +90,16 @@ public abstract class DefaultAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 //        this.mDatas.addAll(dates);
 //        notifyItemRangeInserted(oldSize, newSize);
         this.mDatas.addAll(datas);
-        if(true){
+        if (true) {
             notifyDataSetChanged();
         }
-
 
 
     }
 
 
     public void addDatas(List<T> dates) {
-      this.addDatas(dates,false);
+        this.addDatas(dates, false);
 
 
     }

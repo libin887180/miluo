@@ -61,7 +61,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
         binding(R.layout.activity_quick_login);
     }
 
-    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw,R.id.tv_send_code})
+    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw, R.id.tv_send_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:

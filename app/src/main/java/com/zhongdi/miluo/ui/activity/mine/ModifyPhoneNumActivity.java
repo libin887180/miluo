@@ -49,7 +49,7 @@ public class ModifyPhoneNumActivity extends BaseActivity<ModifyPhoneNumPresenter
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etTel.getText().length() > 0 ) {
+                if (etTel.getText().length() > 0) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();

@@ -13,5 +13,4 @@ public class MarketPresenter extends BasePresenter<MarketView> {
     }
 
 
-
 }

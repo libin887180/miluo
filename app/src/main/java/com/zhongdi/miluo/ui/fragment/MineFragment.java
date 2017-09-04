@@ -99,8 +99,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         if (rootView == null) {
-            rootView = inflater.inflate(getLayoutId(),container, false);
-            unbinder=  ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            rootView = inflater.inflate(getLayoutId(), container, false);
+            unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
             initView(rootView);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，

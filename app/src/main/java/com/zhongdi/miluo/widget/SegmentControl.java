@@ -38,9 +38,13 @@ public class SegmentControl extends View {
     private int mHorizonGap;
     private int mVerticalGap;
 
-    /** 外边框的width */
+    /**
+     * 外边框的width
+     */
     private int mBoundWidth = 4;
-    /** 内边框的width */
+    /**
+     * 内边框的width
+     */
     private int mSeparatorWidth = mBoundWidth / 2;
 
     private int mSingleChildWidth;
@@ -98,10 +102,10 @@ public class SegmentControl extends View {
 
         int gap = ta.getDimensionPixelSize(R.styleable.SegmentControl_gaps, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics()));
 
-        if(mHorizonGap == 0) {
+        if (mHorizonGap == 0) {
             mHorizonGap = gap;
         }
-        if(mVerticalGap == 0) {
+        if (mVerticalGap == 0) {
             mVerticalGap = gap;
         }
 
@@ -254,18 +258,18 @@ public class SegmentControl extends View {
             for (int i = 0; i < mTexts.length; i++) {
                 String text = mTexts[i];
 
-                if(text != null){
+                if (text != null) {
 
-                    if(mTextBounds[i] == null) {
+                    if (mTextBounds[i] == null) {
                         mTextBounds[i] = new Rect();
                     }
 
                     mPaint.getTextBounds(text, 0, text.length(), mTextBounds[i]);
 
-                    if(mSingleChildWidth < mTextBounds[i].width() + mHorizonGap * 2) {
+                    if (mSingleChildWidth < mTextBounds[i].width() + mHorizonGap * 2) {
                         mSingleChildWidth = mTextBounds[i].width() + mHorizonGap * 2;
                     }
-                    if(mSingleChildHeight < mTextBounds[i].height() + mVerticalGap * 2) {
+                    if (mSingleChildHeight < mTextBounds[i].height() + mVerticalGap * 2) {
                         mSingleChildHeight = mTextBounds[i].height() + mVerticalGap * 2;
                     }
                 }
@@ -332,7 +336,7 @@ public class SegmentControl extends View {
                     mSingleChildHeight = height;
                     break;
                 case VERTICAL:
-                    if(mSingleChildHeight != height / mTexts.length) {
+                    if (mSingleChildHeight != height / mTexts.length) {
                         mSingleChildHeight = height / mTexts.length;
                     }
                     mSingleChildWidth = width;
@@ -399,7 +403,7 @@ public class SegmentControl extends View {
                         index = (int) (mStartY / mSingleChildHeight);
                     }
 
-                    if(mOnSegmentControlClickListener != null) {
+                    if (mOnSegmentControlClickListener != null) {
                         mOnSegmentControlClickListener.onSegmentControlClick(index);
                     }
 
@@ -414,21 +418,23 @@ public class SegmentControl extends View {
         return true;
     }
 
-    private int getSelectedTextColor(){
-        return  DEFAULT_SELECT_TEXT_COLOR;
+    private int getSelectedTextColor() {
+        return DEFAULT_SELECT_TEXT_COLOR;
     }
 
-    private int getNormalTextColor(){
-        return  DEFAULT_TEXT_COLOR;
+    private int getNormalTextColor() {
+        return DEFAULT_TEXT_COLOR;
     }
 
-    private int getSelectedBGColor(){
+    private int getSelectedBGColor() {
         return DEFAULT_SELECT_BG_COLOR;
     }
-    private int getBoundColor(){
+
+    private int getBoundColor() {
         return DEFAULT_BOUND_COLOR;
     }
-    private int getNormalBGColor(){
+
+    private int getNormalBGColor() {
         return DEFAULT_BG_COLOR;
     }
 
@@ -458,12 +464,12 @@ public class SegmentControl extends View {
                     int bottomLeftRadius = 0;
                     int bottomRightRadius = 0;
 
-                    if(mTexts.length == 1){
+                    if (mTexts.length == 1) {
                         topLeftRadius = mCornerRadius;
                         bottomLeftRadius = mCornerRadius;
                         topRightRadius = mCornerRadius;
                         bottomRightRadius = mCornerRadius;
-                    }else{
+                    } else {
                         if (mDirection == Direction.HORIZONTAL) {
                             if (i == 0) {
                                 topLeftRadius = mCornerRadius;

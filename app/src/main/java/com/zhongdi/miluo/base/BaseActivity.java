@@ -56,8 +56,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
 
-    public void showDialog(String title, String messsage, String positiveMsg,  View.OnClickListener okListener, String negative,
-                          View.OnClickListener cancleListener) {
+    public void showDialog(String title, String messsage, String positiveMsg, View.OnClickListener okListener, String negative,
+                           View.OnClickListener cancleListener) {
 
         AlertDialog dialog = new AlertDialog(mContext).builder();
         if (!TextUtils.isEmpty(title)) {

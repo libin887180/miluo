@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MutiProgress">    
-        <attr name="nodesNum" format="integer"/> <!-- 节点数量 -->  
-        <attr name="nodeRadius" format="dimension"/>  
-        <attr name="progressingDrawable" format="reference"></attr>  
+    <declare-styleable name="MutiProgress">
+        <attr name="nodesNum" format="integer" /> <!-- 节点数量 -->
+        <attr name="nodeRadius" format="dimension" />
+        <attr name="progressingDrawable" format="reference"></attr>
         <attr name="unprogressingDrawable" format="reference" />  <!-- 未完成的节点图标 -->
-        <attr name="progresFailDrawable" format="reference" />    
-        <attr name="progresSuccDrawable" format="reference" /> 
-              
+        <attr name="progresFailDrawable" format="reference" />
+        <attr name="progresSuccDrawable" format="reference" />
+
         <attr name="processingLineColor" format="color"></attr>
-        <attr name="currNodeNO" format="integer"></attr>   <!-- 当前所到达的节点编号  0开始计算--> 
-        <attr name="currNodeState" format="integer"></attr>   <!-- 当前所到达的节点状态，0：失败  1：成功 --> 
+        <attr name="currNodeNO" format="integer"></attr>   <!-- 当前所到达的节点编号  0开始计算-->
+        <attr name="currNodeState" format="integer"></attr>   <!-- 当前所到达的节点状态，0：失败  1：成功 -->
     </declare-styleable>
 
     <!--仿淘宝头条 向上滚动视图——双行-->
@@ -27,33 +27,33 @@
         <attr name="load_failure_color" format="color" />
     </declare-styleable>
     <declare-styleable name="StepView">
-        <attr name="svCircleColor" format="color"/>
-        <attr name="svTextColor" format="color"/>
-        <attr name="svSelectedTextColor" format="color"/>
-        <attr name="svFillRadius" format="dimension"/>
-        <attr name="svStrokeWidth" format="dimension"/>
-        <attr name="svLineWidth" format="dimension"/>
-        <attr name="svTextSize" format="dimension"/>
-        <attr name="svDrawablePadding" format="dimension"/>
-        <attr name="svStepNumColor" format="color"/>
-        <attr name="svLineColor" format="color"/>
+        <attr name="svCircleColor" format="color" />
+        <attr name="svTextColor" format="color" />
+        <attr name="svSelectedTextColor" format="color" />
+        <attr name="svFillRadius" format="dimension" />
+        <attr name="svStrokeWidth" format="dimension" />
+        <attr name="svLineWidth" format="dimension" />
+        <attr name="svTextSize" format="dimension" />
+        <attr name="svDrawablePadding" format="dimension" />
+        <attr name="svStepNumColor" format="color" />
+        <attr name="svLineColor" format="color" />
     </declare-styleable>
     <declare-styleable name="SegmentControl">
-        <attr name="cornerRadius" format="dimension|reference"/>
+        <attr name="cornerRadius" format="dimension|reference" />
         <attr name="boundColor" format="color|reference" />
         <attr name="selectedBackgroundColor" format="color|reference" />
         <attr name="selectedTextColor" format="color|reference" />
-        <attr name="backgroundColor" format="color|reference"/>
-        <attr name="normalTextColor" format="color|reference"/>
-        <attr name="texts" format="string|reference"/>
-        <attr name="android:textSize"/>
+        <attr name="backgroundColor" format="color|reference" />
+        <attr name="normalTextColor" format="color|reference" />
+        <attr name="texts" format="string|reference" />
+        <attr name="android:textSize" />
         <attr name="android:orientation" />
         <!-- 外部边框的width -->
-        <attr name="boundWidth" format="dimension|reference"/>
+        <attr name="boundWidth" format="dimension|reference" />
         <!-- 内部边框的width -->
-        <attr name="separatorWidth" format="dimension|reference"/>
-        <attr name="gaps" format="dimension|reference"/>
-        <attr name="horizonGap" format="dimension|reference"/>
-        <attr name="verticalGap" format="dimension|reference"/>
+        <attr name="separatorWidth" format="dimension|reference" />
+        <attr name="gaps" format="dimension|reference" />
+        <attr name="horizonGap" format="dimension|reference" />
+        <attr name="verticalGap" format="dimension|reference" />
     </declare-styleable>
 </resources>

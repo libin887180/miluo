@@ -19,15 +19,15 @@ import butterknife.ButterKnife;
 public class SortAdapter extends BaseAdapter {
     private Context mContext;
     int selectPosotion = 0;
-    private  String[] dataList;
+    private String[] dataList;
 
     public SortAdapter(Context context) {
         this.mContext = context;
-        dataList = new String[]{"默认","正序","倒序"};
+        dataList = new String[]{"默认", "正序", "倒序"};
     }
 
     public void setCheck(int index) {
-         selectPosotion = index;
+        selectPosotion = index;
     }
 
     @Override
@@ -58,10 +58,10 @@ public class SortAdapter extends BaseAdapter {
         }
         holder.sortTv.setText(dataList[position]);
 
-        if(selectPosotion==position){
+        if (selectPosotion == position) {
             holder.iv_check.setVisibility(View.VISIBLE);
             holder.sortTv.setTextColor(mContext.getResources().getColor(R.color.red));
-        }else{
+        } else {
             holder.sortTv.setTextColor(mContext.getResources().getColor(R.color.text_color_normal));
             holder.iv_check.setVisibility(View.GONE);
         }

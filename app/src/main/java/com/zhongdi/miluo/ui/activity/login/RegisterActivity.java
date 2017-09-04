@@ -60,6 +60,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
     public void onError(String message) {
 
     }
+
     @Override
     public void disableLoginBtn() {
         btnRegist.setEnabled(false);
@@ -75,7 +76,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
     @Override
     public void onSuccess() {
         showToast("注册成功");
-        startActivity(new Intent(mContext,RegistSuccessActivity.class));
+        startActivity(new Intent(mContext, RegistSuccessActivity.class));
         finish();
     }
 
@@ -100,7 +101,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0&&etYzm.getText().length()>0) {
+                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0 && etYzm.getText().length() > 0) {
                     enableLoginBtn();
                 } else {
                     disableLoginBtn();
@@ -121,7 +122,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0&&etYzm.getText().length()>0) {
+                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0 && etYzm.getText().length() > 0) {
                     enableLoginBtn();
                 } else {
                     disableLoginBtn();
@@ -142,7 +143,7 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0&&etYzm.getText().length()>0) {
+                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0 && etYzm.getText().length() > 0) {
                     enableLoginBtn();
                 } else {
                     disableLoginBtn();

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <solid android:color="@color/transparent" />
-    <stroke android:width="1dp" android:color="@color/divider_list" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/divider_list" />
     <corners android:radius="40dp" />
 </shape>

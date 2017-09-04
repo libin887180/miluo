@@ -15,6 +15,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> mTitleList;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
+
     public MyFragmentPagerAdapter(FragmentManager fm) {
         this(fm, null);
     }
@@ -30,16 +31,19 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-    public MyFragmentPagerAdapter(FragmentManager fm,List<String> titleList) {
-        this(fm, null,titleList);
+    public MyFragmentPagerAdapter(FragmentManager fm, List<String> titleList) {
+        this(fm, null, titleList);
     }
+
     public boolean isEmpty() {
         return fragmentList == null;
 
     }
+
     public void addFragment(Fragment fragment) {
         fragmentList.add(fragment);
     }
+
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);

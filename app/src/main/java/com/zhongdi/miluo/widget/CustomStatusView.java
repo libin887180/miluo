@@ -139,9 +139,9 @@ public class CustomStatusView extends View {
             canvas.drawPath(mPathCircleDst, mPaint);
 
             if (circleValue == 1) {      //表示圆画完了,可以钩了
-                successPath.moveTo(getWidth() / 6 , getWidth() / 2);
-                successPath.lineTo(getWidth() / 11 *4 , getWidth() / 8* 6);
-                successPath.lineTo(getWidth()-10, getWidth() / 4 );
+                successPath.moveTo(getWidth() / 6, getWidth() / 2);
+                successPath.lineTo(getWidth() / 11 * 4, getWidth() / 8 * 6);
+                successPath.lineTo(getWidth() - 10, getWidth() / 4);
                 mPathMeasure.nextContour();
                 mPathMeasure.setPath(successPath, false);
                 mPathMeasure.getSegment(0, successValue * mPathMeasure.getLength(), mPathCircleDst, true);

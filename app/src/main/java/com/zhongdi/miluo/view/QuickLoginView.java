@@ -10,9 +10,13 @@ import com.zhongdi.miluo.model.Manager;
 
 public interface QuickLoginView extends BaseView {
     void openMain();
+
     void onSuccess(Manager model);
+
     void onError(String message);
+
     void disableLoginBtn();
+
     void enableLoginBtn();
 
 }

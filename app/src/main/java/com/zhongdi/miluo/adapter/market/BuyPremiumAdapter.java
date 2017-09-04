@@ -60,7 +60,7 @@ public class BuyPremiumAdapter extends BaseAdapter {
         }
         holder.tvDec.setText(dataList.get(position));
 //        holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-        holder.tvDepRate.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
+        holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         return convertView;
     }
 

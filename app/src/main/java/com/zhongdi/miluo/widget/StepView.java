@@ -146,8 +146,8 @@ public class StepView extends View {
 //            mPaint.setStyle(Paint.Style.FILL);
 //            canvas.drawCircle(circleCenterX, circleCenterY, mFillRadius, mPaint);
 
-            int mRadius = mFillRadius+ mStrokeWidth / 2;
-            Rect rect = new Rect((int) (circleCenterX - mRadius), (int) (circleCenterY - mRadius), (int) (circleCenterX +mRadius), (int) (circleCenterY +mRadius));
+            int mRadius = mFillRadius + mStrokeWidth / 2;
+            Rect rect = new Rect((int) (circleCenterX - mRadius), (int) (circleCenterY - mRadius), (int) (circleCenterX + mRadius), (int) (circleCenterY + mRadius));
 
             Drawable mCompleteIcon;//正在进行的默认图片     definition default underway icon
             mCompleteIcon = ContextCompat.getDrawable(getContext(), R.drawable.complted);//已经完成的icon

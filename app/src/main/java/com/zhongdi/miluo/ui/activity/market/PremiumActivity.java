@@ -30,6 +30,7 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
     private BuyPremiumAdapter premiumAdapter;
     private SellPremiumAdapter sellPremiumAdapter;
     private OperationPremiumAdapter operationPremiumAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

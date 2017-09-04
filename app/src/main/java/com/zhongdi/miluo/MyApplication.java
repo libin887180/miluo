@@ -13,6 +13,7 @@ import org.xutils.x;
 
 public class MyApplication extends Application {
     private static MyApplication mInstance = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,6 +42,7 @@ public class MyApplication extends Application {
 
     /**
      * Application  单例
+     *
      * @return
      */
     public static MyApplication getInstance() {

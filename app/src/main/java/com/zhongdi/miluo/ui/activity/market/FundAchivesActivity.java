@@ -23,6 +23,7 @@ public class FundAchivesActivity extends BaseActivity<FundAchivesPresenter> impl
     ViewPager viewPager;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class FundAchivesActivity extends BaseActivity<FundAchivesPresenter> impl
 
     @Override
     protected void initialize() {
-       initTabLayout();
+        initTabLayout();
     }
 
     @Override

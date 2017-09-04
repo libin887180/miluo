@@ -8,6 +8,6 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface EstimateFragmentView extends BaseView {
- void  setData();
+    void setData();
 
 }

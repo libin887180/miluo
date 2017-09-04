@@ -19,9 +19,9 @@ public class FundGeneralAdapter extends BaseRecyclerAdapter<String> {
 
     @Override
     public void convert(BaseRecyclerHolder holder, String item, int position) {
-        if(position%2==0){
+        if (position % 2 == 0) {
             holder.getConvertView().setBackgroundColor(Color.WHITE);
-        }else{
+        } else {
             holder.getConvertView().setBackgroundColor(Color.parseColor("#f9f9f9"));
         }
 
