@@ -50,6 +50,7 @@
         <activity android:name=".ui.activity.market.ManagerDetailActivity"></activity>
         <activity android:name=".ui.activity.market.PremiumActivity"></activity>
         <activity android:name=".ui.activity.market.FundAchivesActivity"></activity>
+        <activity android:name=".ui.activity.market.FundHistoryValueActivity"></activity>
     </application>
 
 </manifest>
