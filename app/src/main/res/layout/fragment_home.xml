@@ -59,7 +59,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:textSize="16sp"
@@ -98,7 +101,8 @@
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             app:dot_visible="true"
-            app:dot_size="12dp"
+            app:dot_size="10dp"
+            app:dot_marginTop="1dp"
             android:scaleType="centerCrop"
             app:icon="@drawable/ic_msg_24dp" />
 
