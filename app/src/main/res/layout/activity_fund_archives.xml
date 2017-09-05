@@ -69,11 +69,6 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divider_list" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout
@@ -88,9 +83,13 @@
         app:tabIndicatorColor="@color/tab_text_selected"
         app:tabSelectedTextColor="@color/tab_text_selected"
         app:tabTextColor="@color/text_color_normal" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_list" />
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

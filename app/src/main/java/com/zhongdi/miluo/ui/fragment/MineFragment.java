@@ -13,6 +13,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
+import com.zhongdi.miluo.ui.activity.mine.TransactionsActivity;
 import com.zhongdi.miluo.ui.activity.mine.SettingActivity;
 import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
@@ -23,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/7/24.
@@ -39,6 +41,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     TabLayout tablayout;
     @BindView(R.id.viewpage)
     ViewPager viewpage;
+
+    Unbinder unbinder;
 
 
     public static MineFragment newInstance(String info) {
@@ -110,6 +114,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 parent.removeView(rootView);
             }
         }
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -123,9 +128,16 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 startActivity(new Intent(mContext, SettingActivity.class));
                 break;
             case R.id.tv_title_right:
+                startActivity(new Intent(mContext, TransactionsActivity.class));
                 break;
         }
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 }

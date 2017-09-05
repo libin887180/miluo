@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fingdo.statelayout.StateLayout;
@@ -15,6 +16,7 @@ import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.orhanobut.logger.Logger;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankCardListAdapter;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.BankCardListPresenter;
 import com.zhongdi.miluo.view.BankCardListView;
@@ -68,7 +70,12 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
 //                stateLayout.showErrorView();
 //            }
 //        }, 2000);
+        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
 
+            }
+        });
     }
 
     @OnClick(R.id.img_title_right)
