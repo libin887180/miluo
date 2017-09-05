@@ -43,7 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:padding="5dp">
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,13 +54,17 @@
                         android:text="您身边的投资专家"
                         android:textSize="16sp" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/btn_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:padding="10dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="15dp"
+                        android:textSize="16sp"
+                        android:background="@drawable/btn_with_border"
+                        android:textColor="@color/red"
                         android:text="立即登录" />
                 </RelativeLayout>
 
@@ -83,17 +88,19 @@
         android:orientation="horizontal">
 
 
-        <ImageView
+        <com.zhongdi.miluo.widget.reddot.IconDotTextView
             android:id="@+id/img_msg"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
+            app:dot_visible="true"
+            app:dot_size="12dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_msg_24dp" />
+            app:icon="@drawable/ic_msg_24dp" />
 
         <EditText
             android:id="@+id/et_search"
