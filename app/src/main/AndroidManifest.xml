@@ -52,6 +52,7 @@
         <activity android:name=".ui.activity.market.FundAchivesActivity"></activity>
         <activity android:name=".ui.activity.market.FundHistoryValueActivity"></activity>
         <activity android:name=".ui.activity.mine.TransactionsActivity"></activity>
+        <activity android:name=".ui.activity.mine.TransationsRecordActivity"></activity>
     </application>
 
 </manifest>

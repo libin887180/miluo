@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.DealingAdapter;
+import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -78,6 +82,13 @@ public class DealingFragment extends Fragment {
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,25, getResources().getColor(R.color.grey_bg)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), TransationsRecordActivity.class));
+            }
+        });
     }
 
     @Override
