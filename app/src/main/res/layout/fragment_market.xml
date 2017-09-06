@@ -48,20 +48,22 @@
 
         <ImageView
             android:id="@+id/img_title_right"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
+            android:src="@drawable/ic_sort"
             android:scaleType="centerCrop"
-            android:visibility="gone" />
+            />
 
         <TextView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
@@ -84,7 +86,7 @@
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"
         app:tabSelectedTextColor="@color/tab_text_selected"
-        app:tabTextColor="@color/text_color_normal" />
+        app:tabTextColor="@color/text_555" />
 
     <LinearLayout
         android:id="@+id/rl_orther"
@@ -103,7 +105,7 @@
             android:layout_weight="7"
             android:paddingLeft="10dp"
             android:text="基金名称"
-            android:textColor="@color/text_color_light_grey" />
+            android:textColor="@color/text_color_normal" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,7 +113,7 @@
             android:layout_weight="3"
             android:gravity="center_horizontal"
             android:text="最近净值"
-            android:textColor="@color/text_color_light_grey" />
+            android:textColor="@color/text_color_normal" />
 
         <LinearLayout
             android:id="@+id/ll_increase"
@@ -128,7 +130,7 @@
                 android:layout_marginRight="5dp"
                 android:gravity="center_horizontal"
                 android:text="日涨幅"
-                android:textColor="@color/text_color_light_grey" />
+                android:textColor="@color/text_color_normal" />
 
             <ImageView
                 android:id="@+id/iv_increase"
@@ -141,13 +143,13 @@
     <LinearLayout
         android:id="@+id/rl_huobi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/grey_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:visibility="gone"
+        android:orientation="horizontal"
         android:weightSum="12">
 
         <TextView
@@ -155,6 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:paddingLeft="10dp"
+            android:textColor="@color/text_color_normal"
             android:text="基金名称" />
 
         <TextView
@@ -162,13 +165,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center_horizontal"
+            android:textColor="@color/text_color_normal"
             android:text="万份收益" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center_horizontal"
+            android:paddingRight="10dp"
+
+            android:textColor="@color/text_color_normal"
+            android:gravity="right"
             android:text="七日年化" />
     </LinearLayout>
 

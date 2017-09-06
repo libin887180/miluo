@@ -263,10 +263,10 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_title_right, R.id.ll_increase})
+    @OnClick({R.id.img_title_right, R.id.ll_increase})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title_right:
+            case R.id.img_title_right:
                 if (sortWindow.isShowing()) {
                 } else {
                     //   以下拉的方式显示，并且可以设置显示的位置
