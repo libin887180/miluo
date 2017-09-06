@@ -52,7 +52,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
-            android:background="@drawable/ic_add_black_40dp"
             android:clickable="true"
             android:visibility="gone"
             android:scaleType="centerCrop" />

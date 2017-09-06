@@ -46,13 +46,13 @@
 
         <ImageView
             android:id="@+id/img_title_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
-            android:background="@drawable/ic_add_black_40dp"
+            android:src="@drawable/addcard"
             android:clickable="true"
             android:scaleType="centerCrop" />
 
