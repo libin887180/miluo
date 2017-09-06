@@ -11,6 +11,9 @@ public interface MarketView extends BaseView {
     void doSomething();
 
     void initSortPop();
+    void initInCreasePop();
 
     void initTabLayout();
+
+    void initAnimation();
 }

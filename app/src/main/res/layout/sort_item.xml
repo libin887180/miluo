@@ -15,12 +15,11 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_normal" />
 
-
     <ImageView
         android:id="@+id/iv_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_check_24dp" />
+        android:src="@drawable/ic_check" />
 </RelativeLayout>

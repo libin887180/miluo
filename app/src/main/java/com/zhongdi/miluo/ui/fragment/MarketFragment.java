@@ -6,7 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -14,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
+import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.adapter.market.SortAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MarketPresenter;
@@ -25,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/7/24.
@@ -41,10 +45,19 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     LinearLayout rlHuobi;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-
+    @BindView(R.id.iv_increase)
+    ImageView ivIncrease;
+    Unbinder unbinder;
+    RotateAnimation upAnimation;
+    RotateAnimation downAnimation;
     private ListView lsvMore;
-    private PopupWindow window;
+
+    private PopupWindow sortWindow;
     private SortAdapter sortAdapter;
+    private ListView lvIncrease;
+    private PopupWindow increaseWindow;
+    private IncreaseAdapter increaseAdapter;
+    private boolean isup;
 
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -75,6 +88,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 parent.removeView(rootView);
             }
         }
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -114,17 +128,27 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 sortAdapter.setCheck(i);
-                window.dismiss();
+                sortWindow.dismiss();
 
             }
         });
 
+        lvIncrease.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                increaseAdapter.setCheck(i);
+                increaseWindow.dismiss();
+
+            }
+        });
     }
 
     @Override
     protected void initView(View view) {
         initSortPop();
+        initInCreasePop();
         initTabLayout();
+        initAnimation();
     }
 
     @Override
@@ -170,38 +194,93 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     }
 
     @Override
+    public void initAnimation() {
+
+        upAnimation = new RotateAnimation(0, -180, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        upAnimation.setDuration(100);
+        upAnimation.setFillAfter(true);
+
+        downAnimation = new RotateAnimation(-180, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        downAnimation.setDuration(100);
+        downAnimation.setFillAfter(true);
+    }
+
+    @Override
     public void doSomething() {
     }
 
     @Override
     public void initSortPop() {
-        // TODO: 2016/5/17 构建一个popupwindow的布局
+        //   构建一个popupwindow的布局
         View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
         lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
         sortAdapter = new SortAdapter(mContext);
         lsvMore.setAdapter(sortAdapter);
-        // TODO: 2016/5/17 创建PopupWindow对象，指定宽度和高度
-        window = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        // TODO: 2016/5/17 设置动画
-//        window.setAnimationStyle(R.style.popup_window_anim);
-        // TODO: 2016/5/17 设置背景颜色
-//        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
-        // TODO: 2016/5/17 设置可以获取焦点
-        window.setFocusable(true);
-        // TODO: 2016/5/17 设置可以触摸弹出框以外的区域
-        window.setOutsideTouchable(true);
+        //   创建PopupWindow对象，指定宽度和高度
+        sortWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        //   设置动画
+//        sortWindow.setAnimationStyle(R.style.popup_window_anim);
+        //   设置背景颜色
+//        sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        //   设置可以获取焦点
+        sortWindow.setFocusable(true);
+        //   设置可以触摸弹出框以外的区域
+        sortWindow.setOutsideTouchable(true);
         // TODO：更新popupwindow的状态
-        window.update();
+        sortWindow.update();
+    }
+
+    @Override
+    public void initInCreasePop() {
+        View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_win_layout, null);
+        lvIncrease = (ListView) popView.findViewById(R.id.lsvMore);
+        increaseAdapter = new IncreaseAdapter(mContext);
+        lvIncrease.setAdapter(increaseAdapter);
+        //创建PopupWindow对象，指定宽度和高度
+        increaseWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        // 设置动画
+        //  sortWindow.setAnimationStyle(R.style.popup_window_anim);
+        // 设置背景颜色
+        //  sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        //  设置可以获取焦点
+        increaseWindow.setFocusable(true);
+        // 设置可以触摸弹出框以外的区域
+        increaseWindow.setOutsideTouchable(true);
+        increaseWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                ivIncrease.startAnimation(downAnimation);
+            }
+        });
+        // TODO：更新popupwindow的状态
+        increaseWindow.update();
     }
 
 
-    @OnClick(R.id.tv_title_right)
-    public void onViewClicked() {
-        if (window.isShowing()) {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
-        } else {
-            // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
-            window.showAsDropDown(head);
+    @OnClick({R.id.tv_title_right, R.id.ll_increase})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_title_right:
+                if (sortWindow.isShowing()) {
+                } else {
+                    //   以下拉的方式显示，并且可以设置显示的位置
+                    sortWindow.showAsDropDown(head);
+                }
+                break;
+            case R.id.ll_increase:
+                if (increaseWindow.isShowing()) {
+                } else {
+                    ivIncrease.startAnimation(upAnimation);
+                    increaseWindow.showAsDropDown(rlOrther);
+                }
+
+                break;
         }
     }
 }
