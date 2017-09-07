@@ -59,16 +59,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/btn_with_border"
                         android:paddingBottom="8dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="15dp"
-                        android:textSize="16sp"
-                        android:background="@drawable/btn_with_border"
+                        android:paddingTop="8dp"
+                        android:text="立即登录"
                         android:textColor="@color/red"
-                        android:text="立即登录" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <com.zhongdi.miluo.widget.NOScollListView
@@ -77,6 +77,27 @@
                     android:layout_height="wrap_content"
                     android:divider="#00000000" />
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="基金销售服务由上海利得基金销售有限公司提供"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="2dp"
+                    android:drawableLeft="@drawable/ic_safe"
+                    android:drawablePadding="5dp"
+                    android:text="由浦发银行托管，资金更安全"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
             </LinearLayout>
         </com.zhongdi.miluo.widget.ObservableScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
@@ -100,11 +121,11 @@
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
-            app:dot_visible="true"
-            app:dot_size="10dp"
-            app:dot_marginTop="1dp"
             android:scaleType="centerCrop"
-            app:icon="@drawable/ic_msg_24dp" />
+            app:dot_marginTop="1px"
+            app:dot_size="10dp"
+            app:dot_visible="true"
+            app:icon="@drawable/ic_message" />
 
         <EditText
             android:id="@+id/et_search"

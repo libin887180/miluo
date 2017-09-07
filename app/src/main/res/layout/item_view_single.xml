@@ -10,16 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
             android:id="@+id/title_tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="消息"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:textSize="14sp"
-            android:padding="3dp"
-            android:background="@drawable/textview_border"
+            android:background="@drawable/fund_information"
             android:layout_marginRight="6dp"
             android:textColor="@color/red" />
 
