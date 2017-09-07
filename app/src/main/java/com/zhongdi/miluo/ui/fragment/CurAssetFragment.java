@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,8 +13,10 @@ import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CurAssetAdapter;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.ListFragmentPresenter;
+import com.zhongdi.miluo.ui.activity.mine.TransationsDetailActivity;
 import com.zhongdi.miluo.view.ListFragmentView;
 
 import java.util.ArrayList;
@@ -89,6 +92,12 @@ public class CurAssetFragment extends BaseFragment<ListFragmentPresenter> implem
         }
 
         mAdapter = new CurAssetAdapter(mContext, mDatas);
+        mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                startActivity(new Intent(getActivity(), TransationsDetailActivity.class));
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
