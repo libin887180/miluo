@@ -18,6 +18,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.HomePageAdapter;
+import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.ui.activity.login.RegisterActivity;
 import com.zhongdi.miluo.util.GlideImageLoader;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -214,6 +215,8 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
             case R.id.img_msg:
                 break;
             case R.id.et_search:
+
+                startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.btn_login:
 

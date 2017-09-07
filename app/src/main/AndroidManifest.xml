@@ -34,25 +34,26 @@
         <activity
             android:name=".ui.activity.login.QuickLoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.mine.SettingActivity"></activity>
-        <activity android:name=".ui.activity.login.RegistSuccessActivity"></activity>
-        <activity android:name=".ui.activity.login.OpenAccountActivity"></activity>
-        <activity android:name=".ui.activity.mine.SafeCenterActivity"></activity>
-        <activity android:name=".ui.activity.mine.SendCodeActivity"></activity>
-        <activity android:name=".ui.activity.mine.ModifyLoginPswActivity"></activity>
-        <activity android:name=".ui.activity.mine.ModifyDealPswActivity"></activity>
-        <activity android:name=".ui.activity.mine.CheckDealPswActivity"></activity>
-        <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity"></activity>
-        <activity android:name=".ui.activity.mine.BankCardListActivity"></activity>
-        <activity android:name=".ui.activity.mine.AddBankCardActivity"></activity>
-        <activity android:name=".ui.activity.market.FundDetailActivity"></activity>
-        <activity android:name=".ui.activity.market.FundNoticeActivity"></activity>
-        <activity android:name=".ui.activity.market.ManagerDetailActivity"></activity>
-        <activity android:name=".ui.activity.market.PremiumActivity"></activity>
-        <activity android:name=".ui.activity.market.FundAchivesActivity"></activity>
-        <activity android:name=".ui.activity.market.FundHistoryValueActivity"></activity>
-        <activity android:name=".ui.activity.mine.TransactionsActivity"></activity>
-        <activity android:name=".ui.activity.mine.TransationsRecordActivity"></activity>
+        <activity android:name=".ui.activity.mine.SettingActivity"/>
+        <activity android:name=".ui.activity.login.RegistSuccessActivity"/>
+        <activity android:name=".ui.activity.login.OpenAccountActivity"/>
+        <activity android:name=".ui.activity.mine.SafeCenterActivity"/>
+        <activity android:name=".ui.activity.mine.SendCodeActivity"/>
+        <activity android:name=".ui.activity.mine.ModifyLoginPswActivity"/>
+        <activity android:name=".ui.activity.mine.ModifyDealPswActivity"/>
+        <activity android:name=".ui.activity.mine.CheckDealPswActivity"/>
+        <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity"/>
+        <activity android:name=".ui.activity.mine.BankCardListActivity"/>
+        <activity android:name=".ui.activity.mine.AddBankCardActivity"/>
+        <activity android:name=".ui.activity.market.FundDetailActivity"/>
+        <activity android:name=".ui.activity.market.FundNoticeActivity"/>
+        <activity android:name=".ui.activity.market.ManagerDetailActivity"/>
+        <activity android:name=".ui.activity.market.PremiumActivity"/>
+        <activity android:name=".ui.activity.market.FundAchivesActivity"/>
+        <activity android:name=".ui.activity.market.FundHistoryValueActivity"/>
+        <activity android:name=".ui.activity.mine.TransactionsActivity"/>
+        <activity android:name=".ui.activity.mine.TransationsRecordActivity"/>
+        <activity android:name=".ui.activity.SearchActivity"/>
     </application>
 
 </manifest>
