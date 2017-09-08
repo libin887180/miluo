@@ -8,4 +8,5 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface TransactionDetailView extends BaseView {
+    void setUpChart();
 }

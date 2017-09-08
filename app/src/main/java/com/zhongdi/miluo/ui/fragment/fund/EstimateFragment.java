@@ -59,6 +59,7 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
         xAxis.setDrawGridLines(false);
         xAxis.setAxisMaximum(45);
         xAxis.setDrawAxisLine(false);
+
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         YAxis leftAxis = mChart.getAxisLeft();

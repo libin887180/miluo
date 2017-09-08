@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -89,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="50dp">
+                android:paddingBottom="60dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -413,8 +414,60 @@
                     android:id="@+id/line_chart"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_marginBottom="20dp"
+                    android:background="@color/white"
                     android:layout_centerInParent="true" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/commen_item_height"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="2dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/icon"
+                        android:text="交易纪录"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/divider_list" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_list" />
+
+                </RelativeLayout>
+                <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tr_enable_loadmore="false"
+                    app:tr_head_height="60dp"
+                    app:tr_max_head_height="100dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
             </LinearLayout>
         </ScrollView>
 
@@ -466,8 +519,6 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
-
-
         </LinearLayout>
     </RelativeLayout>
 
