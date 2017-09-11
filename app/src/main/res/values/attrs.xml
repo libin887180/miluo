@@ -90,4 +90,9 @@
         <attr name="dot_marginBottom" format="dimension"/>
         <attr name="dot_marginLeft" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="MaxHeightView">
+        <attr name="mhv_HeightRatio" format="reference|float" />
+        <attr name="mhv_HeightDimen" format="reference|dimension" />
+    </declare-styleable>
 </resources>

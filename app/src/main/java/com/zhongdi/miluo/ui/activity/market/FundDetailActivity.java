@@ -75,7 +75,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history,R.id.tv_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -92,6 +92,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
             case R.id.rl_fund_history:
                 startActivity(new Intent(mContext, FundHistoryValueActivity.class));
+                break;
+            case R.id.tv_buy:
+                startActivity(new Intent(mContext, BuyFundActivity.class));
                 break;
         }
     }

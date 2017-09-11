@@ -51,6 +51,7 @@
         <activity android:name=".ui.activity.market.PremiumActivity"/>
         <activity android:name=".ui.activity.market.FundAchivesActivity"/>
         <activity android:name=".ui.activity.market.FundHistoryValueActivity"/>
+        <activity android:name=".ui.activity.market.BuyFundActivity"/>
         <activity android:name=".ui.activity.mine.TransactionsActivity"/>
         <activity android:name=".ui.activity.mine.TransationsRecordActivity"/>
         <activity android:name=".ui.activity.mine.TransationsDetailActivity"/>
