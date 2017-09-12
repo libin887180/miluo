@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.zhongdi.miluo.adapter.CardListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
+import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
@@ -87,6 +89,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
+                startActivity(new Intent(mContext, TransationsRecordActivity.class));
                 Toast.makeText(mContext, mPayView.getPassword(), Toast.LENGTH_SHORT).show();
             }
         });
