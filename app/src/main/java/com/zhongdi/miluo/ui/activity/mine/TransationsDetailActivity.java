@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
+import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
+import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
 import com.zhongdi.miluo.view.mpchart.MyLineChart;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class TransationsDetailActivity extends BaseActivity<TransactionDetailPresenter> implements TransactionDetailView {
 
@@ -183,7 +187,17 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             mChart.setData(data);
         }
     }
-
+    @OnClick({R.id.tv_sell,R.id.tv_buy})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_buy:
+                startActivity(new Intent(mContext, BuyFundActivity.class));
+                break;
+            case R.id.tv_sell:
+                startActivity(new Intent(mContext, SellFundActivity.class));
+                break;
+        }
+    }
     @Override
     public void setUpChart() {
         mChart.getDescription().setEnabled(false);//描述不可见

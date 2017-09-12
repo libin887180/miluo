@@ -64,7 +64,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
-            android:text="注册"
+            android:text="完成"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:visibility="gone" />
@@ -123,6 +123,32 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableTop="@drawable/ic_empty"
+                    android:gravity="center_horizontal"
+                    android:text="支付失败!"
+                    android:textColor="@color/red" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_steps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -263,9 +289,9 @@
 
             <com.zhongdi.miluo.widget.NOScollListView
                 android:id="@+id/listview"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

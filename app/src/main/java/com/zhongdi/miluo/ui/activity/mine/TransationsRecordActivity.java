@@ -44,6 +44,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         datas.add("1");
         transAdapter = new TransInfoAdapter(mContext);
         transAdapter.setDataList(datas);
+        listview.setFocusable(false);
         listview.setAdapter(transAdapter);
     }
 }

@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,7 @@ import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.fragment.DemoFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
@@ -91,8 +93,10 @@ public class MainActivity extends BaseActivity2 {
                     viewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_self:
-                    viewPager.setCurrentItem(2);
-                    return true;
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    return false;
+//                    viewPager.setCurrentItem(2);
+//                    return true;
                 case R.id.navigation_mine:
                     viewPager.setCurrentItem(3);
                     return true;

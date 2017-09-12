@@ -44,10 +44,12 @@
 
     <ImageView
         android:id="@+id/iv_status"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@drawable/ic_checked"
-        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_finshed"
+        android:layout_marginRight="5dp"
+        android:layout_alignTop="@id/tv_status"
+        android:scaleType="centerInside"
         android:layout_alignBottom="@id/tv_date"
         android:layout_toLeftOf="@id/tv_status" />
 
@@ -55,9 +57,8 @@
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/tv_date"
+        android:layout_alignBottom="@+id/tv_date"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_fund_name"
         android:layout_marginTop="10dp"
         android:text="交易成功"
         android:textColor="@color/text_color_normal"

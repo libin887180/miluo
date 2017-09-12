@@ -134,9 +134,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignBottom="@id/tv_increase"
+                                    android:layout_alignBottom="@+id/tv_increase"
                                     android:layout_marginBottom="2dp"
-                                    android:layout_toRightOf="@id/tv_increase"
+                                    android:layout_toRightOf="@+id/tv_increase"
                                     android:text="%"
                                     android:textColor="@color/red"
                                     android:textSize="16sp"
@@ -171,7 +171,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignRight="@id/tv_fund_type"
-                                    android:layout_below="@id/tv_fund_type"
+                                    android:layout_below="@+id/tv_fund_type"
                                     android:layout_marginTop="5dp"
                                     android:background="@drawable/title_bg"
                                     android:text="高风险"
@@ -223,7 +223,6 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
                                     android:layout_marginRight="20dp"
-
                                     android:background="@drawable/icon_right" />
 
                                 <LinearLayout
@@ -231,7 +230,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginRight="20dp"
-                                    android:layout_toLeftOf="@id/iv_next"
+                                    android:layout_toLeftOf="@+id/iv_next"
                                     android:orientation="vertical">
 
                                     <TextView

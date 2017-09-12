@@ -522,7 +522,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/icon2"
+                    android:layout_toRightOf="@id/icon2"
                     android:text="日常运作"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />

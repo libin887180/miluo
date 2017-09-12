@@ -28,7 +28,7 @@ public class TransactionsActivity extends BaseActivity<FundAchivesPresenter> imp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding(R.layout.activity_fund_archives);
+        binding(R.layout.activity_transaction_list);
     }
 
     @Override
