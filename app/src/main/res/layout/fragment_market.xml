@@ -97,18 +97,18 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:weightSum="12">
+        >
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="6"
             android:paddingLeft="10dp"
             android:text="基金名称"
             android:textColor="@color/text_color_normal" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center_horizontal"
@@ -117,9 +117,9 @@
 
         <LinearLayout
             android:id="@+id/ll_increase"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:gravity="right|center_vertical"
             android:orientation="horizontal"
             android:paddingRight="10dp">
@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_down" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -178,7 +179,6 @@
             android:gravity="right"
             android:text="七日年化" />
     </LinearLayout>
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
