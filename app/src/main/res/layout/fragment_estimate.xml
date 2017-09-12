@@ -6,7 +6,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
-    <com.zhongdi.miluo.view.mpchart.MyLineChart
+    <com.zhongdi.miluo.widget.mpchart.MyLineChart
         android:id="@+id/line_chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"

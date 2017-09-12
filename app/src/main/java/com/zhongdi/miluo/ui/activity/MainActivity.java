@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.zhongdi.miluo.BackHandlerHelper;
 import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
@@ -50,6 +52,21 @@ public class MainActivity extends BaseActivity2 {
         adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
+    }
+    private long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (!BackHandlerHelper.handleBackPress(this)) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+
+
+        }
     }
 
     private void initView() {

@@ -28,7 +28,7 @@ import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
-import com.zhongdi.miluo.view.mpchart.MyLineChart;
+import com.zhongdi.miluo.widget.mpchart.MyLineChart;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;

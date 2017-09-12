@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.view.mpchart;
+package com.zhongdi.miluo.widget.mpchart;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

@@ -15,7 +15,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.EstimateFragPresenter;
 import com.zhongdi.miluo.view.EstimateFragmentView;
-import com.zhongdi.miluo.view.mpchart.MyLineChart;
+import com.zhongdi.miluo.widget.mpchart.MyLineChart;
 
 import java.util.ArrayList;
 

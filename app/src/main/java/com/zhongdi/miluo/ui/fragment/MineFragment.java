@@ -62,14 +62,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     protected void initView(View view) {
-        setupViewPager(viewpage);
 
-        // 设置数据
-        rnTextView.withNumber(892666.50f);
-        // 设置动画播放时间
-        rnTextView.setDuration(1000);
-        // 开始播放动画
-        rnTextView.start();
     }
 
     @Override
@@ -79,7 +72,13 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void fetchData() {
-
+        setupViewPager(viewpage);
+        // 设置数据
+        rnTextView.withNumber(892666.50f);
+        // 设置动画播放时间
+        rnTextView.setDuration(1000);
+        // 开始播放动画
+        rnTextView.start();
     }
 
 

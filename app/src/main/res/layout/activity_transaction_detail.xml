@@ -411,7 +411,7 @@
                     android:layout_height="0.5dp"
                     android:background="@color/divider_list" />
 
-                <com.zhongdi.miluo.view.mpchart.MyLineChart
+                <com.zhongdi.miluo.widget.mpchart.MyLineChart
                     android:id="@+id/line_chart"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"

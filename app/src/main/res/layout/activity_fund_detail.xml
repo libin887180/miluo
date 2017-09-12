@@ -55,19 +55,18 @@
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_round_ddd" />
+            android:src="@drawable/ic_share" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_title_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
-            android:text="自选"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_no_collect" />
     </RelativeLayout>
 
     <RelativeLayout
