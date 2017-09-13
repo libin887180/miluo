@@ -5,13 +5,15 @@
     <color name="colorAccent">#8F8F8F</color>
     <color name="commonbg">#F0F3F2</color>
     <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
+    <color name="black">#222</color>
     <color name="text_222">#222</color>
     <color name="text_555">#555</color>
     <color name="transparent">#00000000</color>
     <color name="divider_list">#d4d4d4</color>
     <color name="red">#FF4242</color>
     <color name="grey">#999999</color>
+    <color name="btn_unable">#e6e6e6</color>
+
     <color name="btn_yzm_color">#128C2F</color>
     <color name="btn_yzm_color_pressed">#026C2F</color>
     <!--默认文字颜色-->
@@ -21,7 +23,7 @@
     <color name="text_color_org">#FF966B</color>
     <color name="white_70">#70ffffff</color>
     <color name="sub_text_color">#343434</color>
-    <color name="text_blue">#5BC2E1</color>
+    <color name="text_blue">#118eea</color>
     <!--背景-->
     <color name="grey_bg">#F3F5F5</color>
     <color name="grey_light_bg">#F2F4F4</color>

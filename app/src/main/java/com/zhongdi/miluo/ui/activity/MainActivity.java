@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -18,6 +17,7 @@ import com.zhongdi.miluo.ui.fragment.DemoFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
 import com.zhongdi.miluo.ui.fragment.MineFragment;
+import com.zhongdi.miluo.widget.NoScrollViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,10 +25,11 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity2 {
 
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
+    private int selectTab = 0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class MainActivity extends BaseActivity2 {
         BottomNavigationViewHelper.disableShiftMode(navigation);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(NoScrollViewPager viewPager) {
+        viewPager.setScroll(false);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(HomeFragment.newInstance("首页"));
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity2 {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
+
     private long exitTime = 0;
 
     @Override
@@ -71,29 +74,33 @@ public class MainActivity extends BaseActivity2 {
 
     private void initView() {
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    navigation.getMenu().getItem(0).setChecked(false);
-                }
-                navigation.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = navigation.getMenu().getItem(position);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+////                if (prevMenuItem != null) {
+////                    prevMenuItem.setChecked(false);
+////                } else {
+////                    navigation.getMenu().getItem(0).setChecked(false);
+////                }
+//                if(position==2){
+//                    Intent intent = new Intent(mContext, LoginActivity.class);
+//                    startActivityForResult(intent, 101);
+//                }else{
+//                    navigation.getMenu().getItem(position).setChecked(true);
+//                    selectTab = position;
+//                }
+////                prevMenuItem = navigation.getMenu().getItem(position);
+//            }
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
     }
 
@@ -105,21 +112,38 @@ public class MainActivity extends BaseActivity2 {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
+                    selectTab = 0;
                     return true;
                 case R.id.navigation_market:
                     viewPager.setCurrentItem(1);
+                    selectTab = 1;
                     return true;
                 case R.id.navigation_self:
-                    startActivity(new Intent(mContext, LoginActivity.class));
-                    return false;
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    startActivityForResult(intent, 101);
+                    return true;
 //                    viewPager.setCurrentItem(2);
+//                selectTab = 2;
 //                    return true;
                 case R.id.navigation_mine:
                     viewPager.setCurrentItem(3);
+                    selectTab = 3;
                     return true;
             }
             return false;
         }
 
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 0:
+                viewPager.setCurrentItem(selectTab);
+                navigation.getMenu().getItem(selectTab).setChecked(true);
+                break;
+
+        }
+    }
 }

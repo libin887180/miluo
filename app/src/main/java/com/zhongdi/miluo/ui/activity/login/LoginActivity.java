@@ -44,7 +44,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw, R.id.tv_phone_login})
+    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -74,9 +74,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 break;
             case R.id.tv_forget_psw:
                 findPsw();
-                break;
-            case R.id.tv_phone_login:
-                quickLogin();
                 break;
         }
     }

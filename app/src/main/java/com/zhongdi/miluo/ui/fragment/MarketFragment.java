@@ -35,7 +35,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/24.
  */
 
-public class MarketFragment extends BaseFragment<MarketPresenter> implements MarketView,FragmentBackHandler {
+public class MarketFragment extends BaseFragment<MarketPresenter> implements MarketView, FragmentBackHandler {
     @BindView(R.id.head)
     RelativeLayout head;
     @BindView(R.id.tablayout)
@@ -164,7 +164,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     public void initTabLayout() {
-
         List<String> tabs = new ArrayList<>();
         tabs.add("股票");
         tabs.add("债券");
@@ -213,38 +212,51 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     @Override
     public void initSortPop() {
         //   构建一个popupwindow的布局
-        View popView = View.inflate(mContext,R.layout.pop_win_layout, null);
+        View popView = View.inflate(mContext, R.layout.pop_win_layout, null);
         lsvMore = (ListView) popView.findViewById(R.id.lsvMore);
         sortAdapter = new SortAdapter(mContext);
         lsvMore.setAdapter(sortAdapter);
         //   创建PopupWindow对象，指定宽度和高度
         sortWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortWindow.dismiss();
+            }
+        });
         //   设置动画
         //   sortWindow.setAnimationStyle(R.style.popup_window_anim);
         //   设置背景颜色
         //   sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
         //   设置可以获取焦点
-        //   sortWindow.setFocusable(true);
+//           sortWindow.setFocusable(true);
         //   设置可以触摸弹出框以外的区域
         sortWindow.setOutsideTouchable(true);
         // TODO：更新popupwindow的状态
-        sortWindow.update();
     }
 
     @Override
     public void initInCreasePop() {
-        View popView = View.inflate(mContext,R.layout.pop_win_layout, null);
+        View popView = View.inflate(mContext, R.layout.pop_win_layout, null);
         lvIncrease = (ListView) popView.findViewById(R.id.lsvMore);
         increaseAdapter = new IncreaseAdapter(mContext);
         lvIncrease.setAdapter(increaseAdapter);
         //创建PopupWindow对象，指定宽度和高度
         increaseWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                increaseWindow.dismiss();
+                ivIncrease.startAnimation(downAnimation);
+            }
+        });
         // 设置动画
-        //  sortWindow.setAnimationStyle(R.style.popup_window_anim);
+        // sortWindow.setAnimationStyle(R.style.popup_window_anim);
         // 设置背景颜色
-        //  sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
-        //  设置可以获取焦点
-//        increaseWindow.setFocusable(true);
+        // sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        // 设置可以获取焦点
+        // increaseWindow.setFocusable(true);
         // 设置可以触摸弹出框以外的区域
         increaseWindow.setOutsideTouchable(true);
         increaseWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -268,25 +280,28 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_title_right:
-                if(increaseWindow!=null&&increaseWindow.isShowing()){
-                    increaseWindow.dismiss();
-                }
+
                 if (sortWindow.isShowing()) {
                     sortWindow.dismiss();
                 } else {
                     //   以下拉的方式显示，并且可以设置显示的位置
                     sortWindow.showAsDropDown(head);
+
+                    if (increaseWindow != null && increaseWindow.isShowing()) {
+                        increaseWindow.dismiss();
+                    }
                 }
                 break;
             case R.id.ll_increase:
-                if(sortWindow!=null&&sortWindow.isShowing()){
-                    sortWindow.dismiss();
-                }
+
                 if (increaseWindow.isShowing()) {
                     increaseWindow.dismiss();
                 } else {
                     ivIncrease.startAnimation(upAnimation);
                     increaseWindow.showAsDropDown(rlOrther);
+                    if (sortWindow != null && sortWindow.isShowing()) {
+                        sortWindow.dismiss();
+                    }
                 }
 
                 break;
@@ -301,7 +316,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             increaseWindow.dismiss();
             return true;
         }
-        if(sortWindow!=null&&sortWindow.isShowing()){
+        if (sortWindow != null && sortWindow.isShowing()) {
             sortWindow.dismiss();
             return true;
         }
