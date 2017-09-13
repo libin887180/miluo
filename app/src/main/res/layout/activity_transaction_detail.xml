@@ -80,8 +80,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ScrollView
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tr_enable_loadmore="false"
+            app:tr_head_height="60dp"
+            android:paddingBottom="60dp"
+            app:tr_max_head_height="100dp">
+        <com.zhongdi.miluo.widget.ObservableScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none">
@@ -90,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="60dp">
+              >
 
                 <RelativeLayout
                     android:id="@+id/rl_fund_info"
@@ -454,25 +461,13 @@
                         android:background="@color/divider_list" />
 
                 </RelativeLayout>
-
-                <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-                    android:id="@+id/refreshLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:tr_enable_loadmore="false"
-                    app:tr_head_height="60dp"
-                    app:tr_max_head_height="100dp">
-
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-
+                        android:layout_height="wrap_content" />
             </LinearLayout>
-        </ScrollView>
-
+        </com.zhongdi.miluo.widget.ObservableScrollView>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

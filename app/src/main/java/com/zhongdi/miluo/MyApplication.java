@@ -2,6 +2,9 @@ package com.zhongdi.miluo;
 
 import android.app.Application;
 
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
@@ -20,6 +23,8 @@ public class MyApplication extends Application {
         mInstance = this;
         initLog();
         initNet();
+        TwinklingRefreshLayout.setDefaultHeader(SinaRefreshView.class.getName());
+        TwinklingRefreshLayout.setDefaultFooter(BallPulseView.class.getName());
     }
 
     private void initLog() {

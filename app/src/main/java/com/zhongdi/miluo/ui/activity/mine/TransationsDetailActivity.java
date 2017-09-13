@@ -19,7 +19,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.mine.TransAdapter;
@@ -28,8 +27,8 @@ import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
-import com.zhongdi.miluo.widget.mpchart.MyLineChart;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
+import com.zhongdi.miluo.widget.mpchart.MyLineChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     protected void initialize() {
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadmore(true);
-        refreshLayout.setDefaultFooter(BallPulseView.class.getName());
+        refreshLayout.setEnableOverScroll(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onLoadMore(TwinklingRefreshLayout refresh) {
@@ -96,9 +95,18 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         datas.add("保本");
         datas.add("保本");
         datas.add("保本");
+        datas.add("保本");
+        datas.add("保本");
+        datas.add("保本");
         adapter = new TransAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override

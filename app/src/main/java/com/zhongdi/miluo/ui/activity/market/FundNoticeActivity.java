@@ -43,6 +43,12 @@ public class FundNoticeActivity extends BaseActivity<FundNoticePresenter> implem
         datas.add("1111");
         datas.add("1111");
         datas.add("1111");
+        datas.add("1111");
+        datas.add("1111");
+        datas.add("1111");
+        datas.add("1111");
+        datas.add("1111");
+        datas.add("1111");
         noticeAdapter = new FundNoticeAdapter(mContext, datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(noticeAdapter);
