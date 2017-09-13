@@ -220,11 +220,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         //   创建PopupWindow对象，指定宽度和高度
         sortWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //   设置动画
-//        sortWindow.setAnimationStyle(R.style.popup_window_anim);
+        //   sortWindow.setAnimationStyle(R.style.popup_window_anim);
         //   设置背景颜色
-//        sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        //   sortWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
         //   设置可以获取焦点
-//        sortWindow.setFocusable(true);
+        //   sortWindow.setFocusable(true);
         //   设置可以触摸弹出框以外的区域
         sortWindow.setOutsideTouchable(true);
         // TODO：更新popupwindow的状态
