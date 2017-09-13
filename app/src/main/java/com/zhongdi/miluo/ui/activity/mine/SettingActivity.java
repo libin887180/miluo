@@ -7,6 +7,7 @@ import android.view.View;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.SettingPresenter;
+import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.view.SettingView;
 
 import butterknife.OnClick;
@@ -29,7 +30,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
 
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center})
+    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center,R.id.ll_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
@@ -37,6 +38,9 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 break;
             case R.id.rl_safe_center:
                 startActivity(new Intent(mContext, SafeCenterActivity.class));
+                break;
+            case R.id.ll_test:
+                startActivity(new Intent(mContext, TestActivity.class));
                 break;
         }
     }

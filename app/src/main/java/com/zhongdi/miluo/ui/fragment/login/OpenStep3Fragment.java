@@ -38,7 +38,7 @@ public class OpenStep3Fragment extends Fragment {
     public static OpenStep3Fragment newInstance(String info) {
         Bundle args = new Bundle();
         OpenStep3Fragment fragment = new OpenStep3Fragment();
-        args.putString("info", info);
+        args.putString("index", info);
         fragment.setArguments(args);
         return fragment;
     }

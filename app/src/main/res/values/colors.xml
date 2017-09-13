@@ -10,7 +10,8 @@
     <color name="text_555">#555</color>
     <color name="transparent">#00000000</color>
     <color name="divider_list">#d4d4d4</color>
-    <color name="red">#FF4242</color>
+    <color name="red">#FF2C40</color>
+    <color name="light_red">#60FF4242</color>
     <color name="grey">#999999</color>
     <color name="btn_unable">#e6e6e6</color>
 

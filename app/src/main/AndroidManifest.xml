@@ -54,6 +54,8 @@
         <activity android:name=".ui.activity.market.BuyFundActivity"/>
         <activity android:name=".ui.activity.market.SellFundActivity"/>
         <activity android:name=".ui.activity.mine.TransactionsActivity"/>
+        <activity android:name=".ui.activity.login.TestActivity"/>
+        <activity android:name=".ui.activity.login.TestResultActivity"/>
         <activity android:name=".ui.activity.mine.TransationsRecordActivity"/>
         <activity android:name=".ui.activity.mine.TransationsDetailActivity"/>
         <activity android:name=".ui.activity.SearchActivity"/>
