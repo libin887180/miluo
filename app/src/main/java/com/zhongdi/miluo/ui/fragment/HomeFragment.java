@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
 
     private View rootView;
     private List<String> images;
+    private List<String> scrollMsgs;
     private List<String> titles;
     private LinearLayoutManager mLayoutManager;
 
@@ -73,7 +74,6 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
         if (bundle != null) {
             String name = bundle.get("info").toString();
 //            Logger.d("HomeFragment", name);
-
         }
     }
 
@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
         setupRefreshView();
         lv = rootView.findViewById(R.id.lv);
         lv.setFocusable(false);
-        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, images);
+        HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, scrollMsgs);
         lv.setAdapter(homePageAdapter);
         head.getBackground().setAlpha(0);
         mScrollView.setOnObservableScrollViewListener(this);
@@ -118,14 +118,10 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
 
     private void initData() {
 
-        images = new ArrayList<String>();
-        images.add("股票基金奥斯卡几点来");
-        images.add("奥术大师多");
-        images.add("的范德萨发");
-        titles = new ArrayList<String>();
-        titles.add("1");
-        titles.add("2");
-        titles.add("3");
+        scrollMsgs = new ArrayList<String>();
+        scrollMsgs.add("股票基金奥斯卡几点来");
+        scrollMsgs.add("奥术大师多");
+        scrollMsgs.add("的范德萨发");
     }
 
 

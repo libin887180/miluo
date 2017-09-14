@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.widget.MarqueeView;
 
 import java.util.ArrayList;
@@ -21,15 +23,16 @@ import java.util.List;
 public class HomePageAdapter extends BaseAdapter {
     private Context mContext;
     private List<String> datas;
-    private List<String> msgs;
+    private List<String> scrollMsgs;
     final int TYPE_1 = 0;
     final int TYPE_2 = 1;
+
     LayoutInflater inflater;
 
-    public HomePageAdapter(Context context, List<String> datas, List<String> msgs) {
+    public HomePageAdapter(Context context, List<String> datas, List<String> scrollMsgs) {
         mContext = context;
         this.datas = datas;
-        this.msgs = msgs;
+        this.scrollMsgs = scrollMsgs;
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -40,7 +43,7 @@ public class HomePageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return msgs.size() + datas.size();
+        return scrollMsgs.size() + datas.size();
     }
 
     @Override
@@ -83,7 +86,7 @@ public class HomePageAdapter extends BaseAdapter {
                     marqueeView1 = (MarqueeView) convertView.findViewById(R.id.upview1);
                     List<View> views2 = new ArrayList<>();
                     views2.clear();//记得加这句话，不然可能会产生重影现象
-                    for (int i = 0; i < msgs.size(); i++) {
+                    for (int i = 0; i < scrollMsgs.size(); i++) {
                         //设置滚动的单个布局
                         LinearLayout moreView = (LinearLayout) inflater.inflate(R.layout.item_view_single, null);
                         //初始化布局的控件
@@ -95,11 +98,11 @@ public class HomePageAdapter extends BaseAdapter {
                         moreView.findViewById(R.id.rl).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                mContext.startActivity(new Intent(mContext, InfomationsActivity.class));
                             }
                         });
                         //进行对控件赋值
-                        tv1.setText(msgs.get(i).toString());
+                        tv1.setText(scrollMsgs.get(i).toString());
 
                         //添加到循环滚动数组里面去
                         views2.add(moreView);
