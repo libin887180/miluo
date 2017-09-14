@@ -12,8 +12,7 @@ import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
-import com.zhongdi.miluo.ui.activity.login.LoginActivity;
-import com.zhongdi.miluo.ui.fragment.DemoFragment;
+import com.zhongdi.miluo.ui.fragment.CollectionFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
 import com.zhongdi.miluo.ui.fragment.MineFragment;
@@ -29,7 +28,7 @@ public class MainActivity extends BaseActivity2 {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
-    private int selectTab = 0 ;
+    private int selectTab = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class MainActivity extends BaseActivity2 {
 
         adapter.addFragment(HomeFragment.newInstance("首页"));
         adapter.addFragment(MarketFragment.newInstance("超市"));
-        adapter.addFragment(DemoFragment.newInstance("自选"));
+        adapter.addFragment(CollectionFragment.newInstance("自选"));
         adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
@@ -119,12 +118,12 @@ public class MainActivity extends BaseActivity2 {
                     selectTab = 1;
                     return true;
                 case R.id.navigation_self:
-                    Intent intent = new Intent(mContext, LoginActivity.class);
-                    startActivityForResult(intent, 101);
-                    return true;
-//                    viewPager.setCurrentItem(2);
-//                selectTab = 2;
+//                    Intent intent = new Intent(mContext, LoginActivity.class);
+//                    startActivityForResult(intent, 101);
 //                    return true;
+                    viewPager.setCurrentItem(2);
+                    selectTab = 2;
+                    return true;
                 case R.id.navigation_mine:
                     viewPager.setCurrentItem(3);
                     selectTab = 3;
