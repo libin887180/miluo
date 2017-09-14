@@ -102,7 +102,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     // 显示弹窗
     public void setupCardPopupWindow() {
         // 初始化弹窗
-        cardPopView = View.inflate(this, R.layout.card_list_view, null);
+        cardPopView = View.inflate(this, R.layout.pop_card_list_view, null);
         mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);

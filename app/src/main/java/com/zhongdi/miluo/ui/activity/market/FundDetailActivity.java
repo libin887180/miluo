@@ -3,7 +3,10 @@ package com.zhongdi.miluo.ui.activity.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -23,6 +26,8 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     SegmentControl segmentControl;
     @BindView(R.id.mViewPager)
     NoScrollViewPager mViewPager;
+    private View cardPopView;
+    private PopupWindow mCardPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     @Override
     protected void initialize() {
+        setupSharePopupWindow();
         mViewPager.setScroll(false);
         segmentControl.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
             @Override
@@ -74,8 +80,21 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         });
 
     }
-
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history,R.id.tv_buy})
+    private void showCardPopupWindow() {
+        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+    // 显示弹窗
+    public void setupSharePopupWindow() {
+        // 初始化弹窗
+        cardPopView = View.inflate(this, R.layout.pop_share_view, null);
+        mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        // 设置动画
+        mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
+        mCardPopupWindow.setOutsideTouchable(true);
+    }
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history,R.id.tv_buy,R.id.img_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -95,6 +114,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
             case R.id.tv_buy:
                 startActivity(new Intent(mContext, BuyFundActivity.class));
+                break;
+            case R.id.img_title_right:
+                showCardPopupWindow();
                 break;
         }
     }
