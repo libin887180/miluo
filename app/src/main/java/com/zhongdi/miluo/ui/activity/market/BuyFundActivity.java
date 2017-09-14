@@ -26,6 +26,7 @@ import com.zhongdi.miluo.view.BuyFundView;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
+import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         datas.add("1");
         datas.add("1");
        listAdapter = new CardListAdapter(mContext, datas);
+        recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {

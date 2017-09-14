@@ -55,6 +55,7 @@
         <activity android:name=".ui.activity.market.SellFundActivity"/>
         <activity android:name=".ui.activity.mine.TransactionsActivity"/>
         <activity android:name=".ui.activity.login.TestActivity"/>
+        <activity android:name=".ui.activity.login.ChooseBankActivity"/>
         <activity android:name=".ui.activity.login.InfomationsActivity"/>
         <activity android:name=".ui.activity.login.MessagesActivity"/>
         <activity android:name=".ui.activity.login.TestResultActivity"/>

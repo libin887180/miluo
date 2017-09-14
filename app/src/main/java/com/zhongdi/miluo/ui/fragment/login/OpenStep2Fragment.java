@@ -32,6 +32,7 @@ public class OpenStep2Fragment extends Fragment {
     EditText etPassword1;
     @BindView(R.id.et_password2)
     EditText etPassword2;
+    private View rootView;
 
     public static OpenStep2Fragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -45,14 +46,24 @@ public class OpenStep2Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_open_step2, null);
-        unbinder = ButterKnife.bind(this, view);
-        initialize();
-        disableNextBtn();
-        return view;
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_open_step2, null);
+            unbinder = ButterKnife.bind(this, rootView);
+            initialize();
+        } else {
+            // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
+            // 要不然会发生这个rootview已经有parent的错误。
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+            unbinder = ButterKnife.bind(this, rootView);
+        }
+        return rootView;
     }
 
     private void initialize() {
+        disableNextBtn();
         etPassword1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

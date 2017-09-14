@@ -48,6 +48,8 @@
         <com.zhongdi.miluo.widget.MaxHeightView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:mhv_HeightDimen="250dp">
 
 
