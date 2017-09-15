@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.zhongdi.miluo.adapter.CollectionAdapter;
 import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.CollectionPresenter;
+import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.view.CollectionView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
@@ -208,6 +210,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_title_right:
+                startActivity(new Intent(mContext, SearchActivity.class));
 
                 break;
             case R.id.ll_increase:

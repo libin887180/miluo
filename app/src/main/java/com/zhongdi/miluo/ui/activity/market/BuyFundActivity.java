@@ -92,7 +92,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPayView.getTitle().setText("输入六位数字密码");
         // 设置动画
         mPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
-        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
         mPopupWindow.setOutsideTouchable(true);
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override

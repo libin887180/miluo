@@ -8,7 +8,13 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -21,6 +27,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
+import com.zhongdi.miluo.adapter.FenhongTypeAdapter;
 import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
@@ -36,7 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TransationsDetailActivity extends BaseActivity<TransactionDetailPresenter> implements TransactionDetailView {
+public class TransationsDetailActivity extends BaseActivity<TransactionDetailPresenter> implements TransactionDetailView, View.OnClickListener {
 
     @BindView(R.id.line_chart)
     MyLineChart mChart;
@@ -44,8 +51,15 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
+    @BindView(R.id.iv_fenhong)
+    ImageView ivFenhong;
+    @BindView(R.id.tv_fenhong)
+    TextView tvFenhong;
     private TransAdapter adapter;
-
+    private RecyclerView fenhongRv;
+    private  FenhongTypeAdapter listAdapter;
+    private PopupWindow mCardPopupWindow;
+    private View fenhongPopView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +73,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
 
     @Override
     protected void initialize() {
+        setupCardPopupWindow();
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadmore(true);
         refreshLayout.setEnableOverScroll(false);
@@ -78,10 +93,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                         datas.add("保本");
                         datas.add("保本");
                         datas.add("保本");
-                        adapter.addDatas(datas,true);
+                        adapter.addDatas(datas, true);
                         refreshLayout.finishLoadmore();
                     }
-                },2000);
+                }, 2000);
             }
         });
         setUpChart();
@@ -195,7 +210,8 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             mChart.setData(data);
         }
     }
-    @OnClick({R.id.tv_sell,R.id.tv_buy})
+
+    @OnClick({R.id.tv_sell, R.id.tv_buy, R.id.ll_fenhong})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_buy:
@@ -204,8 +220,49 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             case R.id.tv_sell:
                 startActivity(new Intent(mContext, SellFundActivity.class));
                 break;
+            case R.id.ll_fenhong:
+
+                showPswPopupWindow();
+                break;
         }
     }
+    private void showPswPopupWindow() {
+        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+    // 显示弹窗
+    public void setupCardPopupWindow() {
+        // 初始化弹窗
+        fenhongPopView = View.inflate(this, R.layout.pop_card_list_view, null);
+        mCardPopupWindow = new PopupWindow(fenhongPopView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        fenhongPopView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+            }
+        });
+        fenhongPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
+        fenhongRv = fenhongPopView.findViewById(R.id.rl_card_list);
+        List<String> datas = new ArrayList<>();
+        datas.add("红利再投");
+        datas.add("现金分红");
+        listAdapter = new FenhongTypeAdapter(mContext, datas);
+        fenhongRv.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
+        fenhongRv.setLayoutManager(new LinearLayoutManager(mContext));
+        fenhongRv.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                listAdapter.setCheck(position);
+                mCardPopupWindow.dismiss();
+            }
+        });
+        // 设置动画
+        mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
+        mCardPopupWindow.setOutsideTouchable(true);
+    }
+
     @Override
     public void setUpChart() {
         mChart.getDescription().setEnabled(false);//描述不可见
@@ -236,5 +293,26 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         legend.setYOffset(20f);
         mChart.animateX(1000);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_pop_card_back:
+                mCardPopupWindow.dismiss();
+                break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mCardPopupWindow != null && mCardPopupWindow.isShowing()) {
+                mCardPopupWindow.dismiss();
+                return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
