@@ -71,6 +71,8 @@ public class PayView extends RelativeLayout {
         }
         mGridView.setAdapter(adapter);
     }
+
+
     /**
      * 设置监听方法，在第6位输入完后触发
      */
@@ -93,6 +95,16 @@ public class PayView extends RelativeLayout {
                 }
             }
         });
+    }
+    /**
+     * 清空密码
+     */
+    public void clearPassword() {
+        for (int i = 0; i < 6; i++) {
+            mTextViewPsw[i].setText("");
+
+        }
+        currentIndex=-1;
     }
     /**
      * 获取输入的密码

@@ -81,6 +81,13 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         popView = View.inflate(this, R.layout.pop_window, null);
         mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPopupWindow.dismiss();
+            }
+        });
         mPayView = popView.findViewById(R.id.pv_pop_win);
         mPayView.getTitle().setText("输入六位数字密码");
         // 设置动画
@@ -105,6 +112,12 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         cardPopView = View.inflate(this, R.layout.pop_card_list_view, null);
         mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        cardPopView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+            }
+        });
         cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
          recyclerView = cardPopView.findViewById(R.id.rl_card_list);
         List<String> datas = new ArrayList<>();
@@ -140,7 +153,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
     @Override
     protected void initialize() {
-        setupPswPopupWindow();
+//        setupPswPopupWindow();
         setupCardPopupWindow();
 
         etMoney.addTextChangedListener(new TextWatcher() {
@@ -207,6 +220,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     }
 
     private void showPswPopupWindow() {
+        setupPswPopupWindow();
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
     private void showCardPopupWindow() {
@@ -220,6 +234,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 break;
             case R.id.tv_pay_forgetPwd:
                 Toast.makeText(mContext, "忘记密码", Toast.LENGTH_SHORT).show();
+                mPayView.clearPassword();
                 break;
             case R.id.tv_pop_card_back:
                 mCardPopupWindow.dismiss();

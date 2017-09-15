@@ -55,7 +55,7 @@
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
-            android:src="@drawable/ic_sort"
+            android:src="@drawable/ic_find"
             android:scaleType="centerCrop"
             />
 

@@ -232,7 +232,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         //   设置可以获取焦点
 //           sortWindow.setFocusable(true);
         //   设置可以触摸弹出框以外的区域
-        sortWindow.setOutsideTouchable(true);
+        sortWindow.setOutsideTouchable(false);
         // TODO：更新popupwindow的状态
     }
 
@@ -258,7 +258,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         // 设置可以获取焦点
         // increaseWindow.setFocusable(true);
         // 设置可以触摸弹出框以外的区域
-        increaseWindow.setOutsideTouchable(true);
+        increaseWindow.setOutsideTouchable(false);
         increaseWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {

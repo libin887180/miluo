@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
@@ -26,7 +27,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     SegmentControl segmentControl;
     @BindView(R.id.mViewPager)
     NoScrollViewPager mViewPager;
-    private View cardPopView;
+    private View sharePopView;
     private PopupWindow mCardPopupWindow;
 
     @Override
@@ -86,9 +87,15 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     // 显示弹窗
     public void setupSharePopupWindow() {
         // 初始化弹窗
-        cardPopView = View.inflate(this, R.layout.pop_share_view, null);
-        mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
+        sharePopView = View.inflate(this, R.layout.pop_share_view, null);
+        mCardPopupWindow = new PopupWindow(sharePopView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        sharePopView.findViewById(R.id.tv_cancle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+            }
+        });
         // 设置动画
         mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
         // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
@@ -120,5 +127,15 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
         }
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mCardPopupWindow != null && mCardPopupWindow.isShowing()) {
+                mCardPopupWindow.dismiss();
+                return true;
+            }
 
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
