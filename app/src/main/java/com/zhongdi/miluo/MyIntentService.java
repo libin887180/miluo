@@ -3,6 +3,7 @@ package com.zhongdi.miluo;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
@@ -32,6 +33,7 @@ public class MyIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.e("初始化","**************");
         TwinklingRefreshLayout.setDefaultHeader(SinaRefreshView.class.getName());
         TwinklingRefreshLayout.setDefaultFooter(BallPulseView.class.getName());
         initLog();
