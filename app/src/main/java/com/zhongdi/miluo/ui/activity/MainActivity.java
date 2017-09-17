@@ -13,7 +13,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
 import com.zhongdi.miluo.ui.fragment.CollectionFragment;
-import com.zhongdi.miluo.ui.fragment.HomeFragment;
+import com.zhongdi.miluo.ui.fragment.HomeFragment2;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
 import com.zhongdi.miluo.ui.fragment.MineFragment;
 import com.zhongdi.miluo.widget.NoScrollViewPager;
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity2 {
         viewPager.setScroll(false);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(HomeFragment.newInstance("首页"));
+        adapter.addFragment(HomeFragment2.newInstance("首页"));
         adapter.addFragment(MarketFragment.newInstance("超市"));
         adapter.addFragment(CollectionFragment.newInstance("自选"));
         adapter.addFragment(MineFragment.newInstance("我的"));

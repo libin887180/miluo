@@ -67,7 +67,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_mine2;
+        return R.layout.fragment_mine;
     }
 
     @Override

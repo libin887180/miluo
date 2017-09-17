@@ -6,6 +6,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bg"
+        android:orientation="horizontal">
+
+
+        <com.zhongdi.miluo.widget.reddot.IconDotTextView
+            android:id="@+id/img_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/title_img_margin"
+            android:layout_toLeftOf="@+id/tv_title_right"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            app:dot_marginTop="1px"
+            app:dot_size="10dp"
+            app:dot_visible="true"
+            app:icon="@drawable/ic_message" />
+
+        <TextView
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/img_msg"
+            android:background="@drawable/bg_search"
+            android:drawableLeft="@drawable/ic_search_white_24dp"
+            android:hint="搜索基金代码/基金名称"
+            android:paddingLeft="5dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+  </RelativeLayout>
+
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -101,48 +144,5 @@
             </LinearLayout>
         </com.zhongdi.miluo.widget.ObservableScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/head"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_height"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/title_bg"
-        android:orientation="horizontal">
-
-
-        <com.zhongdi.miluo.widget.reddot.IconDotTextView
-            android:id="@+id/img_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/title_img_margin"
-            android:layout_toLeftOf="@+id/tv_title_right"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            app:dot_marginTop="1px"
-            app:dot_size="10dp"
-            app:dot_visible="true"
-            app:icon="@drawable/ic_message" />
-
-        <TextView
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/img_msg"
-            android:background="@drawable/bg_search"
-            android:drawableLeft="@drawable/ic_search_white_24dp"
-            android:hint="搜索基金代码/基金名称"
-            android:paddingLeft="5dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="14sp" />
-  </RelativeLayout>
 </FrameLayout>
 
