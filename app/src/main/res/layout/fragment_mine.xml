@@ -28,11 +28,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/title_height"
                     android:background="@drawable/assert_bg"
                     android:orientation="vertical"
-                    android:layout_marginTop="@dimen/title_height"
-                    app:layout_collapseMode="parallax"
                     android:padding="25dp"
+                    app:layout_collapseMode="parallax"
                     app:layout_scrollFlags="scroll|enterAlways">
 
                     <LinearLayout
@@ -41,19 +41,35 @@
                         android:orientation="vertical">
 
                         <com.zhongdi.miluo.widget.RiseNumberTextView
-                            android:id="@+id/rise_tv"
+                            android:id="@+id/tv_total_asset"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="89273.12"
                             android:textColor="@color/white"
                             android:textSize="40sp" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="总资产（元）"
-                            android:textColor="@color/white_70"
-                            android:textSize="12sp" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="总资产（元）"
+                                android:textColor="@color/white_70"
+                                android:textSize="12sp" />
+
+                            <CheckBox
+                                android:id="@+id/cb_visable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:button="@drawable/checkbox_visiable"
+                                android:checked="true" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -68,7 +84,8 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
+                            <com.zhongdi.miluo.widget.RiseNumberTextView
+                               android:id="@+id/tv_yestoday_income"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="73.12"
@@ -78,7 +95,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="总资产（元）"
+                                android:text="昨日受益（元）"
                                 android:textColor="@color/white_70"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -90,7 +107,8 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
+                            <com.zhongdi.miluo.widget.RiseNumberTextView
+                                android:id="@+id/tv_total_income"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="83.12"
@@ -105,15 +123,16 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/title_height"
+                    android:background="@drawable/title_bg"
                     app:contentInsetLeft="0dp"
                     app:contentInsetStart="0dp"
-                    android:background="@drawable/title_bg"
                     app:layout_collapseMode="pin">
 
                     <RelativeLayout
@@ -126,8 +145,8 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerVertical="true"
-                            android:onClick="back"
                             android:layout_marginLeft="@dimen/title_img_margin"
+                            android:onClick="back"
                             android:scaleType="centerInside"
                             android:src="@drawable/nav_icon_back"
                             android:visibility="gone" />
@@ -137,9 +156,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/title_text_margin"
                             android:clickable="true"
                             android:text="设置"
-                            android:layout_marginLeft="@dimen/title_text_margin"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
@@ -211,10 +230,10 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpage"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

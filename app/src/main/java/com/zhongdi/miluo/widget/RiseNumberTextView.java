@@ -103,6 +103,15 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
         valueAnimator.start();
     }
 
+    public void setNumVisable(boolean  visable){
+        if(visable){
+            setText(Utils.format("##0.00").format(Double.parseDouble(number + "")));
+        }else{
+            setText("****");
+        }
+
+    }
+
     static int sizeOfInt(int x) {
         for (int i = 0; ; i++)
             if (x <= sizeTable[i])

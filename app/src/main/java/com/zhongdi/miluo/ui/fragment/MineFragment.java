@@ -8,13 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
-import com.zhongdi.miluo.ui.activity.mine.TransactionsActivity;
 import com.zhongdi.miluo.ui.activity.mine.SettingActivity;
+import com.zhongdi.miluo.ui.activity.mine.TransactionsActivity;
 import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 
@@ -35,14 +37,20 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     List<Fragment> mFragments;
     List<String> mTitles = new ArrayList<>();
-    @BindView(R.id.rise_tv)
-    RiseNumberTextView rnTextView;
+    @BindView(R.id.tv_total_asset)
+    RiseNumberTextView tvTotalAsset;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.viewpage)
     ViewPager viewpage;
 
     Unbinder unbinder;
+    @BindView(R.id.cb_visable)
+    CheckBox cbVisable;
+    @BindView(R.id.tv_yestoday_income)
+    RiseNumberTextView tvYestodayIncome;
+    @BindView(R.id.tv_total_income)
+    RiseNumberTextView tvTotalIncome;
 
 
     public static MineFragment newInstance(String info) {
@@ -62,8 +70,21 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     protected void initView(View view) {
-
+        cbVisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean cheched) {
+                setAssetVisable(cheched);
+            }
+        });
     }
+
+    private void setAssetVisable(boolean visable) {
+        tvTotalAsset.setNumVisable(visable);
+        tvYestodayIncome.setNumVisable(visable);
+        tvTotalIncome.setNumVisable(visable);
+    }
+
+
 
     @Override
     protected int getLayoutId() {
@@ -74,11 +95,11 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     public void fetchData() {
         setupViewPager(viewpage);
         // 设置数据
-        rnTextView.withNumber(892666.50f);
+        tvTotalAsset.withNumber(892666.50f);
         // 设置动画播放时间
-        rnTextView.setDuration(1000);
+        tvTotalAsset.setDuration(1000);
         // 开始播放动画
-        rnTextView.start();
+        tvTotalAsset.start();
     }
 
 
@@ -117,10 +138,10 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         return rootView;
     }
 
-    @OnClick({R.id.rise_tv, R.id.tv_title_left, R.id.tv_title_right})
+    @OnClick({R.id.tv_total_asset, R.id.tv_title_left, R.id.tv_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rise_tv:
+            case R.id.tv_total_asset:
                 break;
             case R.id.tv_title_left:
 

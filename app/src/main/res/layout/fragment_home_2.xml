@@ -374,12 +374,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
                     android:text="（基金销售业务资格证号：000000309）"
                     android:textColor="#777"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_gravity="center_horizontal"
                     android:text="基金有风险，投资需谨慎"
                     android:textColor="#777"
