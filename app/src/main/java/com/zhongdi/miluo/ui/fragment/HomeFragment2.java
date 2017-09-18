@@ -179,7 +179,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             });
             //进行对控件赋值
             tv1.setText(scrollMsgs.get(i).toString());
-
             //添加到循环滚动数组里面去
             views2.add(moreView);
         }
