@@ -22,6 +22,8 @@ import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
+import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
+import com.zhongdi.miluo.ui.activity.login.RegisterActivity;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
@@ -31,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -124,7 +127,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         hor_recyclerView.setAdapter(bankCardListAdapter);
 
         //热门基金列表
-        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()){
+        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -136,7 +139,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
         //获奖基金列表
         AwardedFundAdapter awardedFundAdapter = new AwardedFundAdapter(getActivity(), datas);
-        recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()){
+        recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -259,4 +262,15 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     }
 
+    @OnClick({R.id.btn_login, R.id.img_msg})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_login:
+                startActivity(new Intent(getActivity(), RegisterActivity.class));
+                break;
+            case R.id.img_msg:
+                startActivity(new Intent(getActivity(), MessagesActivity.class));
+                break;
+        }
+    }
 }

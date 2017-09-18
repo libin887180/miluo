@@ -351,6 +351,39 @@
                         android:overScrollMode="never"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_safe"
+                    android:drawablePadding="5dp"
+                    android:text="由浦发银行托管，资金更安全"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="基金销售服务由上海利得基金销售有限公司提供"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="（基金销售业务资格证号：000000309）"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="基金有风险，投资需谨慎"
+                    android:textColor="#777"
+                    android:textSize="14sp" />
             </LinearLayout>
         </com.zhongdi.miluo.widget.ObservableScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
