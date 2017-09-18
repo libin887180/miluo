@@ -64,6 +64,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         e.printStackTrace();
                     }
                 });
+
     }
 
     public void login(String email, String password) {

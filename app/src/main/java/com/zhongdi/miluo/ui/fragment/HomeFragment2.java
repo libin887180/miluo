@@ -124,14 +124,24 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         hor_recyclerView.setAdapter(bankCardListAdapter);
 
         //热门基金列表
-        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         recyclerViewHot.setFocusable(false);
         HotInvestmentAdapter investmentAdapter = new HotInvestmentAdapter(getActivity(), datas);
         recyclerViewHot.setAdapter(investmentAdapter);
 
         //获奖基金列表
         AwardedFundAdapter awardedFundAdapter = new AwardedFundAdapter(getActivity(), datas);
-        recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         recyclerViewAwarded.setFocusable(false);
         recyclerViewAwarded.setAdapter(awardedFundAdapter);
         //米罗懂你列表
@@ -198,10 +208,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 }
             }
         });
-//        TextHeaderView headerView = (TextHeaderView) View.inflate(this,R.layout.header_tv,null);
         refreshLayout.setHeaderView(headerView);
-//        LoadingView loadingView = new LoadingView(getActivity());
-//        refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
