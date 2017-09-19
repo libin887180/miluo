@@ -3,8 +3,11 @@ package com.zhongdi.miluo.cache;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.orhanobut.logger.Logger;
-import com.zhongdi.miluo.util.MiluoConfig;
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.util.covert.BASE64;
+import com.zhongdi.miluo.util.covert.ByteUtil;
+import com.zhongdi.miluo.util.covert.HexUtil;
 
 /**
  * @Description: SharedPreferences存储，支持对象加密存储
@@ -12,6 +15,7 @@ import com.zhongdi.miluo.util.MiluoConfig;
  * @date: 2016-12-19 15:12
  */
 public class SpCache implements ICache {
+    private static SpCache instance;
     private SharedPreferences sp;
 
     public SpCache(Context context) {
@@ -22,6 +26,13 @@ public class SpCache implements ICache {
         sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
     }
 
+    public static SpCache getInstance(Context context) {
+        if (instance == null) {
+            instance = new SpCache(context);
+        }
+        return instance;
+    }
+
     public SharedPreferences getSp() {
         return sp;
     }
@@ -29,7 +40,7 @@ public class SpCache implements ICache {
     @Override
     public void put(String key, Object ser) {
         try {
-            Logger.i(key + " put: " + ser);
+            ViseLog.i(key + " put: " + ser);
             if (ser == null) {
                 sp.edit().remove(key).apply();
             } else {
@@ -50,7 +61,7 @@ public class SpCache implements ICache {
             byte[] bytes = HexUtil.decodeHex(hex.toCharArray());
             bytes = BASE64.decode(bytes);
             Object obj = ByteUtil.byteToObject(bytes);
-            Logger.i(key + " get: " + obj);
+            ViseLog.i(key + " get: " + obj);
             return obj;
         } catch (Exception e) {
             e.printStackTrace();

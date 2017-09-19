@@ -1,4 +1,4 @@
-package com.zhongdi.miluo.util;
+package com.zhongdi.miluo.constants;
 
 /**
  * Created by kenn on 2017/9/18.

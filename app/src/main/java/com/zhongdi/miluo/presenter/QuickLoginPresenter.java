@@ -1,7 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
@@ -57,7 +57,7 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
 
                     @Override
                     public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        Logger.w(response.getCode());
+                        ViseLog.w(response.getCode());
                     }
 
                     @Override
@@ -75,7 +75,7 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                 new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
                     @Override
                     public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        Logger.w(response.getCode());
+                        ViseLog.w(response.getCode());
                         request_post_3("admin", "1123456");
                     }
 

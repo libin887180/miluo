@@ -73,7 +73,6 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = bundle.get("info").toString();
-//            Logger.d("HomeFragment", name);
         }
     }
 
@@ -230,7 +229,6 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
     @Override
     public void onObservableScrollViewListener(int l, int t, int oldl, int oldt) {
         float scale;
-//        Logger.i(t+"滑动高度");
         if (t > head.getHeight() * 2.5f) {
             scale = 1;
         } else {

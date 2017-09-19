@@ -471,10 +471,20 @@ public class CommonUtils {
 		return null;
 	}
 
-	public static long getTimeSpanByMins(long beginTime, long endTime) {
-		long disTime = endTime - beginTime;
-		long mins = disTime / (1000 * 60);
-		return mins;
+	public static String getDeviceId(Context context) {
+		try {
+			android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			String device_id = tm.getDeviceId();
+			if (TextUtils.isEmpty(device_id)) {
+				device_id = "";
+			}
+			return device_id;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
+
+
 
 }

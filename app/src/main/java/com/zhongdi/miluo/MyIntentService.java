@@ -8,8 +8,8 @@ import android.util.Log;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
-import com.orhanobut.logger.LogLevel;
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
+import com.vise.log.inner.LogcatTree;
 
 import org.xutils.x;
 
@@ -38,16 +38,17 @@ public class MyIntentService extends IntentService {
         TwinklingRefreshLayout.setDefaultFooter(BallPulseView.class.getName());
         initLog();
         initNet();
-
+        isInit=true;
     }
     private void initLog() {
-        Logger.init("miluo")
-                .methodCount(2) // 方法栈打印的个数，默认是 2
-//                .hideThreadInfo() // // 隐藏线程信息，默认显示
-                .methodOffset(2) // 设置调用堆栈的函数偏移值，默认是 0
-                .logLevel(LogLevel.FULL);
-//                .logAdapter(new AndroidLogAdapter()); // 自定义一个打印适配器
-        isInit=true;
+
+        ViseLog.getLogConfig()
+                .configAllowLog(true)//是否输出日志
+                .configShowBorders(true)//是否排版显示
+                .configTagPrefix("ViseLog")//设置标签前缀
+                .configFormatTag("%d{HH:mm:ss:SSS} %t %c{-5}")//个性化设置标签，默认显示包名
+                .configLevel(Log.VERBOSE);//设置日志最小输出级别，默认Log.VERBOSE
+        ViseLog.plant(new LogcatTree());//添加打印日志信息到Logcat的树
     }
     private void initNet() {
         x.Ext.init(getApplication());

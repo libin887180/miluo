@@ -1,7 +1,7 @@
-package com.zhongdi.miluo.cache;
+package com.zhongdi.miluo.util.covert;
 
 
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
 
 public class HexUtil {
 
@@ -138,9 +138,9 @@ public class HexUtil {
         String srcStr = "待转换字符串";
         String encodeStr = encodeHexStr(srcStr.getBytes());
         String decodeStr = new String(decodeHex(encodeStr.toCharArray()));
-        Logger.i("转换前：" + srcStr);
-        Logger.i("转换后：" + encodeStr);
-        Logger.i("还原后：" + decodeStr);
+        ViseLog.i("转换前：" + srcStr);
+        ViseLog.i("转换后：" + encodeStr);
+        ViseLog.i("还原后：" + decodeStr);
     }
 
 }

@@ -1,8 +1,9 @@
 package com.zhongdi.miluo.presenter;
 
 
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -50,13 +51,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         Map<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         map.put("validateseq", validateseq);
-        Callback.Cancelable post = NetRequestUtil.getInstance().post("http://192.168.64.121:8085/lead/mobile/v1/user/pay", map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.LOGIN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
 
 
                     @Override
                     public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        Logger.w(response.getCode());
+                        ViseLog.w(response.getCode());
                     }
 
                     @Override
@@ -67,16 +68,15 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     }
 
-    public void login(String email, String password) {
+    public void login(String userName, String password) {
         Map<String, String> map = new HashMap<>();
-        map.put("username", email);
+        map.put("username", userName);
         map.put("password", password);
-        Callback.Cancelable post = netRequestUtil.post("http://192.168.64.121:8085/login", map, 101,
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN ,map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
                     @Override
                     public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        Logger.w(response.getCode());
-                        request_post_3("admin", "1123456");
+                        ViseLog.w(response.getCode());
                     }
 
                     @Override

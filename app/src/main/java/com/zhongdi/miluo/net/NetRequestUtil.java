@@ -1,8 +1,12 @@
 package com.zhongdi.miluo.net;
 
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.util.AndroidUtil;
+import com.zhongdi.miluo.util.AppUtil;
+import com.zhongdi.miluo.util.CommonUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -12,6 +16,7 @@ import java.io.File;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Map;
+
 
 /**
  * Created by libin on 2017/8/1.
@@ -128,7 +133,7 @@ public class NetRequestUtil {
         Callback.Cancelable cancelable = x.http().get(params, new Callback.CacheCallback<String>() {
             @Override
             public boolean onCache(String result) {
-                Logger.e("走的cache" + result);
+                ViseLog.e("走的cache" + result);
                 MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                 listener.onSuccess(mResponse, requestCode);
 
@@ -138,7 +143,7 @@ public class NetRequestUtil {
             @Override
             public void onSuccess(String result) {
                 if (result != null) {
-                    Logger.w("没走cache" + result);
+                    ViseLog.w("没走cache" + result);
                     //如果走了cache方法返回了true, 将不再发起网络请求, 这里拿到的result就是null,
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
@@ -193,15 +198,26 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
-        Logger.t("Url").i(url);
-        params.setHeader("plam", "andorid");
+        ViseLog.setTag("Url").i(url);
+        params.setHeader("plam", "andorid");//平台
+        params.setHeader("deviceid",CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
+        params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
+        params.setHeader("versionName", AppUtil.getVersionName(MyApplication.getInstance()));//APP版本名称
+        params.setHeader("versionCode", AppUtil.getVersionCode(MyApplication.getInstance())+"");//APP版本号
+        params.setHeader("OSVersionCode()", AppUtil.getOSVersionCode()+"");//操作系统版本号
+        params.setHeader("OSVersionName", AppUtil.getOSVersionName());//获取操作系统版本名.
+        params.setHeader("OSVersionDisplayName", AppUtil.getOSVersionDisplayName());//操作系统版本显示名
+        params.setHeader("ModelName", AppUtil.getModelName());//设备名称
+        params.setHeader("ProductName", AppUtil.getProductName());//产品名称
+        params.setHeader("BrandName", AppUtil.getBrandName());//品牌名称
+        params.setHeader("IpAdress", AndroidUtil.getLocalIpAddress(MyApplication.getInstance()));//本地Ip地址
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
-                params.addBodyParameter(entry.getKey(), entry.getValue());
+                params.addParameter(entry.getKey(), entry.getValue());
             }
         }
-        Logger.t("Headers").i(params.getHeaders().toString());
-        Logger.t("params").v(params.getBodyParams().toString());
+        ViseLog.setTag("Headers").w(params.getHeaders());
+        ViseLog.setTag("params").v(params.getStringParams());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
 
             @Override
@@ -251,7 +267,7 @@ public class NetRequestUtil {
 
             @Override
             public boolean onCache(String result) {
-                Logger.e("走的cache" + result);
+                ViseLog.e("走的cache" + result);
                 MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                 listener.onSuccess(mResponse, requestCode);
                 return true;//这里返回一个true, 就是走了cache就不再发起网络请求了, 返回一个false, 就是不信任缓存数据, 再次发起网络请求
@@ -260,7 +276,7 @@ public class NetRequestUtil {
             @Override
             public void onSuccess(String result) {
                 if (result != null) {
-                    Logger.i(result);
+                    ViseLog.i(result);
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
                 }

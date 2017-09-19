@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         switch (view.getId()) {
             case R.id.btn_login:
 
-                openMain();
+//                openMain();
 //                if (presenter.isEmailValid(etUsername.getText().toString())) {
 //                    openMain();
 //                } else {
@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 //                    });
 //                }
 //
-//                presenter.login("admin", "123456");
+                presenter.login("admin", "123456");
 
                 break;
             case R.id.tv_title_right:

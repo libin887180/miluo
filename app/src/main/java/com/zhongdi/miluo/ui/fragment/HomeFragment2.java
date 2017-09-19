@@ -22,8 +22,9 @@ import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
+import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
-import com.zhongdi.miluo.ui.activity.login.RegisterActivity;
+import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
@@ -77,7 +78,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = bundle.get("info").toString();
-//            Logger.d("HomeFragment", name);
         }
     }
 
@@ -246,7 +246,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     @Override
     public void onObservableScrollViewListener(int l, int t, int oldl, int oldt) {
         float scale;
-//        Logger.i(t+"滑动高度");
         if (t > head.getHeight() * 2.5f) {
             scale = 1;
         } else {
@@ -265,7 +264,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                startActivity(new Intent(getActivity(), RegisterActivity.class));
+                ActivityUtil.startForwardActivity(getActivity(),LoginActivity.class);
                 break;
             case R.id.img_msg:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));

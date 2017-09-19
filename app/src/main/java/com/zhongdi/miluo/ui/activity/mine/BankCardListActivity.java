@@ -13,7 +13,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
-import com.orhanobut.logger.Logger;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankCardListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
@@ -122,12 +122,12 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                Logger.i("11", "刷新");
+                ViseLog.i("11", "刷新");
             }
 
             @Override
             public void loginClick() {
-                Logger.i("11", "登录");
+                ViseLog.i("11", "登录");
             }
         });
 
