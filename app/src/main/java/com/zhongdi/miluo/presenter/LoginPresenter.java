@@ -6,6 +6,7 @@ import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
+import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.LoginView;
 
@@ -73,10 +74,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         map.put("username", userName);
         map.put("password", password);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN ,map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
-                    public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        ViseLog.w(response.getCode());
+                    public void onSuccess(MResponse<UserInfo> response, int requestCode) {
+                        ViseLog.w(response.getBody());
                     }
 
                     @Override

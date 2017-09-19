@@ -11,6 +11,8 @@ public class URLConfig {
     public static final String BASE_URL = "http://192.168.64.120:8085/";
     /** 测试接口*/
 //    public static final String URL = "http://202.102.101.138:12099/Service.asmx/GetInformation";
-    /** 验证码*/
+
     public static final String LOGIN = BASE_URL+"login";
+    /** 验证码*/
+    public static final String SEND_MSG = BASE_URL+"sendMessage";
 }

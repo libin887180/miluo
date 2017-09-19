@@ -198,7 +198,7 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
-        ViseLog.setTag("Url").i(url);
+
         params.setHeader("plam", "andorid");//平台
         params.setHeader("deviceid",CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
         params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
@@ -216,13 +216,15 @@ public class NetRequestUtil {
                 params.addParameter(entry.getKey(), entry.getValue());
             }
         }
-        ViseLog.setTag("Headers").w(params.getHeaders());
-        ViseLog.setTag("params").v(params.getStringParams());
+//        ViseLog.setTag("Url").i(url);
+//        ViseLog.setTag("Headers").w(params.getHeaders());
+//        ViseLog.setTag("params").v(params.getStringParams());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
 
             @Override
             public void onSuccess(String result) {
                 if (result != null) {
+                    ViseLog.setTag("response").v(result);
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
                     listener.onSuccess(mResponse, requestCode);
                 }

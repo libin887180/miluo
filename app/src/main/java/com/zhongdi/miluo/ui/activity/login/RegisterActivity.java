@@ -159,9 +159,10 @@ public class RegisterActivity extends BaseActivity<RegistPresenter> implements R
             case R.id.tv_send_code:
                 view.setEnabled(false);
                 timer.start();
+                presenter.sendMessage(etUsername.getText().toString());
                 break;
             case R.id.btn_regist:
-                presenter.regist();
+                presenter.regist(etUsername.getText().toString(),etPassword.getText().toString(),etYzm.getText().toString());
                 break;
         }
     }
