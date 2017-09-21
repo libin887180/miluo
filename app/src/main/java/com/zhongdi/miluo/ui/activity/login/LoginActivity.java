@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.presenter.LoginPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
@@ -36,11 +37,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     TextView btnRegister;
     @BindView(R.id.email_login_form)
     RelativeLayout emailLoginForm;
+    private String source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_login);
+        source = getIntent().getExtras().getString(IntentConfig.SOURCE);
     }
 
 
@@ -49,24 +52,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         switch (view.getId()) {
             case R.id.btn_login:
 
-//                openMain();
-//                if (presenter.isEmailValid(etUsername.getText().toString())) {
-//                    openMain();
-//                } else {
-//                    showDialog("", "登录密码错误，还剩4次机会", "找回密码", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    }, "重新输入", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//
-//                        }
-//                    });
-//                }
-//
-                presenter.login("admin", "123456");
+                presenter.login(etUsername.getText().toString(), etPassword.getText().toString());
 
                 break;
             case R.id.tv_title_right:
@@ -101,9 +87,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void quickLogin() {
-        startActivity(new Intent(applica, QuickLoginActivity.class));
+    public void showErrorPswDialog() {
+        showDialog("", "登录密码错误，还剩4次机会", "找回密码", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        }, "重新输入", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
+
 
     @Override
     public void openMain() {

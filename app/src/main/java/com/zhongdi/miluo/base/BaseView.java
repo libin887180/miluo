@@ -5,4 +5,6 @@ package com.zhongdi.miluo.base;
  */
 
 public interface BaseView {
+    void  showToast(String  msg);
+    void  showToast(int resId);
 }

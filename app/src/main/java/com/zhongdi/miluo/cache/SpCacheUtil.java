@@ -2,6 +2,8 @@ package com.zhongdi.miluo.cache;
 
 import android.content.Context;
 
+import com.zhongdi.miluo.MyApplication;
+
 /**
  * @Description: SharedPreferences存储，支持对象加密存储
  * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
@@ -15,9 +17,9 @@ public class SpCacheUtil {
         spCache = SpCache.getInstance(context);
     }
 
-    public static SpCacheUtil getInstance(Context context) {
+    public static SpCacheUtil getInstance() {
         if (instance == null) {
-            instance = new SpCacheUtil(context);
+            instance = new SpCacheUtil(MyApplication.getInstance());
         }
         return instance;
     }
@@ -47,7 +49,7 @@ public class SpCacheUtil {
      *
      * @param userAccount
      */
-    public void setLoginAccount(String userAccount) {
+    public void saveLoginAccount(String userAccount) {
         spCache.put("ACCOUNT", userAccount);
     }
 

@@ -28,4 +28,10 @@ public class MiluoConfig {
 
     public static final String DEFAULT_DOWNLOAD_DIR = "download";//默认下载目录
     public static final String DEFAULT_DOWNLOAD_FILE_NAME = "download_file.tmp";//默认下载文件名称
+
+    public static final String SUCCESS = "0";
+    public static final String ERROR = "ERROR";
+
+
+
 }

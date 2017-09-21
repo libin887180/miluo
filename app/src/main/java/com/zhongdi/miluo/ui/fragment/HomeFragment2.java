@@ -21,6 +21,7 @@ import com.zhongdi.miluo.adapter.AwardedFundAdapter;
 import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
@@ -264,7 +265,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                ActivityUtil.startForwardActivity(getActivity(),LoginActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                ActivityUtil.startForwardActivity(getActivity(),LoginActivity.class,bundle,false);
                 break;
             case R.id.img_msg:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));

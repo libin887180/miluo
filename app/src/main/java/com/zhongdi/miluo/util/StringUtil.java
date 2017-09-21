@@ -2,6 +2,11 @@ package com.zhongdi.miluo.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -73,7 +78,25 @@ public class StringUtil {
     public static boolean isNullOrEmpty(String str) {
         return (str == null) || (str.trim().length() == 0);
     }
-
+    /**
+     * 返回一个高亮spannable
+     * @param content 文本内容
+     * @param color   高亮颜色
+     * @param start   起始位置
+     * @param end     结束位置
+     * @return 高亮spannable
+     */
+    public static CharSequence getHighLightText(String content, int color, int start, int end) {
+        if (TextUtils.isEmpty(content)) {
+            return "";
+        }
+        start = start >= 0 ? start : 0;
+        end = end <= content.length() ? end : content.length();
+        SpannableString spannable = new SpannableString(content);
+        CharacterStyle span = new ForegroundColorSpan(color);
+        spannable.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
     /**
      * 去掉字符串两端的空白字符。因为String类里边的trim()方法不能出现null.trim()的情况，因此这里重新写一个工具方法。
      *

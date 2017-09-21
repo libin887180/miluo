@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements ObservableScrollView.OnObs
     private void initView() {
         initBanner(rootView);
         setupRefreshView();
-        lv = rootView.findViewById(R.id.lv);
+        lv = (NOScollListView) rootView.findViewById(R.id.lv);
         lv.setFocusable(false);
         HomePageAdapter homePageAdapter = new HomePageAdapter(getActivity(), titles, scrollMsgs);
         lv.setAdapter(homePageAdapter);

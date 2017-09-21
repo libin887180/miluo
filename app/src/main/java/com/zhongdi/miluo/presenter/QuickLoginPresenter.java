@@ -61,9 +61,14 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     }
 
                     @Override
-                    public void onFailed(Throwable e) {
-                        e.printStackTrace();
+                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
                 });
     }
 
@@ -80,9 +85,14 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     }
 
                     @Override
-                    public void onFailed(Throwable e) {
-                        e.printStackTrace();
+                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
                 });
     }
 

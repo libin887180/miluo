@@ -66,7 +66,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (!TextUtils.isEmpty(messsage)) {
             dialog.setMsg(messsage);
         }
-        dialog.setPositiveButton("找回密码", okListener).setNegativeButton("重新输入", cancleListener);
+        dialog.setPositiveButton(positiveMsg, okListener).setNegativeButton(negative, cancleListener);
 
         dialog.show();
     }

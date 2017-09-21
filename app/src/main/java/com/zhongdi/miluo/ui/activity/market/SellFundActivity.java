@@ -44,7 +44,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
         popView = View.inflate(this, R.layout.pop_window, null);
         mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        mPayView = popView.findViewById(R.id.pv_pop_win);
+        mPayView = (PayView) popView.findViewById(R.id.pv_pop_win);
         mPayView.getTitle().setText("输入六位数字密码");
         // 设置动画
         mPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);

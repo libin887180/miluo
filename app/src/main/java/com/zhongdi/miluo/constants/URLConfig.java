@@ -15,4 +15,6 @@ public class URLConfig {
     public static final String LOGIN = BASE_URL+"login";
     /** 验证码*/
     public static final String SEND_MSG = BASE_URL+"sendMessage";
+    /** 注册*/
+    public static final String REGISTER = BASE_URL+"register";
 }

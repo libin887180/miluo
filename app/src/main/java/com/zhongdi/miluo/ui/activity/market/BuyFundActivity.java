@@ -88,7 +88,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 mPopupWindow.dismiss();
             }
         });
-        mPayView = popView.findViewById(R.id.pv_pop_win);
+        mPayView = (PayView) popView.findViewById(R.id.pv_pop_win);
         mPayView.getTitle().setText("输入六位数字密码");
         // 设置动画
         mPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
@@ -118,7 +118,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             }
         });
         cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
-         recyclerView = cardPopView.findViewById(R.id.rl_card_list);
+         recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
         List<String> datas = new ArrayList<>();
         datas.add("1");
         datas.add("1");

@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:background="@null"
-                    android:hint="输入手机号"
+                    android:hint="输入验证码"
                     android:imeOptions="actionNext"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"

@@ -1,13 +1,18 @@
 package com.zhongdi.miluo.presenter;
 
 
+import android.text.TextUtils;
+
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.LoginView;
 
 import org.xutils.common.Callback;
@@ -27,25 +32,25 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void isLogin() {
-//        if (SessionManager.checkExist("is_login")) {
-//            if (SessionManager.grabBoolean("is_login")) {
-//                view.openMain();
-//            }
-//        }
+
+
     }
 
     /**
      * 账号格式验证
      */
-    public boolean isEmailValid(String email) {
-        boolean flag = false;
-        String[] accountArray = email.split("@");
-        if (accountArray.length == 2 && !"".equals(accountArray[0]) && !"".equals
-                (accountArray[1])) {
-            flag = true;
+    public boolean isValid(String userName, String password) {
+
+        if (!StringUtil.isPhoneNum(userName)) {
+            view.showToast("请输入正确格式的手机号");
+            return false;
         }
 
-        return flag;
+        if (StringUtil.getStringLength(password) < 6) {
+            view.showToast("请输入大于6位的密码");
+            return false;
+        }
+        return true;
     }
 
     public void request_post_3(String mobile, String validateseq) {
@@ -62,27 +67,47 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     }
 
                     @Override
-                    public void onFailed(Throwable e) {
-                        e.printStackTrace();
+                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
                 });
 
     }
 
     public void login(String userName, String password) {
+        if (!isValid(userName, password)) {
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("password", password);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN ,map, 101,
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {
-                        ViseLog.w(response.getBody());
+                        if (TextUtils.equals(response.getCode(), MiluoConfig.SUCCESS)) {
+                            ViseLog.w(response.getBody());
+                            SpCacheUtil.getInstance().saveLoginAccount(response.getBody().getName());
+
+                        } else {
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
-                    public void onFailed(Throwable e) {
-                        e.printStackTrace();
+                    public void onFailed(MResponse<UserInfo> response, int requestCode) {
+
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
                 });
     }

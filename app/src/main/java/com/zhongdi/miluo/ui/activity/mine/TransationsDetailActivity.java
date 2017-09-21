@@ -242,7 +242,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             }
         });
         fenhongPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
-        fenhongRv = fenhongPopView.findViewById(R.id.rl_card_list);
+        fenhongRv = (RecyclerView) fenhongPopView.findViewById(R.id.rl_card_list);
         List<String> datas = new ArrayList<>();
         datas.add("红利再投");
         datas.add("现金分红");

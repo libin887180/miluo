@@ -1,9 +1,13 @@
 package com.zhongdi.miluo.net;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.util.AES;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
 import com.zhongdi.miluo.util.CommonUtils;
@@ -49,7 +53,9 @@ public class NetRequestUtil {
     public abstract static class NetResponseListener<T> {
         public abstract void onSuccess(T response, int requestCode);
 
-        public abstract void onFailed(Throwable e);
+        public abstract void onFailed(T response, int requestCode);
+
+        public abstract void onError(Throwable e);
     }
 
     /**
@@ -96,7 +102,7 @@ public class NetRequestUtil {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
@@ -152,7 +158,7 @@ public class NetRequestUtil {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
@@ -200,11 +206,11 @@ public class NetRequestUtil {
         RequestParams params = new RequestParams(url);
 
         params.setHeader("plam", "andorid");//平台
-        params.setHeader("deviceid",CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
+        params.setHeader("deviceid", CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
         params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
         params.setHeader("versionName", AppUtil.getVersionName(MyApplication.getInstance()));//APP版本名称
-        params.setHeader("versionCode", AppUtil.getVersionCode(MyApplication.getInstance())+"");//APP版本号
-        params.setHeader("OSVersionCode()", AppUtil.getOSVersionCode()+"");//操作系统版本号
+        params.setHeader("versionCode", AppUtil.getVersionCode(MyApplication.getInstance()) + "");//APP版本号
+        params.setHeader("OSVersionCode()", AppUtil.getOSVersionCode() + "");//操作系统版本号
         params.setHeader("OSVersionName", AppUtil.getOSVersionName());//获取操作系统版本名.
         params.setHeader("OSVersionDisplayName", AppUtil.getOSVersionDisplayName());//操作系统版本显示名
         params.setHeader("ModelName", AppUtil.getModelName());//设备名称
@@ -212,13 +218,18 @@ public class NetRequestUtil {
         params.setHeader("BrandName", AppUtil.getBrandName());//品牌名称
         params.setHeader("IpAdress", AndroidUtil.getLocalIpAddress(MyApplication.getInstance()));//本地Ip地址
         if (maps != null && !maps.isEmpty()) {
-            for (Map.Entry<String, String> entry : maps.entrySet()) {
-                params.addParameter(entry.getKey(), entry.getValue());
-            }
+//            for (Map.Entry<String, String> entry : maps.entrySet()) {
+//                params.addParameter("requestParameter", entry.getValue());
+//            }
+            ViseLog.e(gson.toJson(maps));
+            String requestParameter = AES.encrypt(gson.toJson(maps));
+            ViseLog.e(requestParameter);
+            ViseLog.e(AES.decrypt(requestParameter));
+            params.setBodyContent(requestParameter);//加入参数
         }
-//        ViseLog.setTag("Url").i(url);
-//        ViseLog.setTag("Headers").w(params.getHeaders());
-//        ViseLog.setTag("params").v(params.getStringParams());
+        ViseLog.setTag("Url").i(url);
+        ViseLog.setTag("Headers").w(params.getHeaders());
+        ViseLog.setTag("params").v(params.getStringParams());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
 
             @Override
@@ -226,13 +237,17 @@ public class NetRequestUtil {
                 if (result != null) {
                     ViseLog.setTag("response").v(result);
                     MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
-                    listener.onSuccess(mResponse, requestCode);
+                    if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
+                        listener.onSuccess(mResponse, requestCode);
+                    } else {
+                        listener.onFailed(mResponse, requestCode);
+                    }
                 }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
@@ -286,7 +301,7 @@ public class NetRequestUtil {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
@@ -336,7 +351,7 @@ public class NetRequestUtil {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
@@ -389,7 +404,7 @@ public class NetRequestUtil {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                listener.onFailed(ex);
+                listener.onError(ex);
             }
 
             @Override
