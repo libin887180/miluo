@@ -17,6 +17,7 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.presenter.LoginPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.view.LoginView;
 
 import butterknife.BindView;
@@ -114,7 +115,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void findPsw() {
-        startActivity(new Intent(applica, ForgetPswActivity.class));
+        Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
+        intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_PSW);
+        startActivity(intent_forget);
     }
 
 

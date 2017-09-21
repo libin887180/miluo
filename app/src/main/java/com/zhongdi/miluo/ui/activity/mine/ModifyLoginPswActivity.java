@@ -12,7 +12,7 @@ public class ModifyLoginPswActivity extends BaseActivity<ModifyLoginPswPresenter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding(R.layout.activity_modify_deal_psw);
+        binding(R.layout.activity_modify_login_psw);
     }
 
     @Override

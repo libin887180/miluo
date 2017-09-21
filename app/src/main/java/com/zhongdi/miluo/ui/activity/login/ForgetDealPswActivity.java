@@ -17,7 +17,7 @@ import com.zhongdi.miluo.view.ForgetPswView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implements ForgetPswView {
+public class ForgetDealPswActivity extends BaseActivity<ForgetPswPresenter> implements ForgetPswView {
 
 
     @BindView(R.id.tv_title_left)
@@ -68,7 +68,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etNewPassword.getText().length() > 0) {
+                if (etNewPassword.getText().length() > 0 && etNewPassword.getText().length() > 0) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);

@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.SendCoderesenter;
+import com.zhongdi.miluo.ui.activity.login.ForgetDealPswActivity1;
+import com.zhongdi.miluo.ui.activity.login.ForgetPswActivity;
 import com.zhongdi.miluo.view.SendCodeView;
 
 import butterknife.BindView;
@@ -32,8 +35,12 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        from = getIntent().getIntExtra("from", 0);
-        binding(R.layout.activity_send_code);
+        from = getIntent().getIntExtra(IntentConfig.SOURCE, 0);
+        if (from == IntentConfig.FROM_MODIFY_PSW||from==IntentConfig.FROM_MODIFY_DEAL_PSW) {
+            binding(R.layout.activity_send_code);
+        } else {
+            binding(R.layout.activity_send_code2);
+        }
 
     }
 
@@ -44,10 +51,14 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @Override
     protected void initialize() {
-        if (from == 0) {
+        if (from == IntentConfig.FROM_MODIFY_PSW) {
             title.setText("登录密码修改");
-        } else {
+        } else if(from==IntentConfig.FROM_MODIFY_DEAL_PSW){
             title.setText("交易密码修改");
+        }else if(from ==IntentConfig.FROM_FORGET_PSW){
+            title.setText("忘记登录密码");
+        }else if(from == IntentConfig.FROM_FORGET_DEAL_PSW){
+            title.setText("忘记交易密码");
         }
         disableNextBtn();
         etTel.addTextChangedListener(new TextWatcher() {
@@ -96,10 +107,15 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-        if (from == 0) {
+
+        if (from == IntentConfig.FROM_MODIFY_PSW) {
             startActivity(new Intent(mContext, ModifyLoginPswActivity.class));
-        } else {
+        } else if(from==IntentConfig.FROM_MODIFY_DEAL_PSW){
             startActivity(new Intent(mContext, ModifyDealPswActivity.class));
+        }else if(from ==IntentConfig.FROM_FORGET_PSW){
+            startActivity(new Intent(mContext, ForgetPswActivity.class));
+        }else if(from == IntentConfig.FROM_FORGET_DEAL_PSW){
+            startActivity(new Intent(mContext, ForgetDealPswActivity1.class));
         }
 
 

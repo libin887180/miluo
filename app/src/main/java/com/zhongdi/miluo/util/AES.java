@@ -124,6 +124,7 @@ public class AES {
 //                    CRYPT_KEY));
             return new String(result);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

@@ -11,6 +11,7 @@ import com.zhongdi.miluo.util.AES;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
 import com.zhongdi.miluo.util.CommonUtils;
+import com.zhongdi.miluo.util.StringUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -204,13 +205,13 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
-
+        params.setConnectTimeout(60*1000);//设置连接超时时间
         params.setHeader("plam", "andorid");//平台
         params.setHeader("deviceid", CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
         params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
         params.setHeader("versionName", AppUtil.getVersionName(MyApplication.getInstance()));//APP版本名称
         params.setHeader("versionCode", AppUtil.getVersionCode(MyApplication.getInstance()) + "");//APP版本号
-        params.setHeader("OSVersionCode()", AppUtil.getOSVersionCode() + "");//操作系统版本号
+        params.setHeader("OSVersionCode", AppUtil.getOSVersionCode() + "");//操作系统版本号
         params.setHeader("OSVersionName", AppUtil.getOSVersionName());//获取操作系统版本名.
         params.setHeader("OSVersionDisplayName", AppUtil.getOSVersionDisplayName());//操作系统版本显示名
         params.setHeader("ModelName", AppUtil.getModelName());//设备名称
@@ -224,7 +225,6 @@ public class NetRequestUtil {
             ViseLog.e(gson.toJson(maps));
             String requestParameter = AES.encrypt(gson.toJson(maps));
             ViseLog.e(requestParameter);
-            ViseLog.e(AES.decrypt(requestParameter));
             params.setBodyContent(requestParameter);//加入参数
         }
         ViseLog.setTag("Url").i(url);
@@ -233,14 +233,19 @@ public class NetRequestUtil {
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
 
             @Override
-            public void onSuccess(String result) {
-                if (result != null) {
-                    ViseLog.setTag("response").v(result);
-                    MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
-                    if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
-                        listener.onSuccess(mResponse, requestCode);
-                    } else {
-                        listener.onFailed(mResponse, requestCode);
+            public void onSuccess(String response) {
+                if (response != null) {
+                    String result = AES.decrypt(response);
+                    if (!StringUtil.isEmpty(result)) {
+                        ViseLog.setTag("response").v(result);
+                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
+                        if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
+                            listener.onSuccess(mResponse, requestCode);
+                        } else {
+                            listener.onFailed(mResponse, requestCode);
+                        }
+                    }else{
+                        listener.onError(new Throwable("aes decrypt error!"));
                     }
                 }
             }
