@@ -14,7 +14,6 @@ public class MiluoConfig {
     public static final int MAX_AGE_ONLINE = 60;//默认最大在线缓存时间（秒）
     public static final int MAX_AGE_OFFLINE = 24 * 60 * 60;//默认最大离线缓存时间（秒）
 
-    public static final String API_HOST = "https://api.github.com/";//默认API主机地址
 
     public static final String COOKIE_PREFS = "Cookies_Prefs";//默认Cookie缓存目录
 

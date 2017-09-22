@@ -57,6 +57,8 @@ public class NetRequestUtil {
         public abstract void onFailed(T response, int requestCode);
 
         public abstract void onError(Throwable e);
+
+        public abstract void onFinished();
     }
 
     /**
@@ -205,7 +207,9 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
-        params.setConnectTimeout(60*1000);//设置连接超时时间
+        params.setConnectTimeout(30*1000);//设置连接超时时间
+//        params.addHeader("Content-Type", "application/json");
+//        params.setAsJsonContent(true);
         params.setHeader("plam", "andorid");//平台
         params.setHeader("deviceid", CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
         params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
@@ -227,11 +231,37 @@ public class NetRequestUtil {
             ViseLog.e(requestParameter);
             params.setBodyContent(requestParameter);//加入参数
         }
+        //**************
+//        String  result  = "{code:\"0\",msg:\"11111111111\",body:null}";
+//        BaseResponse mResponse = new Gson().fromJson(result, BaseResponse.class);//按正常响应解析
+//        if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
+//            Log.i("**",mResponse.getCode());
+//        } else {
+//            Log.i("**",mResponse.getMsg());
+//        }
+
+//
+//        BaseResponse baseResponse  = new BaseResponse();
+//        baseResponse.setCode("0");
+//        baseResponse.setMsg("1111");
+//        UserInfo userInfo  = new UserInfo() ;
+//        userInfo.setChannel(1);
+//        userInfo.setName("12121212");
+//        UserInfo userInfo2  = new UserInfo() ;
+//        userInfo2.setChannel(1);
+//        userInfo2.setName("12121212");
+//        List<UserInfo>  userInfos = new ArrayList<>();
+//        userInfos.add(userInfo);
+//        userInfos.add(userInfo2);
+//        baseResponse.setBody(userInfos);
+//        String json = gson.toJson(baseResponse);
+//        ViseLog.d(json);
+        //**************
+
         ViseLog.setTag("Url").i(url);
         ViseLog.setTag("Headers").w(params.getHeaders());
         ViseLog.setTag("params").v(params.getStringParams());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
-
             @Override
             public void onSuccess(String response) {
                 if (response != null) {
@@ -261,6 +291,8 @@ public class NetRequestUtil {
 
             @Override
             public void onFinished() {
+
+                listener.onFinished();
 
             }
         });

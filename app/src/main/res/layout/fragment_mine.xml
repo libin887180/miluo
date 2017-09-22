@@ -67,7 +67,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="10dp"
-                                android:button="@drawable/checkbox_visiable"
+                                style="@style/checkbox_visiable_white"
                                 android:checked="true" />
                         </LinearLayout>
                     </LinearLayout>

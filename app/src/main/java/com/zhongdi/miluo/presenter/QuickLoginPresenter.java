@@ -69,6 +69,11 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
 
                     }
 
+                    @Override
+                    public void onFinished() {
+
+                    }
+
                 });
     }
 
@@ -90,6 +95,11 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
 
                     @Override
                     public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
 
                     }
 

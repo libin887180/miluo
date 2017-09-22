@@ -318,7 +318,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
-                    android:button="@drawable/checkbox_style"
+                    style="@style/checkbox_style"
                     android:paddingLeft="5dp"
                     android:checked="true"
                     android:text="我同意"

@@ -69,4 +69,15 @@
     </style>
 
     <style name="popwin_anim_style"></style>
+
+
+    <style name="checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">
+              <item name="android:button">@drawable/checkbox_style</item>
+          </style>
+    <style name="checkbox_visiable" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_visiable</item>
+    </style>
+    <style name="checkbox_visiable_white" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_visiable_white</item>
+    </style>
 </resources>

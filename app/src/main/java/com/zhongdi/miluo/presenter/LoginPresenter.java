@@ -74,6 +74,11 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     public void onError(Throwable e) {
 
                     }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
                 });
 
     }
@@ -82,7 +87,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         if (!isValid(userName, password)) {
             return;
         }
-
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("password", password);
@@ -98,15 +102,18 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                             view.showToast(response.getMsg());
                         }
                     }
-
                     @Override
                     public void onFailed(MResponse<UserInfo> response, int requestCode) {
-
+                        ViseLog.e("请求失败");
                     }
-
 
                     @Override
                     public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
 
                     }
                 });

@@ -38,13 +38,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     TextView btnRegister;
     @BindView(R.id.email_login_form)
     RelativeLayout emailLoginForm;
-    private String source;
+    private int source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_login);
-        source = getIntent().getExtras().getString(IntentConfig.SOURCE);
+        source = getIntent().getExtras().getInt(IntentConfig.SOURCE);
     }
 
 
@@ -52,6 +52,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+
 
                 presenter.login(etUsername.getText().toString(), etPassword.getText().toString());
 

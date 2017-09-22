@@ -18,6 +18,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.AwardedFundAdapter;
+import com.zhongdi.miluo.adapter.GridImageAdapter;
 import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
@@ -28,6 +29,7 @@ import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
+import com.zhongdi.miluo.widget.NoScrollGridView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
 
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     RecyclerView recyclerViewUnderStand;
     @BindView(R.id.upview1)
     MarqueeView upview1;
+    @BindView(R.id.gv_activity)
+    NoScrollGridView gvActivity;
     private View rootView;
     private List<String> scrollMsgs;
     private LinearLayoutManager mLayoutManager;
@@ -158,6 +162,14 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
         head.getBackground().setAlpha(0);
         mScrollView.setOnObservableScrollViewListener(this);
+
+        List<String> activitys = new ArrayList<>();
+        activitys.add("1111111111111");
+        activitys.add("22222222222");
+        activitys.add("3333333333333");
+        activitys.add("4444444444444");
+        GridImageAdapter gridImageAdapter = new GridImageAdapter(getActivity(),activitys);
+        gvActivity.setAdapter(gridImageAdapter);
     }
 
     private void setUpMarqueeView() {
@@ -267,7 +279,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             case R.id.btn_login:
                 Bundle bundle = new Bundle();
                 bundle.putInt(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
-                ActivityUtil.startForwardActivity(getActivity(),LoginActivity.class,bundle,false);
+                ActivityUtil.startForwardActivity(getActivity(), LoginActivity.class, bundle, false);
                 break;
             case R.id.img_msg:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));

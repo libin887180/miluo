@@ -31,9 +31,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/title_bg"
+                    android:background="@drawable/home_top_bg"
                     android:orientation="vertical"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="15dp"
                     android:paddingTop="50dp">
 
                     <RelativeLayout
@@ -92,7 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:button="@drawable/checkbox_visiable"
+                            style="@style/checkbox_visiable_white"
                             android:checked="true" />
                     </RelativeLayout>
 
@@ -126,21 +126,21 @@
                                     android:layout_height="wrap_content"
                                     android:text="新手精选，最高送"
                                     android:textColor="@color/text_222"
-                                    android:textSize="20sp" />
+                                    android:textSize="18sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="50元"
+                                    android:text="6%"
                                     android:textColor="@color/red"
-                                    android:textSize="20sp" />
+                                    android:textSize="18sp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="红包"
+                                    android:text="奖学金"
                                     android:textColor="@color/text_222"
-                                    android:textSize="20sp" />
+                                    android:textSize="18sp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -153,18 +153,62 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="5.7%+"
+                                    android:text="5.7"
                                     android:textColor="@color/red"
-                                    android:textSize="40sp"
+                                    android:textSize="50sp"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowRadius="8"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
                                     android:textStyle="bold" />
-
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="2%"
+                                    android:text="%"
                                     android:textColor="@color/red"
-                                    android:textSize="40sp"
+                                    android:textSize="20sp"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowRadius="8"
+                                    android:shadowDx="5"
+                                    android:layout_marginRight="5dp"
+                                    android:shadowDy="5"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="+"
+                                    android:gravity="center_vertical"
+                                    android:paddingBottom="10dp"
+                                    android:textColor="@color/red"
+                                    android:textSize="25sp"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowRadius="8"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
+                                    android:layout_marginRight="5dp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowRadius="8"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
+                                    android:textColor="@color/red"
+                                    android:textSize="50sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="%"
+                                    android:textColor="@color/red"
+                                    android:textSize="20sp"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowRadius="8"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -179,7 +223,7 @@
                                 android:background="@drawable/btn_login"
                                 android:text="10元起购"
                                 android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
@@ -190,17 +234,11 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/login_bg"
+                    android:layout_marginLeft="15dp"
+                    >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:text="您身边的投资专家"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/btn_login"
@@ -216,32 +254,63 @@
                         android:paddingTop="8dp"
                         android:text="立即登录"
                         android:textColor="@color/red"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                 </RelativeLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:background="@color/white"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
+                        android:paddingTop="15dp"
+                        android:textSize="16sp"
+                        android:text="精彩活动"
+                        android:textColor="@color/text_555" />
+
+
+                    <com.zhongdi.miluo.widget.NoScrollGridView
+                        android:id="@+id/gv_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="0.5dp"
+                        android:verticalSpacing="0.5dp"
+                        android:background="@color/divider_list"
+                        android:numColumns="2"
+                        android:scrollbars="none"
+                        android:overScrollMode="never"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="15dp"
+                        android:textSize="16sp"
                         android:text="特色选基"
-                        android:textColor="@color/text_222" />
+                        android:textColor="@color/text_555" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
                         android:overScrollMode="never">
-
-
                     </android.support.v7.widget.RecyclerView>
 
 
@@ -252,30 +321,38 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@color/white">
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_list" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:text="特色选基"
-                        android:textColor="@color/text_222" />
+                        android:paddingTop="15dp"
+                        android:textSize="16sp"
+                        android:text="投资热点"
+                        android:textColor="@color/text_555" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="特色选基"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:text="选基还要看市场"
+                        android:textSize="14sp"
                         android:textColor="@color/text_color_normal" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_hot"
                     android:layout_width="match_parent"
+
+                    android:background="@color/white"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -306,7 +383,6 @@
                         app:isSetAlphaAnim="true" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -317,19 +393,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
-                        android:paddingTop="10dp"
-                        android:text="2017年度获奖基金"
-                        android:textColor="@color/text_222" />
+                        android:textSize="16sp"
+                        android:paddingTop="15dp"
+                        android:text="2017晨星获奖基金"
+                        android:textColor="@color/text_555" />
 
                     <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/title_bg"
+                        android:background="@drawable/cx_bg"
                         android:padding="10dp"
-                        android:text="三等奖啊卡拉数据的拉升阶卡拉数据的拉升阶段辣手卡拉数据的拉升阶段辣手段辣手看家的"
+                        android:text="晨星获奖基金：美国最主要的投资研究机构之一和国际基金评级的权威机构。"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.RecyclerView
@@ -337,76 +415,85 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <RelativeLayout
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white">
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="15dp"
-                            android:paddingTop="10dp"
-                            android:text="米罗懂你"
-                            android:textColor="@color/text_222" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="15dp"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
-                            android:text="特色选基"
-                            android:textColor="@color/text_color_normal" />
-                    </RelativeLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView_understand"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_list" />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:overScrollMode="never" />
-                </LinearLayout>
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="15dp"
+                        android:text="米罗懂你"
+                        android:textColor="@color/text_555" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:text="选只好基金，早投早安心"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_color_normal" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_understand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/white"
+                    android:overScrollMode="never" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/ic_safe"
                     android:drawablePadding="5dp"
                     android:text="由浦发银行托管，资金更安全"
                     android:textColor="#777"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_gravity="center_horizontal"
                     android:text="基金销售服务由上海利得基金销售有限公司提供"
-                    android:textColor="#777"
-                    android:textSize="14sp" />
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
                     android:text="（基金销售业务资格证号：000000309）"
-                    android:textColor="#777"
-                    android:textSize="14sp" />
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="基金有风险，投资需谨慎"
-                    android:textColor="#777"
-                    android:textSize="14sp" />
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="12sp"/>
             </LinearLayout>
         </com.zhongdi.miluo.widget.ObservableScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

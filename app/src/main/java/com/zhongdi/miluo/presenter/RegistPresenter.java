@@ -9,6 +9,7 @@ import com.zhongdi.miluo.view.RegistView;
 import org.xutils.common.Callback;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,6 @@ public class RegistPresenter extends BasePresenter<RegistView> {
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
-
                     }
 
                     @Override
@@ -39,6 +39,11 @@ public class RegistPresenter extends BasePresenter<RegistView> {
 
                     @Override
                     public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
 
                     }
 
@@ -63,6 +68,39 @@ public class RegistPresenter extends BasePresenter<RegistView> {
 
                     @Override
                     public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                });
+    }
+    public void test(String userName) {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", userName);
+        map.put("type", "1");
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG ,map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<String>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<String>> response, int requestCode) {
+
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<String>> response, int requestCode) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
 
                     }
 

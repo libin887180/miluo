@@ -97,7 +97,7 @@
                 android:id="@+id/iv_head_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_error" />
+                android:src="@drawable/head_default" />
 
             <TextView
                 android:id="@+id/tv_manager_name"
