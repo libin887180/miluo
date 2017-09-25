@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.FundAdapter;
+import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -32,11 +36,13 @@ public class FundFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
-
-    public static FundFragment newInstance(String info) {
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+    FundType fundType ;
+    public static FundFragment newInstance(FundType fundType) {
         Bundle args = new Bundle();
         FundFragment fragment = new FundFragment();
-        args.putString("info", info);
+        args.putSerializable("fundType", fundType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,16 +53,40 @@ public class FundFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fund, null);
         unbinder = ButterKnife.bind(this, view);
+        fundType = (FundType) getArguments().getSerializable("fundType");
         initialize();
 //        stateLayout.showErrorView();
         return view;
     }
 
     private void initialize() {
+        refreshLayout.setEnableLoadmore(true);
+        refreshLayout.setOverScrollRefreshShow(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishRefreshing();
+                    }
+                }, 2000);
+            }
 
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishLoadmore();
+                    }
+                }, 2000);
+            }
+        });
         List<String> strings = new ArrayList<>();
         strings.add("aaa");
         strings.add("bbb");
+        strings.add("vvv");
         strings.add("vvv");
         strings.add("ccc");
         rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));

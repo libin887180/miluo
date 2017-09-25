@@ -14,15 +14,20 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zhongdi.miluo.FragmentBackHandler;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.adapter.market.SortAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.model.FundType;
+import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.presenter.MarketPresenter;
 import com.zhongdi.miluo.view.MarketView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,10 +151,20 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     protected void initView(View view) {
+        getFundType();
         initSortPop();
         initInCreasePop();
-        initTabLayout();
         initAnimation();
+    }
+
+    private void getFundType() {
+//        presenter.getFundType();
+
+        String  result  = "{\"body\":[{\"Content_id\":1,\"description\":\"股票型\",\"id\":1,\"dicno\":\"01\"},{\"Content_id\":1,\"description\":\"债券型\",\"id\":3,\"dicno\":\"02\"},{\"Content_id\":1,\"description\":\"混合型\",\"id\":5,\"dicno\":\"03\"},{\"Content_id\":1,\"description\":\"货币市场型\",\"id\":7,\"dicno\":\"04\"},{\"Content_id\":1,\"description\":\"指数型\",\"id\":9,\"dicno\":\"05\"},{\"Content_id\":1,\"description\":\"保本型\",\"id\":11,\"dicno\":\"06\"}],\"code\":\"0\",\"msg\":\"success\"}";
+        Type type = new TypeToken<MResponse<List<FundType>>>() {}.getType();
+        MResponse<List<FundType>>  response =new Gson().fromJson(result,type);
+
+       initTabLayout(response.getBody());
     }
 
     @Override
@@ -163,31 +178,22 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     }
 
     @Override
-    public void initTabLayout() {
-        List<String> tabs = new ArrayList<>();
-        tabs.add("股票");
-        tabs.add("债券");
-        tabs.add("混合");
-        tabs.add("货币");
-        tabs.add("指数");
-        tabs.add("保本");
+    public void initTabLayout(List<FundType> tabs) {
+        List<String> titles = new ArrayList<>();
         tablayout.removeAllTabs();
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), titles);
         for (int i = 0; i < tabs.size(); i++) {
-            String itemName = tabs.get(i);
+            FundType tab = tabs.get(i);
             if (i == 0) {
-                tablayout.addTab(tablayout.newTab().setText(itemName), true);
+                tablayout.addTab(tablayout.newTab().setText(tab.getDescription()), true);
             } else {
-                tablayout.addTab(tablayout.newTab().setText(itemName), false);
+                tablayout.addTab(tablayout.newTab().setText(tab.getDescription()), false);
             }
+            titles.add(tab.getDescription());
+            adapter.addFragment(FundFragment.newInstance(tab));
         }
 
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), tabs);
-        adapter.addFragment(FundFragment.newInstance("股票"));
-        adapter.addFragment(DemoFragment.newInstance("债券"));
-        adapter.addFragment(DemoFragment.newInstance("混合"));
-        adapter.addFragment(DemoFragment.newInstance("货币"));
-        adapter.addFragment(DemoFragment.newInstance("指数"));
-        adapter.addFragment(DemoFragment.newInstance("保本"));
+
         viewPager.setAdapter(adapter);
 
         tablayout.setupWithViewPager(viewPager);

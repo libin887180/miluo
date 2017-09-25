@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.FundType;
+
+import java.util.List;
 
 
 /**
@@ -13,7 +16,7 @@ public interface MarketView extends BaseView {
     void initSortPop();
     void initInCreasePop();
 
-    void initTabLayout();
+    void initTabLayout(List<FundType> tabs);
 
     void initAnimation();
 }

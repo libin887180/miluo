@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
@@ -90,8 +89,6 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
         headerView.setTextColor(0xff745D5C);
 //        TextHeaderView headerView = (TextHeaderView) View.inflate(this,R.layout.header_tv,null);
         refreshLayout.setHeaderView(headerView);
-        LoadingView loadingView = new LoadingView(this);
-        refreshLayout.setBottomView(loadingView);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {

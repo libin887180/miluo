@@ -7,11 +7,9 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.MResponse;
-import com.zhongdi.miluo.util.AES;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
 import com.zhongdi.miluo.util.CommonUtils;
-import com.zhongdi.miluo.util.StringUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -226,57 +224,31 @@ public class NetRequestUtil {
 //            for (Map.Entry<String, String> entry : maps.entrySet()) {
 //                params.addParameter("requestParameter", entry.getValue());
 //            }
-            ViseLog.e(gson.toJson(maps));
-            String requestParameter = AES.encrypt(gson.toJson(maps));
+//            String requestParameter = AES.encrypt(gson.toJson(maps));
+            String requestParameter = gson.toJson(maps);
             ViseLog.e(requestParameter);
             params.setBodyContent(requestParameter);//加入参数
         }
-        //**************
-//        String  result  = "{code:\"0\",msg:\"11111111111\",body:null}";
-//        BaseResponse mResponse = new Gson().fromJson(result, BaseResponse.class);//按正常响应解析
-//        if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
-//            Log.i("**",mResponse.getCode());
-//        } else {
-//            Log.i("**",mResponse.getMsg());
-//        }
-
-//
-//        BaseResponse baseResponse  = new BaseResponse();
-//        baseResponse.setCode("0");
-//        baseResponse.setMsg("1111");
-//        UserInfo userInfo  = new UserInfo() ;
-//        userInfo.setChannel(1);
-//        userInfo.setName("12121212");
-//        UserInfo userInfo2  = new UserInfo() ;
-//        userInfo2.setChannel(1);
-//        userInfo2.setName("12121212");
-//        List<UserInfo>  userInfos = new ArrayList<>();
-//        userInfos.add(userInfo);
-//        userInfos.add(userInfo2);
-//        baseResponse.setBody(userInfos);
-//        String json = gson.toJson(baseResponse);
-//        ViseLog.d(json);
-        //**************
 
         ViseLog.setTag("Url").i(url);
-        ViseLog.setTag("Headers").w(params.getHeaders());
-        ViseLog.setTag("params").v(params.getStringParams());
+//        ViseLog.setTag("Headers").w(params.getHeaders());
+        ViseLog.setTag("params").v(params.getBodyContent());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 if (response != null) {
-                    String result = AES.decrypt(response);
-                    if (!StringUtil.isEmpty(result)) {
-                        ViseLog.setTag("response").v(result);
-                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
+//                    String result = AES.decrypt(response);
+//                    if (!StringUtil.isEmpty(result)) {
+                        ViseLog.setTag("response").v(response);
+                        MResponse mResponse = gson.fromJson(response, getType(listener));//按正常响应解析
                         if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
                             listener.onSuccess(mResponse, requestCode);
                         } else {
                             listener.onFailed(mResponse, requestCode);
                         }
-                    }else{
-                        listener.onError(new Throwable("aes decrypt error!"));
-                    }
+//                    }else{
+//                        listener.onError(new Throwable("aes decrypt error!"));
+//                    }
                 }
             }
 

@@ -144,7 +144,6 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tr_enable_loadmore="false"
             app:tr_head_height="60dp"
             app:tr_max_head_height="100dp">
 
