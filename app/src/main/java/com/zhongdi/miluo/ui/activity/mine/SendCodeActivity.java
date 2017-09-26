@@ -117,7 +117,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
                 presenter.sendMessage(etTel.getText().toString());
                 break;
             case R.id.btn_next:
-
+                toNext();
                 break;
         }
 

@@ -284,6 +284,15 @@ public class StringUtil {
         }
         return s.toString();
     }
+    /**
+     * 隐藏身份证号中间几位
+     * @param str
+     * @return
+     */
+    public static String hindIdcardNum(String str) {
+       String  result=  str.replaceAll("(\\d{4})\\d{10}(\\d{4})","$1****$2");
+        return result;
+    }
 
     /**
      * 获得文件扩展名

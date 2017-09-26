@@ -4,6 +4,7 @@
     android:id="@+id/activity_find_psw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -31,8 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
-            android:text="上一步"
-            android:textColor="@color/black"
+            android:text=""
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -78,23 +78,58 @@
             android:background="@color/divider_list" />
     </RelativeLayout>
 
-    <com.zhongdi.miluo.widget.StepView
-        android:id="@+id/step_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/title_bg"
-        android:paddingBottom="8dp"
-        android:paddingTop="30dp"
-        app:svCircleColor="@android:color/white"
-        app:svLineColor="#66ffffff"
-        app:svSelectedTextColor="@android:color/white"
-        app:svStepNumColor="#FF2C3F"
-        app:svTextColor="#66ffffff" />
 
-    <com.zhongdi.miluo.widget.NoScrollViewPager
-        android:id="@+id/viewPager"
+    <LinearLayout
+        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp">
 
-    </com.zhongdi.miluo.widget.NoScrollViewPager>
+        <com.zhongdi.miluo.widget.CustomStatusView
+            android:id="@+id/as_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="3dp"
+            app:progress_color="#25BB28"
+            app:progress_radius="60dp"
+            app:progress_width="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开户成功"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/text_555"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_btn_height"
+            android:layout_below="@+id/pwd_layout"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_login"
+            android:gravity="center"
+            android:text="风险评测"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_main"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_btn_height"
+            android:layout_below="@+id/pwd_layout"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_wihte"
+            android:gravity="center"
+            android:text="先逛逛"
+            android:textColor="@color/text_555"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
@@ -77,7 +79,7 @@ public class OpenStep2Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
+                if (etPassword1.getText().length() ==6 && etPassword2.getText().length() ==6) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -98,7 +100,7 @@ public class OpenStep2Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
+                if (etPassword1.getText().length() ==6 && etPassword2.getText().length() ==6) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -128,7 +130,12 @@ public class OpenStep2Fragment extends Fragment {
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
+        if(!TextUtils.equals(etPassword1.getText().toString(),etPassword2.getText().toString())){
+            Toast.makeText(getActivity(), "密码输入不一致", Toast.LENGTH_SHORT).show();
+            return;
+        }
         OpenAccountActivity activity = (OpenAccountActivity) getActivity();
+        activity.tradepwd = etPassword1.getText().toString();
         activity.swapViewPagerTo(2);
     }
 }

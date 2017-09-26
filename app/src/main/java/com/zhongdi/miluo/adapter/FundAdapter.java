@@ -1,77 +1,32 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
+import com.zhongdi.miluo.model.Fund;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by libin on 2017/8/3.
  */
 
-public class FundAdapter extends RecyclerView.Adapter<FundAdapter.MyViewHolder> {
-    private Context mContext;
-    private List<String> datas;
+public class FundAdapter extends BaseRecyclerAdapter<Fund> {
 
-    //适配器初始化
-    public FundAdapter(Context context, List<String> datas) {
-        mContext = context;
-        this.datas = datas;
-    }
-
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.fund_list_item, parent,
-                false);//这个布局推荐基金
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
-
+    public FundAdapter(Context context, List<Fund> datas) {
+        super(context, R.layout.fund_list_item, datas);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tvFundName.setText(datas.get(position));
+    public void convert(BaseRecyclerHolder holder, Fund item, int position) {
+        TextView tvFundName = holder.getView(R.id.tv_fund_name);
+        tvFundName.setText(item.getFundname());
+        TextView tvFundCode = holder.getView(R.id.tv_fund_code);
+        tvFundCode.setText(item.getFundcode());
+        TextView tvValue = holder.getView(R.id.tv_value);
+        tvValue.setText(item.getNetvalue() + "");
+        TextView tvInfo = holder.getView(R.id.tv_info);
+        tvInfo.setText(item.getDayrate() + "%");
     }
-
-    @Override
-    public int getItemCount() {
-        return datas.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_fund_name)
-        TextView tvFundName;
-        @BindView(R.id.tv_fund_code)
-        TextView tvFundCode;
-        @BindView(R.id.tv_value)
-        TextView tvValue;
-        @BindView(R.id.tv_info)
-        TextView tvInfo;
-
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Toast.makeText(mContext, "aaa", Toast.LENGTH_SHORT).show();
-                    mContext.startActivity(new Intent(mContext, FundDetailActivity.class));
-                }
-            });
-        }
-    }
-
 }

@@ -61,6 +61,24 @@ public class SpCacheUtil {
     public String getLoginAccount() {
         return spCache.get("ACCOUNT", "");
     }
+
+    /**
+     * 保存登录账号(用户名)
+     *
+     * @param userAccount
+     */
+    public void saveRealName(String userAccount) {
+        spCache.put("REAL_NAME", userAccount);
+    }
+
+    /**
+     * 获取真实姓名
+     *
+     * @return 如：cgzjobdcs@cgzjobdcs
+     */
+    public String getRealName() {
+        return spCache.get("REAL_NAME", "李斌斌");
+    }
     /**
      * 保存登录密码
      *

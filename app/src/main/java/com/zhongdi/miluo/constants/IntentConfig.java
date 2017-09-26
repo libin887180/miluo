@@ -10,7 +10,7 @@ public class IntentConfig {
 
 
     public static final int TAB_MINE = 1;//我的界面
-    public static final int TAB_COLLECT = 2;//我的界面
+    public static final int TAB_COLLECT = 2;//自选界面
     public static final int HOME_COLLECT = 3;//首页加自选
     public static final int DETAIL_COLLECT = 4;//详情页加自选
     public static final int HOME_LOGIN = 5;//首页登录按钮

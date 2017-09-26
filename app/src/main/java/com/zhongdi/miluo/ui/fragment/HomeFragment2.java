@@ -26,6 +26,8 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
+import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -64,6 +66,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     MarqueeView upview1;
     @BindView(R.id.gv_activity)
     NoScrollGridView gvActivity;
+    @BindView(R.id.btn_login)
+    TextView btnLogin;
     private View rootView;
     private List<String> scrollMsgs;
     private LinearLayoutManager mLayoutManager;
@@ -206,6 +210,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         scrollMsgs.add("股票基金奥斯卡几点来");
         scrollMsgs.add("奥术大师多");
         scrollMsgs.add("的范德萨发");
+        btnLogin.setText("去开户");
     }
 
 
@@ -278,9 +283,17 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                Bundle bundle = new Bundle();
-                bundle.putInt(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
-                ActivityUtil.startForwardActivity(getActivity(), LoginActivity.class, bundle, false);
+
+                if(btnLogin.getText().equals("立即登录")){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    ActivityUtil.startForwardActivity(getActivity(), LoginActivity.class, bundle, false);
+                }else if(btnLogin.getText().equals("去开户")){
+                    ActivityUtil.startForwardActivity(getActivity(), OpenAccountActivity.class);
+                }else if(btnLogin.getText().equals("去测评")){
+                    ActivityUtil.startForwardActivity(getActivity(), TestActivity.class);
+                }
+
                 break;
             case R.id.img_msg:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));

@@ -57,13 +57,14 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     RotateAnimation upAnimation;
     RotateAnimation downAnimation;
     private ListView lsvMore;
-
     private PopupWindow sortWindow;
     private SortAdapter sortAdapter;
     private ListView lvIncrease;
     private PopupWindow increaseWindow;
     private IncreaseAdapter increaseAdapter;
     private boolean isup;
+    private String sortType = "asc";
+    private String rateType = "dayrate";
 
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -133,6 +134,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         lsvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0 || i == 1) {
+                    sortType = "asc";
+                } else {
+                    sortType = "desc";
+                }
                 sortAdapter.setCheck(i);
                 sortWindow.dismiss();
 
@@ -144,6 +150,29 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 increaseAdapter.setCheck(i);
                 increaseWindow.dismiss();
+                switch (i){
+                    case  0:
+                        rateType = "dayrate";
+                        break;
+                    case  1:
+                        rateType = "weekrate";
+                        break;
+                    case  2:
+                        rateType = "weekrate";
+                        break;
+                    case  3:
+                        rateType = "weekrate";
+                        break;
+                    case  4:
+                        rateType = "weekrate";
+                        break;
+                    case  5:
+                        rateType = "weekrate";
+                        break;
+                    case  6:
+                        rateType = "weekrate";
+                        break;
+                }
 
             }
         });
@@ -151,6 +180,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     protected void initView(View view) {
+
         getFundType();
         initSortPop();
         initInCreasePop();
@@ -159,12 +189,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     private void getFundType() {
 //        presenter.getFundType();
-
-        String  result  = "{\"body\":[{\"Content_id\":1,\"description\":\"股票型\",\"id\":1,\"dicno\":\"01\"},{\"Content_id\":1,\"description\":\"债券型\",\"id\":3,\"dicno\":\"02\"},{\"Content_id\":1,\"description\":\"混合型\",\"id\":5,\"dicno\":\"03\"},{\"Content_id\":1,\"description\":\"货币市场型\",\"id\":7,\"dicno\":\"04\"},{\"Content_id\":1,\"description\":\"指数型\",\"id\":9,\"dicno\":\"05\"},{\"Content_id\":1,\"description\":\"保本型\",\"id\":11,\"dicno\":\"06\"}],\"code\":\"0\",\"msg\":\"success\"}";
-        Type type = new TypeToken<MResponse<List<FundType>>>() {}.getType();
-        MResponse<List<FundType>>  response =new Gson().fromJson(result,type);
-
-       initTabLayout(response.getBody());
+        String result = "{\"body\":[{\"Content_id\":1,\"description\":\"股票型\",\"id\":1,\"dicno\":\"01\"},{\"Content_id\":1,\"description\":\"债券型\",\"id\":3,\"dicno\":\"02\"},{\"Content_id\":1,\"description\":\"混合型\",\"id\":5,\"dicno\":\"03\"},{\"Content_id\":1,\"description\":\"货币市场型\",\"id\":7,\"dicno\":\"04\"},{\"Content_id\":1,\"description\":\"指数型\",\"id\":9,\"dicno\":\"05\"},{\"Content_id\":1,\"description\":\"保本型\",\"id\":11,\"dicno\":\"06\"}],\"code\":\"0\",\"msg\":\"success\"}";
+        Type type = new TypeToken<MResponse<List<FundType>>>() {
+        }.getType();
+        MResponse<List<FundType>> response = new Gson().fromJson(result, type);
+        initTabLayout(response.getBody());
     }
 
     @Override
@@ -328,5 +357,13 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         }
         return false;
 
+    }
+
+    public String getSortType() {
+        return sortType;
+    }
+
+    public String getRateType() {
+        return rateType;
     }
 }

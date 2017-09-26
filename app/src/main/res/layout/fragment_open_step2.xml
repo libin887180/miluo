@@ -26,9 +26,8 @@
                 android:hint="输入六位数字交易密码"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword"
-                android:maxLength="11"
+                android:maxLength="6"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
 
 
@@ -54,9 +53,8 @@
                 android:hint="再次输入六位数字交易密码"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword"
-                android:maxLength="11"
+                android:maxLength="6"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

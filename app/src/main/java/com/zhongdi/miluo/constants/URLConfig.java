@@ -32,4 +32,12 @@ public class URLConfig {
      * 基金类型
      */
     public static final String FUND_TYPE = BASE_URL + "fund/fundType";
+    /**
+     * 基金列表
+     */
+    public static final String FUND_LIST = BASE_URL + "fund/fundList";
+    /**
+     * 开户
+     */
+    public static final String OPNE_ACCOUNT = BASE_URL + "/lead/mobile/v1/openAccount";
 }

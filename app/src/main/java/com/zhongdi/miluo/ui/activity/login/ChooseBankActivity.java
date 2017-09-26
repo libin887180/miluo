@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,10 +58,14 @@ public class ChooseBankActivity extends BaseActivity<ChooseBankPresenter> implem
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(bankAdapter);
-        bankAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        bankAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<String>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+            public void onClick(View view, RecyclerView.ViewHolder holder, String bankno, int position) {
                 bankAdapter.setCheck(position);
+                Intent intent = new Intent();
+                intent.putExtra("bankno","0");
+                setResult(RESULT_OK,intent);
+                finish();
             }
         });
     }

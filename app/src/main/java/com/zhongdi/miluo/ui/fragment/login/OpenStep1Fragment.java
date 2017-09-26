@@ -26,8 +26,8 @@ import butterknife.Unbinder;
 
 public class OpenStep1Fragment extends Fragment {
     Unbinder unbinder;
-    @BindView(R.id.et_phnoe)
-    ClearEditText etPhnoe;
+    @BindView(R.id.et_real_name)
+    ClearEditText etRealName;
     @BindView(R.id.et_id_card)
     ClearEditText etIdCard;
     @BindView(R.id.btn_next)
@@ -64,7 +64,7 @@ public class OpenStep1Fragment extends Fragment {
 
     private void initialize() {
         disableNextBtn();
-        etPhnoe.addTextChangedListener(new TextWatcher() {
+        etRealName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -77,7 +77,7 @@ public class OpenStep1Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPhnoe.getText().length() > 0 && etIdCard.getText().length() > 0) {
+                if (etRealName.getText().length() >0 && etIdCard.getText().length() == 18) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -98,7 +98,7 @@ public class OpenStep1Fragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPhnoe.getText().length() > 0 && etIdCard.getText().length() > 0) {
+                if (etRealName.getText().length() >0 && etIdCard.getText().length() ==18) {
                     enableNextBtn();
                 } else {
                     disableNextBtn();
@@ -128,7 +128,10 @@ public class OpenStep1Fragment extends Fragment {
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
+
         OpenAccountActivity activity = (OpenAccountActivity) getActivity();
         activity.swapViewPagerTo(1);
+        activity.identityno = etIdCard.getText().toString();
+        activity.name = etRealName.getText().toString();
     }
 }

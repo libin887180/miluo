@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -28,12 +29,13 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         }
         Map<String, String> map = new HashMap<>();
         map.put("username", tel);
-        map.put("type", "1");
+        map.put("type", "1");//默认写1
         Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
-                        view.toNext();
+                        if (response.getCode().equals(MiluoConfig.SUCCESS))
+                            view.showToast("验证码发送成功");
                     }
 
                     @Override

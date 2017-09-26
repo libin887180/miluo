@@ -31,6 +31,7 @@ public class MiluoConfig {
     public static final String SUCCESS = "0";
     public static final String ERROR = "ERROR";
 
+    public static final int DEFAULT_PAGESIZE = 15;//默认分页大小
 
 
 }

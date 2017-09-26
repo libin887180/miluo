@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.ui.activity.login.ChooseBankActivity;
+import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.widget.ClearEditText;
 
 import butterknife.BindView;
@@ -30,12 +35,17 @@ public class OpenStep3Fragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.tv_bank_name)
     TextView tvBankName;
+    @BindView(R.id.tv_band_card_num)
+    TextView tvBankCardNum;
+    @BindView(R.id.tv_real_name)
+    TextView tvRealName;
     @BindView(R.id.et_bank_card)
     ClearEditText etBankCard;
     @BindView(R.id.et_bank_phone)
     ClearEditText etBankPhone;
     @BindView(R.id.btn_finish)
     Button btnFinish;
+    OpenAccountActivity parentActivity;
     Unbinder unbinder1;
     private View rootView;
 
@@ -44,6 +54,7 @@ public class OpenStep3Fragment extends Fragment {
         OpenStep3Fragment fragment = new OpenStep3Fragment();
         args.putString("index", info);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -64,13 +75,27 @@ public class OpenStep3Fragment extends Fragment {
             }
             unbinder = ButterKnife.bind(this, rootView);
         }
+        parentActivity = (OpenAccountActivity) getActivity();
         unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
 
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            tvBankCardNum.setText(StringUtil.hindIdcardNum(parentActivity.identityno));
+            String name = SpCacheUtil.getInstance().getRealName();
+            StringBuffer nameBuffer = new StringBuffer(name);
+            nameBuffer.replace(0, 1, "*");
+            tvRealName.setText(nameBuffer.toString());
+        }
+    }
+
     private void initialize() {
+
         disableNextBtn();
         etBankCard.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,15 +161,41 @@ public class OpenStep3Fragment extends Fragment {
     }
 
 
-
-    @OnClick({R.id.btn_finish,R.id.rl_bank_card})
+    @OnClick({R.id.btn_finish, R.id.rl_bank_card})
     public void onViewClicked(View view) {
-        switch (view.getId()){
-            case  R.id.btn_finish:
+        switch (view.getId()) {
+            case R.id.btn_finish:
+                parentActivity.registryid = "0";
+                if(StringUtil.isEmpty(parentActivity.bankno)){
+                    Toast.makeText(getActivity(), "请选择银行", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(StringUtil.isEmpty(etBankCard.getText().toString())){
+                    Toast.makeText(getActivity(), "请输入银行卡号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!StringUtil.isPhoneNum(etBankPhone.getText().toString())){
+                    Toast.makeText(getActivity(), "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                parentActivity.bankcardno = etBankCard.getText().toString();
+                parentActivity.phone = etBankCard.getText().toString();
+                parentActivity.openAccount();
                 break;
-            case  R.id.rl_bank_card:
-                startActivity(new Intent(getActivity(), ChooseBankActivity.class));
+            case R.id.rl_bank_card:
+                startActivityForResult(new Intent(getActivity(), ChooseBankActivity.class), 101);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+              String bankno =  data.getStringExtra("bankno");
+                parentActivity.bankno = bankno;
+            }
         }
     }
 }

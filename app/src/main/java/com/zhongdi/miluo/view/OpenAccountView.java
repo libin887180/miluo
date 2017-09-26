@@ -9,4 +9,6 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface OpenAccountView extends BaseView {
     void swapViewPagerTo(int index);
+
+    void toOpenSuccess();
 }

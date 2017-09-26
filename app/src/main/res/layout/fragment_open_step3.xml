@@ -12,19 +12,19 @@
 
 
         <TextView
+            android:id="@+id/tv_real_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="*字蓝"
             android:textSize="18sp" />
 
 
         <TextView
+            android:id="@+id/tv_band_card_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="62312*******2312"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -101,6 +101,8 @@
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:hint="银行卡预留手机号"
+                android:maxLength="11"
+                android:phoneNumber="true"
                 android:padding="10dp"
                 android:textSize="16sp" />
 
