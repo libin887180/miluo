@@ -20,6 +20,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.FundAdapter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.Fund;
@@ -98,7 +99,7 @@ public class FundFragment extends Fragment {
         Type type = new TypeToken<MResponse<FundListResponse>>() {
         }.getType();
         MResponse<FundListResponse> response = new Gson().fromJson(result, type);
-        if (TextUtils.equals(response.getCode(), MiluoConfig.SUCCESS)) {
+        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
 
             if (pageNum == 1) {
                 funds.clear();
@@ -124,7 +125,7 @@ public class FundFragment extends Fragment {
                 new NetRequestUtil.NetResponseListener<MResponse<FundListResponse>>() {
                     @Override
                     public void onSuccess(MResponse<FundListResponse> response, int requestCode) {
-                        if (TextUtils.equals(response.getCode(), MiluoConfig.SUCCESS)) {
+                        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
                             ViseLog.w(response.getBody());
 
                         } else {

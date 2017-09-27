@@ -9,7 +9,6 @@ import com.zhongdi.miluo.view.RegistView;
 import org.xutils.common.Callback;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,20 +20,22 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         super.attachView(view);
     }
 
-    public void regist(String userName,String password,String validateseq) {
+    public void regist(String userName, String password, String validateseq) {
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("password", password);
         map.put("validateseq", validateseq);
         map.put("registrationchannels", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.REGISTER ,map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<String>>() {
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.REGISTER, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
-                    public void onSuccess(MResponse<String> response, int requestCode) {
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.onSuccess();
                     }
 
                     @Override
-                    public void onFailed(MResponse<String> response, int requestCode) {
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        view.showToast(response.getMsg());
                     }
 
                     @Override
@@ -54,11 +55,10 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("type", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG ,map, 101,
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
-
 
                     }
 
@@ -78,32 +78,5 @@ public class RegistPresenter extends BasePresenter<RegistView> {
 
                 });
     }
-    public void test(String userName) {
-        Map<String, String> map = new HashMap<>();
-        map.put("username", userName);
-        map.put("type", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG ,map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<String>>>() {
-                    @Override
-                    public void onSuccess(MResponse<List<String>> response, int requestCode) {
 
-
-                    }
-
-                    @Override
-                    public void onFailed(MResponse<List<String>> response, int requestCode) {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-
-                });
-    }
 }

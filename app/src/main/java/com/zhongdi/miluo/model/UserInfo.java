@@ -6,33 +6,46 @@ package com.zhongdi.miluo.model;
 
 public class UserInfo {
 
-
-    private int uid;
-    private String username;
+    private int channel;
+    private int level;
     private String name;
     private String password;
-    private String salt;
-    private int channel;
-    private int state;
-    private String credentialsSalt;
-    private String tradepwd;
-    private int level;
-    private String roleList;
+    private String state;
+    private int uid;
+    private String username;
+    private int failTimes;
+    private int fundStatus;
 
-    public int getUid() {
-        return uid;
+    public int getFundStatus() {
+        return fundStatus;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setFundStatus(int fundStatus) {
+        this.fundStatus = fundStatus;
     }
 
-    public String getUsername() {
-        return username;
+    public int getFailTimes() {
+        return failTimes;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFailTimes(int failTimes) {
+        this.failTimes = failTimes;
+    }
+
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getName() {
@@ -51,59 +64,27 @@ public class UserInfo {
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public int getChannel() {
-        return channel;
-    }
-
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
-
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public String getCredentialsSalt() {
-        return credentialsSalt;
+    public int getUid() {
+        return uid;
     }
 
-    public void setCredentialsSalt(String credentialsSalt) {
-        this.credentialsSalt = credentialsSalt;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
-    public String getTradepwd() {
-        return tradepwd;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTradepwd(String tradepwd) {
-        this.tradepwd = tradepwd;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public String getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(String roleList) {
-        this.roleList = roleList;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

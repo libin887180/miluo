@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
-import com.zhongdi.miluo.model.Manager;
 
 
 /**
@@ -15,7 +14,7 @@ public interface LoginView extends BaseView {
 
     void findPsw();
 
-    void onSuccess(Manager model);
+    void loginSuccess();
 
     void onError(String message);
 

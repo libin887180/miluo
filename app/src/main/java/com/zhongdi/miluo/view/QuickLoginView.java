@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
-import com.zhongdi.miluo.model.Manager;
 
 
 /**
@@ -9,11 +8,8 @@ import com.zhongdi.miluo.model.Manager;
  */
 
 public interface QuickLoginView extends BaseView {
-    void openMain();
 
-    void onSuccess(Manager model);
-
-    void onError(String message);
+    void loginSuccess();
 
     void disableLoginBtn();
 

@@ -160,6 +160,17 @@
                 android:background="@color/divider_list" />
         </android.support.design.widget.TextInputLayout>
 
+
+        <TextView
+            android:id="@+id/tv_quick_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pwd_layout"
+            android:layout_below="@+id/pwd_layout"
+            android:layout_marginTop="15dp"
+            android:text="快速登录"
+            android:textColor="@color/text_blue" />
+
         <TextView
             android:id="@+id/tv_forget_psw"
             android:layout_width="wrap_content"

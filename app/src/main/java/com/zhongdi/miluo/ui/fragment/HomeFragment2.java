@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +24,13 @@ import com.zhongdi.miluo.adapter.GridImageAdapter;
 import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
-import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
@@ -66,6 +70,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     MarqueeView upview1;
     @BindView(R.id.gv_activity)
     NoScrollGridView gvActivity;
+    @BindView(R.id.rl_login_state)
+    RelativeLayout rlLoginState;
     @BindView(R.id.btn_login)
     TextView btnLogin;
     private View rootView;
@@ -172,7 +178,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         activitys.add("22222222222");
         activitys.add("3333333333333");
         activitys.add("4444444444444");
-        GridImageAdapter gridImageAdapter = new GridImageAdapter(getActivity(),activitys);
+        GridImageAdapter gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
         gvActivity.setAdapter(gridImageAdapter);
         gvActivity.setFocusable(false);
     }
@@ -210,7 +216,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         scrollMsgs.add("股票基金奥斯卡几点来");
         scrollMsgs.add("奥术大师多");
         scrollMsgs.add("的范德萨发");
-        btnLogin.setText("去开户");
     }
 
 
@@ -279,18 +284,39 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK&&requestCode==102) {
+            if (!TextUtils.isEmpty(SpCacheUtil.getInstance().getLoginAccount())) {
+                if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                    btnLogin.setText("去开户");
+                } else {
+                    if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {
+                        btnLogin.setText("去测评");
+                    } else {
+                        rlLoginState.setVisibility(View.GONE);
+                    }
+                }
+            }else{
+                rlLoginState.setVisibility(View.VISIBLE);
+                btnLogin.setText("立即登录");
+            }
+        }
+    }
+
     @OnClick({R.id.btn_login, R.id.img_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-
-                if(btnLogin.getText().equals("立即登录")){
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
-                    ActivityUtil.startForwardActivity(getActivity(), LoginActivity.class, bundle, false);
-                }else if(btnLogin.getText().equals("去开户")){
+                if (btnLogin.getText().equals("立即登录")) {
+                    Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    startActivityForResult(intent,102);
+                } else if (btnLogin.getText().equals("去开户")) {
                     ActivityUtil.startForwardActivity(getActivity(), OpenAccountActivity.class);
-                }else if(btnLogin.getText().equals("去测评")){
+                } else if (btnLogin.getText().equals("去测评")) {
                     ActivityUtil.startForwardActivity(getActivity(), TestActivity.class);
                 }
 

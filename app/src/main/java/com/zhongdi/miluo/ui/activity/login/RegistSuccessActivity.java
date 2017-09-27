@@ -40,7 +40,7 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
             public void run() {
                 asStatus.loadSuccess();
             }
-        }, 2 * 1000);
+        }, 1 * 1000);
 
     }
 

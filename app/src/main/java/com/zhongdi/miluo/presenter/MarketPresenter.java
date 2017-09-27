@@ -2,11 +2,9 @@ package com.zhongdi.miluo.presenter;
 
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
-import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.model.MResponse;
@@ -15,7 +13,6 @@ import com.zhongdi.miluo.view.MarketView;
 
 import org.xutils.common.Callback;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +32,7 @@ public class MarketPresenter extends BasePresenter<MarketView> {
                 new NetRequestUtil.NetResponseListener<MResponse<List<FundType>>>() {
                     @Override
                     public void onSuccess(MResponse<List<FundType>> response, int requestCode) {
-                        if (TextUtils.equals(response.getCode(), MiluoConfig.SUCCESS)) {
+                        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
                             ViseLog.w(response.getBody());
 
                             view.initTabLayout(response.getBody());

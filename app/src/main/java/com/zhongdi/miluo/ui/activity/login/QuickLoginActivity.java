@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.model.Manager;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.QuickLoginPresenter;
-import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.view.QuickLoginView;
 
 import butterknife.BindView;
@@ -30,8 +28,8 @@ import butterknife.OnClick;
 public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implements QuickLoginView {
     @BindView(R.id.et_username)
     EditText etUsername;
-    @BindView(R.id.et_password)
-    EditText etPassword;
+    @BindView(R.id.et_code)
+    EditText etCode;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.tv_title_right)
@@ -40,7 +38,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     RelativeLayout emailLoginForm;
     @BindView(R.id.tv_send_code)
     TextView tvSendCode;
-
+    private int source;
     CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
         @Override
@@ -59,35 +57,42 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_quick_login);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE,-1);
     }
 
-    @OnClick({R.id.btn_login, R.id.tv_title_right, R.id.tv_forget_psw, R.id.tv_send_code})
+    @OnClick({R.id.btn_login, R.id.tv_title_right,  R.id.tv_send_code,R.id.tv_username_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                presenter.login("admin", "123456");
-                openMain();
+                presenter.login(etUsername.getText().toString(), etCode.getText().toString(),source);
                 break;
             case R.id.tv_title_right:
                 break;
-            case R.id.tv_forget_psw:
+            case R.id.tv_username_login://到用户名密码登录
+                Intent intent =new Intent(applica, LoginActivity.class);
+                intent.putExtra(IntentConfig.SOURCE,source);
+                startActivityForResult(intent,101);
                 break;
             case R.id.tv_send_code:
+                presenter.sendMessage(etUsername.getText().toString());
                 view.setEnabled(false);
                 timer.start();
-
                 break;
         }
     }
 
     @Override
-    public void onSuccess(Manager model) {
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
-
     @Override
-    public void onError(String message) {
-        showToast(message);
+    public void loginSuccess() {
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
@@ -102,12 +107,6 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
         btnLogin.setTextColor(Color.WHITE);
     }
 
-    @Override
-    public void openMain() {
-        startActivity(new Intent(applica, MainActivity.class));
-        Toast.makeText(applica, "登录" + etUsername.getText().toString(), Toast
-                .LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -131,7 +130,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0) {
+                if (etUsername.getText().length() > 0 && etCode.getText().length() > 0) {
                     enableLoginBtn();
                 } else {
                     disableLoginBtn();
@@ -139,7 +138,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
 
             }
         });
-        etPassword.addTextChangedListener(new TextWatcher() {
+        etCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -152,7 +151,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etUsername.getText().length() > 0 && etPassword.getText().length() > 0) {
+                if (etUsername.getText().length() > 0 && etCode.getText().length() > 0) {
                     enableLoginBtn();
                 } else {
                     disableLoginBtn();

@@ -1,7 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.zhongdi.miluo.base.BasePresenter;
-import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -34,7 +34,7 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
-                        if (response.getCode().equals(MiluoConfig.SUCCESS))
+                        if (response.getCode().equals(ErrorCode.SUCCESS))
                             view.showToast("验证码发送成功");
                     }
 

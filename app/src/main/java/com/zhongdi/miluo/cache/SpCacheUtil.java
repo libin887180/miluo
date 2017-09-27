@@ -3,6 +3,7 @@ package com.zhongdi.miluo.cache;
 import android.content.Context;
 
 import com.zhongdi.miluo.MyApplication;
+import com.zhongdi.miluo.model.UserInfo;
 
 /**
  * @Description: SharedPreferences存储，支持对象加密存储
@@ -62,8 +63,49 @@ public class SpCacheUtil {
         return spCache.get("ACCOUNT", "");
     }
 
+
     /**
-     * 保存登录账号(用户名)
+     * 保存登录账号信息
+     *
+     */
+    public void saveUserInfo(UserInfo   userInfo) {
+        spCache.put("ACCOUNT", userInfo.getUsername());
+        spCache.putInt("USER_LEVEL", userInfo.getLevel());
+        spCache.put("USER_STATE", userInfo.getState());
+        spCache.put("USER_ID", userInfo.getUid()+"");
+        spCache.putInt("FUND_STATE", userInfo.getFundStatus());
+    }
+
+    /**
+     * 获取用户评测等级
+     *
+     * @return 如：cgzjobdcs@cgzjobdcs
+     */
+    public int getUserTestLevel() {
+        return spCache.getInt("USER_LEVEL",-1);
+    }
+    /**
+     * 获取用户id
+     */
+    public String getUserId() {
+        return spCache.get("USER_ID","");
+    }
+
+    /**
+     * 获取用户开户状态
+     */
+    public int getUserFundState() {
+        return spCache.getInt("FUND_STATE",0);
+    }
+    /**
+     * 获取用户状态
+     */
+    public String getUserState() {
+        return spCache.get("USER_STATE","");
+    }
+
+    /**
+     * 保存真实姓名
      *
      * @param userAccount
      */

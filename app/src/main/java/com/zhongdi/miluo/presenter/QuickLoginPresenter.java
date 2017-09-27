@@ -3,15 +3,17 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
-import com.zhongdi.miluo.model.Manager;
+import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
 
 import org.xutils.common.Callback;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,12 +26,33 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
         super.attachView(view);
     }
 
-    public void isLogin() {
-//        if (SessionManager.checkExist("is_login")) {
-//            if (SessionManager.grabBoolean("is_login")) {
-//                view.openMain();
-//            }
-//        }
+    public void sendMessage(String userName) {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", userName);
+        map.put("type", "1");//验证码渠道
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<String>>() {
+                    @Override
+                    public void onSuccess(MResponse<String> response, int requestCode) {
+                        view.showToast("验证码发送成功");
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<String> response, int requestCode) {
+                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                });
     }
 
     /**
@@ -47,21 +70,32 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
         return flag;
     }
 
-    public void request_post_3(String mobile, String validateseq) {
+    public void login(String userName, String code, int source) {
+        if (!StringUtil.isPhoneNum(userName)) {
+            view.showToast("请输入正确格式的手机号");
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
-        map.put("mobile", mobile);
-        map.put("validateseq", validateseq);
-        Callback.Cancelable post = NetRequestUtil.getInstance().post("http://192.168.64.121:8085/lead/mobile/v1/user/pay", map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
-
-
+        map.put("username", userName);
+        map.put("channel", "0");
+        map.put("validateseq", code);
+        map.put("source", source + "");
+        map.put("type", "1");//登陆方式 0：正常登陆，1 快速登录
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
-                    public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        ViseLog.w(response.getCode());
+                    public void onSuccess(MResponse<UserInfo> response, int requestCode) {
+                        ViseLog.w(response.getBody());
+                        SpCacheUtil.getInstance().saveUserInfo(response.getBody());
+                        view.loginSuccess();
+
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
+                    public void onFailed(MResponse<UserInfo> response, int requestCode) {
+                        view.showToast(response.getMsg());
+                        ViseLog.e("请求失败");
                     }
 
                     @Override
@@ -73,37 +107,6 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     public void onFinished() {
 
                     }
-
                 });
     }
-
-    public void login(String email, String password) {
-        Map<String, String> map = new HashMap<>();
-        map.put("username", email);
-        map.put("password", password);
-        Callback.Cancelable post = netRequestUtil.post("http://192.168.64.121:8085/login", map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
-                    @Override
-                    public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        ViseLog.w(response.getCode());
-                        request_post_3("admin", "1123456");
-                    }
-
-                    @Override
-                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-
-                });
-    }
-
 }

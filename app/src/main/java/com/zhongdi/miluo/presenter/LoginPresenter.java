@@ -1,15 +1,11 @@
 package com.zhongdi.miluo.presenter;
 
 
-import android.text.TextUtils;
-
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
-import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
-import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.util.StringUtil;
@@ -18,7 +14,6 @@ import com.zhongdi.miluo.view.LoginView;
 import org.xutils.common.Callback;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,58 +48,30 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         return true;
     }
 
-    public void request_post_3(String mobile, String validateseq) {
-        Map<String, String> map = new HashMap<>();
-        map.put("mobile", mobile);
-        map.put("validateseq", validateseq);
-        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.LOGIN, map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<Manager>>>() {
 
-
-                    @Override
-                    public void onSuccess(MResponse<List<Manager>> response, int requestCode) {
-                        ViseLog.w(response.getCode());
-                    }
-
-                    @Override
-                    public void onFailed(MResponse<List<Manager>> response, int requestCode) {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
-    public void login(String userName, String password) {
+    public void login(String userName, String password, int source) {
         if (!isValid(userName, password)) {
             return;
         }
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("password", password);
+        map.put("channel", "0");
+        map.put("source", source + "");
+        map.put("type", "0");//登陆方式 0：正常登陆，1 快速登录
         Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {
-                        if (TextUtils.equals(response.getCode(), MiluoConfig.SUCCESS)) {
-                            ViseLog.w(response.getBody());
-                            SpCacheUtil.getInstance().saveLoginAccount(response.getBody().getName());
-
-                        } else {
-                            view.showToast(response.getMsg());
-                        }
+                        ViseLog.w(response.getBody());
+                        SpCacheUtil.getInstance().saveUserInfo(response.getBody());
+                        view.loginSuccess();
                     }
+
                     @Override
                     public void onFailed(MResponse<UserInfo> response, int requestCode) {
                         ViseLog.e("请求失败");
+                        view.showToast(response.getMsg());
                     }
 
                     @Override

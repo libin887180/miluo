@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
-import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
@@ -241,7 +241,7 @@ public class NetRequestUtil {
 //                    if (!StringUtil.isEmpty(result)) {
                         ViseLog.setTag("response").v(response);
                         MResponse mResponse = gson.fromJson(response, getType(listener));//按正常响应解析
-                        if (TextUtils.equals(mResponse.getCode(), MiluoConfig.SUCCESS)) {
+                        if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
                             listener.onSuccess(mResponse, requestCode);
                         } else {
                             listener.onFailed(mResponse, requestCode);
