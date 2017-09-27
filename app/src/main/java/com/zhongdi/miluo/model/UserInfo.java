@@ -11,7 +11,7 @@ public class UserInfo {
     private String name;
     private String password;
     private String state;
-    private int uid;
+    private String uid;
     private String username;
     private int failTimes;
     private int fundStatus;
@@ -72,11 +72,11 @@ public class UserInfo {
         this.state = state;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

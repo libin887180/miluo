@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.BankInfo;
+
+import java.util.List;
 
 
 /**
@@ -8,4 +11,6 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface ChooseBankView extends BaseView {
+
+    void  onSuccess(List<BankInfo> bankList);
 }

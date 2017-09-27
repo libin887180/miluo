@@ -8,6 +8,7 @@ import com.zhongdi.miluo.view.OpenAccountView;
 
 import org.xutils.common.Callback;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,13 +25,14 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
-                            view.toOpenSuccess();
+//                            view.toOpenSuccess();
+                        view.showCodeDialog();
                     }
 
                     @Override
                     public void onFailed(MResponse<String> response, int requestCode) {
-//                        view.showToast("开户失败");
-                        view.toOpenSuccess();
+                        view.showToast(response.getMsg());
+//                        view.toOpenSuccess();
                     }
 
                     @Override
@@ -44,5 +46,63 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
                     }
 
                 });
+    }
+
+    public void openAccountConfirm(String smscode) {
+        Map<String, String> map = new HashMap<>();
+        map.put("smscode",smscode);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_CONFIRM, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<String>>() {
+                    @Override
+                    public void onSuccess(MResponse<String> response, int requestCode) {
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<String> response, int requestCode) {
+                        view.showCodeError();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                });
+
+
+    }
+
+    public void resendMessage(String phoneNum) {
+
+        Map<String, String> map = new HashMap<>();
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_SENDCODE, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<String>>() {
+                    @Override
+                    public void onSuccess(MResponse<String> response, int requestCode) {
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<String> response, int requestCode) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                });
+
     }
 }

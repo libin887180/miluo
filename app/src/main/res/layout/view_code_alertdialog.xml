@@ -44,8 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
+            android:maxLines="1"
+            android:maxLength="6"
+            android:inputType="number"
             android:gravity="center_horizontal"
             android:hint="短信验证码"
+            android:textColorHint="@color/text_color_normal"
             android:padding="10dp" />
 
         <ImageView

@@ -10,9 +10,10 @@ import android.widget.TextView;
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.adapter.CardListAdapter;
+import com.zhongdi.miluo.adapter.BankListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.presenter.ChooseBankPresenter;
 import com.zhongdi.miluo.view.ChooseBankView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
@@ -30,10 +31,10 @@ public class ChooseBankActivity extends BaseActivity<ChooseBankPresenter> implem
     TwinklingRefreshLayout refreshLayout;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
-    CardListAdapter bankAdapter;
+    BankListAdapter bankAdapter;
     @BindView(R.id.title)
     TextView title;
-
+    List<BankInfo> datas = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,26 +49,31 @@ public class ChooseBankActivity extends BaseActivity<ChooseBankPresenter> implem
     @Override
     protected void initialize() {
         title.setText("选择银行");
-        List<String> datas = new ArrayList<>();
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        bankAdapter = new CardListAdapter(mContext, datas);
+        bankAdapter = new BankListAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(bankAdapter);
-        bankAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<String>() {
+        bankAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<BankInfo>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, String bankno, int position) {
+            public void onClick(View view, RecyclerView.ViewHolder holder, BankInfo bankInfo, int position) {
                 bankAdapter.setCheck(position);
                 Intent intent = new Intent();
-                intent.putExtra("bankno","0");
+                intent.putExtra("bankno",bankInfo.getBankno());
                 setResult(RESULT_OK,intent);
                 finish();
             }
         });
+        initData();
+    }
+
+    private void initData() {
+        presenter.getBankList();
+    }
+
+    @Override
+    public void onSuccess(List<BankInfo> bankList) {
+        datas.addAll(bankList);
+        bankAdapter.notifyDataSetChanged();
     }
 
 }

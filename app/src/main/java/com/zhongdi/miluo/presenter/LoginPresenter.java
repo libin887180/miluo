@@ -76,7 +76,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override

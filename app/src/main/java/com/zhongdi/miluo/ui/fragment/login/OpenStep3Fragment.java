@@ -166,6 +166,7 @@ public class OpenStep3Fragment extends Fragment {
         switch (view.getId()) {
             case R.id.btn_finish:
                 parentActivity.registryid = "0";
+                parentActivity.bankno = "0103";
                 if(StringUtil.isEmpty(parentActivity.bankno)){
                     Toast.makeText(getActivity(), "请选择银行", Toast.LENGTH_SHORT).show();
                     return;
@@ -179,7 +180,7 @@ public class OpenStep3Fragment extends Fragment {
                     return;
                 }
                 parentActivity.bankcardno = etBankCard.getText().toString();
-                parentActivity.phone = etBankCard.getText().toString();
+                parentActivity.phone = etBankPhone.getText().toString();
                 parentActivity.openAccount();
                 break;
             case R.id.rl_bank_card:
@@ -194,7 +195,7 @@ public class OpenStep3Fragment extends Fragment {
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
             if (data != null) {
               String bankno =  data.getStringExtra("bankno");
-                parentActivity.bankno = bankno;
+                parentActivity.bankno = "0103";
             }
         }
     }

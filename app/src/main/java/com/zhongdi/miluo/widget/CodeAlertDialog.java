@@ -88,6 +88,10 @@ public class CodeAlertDialog {
         return txt_code;
     }
 
+    public EditText getEditCode() {
+        return et_code;
+    }
+
     public CodeAlertDialog setTitle(String title) {
         showTitle = true;
         if ("".equals(title)) {
@@ -129,6 +133,9 @@ public class CodeAlertDialog {
         return this;
     }
 
+    public boolean isShowing(){
+        return  dialog.isShowing();
+    }
     public CodeAlertDialog setPositiveButton(String text,
                                              final OnClickListener listener) {
         showPosBtn = true;

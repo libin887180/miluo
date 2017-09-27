@@ -216,6 +216,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         scrollMsgs.add("股票基金奥斯卡几点来");
         scrollMsgs.add("奥术大师多");
         scrollMsgs.add("的范德萨发");
+        btnLogin.setText("去开户");
     }
 
 

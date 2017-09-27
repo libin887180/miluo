@@ -14,6 +14,8 @@ public class URLConfig {
     public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
+    //秦松
+//    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**
      * 测试接口
      */
@@ -40,4 +42,16 @@ public class URLConfig {
      * 开户
      */
     public static final String OPNE_ACCOUNT = BASE_URL + "/lead/mobile/v1/openAccount";
+    /**
+     * 开户短信发送
+     */
+    public static final String OPNE_ACCOUNT_SENDCODE = BASE_URL + "/lead/mobile/v1/resendMessage";
+    /**
+     * 开户确认
+     */
+    public static final String OPNE_ACCOUNT_CONFIRM = BASE_URL + "/lead/mobile/v1/openAccountConfirm";
+    /**
+     * 获取银行列表
+     */
+    public static final String QUERY_BANKS = BASE_URL + "/lead/v1/bankCardInfoQry";
 }

@@ -11,4 +11,6 @@ public interface OpenAccountView extends BaseView {
     void swapViewPagerTo(int index);
 
     void toOpenSuccess();
+    void  showCodeDialog();
+    void showCodeError();
 }

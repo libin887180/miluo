@@ -17,9 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.adapter.CardListAdapter;
+import com.zhongdi.miluo.adapter.BankListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
@@ -65,7 +66,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
     private PayView mPayView;
     private RecyclerView recyclerView;
-    private  CardListAdapter listAdapter;
+    private BankListAdapter listAdapter;
     private PopupWindow mCardPopupWindow;
     private View cardPopView;
 
@@ -119,16 +120,11 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         });
         cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
          recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
-        List<String> datas = new ArrayList<>();
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-        datas.add("1");
-       listAdapter = new CardListAdapter(mContext, datas);
+        List<BankInfo> datas = new ArrayList<>();
+        datas.add(new BankInfo());
+        datas.add(new BankInfo());
+        datas.add(new BankInfo());
+       listAdapter = new BankListAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
