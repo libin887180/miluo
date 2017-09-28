@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.model.Manager;
 import com.zhongdi.miluo.presenter.ForgetPswPresenter;
 import com.zhongdi.miluo.view.ForgetPswView;
 
@@ -24,18 +23,23 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
     TextView tvTitleLeft;
     @BindView(R.id.et_new_password)
     EditText etNewPassword;
+    @BindView(R.id.et_new_password2)
+    EditText etNewPassword2;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userName = getIntent().getStringExtra("username");
         binding(R.layout.activity_forget_psw);
     }
 
     @Override
-    public void onSuccess(Manager model) {
-
+    public void onSuccess() {
+        showToast("登录密码设置成功");
+        finish();
     }
 
     @Override
@@ -55,6 +59,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
 
     @Override
     protected void initialize() {
+        enableSubmitBtn(false);
         etNewPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,7 +73,28 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etNewPassword.getText().length() > 0) {
+                if (etNewPassword.getText().length() >= 6 && etNewPassword2.getText().length() >= 6) {
+                    enableSubmitBtn(true);
+                } else {
+                    enableSubmitBtn(false);
+                }
+
+            }
+        });
+        etNewPassword2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (etNewPassword.getText().length() >= 6 && etNewPassword2.getText().length() >= 6) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);
@@ -85,6 +111,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
                 finish();
                 break;
             case R.id.btn_submit:
+                presenter.modifyPsw(userName,etNewPassword.getText().toString(), etNewPassword2.getText().toString());
                 break;
         }
     }

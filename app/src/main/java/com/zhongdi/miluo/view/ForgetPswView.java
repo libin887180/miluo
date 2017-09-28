@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
-import com.zhongdi.miluo.model.Manager;
 
 
 /**
@@ -9,7 +8,7 @@ import com.zhongdi.miluo.model.Manager;
  */
 
 public interface ForgetPswView extends BaseView {
-    void onSuccess(Manager model);
+    void onSuccess();
 
     void onError(String message);
     void enableSubmitBtn(boolean enable);

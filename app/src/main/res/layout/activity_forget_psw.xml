@@ -19,7 +19,6 @@
             android:id="@+id/btn_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/title_img_margin"
             android:onClick="back"
@@ -34,6 +33,7 @@
             android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
             android:text="上一步"
+            android:visibility="gone"
             android:textSize="14sp"
            android:textColor="@color/text_222"/>
 
@@ -113,6 +113,28 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/divider_list" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/et_new_password2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="再次输入新登录密码"
+                android:imeOptions="actionNext"
+                android:inputType="numberPassword"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:phoneNumber="true"
+                android:textSize="16sp" />
+
+
+        </android.support.design.widget.TextInputLayout>
 
         <View
             android:layout_width="match_parent"

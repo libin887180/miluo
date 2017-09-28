@@ -35,6 +35,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     @BindView(R.id.tv_send_code)
     TextView tvSendCode;
     private int from;
+    private String sendCodeType;//验证码类型
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +56,19 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @Override
     protected void initialize() {
+
         if (from == IntentConfig.FROM_MODIFY_PSW) {
             title.setText("登录密码修改");
+            sendCodeType = "2";
         } else if (from == IntentConfig.FROM_MODIFY_DEAL_PSW) {
             title.setText("交易密码修改");
+            sendCodeType = "4";
         } else if (from == IntentConfig.FROM_FORGET_PSW) {
             title.setText("忘记登录密码");
+            sendCodeType = "3";
         } else if (from == IntentConfig.FROM_FORGET_DEAL_PSW) {
             title.setText("忘记交易密码");
+            sendCodeType = "5";
         }
         disableNextBtn();
         etTel.addTextChangedListener(new TextWatcher() {
@@ -114,10 +120,10 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
         switch (view.getId()) {
             case R.id.tv_send_code:
                 timer.start();
-                presenter.sendMessage(etTel.getText().toString());
+                presenter.sendMessage(etTel.getText().toString(), sendCodeType);
                 break;
             case R.id.btn_next:
-                toNext();
+                presenter.checkCode(etTel.getText().toString(), etCode.getText().toString(),sendCodeType);
                 break;
         }
 
@@ -137,21 +143,30 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     @Override
     public void toNext() {
         if (from == IntentConfig.FROM_MODIFY_PSW) {
-            startActivity(new Intent(mContext, ModifyLoginPswActivity.class));
+            Intent intent =  new Intent(mContext, ModifyLoginPswActivity.class);
+            intent.putExtra("username",etTel.getText().toString());
+            startActivity(intent);
         } else if (from == IntentConfig.FROM_MODIFY_DEAL_PSW) {
-            startActivity(new Intent(mContext, ModifyDealPswActivity.class));
+            Intent intent =  new Intent(mContext, ModifyDealPswActivity.class);
+            intent.putExtra("username",etTel.getText().toString());
+            startActivity(intent);
         } else if (from == IntentConfig.FROM_FORGET_PSW) {
-            startActivity(new Intent(mContext, ForgetPswActivity.class));
+           Intent intent =  new Intent(mContext, ForgetPswActivity.class);
+            intent.putExtra("username",etTel.getText().toString());
+            startActivity(intent);
         } else if (from == IntentConfig.FROM_FORGET_DEAL_PSW) {
-            startActivity(new Intent(mContext, ForgetDealPswActivity1.class));
+            Intent intent =  new Intent(mContext, ForgetDealPswActivity1.class);
+            intent.putExtra("username",etTel.getText().toString());
+            startActivity(intent);
         }
+        finish();
     }
 
     CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            tvSendCode.setText(millisUntilFinished / 1000 + "秒");
+            tvSendCode.setText(millisUntilFinished / 1000 + "秒后重发");
         }
 
         @Override

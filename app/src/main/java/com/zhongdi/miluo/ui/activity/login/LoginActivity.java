@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.tv_title_right://注册到快速登录界面
                 finish();
                 break;
-            case R.id.tv_forget_psw:
+            case R.id.tv_forget_psw://忘记登录密码
                 findPsw();
                 break;
             case R.id.tv_quick_login:

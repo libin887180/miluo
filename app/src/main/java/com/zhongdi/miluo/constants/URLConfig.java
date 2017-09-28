@@ -27,6 +27,10 @@ public class URLConfig {
      */
     public static final String SEND_MSG = BASE_URL + "/lead/v1/user/sendMessage";
     /**
+     * 验证码校验
+     */
+    public static final String SEND_MSG_CHECK = BASE_URL + "/lead/v1/user/isvalidateseq";
+    /**
      * 注册
      */
     public static final String REGISTER = BASE_URL + "/lead/v1/user/register";
@@ -62,4 +66,16 @@ public class URLConfig {
      * 风险答案提交
      */
     public static final String RISK_SUBMIT= BASE_URL + "/lead/v1/user/riskevaluating";
+    /**
+     * 修改登录密码
+     */
+    public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifypassword";
+    /**
+     * 基金搜索
+     */
+    public static final String SEARCH_FUND= BASE_URL + "/lead/v1/fundqry";
+    /**
+     * 热搜
+     */
+    public static final String HOT_SEARCH= BASE_URL + "/lead/v1/hotsearch";
 }
