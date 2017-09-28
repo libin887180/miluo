@@ -28,6 +28,7 @@ import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
@@ -309,7 +310,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         }
     }
 
-    @OnClick({R.id.btn_login, R.id.img_msg})
+    @OnClick({R.id.btn_login, R.id.img_msg,R.id.et_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -326,6 +327,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 break;
             case R.id.img_msg:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));
+                break;
+            case R.id.et_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
         }
     }
