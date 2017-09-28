@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,9 +36,11 @@ public class ChooseBankActivity extends BaseActivity<ChooseBankPresenter> implem
     @BindView(R.id.title)
     TextView title;
     List<BankInfo> datas = new ArrayList<>();
+    String  selectBankName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectBankName = getIntent().getStringExtra("selectBankName");
         binding(R.layout.activity_recycle_list);
     }
 
@@ -49,16 +52,21 @@ public class ChooseBankActivity extends BaseActivity<ChooseBankPresenter> implem
     @Override
     protected void initialize() {
         title.setText("选择银行");
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setEnableOverScroll(false);
         bankAdapter = new BankListAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(bankAdapter);
+        if(!TextUtils.isEmpty(selectBankName)){
+            bankAdapter.setCheck(selectBankName);
+        }
         bankAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<BankInfo>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, BankInfo bankInfo, int position) {
-                bankAdapter.setCheck(position);
                 Intent intent = new Intent();
-                intent.putExtra("bankno",bankInfo.getBankno());
+                intent.putExtra("bankInfo",bankInfo);
                 setResult(RESULT_OK,intent);
                 finish();
             }

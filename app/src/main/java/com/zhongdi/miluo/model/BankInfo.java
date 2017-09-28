@@ -1,10 +1,12 @@
 package com.zhongdi.miluo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by kenn on 2017/9/27.
  */
 
-public class BankInfo {
+public class BankInfo implements Serializable{
 
 
     private String amtdesc;
@@ -16,7 +18,7 @@ public class BankInfo {
     private String id;
     private String logourl;
     private String productcategory;
-    private int transamt;
+    private int transamt;//单笔限额
 
     public String getAmtdesc() {
         return amtdesc;

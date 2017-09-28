@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.ui.activity.login.ChooseBankActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.util.StringUtil;
@@ -35,8 +36,8 @@ public class OpenStep3Fragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.tv_bank_name)
     TextView tvBankName;
-    @BindView(R.id.tv_band_card_num)
-    TextView tvBankCardNum;
+    @BindView(R.id.tv_id_card_num)
+    TextView tvIdCardNum;
     @BindView(R.id.tv_real_name)
     TextView tvRealName;
     @BindView(R.id.et_bank_card)
@@ -86,7 +87,7 @@ public class OpenStep3Fragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            tvBankCardNum.setText(StringUtil.hindIdcardNum(parentActivity.identityno));
+            tvIdCardNum.setText(StringUtil.hindIdcardNum(parentActivity.identityno));
             String name = SpCacheUtil.getInstance().getRealName();
             StringBuffer nameBuffer = new StringBuffer(name);
             nameBuffer.replace(0, 1, "*");
@@ -167,15 +168,15 @@ public class OpenStep3Fragment extends Fragment {
             case R.id.btn_finish:
                 parentActivity.registryid = "0";
                 parentActivity.bankno = "0103";
-                if(StringUtil.isEmpty(parentActivity.bankno)){
+                if (StringUtil.isEmpty(parentActivity.bankno)) {
                     Toast.makeText(getActivity(), "请选择银行", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(StringUtil.isEmpty(etBankCard.getText().toString())){
+                if (StringUtil.isEmpty(etBankCard.getText().toString())) {
                     Toast.makeText(getActivity(), "请输入银行卡号", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!StringUtil.isPhoneNum(etBankPhone.getText().toString())){
+                if (!StringUtil.isPhoneNum(etBankPhone.getText().toString())) {
                     Toast.makeText(getActivity(), "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -184,7 +185,9 @@ public class OpenStep3Fragment extends Fragment {
                 parentActivity.openAccount();
                 break;
             case R.id.rl_bank_card:
-                startActivityForResult(new Intent(getActivity(), ChooseBankActivity.class), 101);
+                Intent intent = new Intent(getActivity(), ChooseBankActivity.class);
+                intent.putExtra("selectBankName", tvBankName.getText().toString());
+                startActivityForResult(intent, 101);
                 break;
         }
     }
@@ -194,8 +197,9 @@ public class OpenStep3Fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-              String bankno =  data.getStringExtra("bankno");
-                parentActivity.bankno = "0103";
+                BankInfo bankInfo = (BankInfo) data.getSerializableExtra("bankInfo");
+                parentActivity.bankno = bankInfo.getBankno();
+                tvBankName.setText(bankInfo.getBankname());
             }
         }
     }

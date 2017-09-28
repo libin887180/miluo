@@ -131,7 +131,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                listAdapter.setCheck(position);
                 mCardPopupWindow.dismiss();
             }
         });
