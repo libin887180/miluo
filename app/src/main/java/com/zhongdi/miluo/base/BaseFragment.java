@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.MyApplication;
+import com.zhongdi.miluo.widget.LoadingProgressDialog;
 
 import butterknife.Unbinder;
 
@@ -19,7 +20,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     protected P presenter;
 
     protected abstract P initPresenter();
-
+    protected LoadingProgressDialog progressDialog;
     protected View rootView;
     protected MyApplication applica;
     protected Unbinder unbinder;
@@ -94,7 +95,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         }
         return false;
     }
-
+    public LoadingProgressDialog getLoadingProgressDialog() {
+        if (null == progressDialog) {
+            progressDialog = new LoadingProgressDialog(getActivity(), "加载中...");
+            progressDialog.setCancelable(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        return progressDialog;
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

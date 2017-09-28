@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.widget.AlertDialog;
+import com.zhongdi.miluo.widget.LoadingProgressDialog;
 
 import butterknife.ButterKnife;
 
@@ -22,6 +23,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected Context mContext;
     protected MyApplication applica;
     protected P presenter;
+    protected LoadingProgressDialog progressDialog;
 
     protected abstract P initPresenter();
 
@@ -39,6 +41,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         ButterKnife.bind(this);
         presenter = initPresenter();
         initialize();
+    }
+    public LoadingProgressDialog getLoadingProgressDialog() {
+        if (null == progressDialog) {
+            progressDialog = new LoadingProgressDialog(this, "加载中...");
+            progressDialog.setCancelable(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        return progressDialog;
     }
 
     @Override

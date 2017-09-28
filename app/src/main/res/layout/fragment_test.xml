@@ -3,133 +3,159 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingTop="25dp">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/tv_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textColor="@color/red"
-            android:textSize="50dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_step"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/tv_step"
-            android:text="/10"
-            android:textColor="@color/light_red"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp">
 
-    <TextView
-        android:id="@+id/tv_qusetion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/red"
-        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/red"
+                    android:textSize="50dp" />
 
-    <RelativeLayout
-        android:id="@+id/rl_a"
-        android:layout_width="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_height="70dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/divider_list" />
-        <TextView
-            android:id="@+id/tv_selection_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/text_555"
-            android:text="25岁"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_b"
-        android:layout_width="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_height="70dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/divider_list" />
-        <TextView
-            android:id="@+id/tv_selection_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/text_555"
-            android:text="25岁"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_c"
-        android:layout_width="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_height="70dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/divider_list" />
-        <TextView
-            android:id="@+id/tv_selection_c"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/text_555"
-            android:text="25岁"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_d"
-        android:layout_width="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_height="70dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/divider_list" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divider_list" />
-        <TextView
-            android:id="@+id/tv_selection_d"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/text_555"
-            android:text="25岁"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/tv_pre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="上一题"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/light_red"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/tv_step"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toRightOf="@id/tv_step"
+                    android:text="/10"
+                    android:textColor="@color/light_red"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_qusetion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/red"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_a"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/divider_list" />
+
+                <TextView
+                    android:id="@+id/tv_selection_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="25岁"
+                    android:textColor="@color/text_555"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_b"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/divider_list" />
+
+                <TextView
+                    android:id="@+id/tv_selection_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="25岁"
+                    android:textColor="@color/text_555"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_c"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/divider_list" />
+
+                <TextView
+                    android:id="@+id/tv_selection_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="25岁"
+                    android:textColor="@color/text_555"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_d"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/divider_list" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_list" />
+
+                <TextView
+                    android:id="@+id/tv_selection_d"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="25岁"
+                    android:textColor="@color/text_555"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="上一题"
+                android:textColor="@color/light_red" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

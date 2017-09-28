@@ -27,6 +27,7 @@ import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
@@ -77,7 +78,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private View rootView;
     private List<String> scrollMsgs;
     private LinearLayoutManager mLayoutManager;
-
+    private MainActivity paraentActivity;
 
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
@@ -107,9 +108,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_home_2, null);
+            paraentActivity = (MainActivity) getActivity();
             unbinder = ButterKnife.bind(this, rootView);
             initData();
             initView();
+
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
             // 要不然会发生这个rootview已经有parent的错误。
@@ -125,9 +128,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     }
 
     private void initView() {
+
         setupRefreshView();
         setUpMarqueeView();
-
         List<String> datas = new ArrayList<>();
         datas.add("1111111111111");
         datas.add("22222222222");
@@ -216,7 +219,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         scrollMsgs.add("股票基金奥斯卡几点来");
         scrollMsgs.add("奥术大师多");
         scrollMsgs.add("的范德萨发");
-        btnLogin.setText("去测评");
     }
 
 
@@ -289,7 +291,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK&&requestCode==102) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 102) {
             if (!TextUtils.isEmpty(SpCacheUtil.getInstance().getLoginAccount())) {
                 if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
                     btnLogin.setText("去开户");
@@ -300,7 +302,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         rlLoginState.setVisibility(View.GONE);
                     }
                 }
-            }else{
+            } else {
                 rlLoginState.setVisibility(View.VISIBLE);
                 btnLogin.setText("立即登录");
             }
@@ -314,7 +316,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 if (btnLogin.getText().equals("立即登录")) {
                     Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
-                    startActivityForResult(intent,102);
+                    startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去开户")) {
                     ActivityUtil.startForwardActivity(getActivity(), OpenAccountActivity.class);
                 } else if (btnLogin.getText().equals("去测评")) {

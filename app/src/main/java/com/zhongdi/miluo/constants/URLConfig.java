@@ -54,4 +54,12 @@ public class URLConfig {
      * 获取银行列表
      */
     public static final String QUERY_BANKS = BASE_URL + "/lead/v1/bankCardInfoQry";
+    /**
+     * 风险评测题目
+     */
+    public static final String RISK_TEST_QUESTION = BASE_URL + "/lead/v1/selrisk";
+    /**
+     * 风险答案提交
+     */
+    public static final String RISK_SUBMIT= BASE_URL + "/lead/v1/user/riskevaluating";
 }

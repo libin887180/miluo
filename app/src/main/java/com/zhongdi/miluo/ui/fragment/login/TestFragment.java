@@ -50,7 +50,7 @@ public class TestFragment extends Fragment {
     TextView tvPre;
     Unbinder unbinder1;
     int index;
-
+    TestActivity activity;
     public static TestFragment newInstance(int info, TestQuestion data) {
         Bundle args = new Bundle();
         TestFragment fragment = new TestFragment();
@@ -68,6 +68,7 @@ public class TestFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_test, null);
             unbinder = ButterKnife.bind(this, rootView);
+            activity = (TestActivity) getActivity();
             initialize();
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -86,11 +87,11 @@ public class TestFragment extends Fragment {
         index = getArguments().getInt("index");
         TestQuestion data = (TestQuestion) getArguments().getSerializable("data");
         tvStep.setText(index + "");
-        tvSelectionA.setText(data.getSelectionA());
-        tvSelectionB.setText(data.getSelectionB());
-        tvSelectionC.setText(data.getSelectionC());
-        tvSelectionD.setText(data.getSelectionD());
-        tvQusetion.setText(data.getQuestion());
+        tvSelectionA.setText(data.getValue().get(0));
+        tvSelectionB.setText(data.getValue().get(1));
+        tvSelectionC.setText(data.getValue().get(2));
+        tvSelectionD.setText(data.getValue().get(3));
+        tvQusetion.setText(data.getTitle());
         if (index > 1) {
             tvPre.setVisibility(View.VISIBLE);
         } else {
@@ -109,7 +110,6 @@ public class TestFragment extends Fragment {
 
     @OnClick({R.id.rl_a, R.id.rl_b, R.id.rl_c, R.id.rl_d, R.id.tv_pre})
     public void onViewClicked(View view) {
-        TestActivity activity = (TestActivity) getActivity();
         switch (view.getId()) {
             case R.id.rl_a:
                 //设置条目背景色
