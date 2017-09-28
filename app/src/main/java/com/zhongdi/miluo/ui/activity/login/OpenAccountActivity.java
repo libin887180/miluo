@@ -185,7 +185,5 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         requestMap.put("tradepwd",tradepwd);
         presenter.openAccount(requestMap);
 
-
-
     }
 }

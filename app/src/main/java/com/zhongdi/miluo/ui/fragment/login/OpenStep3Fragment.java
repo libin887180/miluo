@@ -166,8 +166,6 @@ public class OpenStep3Fragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_finish:
-                parentActivity.registryid = "0";
-                parentActivity.bankno = "0103";
                 if (StringUtil.isEmpty(parentActivity.bankno)) {
                     Toast.makeText(getActivity(), "请选择银行", Toast.LENGTH_SHORT).show();
                     return;
