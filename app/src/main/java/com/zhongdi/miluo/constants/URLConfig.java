@@ -82,4 +82,8 @@ public class URLConfig {
      * 热搜
      */
     public static final String HOT_SEARCH= BASE_URL + "/lead/v1/hotSearch";
+    /**
+     * 基金消息
+     */
+    public static final String FUND_NEWS = BASE_URL + "/lead/v1/user/news";
 }

@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.AwardedFundAdapter;
 import com.zhongdi.miluo.adapter.GridImageAdapter;
@@ -293,7 +293,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == 102) {
-            if (!TextUtils.isEmpty(SpCacheUtil.getInstance().getLoginAccount())) {
+            if (MyApplication.getInstance().isLogined) {
                 if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
                     btnLogin.setText("去开户");
                 } else {

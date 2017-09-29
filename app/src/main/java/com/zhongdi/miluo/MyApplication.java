@@ -8,15 +8,15 @@ import android.app.Application;
 
 public class MyApplication extends Application {
     private static MyApplication mInstance = null;
-
+    public boolean isLogined;
     @Override
+
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         MyIntentService.start(this);
 //        SystemClock.sleep(1000);
     }
-
 
 
     /**

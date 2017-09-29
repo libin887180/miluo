@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,25 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MessageAdapter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.MessageBean;
+import com.zhongdi.miluo.net.NetRequestUtil;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +48,11 @@ public class FundMessageFragment extends Fragment {
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     MessageAdapter adapter;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+    Unbinder unbinder1;
+    List<MessageBean> datas = new ArrayList<>();
+    private int pageNum = 1;
 
     public static FundMessageFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -61,30 +80,100 @@ public class FundMessageFragment extends Fragment {
             }
             unbinder = ButterKnife.bind(this, rootView);
         }
+        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
+    /**
+     * 获取消息列表
+     *
+     * @param page
+     */
+
+    private void getMessages(final int page) {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", SpCacheUtil.getInstance().getLoginAccount());
+        map.put("pageNumber", page + "");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_NEWS, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<MessageBean>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<MessageBean>> response, int requestCode) {
+
+                        OnDataSuccess(response.getBody());
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<MessageBean>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    private void OnDataSuccess(List<MessageBean> list) {
+        if (pageNum == 1) {
+            datas.clear();
+        }
+        if (list.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            pageNum++;
+            refreshLayout.setEnableLoadmore(true);
+        }
+        datas.addAll(list);
+        adapter.notifyDataSetChanged();
+        if(datas.size()==0){
+            stateLayout.showEmptyView();
+        }
+    }
+
+
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishRefreshing();
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.finishLoadmore();
+                    }
+                }, 2000);
+            }
+        });
+
         adapter = new MessageAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
+        getMessages(pageNum);
     }
+
 
     @Override
     public void onDestroyView() {
@@ -92,6 +181,7 @@ public class FundMessageFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
+        unbinder1.unbind();
 
     }
 }

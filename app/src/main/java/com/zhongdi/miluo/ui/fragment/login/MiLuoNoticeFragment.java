@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.fingdo.statelayout.StateLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
-import com.zhongdi.miluo.adapter.market.MessageAdapter;
+import com.zhongdi.miluo.adapter.market.MiluoNoticeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class MiLuoNoticeFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
-    MessageAdapter adapter;
+    MiluoNoticeAdapter adapter;
 
     public static MiLuoNoticeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -75,7 +75,7 @@ public class MiLuoNoticeFragment extends Fragment {
         datas.add("保本");
         datas.add("保本");
         datas.add("保本");
-        adapter = new MessageAdapter(getActivity(), datas);
+        adapter = new MiluoNoticeAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {

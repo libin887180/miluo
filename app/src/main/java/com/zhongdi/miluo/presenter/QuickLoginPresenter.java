@@ -3,11 +3,11 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
-import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.util.MiLuoUtil;
 import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
 
@@ -87,7 +87,7 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {
                         ViseLog.w(response.getBody());
-                        SpCacheUtil.getInstance().saveUserInfo(response.getBody());
+                        MiLuoUtil.saveUserInfo(response.getBody());
                         view.loginSuccess();
 
                     }

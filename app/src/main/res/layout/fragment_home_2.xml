@@ -64,11 +64,16 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:id="@+id/center_view"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-
+                            android:layout_toRightOf="@id/center_view"
                             android:orientation="vertical">
 
                             <TextView
@@ -88,11 +93,11 @@
                         </LinearLayout>
 
                         <CheckBox
+                            style="@style/checkbox_visiable_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/checkbox_visiable_white"
                             android:checked="true" />
                     </RelativeLayout>
 
@@ -133,7 +138,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="6%"
                                     android:textColor="@color/red"
-                                    android:textSize="18sp"/>
+                                    android:textSize="18sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -153,62 +158,65 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
+                                    android:shadowRadius="8"
                                     android:text="5.7"
                                     android:textColor="@color/red"
                                     android:textSize="50sp"
-                                    android:shadowColor="@color/light_red"
-                                    android:shadowRadius="8"
-                                    android:shadowDx="5"
-                                    android:shadowDy="5"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
+                                    android:shadowRadius="8"
                                     android:text="%"
                                     android:textColor="@color/red"
                                     android:textSize="20sp"
-                                    android:shadowColor="@color/light_red"
-                                    android:shadowRadius="8"
-                                    android:shadowDx="5"
-                                    android:layout_marginRight="5dp"
-                                    android:shadowDy="5"
                                     android:textStyle="bold" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="+"
+                                    android:layout_marginRight="5dp"
                                     android:gravity="center_vertical"
                                     android:paddingBottom="10dp"
-                                    android:textColor="@color/red"
-                                    android:textSize="25sp"
                                     android:shadowColor="@color/light_red"
-                                    android:shadowRadius="8"
                                     android:shadowDx="5"
                                     android:shadowDy="5"
-                                    android:layout_marginRight="5dp"
+                                    android:shadowRadius="8"
+                                    android:text="+"
+                                    android:textColor="@color/red"
+                                    android:textSize="25sp"
                                     android:textStyle="bold" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="2"
                                     android:shadowColor="@color/light_red"
-                                    android:shadowRadius="8"
                                     android:shadowDx="5"
                                     android:shadowDy="5"
+                                    android:shadowRadius="8"
+                                    android:text="2"
                                     android:textColor="@color/red"
                                     android:textSize="50sp"
                                     android:textStyle="bold" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:shadowColor="@color/light_red"
+                                    android:shadowDx="5"
+                                    android:shadowDy="5"
+                                    android:shadowRadius="8"
                                     android:text="%"
                                     android:textColor="@color/red"
                                     android:textSize="20sp"
-                                    android:shadowColor="@color/light_red"
-                                    android:shadowRadius="8"
-                                    android:shadowDx="5"
-                                    android:shadowDy="5"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -235,11 +243,10 @@
                     android:id="@+id/rl_login_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/login_bg"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
-                    >
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/login_bg">
 
 
                     <TextView
@@ -258,6 +265,7 @@
                         android:textColor="@color/red"
                         android:textSize="14sp" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -271,23 +279,22 @@
                         android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
                         android:paddingTop="15dp"
-                        android:textSize="16sp"
                         android:text="精彩活动"
-                        android:textColor="@color/text_555" />
+                        android:textColor="@color/text_555"
+                        android:textSize="16sp" />
 
 
                     <com.zhongdi.miluo.widget.NoScrollGridView
                         android:id="@+id/gv_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:horizontalSpacing="0.5dp"
-                        android:verticalSpacing="0.5dp"
                         android:background="@color/divider_list"
+                        android:horizontalSpacing="0.5dp"
                         android:numColumns="2"
+                        android:overScrollMode="never"
                         android:scrollbars="none"
-                        android:overScrollMode="never"/>
+                        android:verticalSpacing="0.5dp" />
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -303,17 +310,16 @@
                         android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
                         android:paddingTop="15dp"
-                        android:textSize="16sp"
                         android:text="特色选基"
-                        android:textColor="@color/text_555" />
+                        android:textColor="@color/text_555"
+                        android:textSize="16sp" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
-                        android:overScrollMode="never">
-                    </android.support.v7.widget.RecyclerView>
+                        android:overScrollMode="never"
+                        android:paddingBottom="10dp"></android.support.v7.widget.RecyclerView>
 
 
                 </LinearLayout>
@@ -323,20 +329,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@color/white">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_alignParentBottom="true"
                         android:background="@color/divider_list" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
                         android:paddingTop="15dp"
-                        android:textSize="16sp"
                         android:text="投资热点"
-                        android:textColor="@color/text_555" />
+                        android:textColor="@color/text_555"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -346,28 +354,28 @@
                         android:paddingBottom="15dp"
                         android:paddingTop="15dp"
                         android:text="选基还要看市场"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_color_normal" />
+                        android:textColor="@color/text_color_normal"
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_hot"
                     android:layout_width="match_parent"
 
-                    android:background="@color/white"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:background="@color/white"
-                    android:paddingTop="10dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="10dp"
-                    android:orientation="horizontal">
+                    android:paddingTop="10dp">
 
                     <ImageView
                         android:id="@+id/title_tv1"
@@ -397,16 +405,16 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="15dp"
                         android:paddingLeft="15dp"
-                        android:textSize="16sp"
                         android:paddingTop="15dp"
                         android:text="2017晨星获奖基金"
-                        android:textColor="@color/text_555" />
+                        android:textColor="@color/text_555"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/cx_bg"
                         android:padding="10dp"
                         android:text="晨星获奖基金：美国最主要的投资研究机构之一和国际基金评级的权威机构。"
@@ -419,16 +427,19 @@
 
 
                 </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@color/white">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_alignParentBottom="true"
                         android:background="@color/divider_list" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -446,23 +457,24 @@
                         android:paddingBottom="15dp"
                         android:paddingTop="15dp"
                         android:text="选只好基金，早投早安心"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_color_normal" />
+                        android:textColor="@color/text_color_normal"
+                        android:textSize="14sp" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_understand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:background="@color/white"
-                    android:overScrollMode="never" />
+                    android:overScrollMode="never"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/ic_safe"
                     android:drawablePadding="5dp"
                     android:text="由浦发银行托管，资金更安全"
@@ -472,8 +484,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
                     android:text="基金销售服务由上海利得基金销售有限公司提供"
                     android:textColor="@color/text_color_normal"
                     android:textSize="12sp" />
@@ -481,8 +493,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
                     android:text="（基金销售业务资格证号：000000309）"
                     android:textColor="@color/text_color_normal"
                     android:textSize="12sp" />
@@ -491,11 +503,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="2dp"
                     android:text="基金有风险，投资需谨慎"
-                    android:layout_marginBottom="15dp"
                     android:textColor="@color/text_color_normal"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
         </com.zhongdi.miluo.widget.ObservableScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

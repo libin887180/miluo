@@ -44,7 +44,7 @@ public class MessagesActivity extends BaseActivity<MessagesPresenter> implements
     @Override
     public void initTabLayout() {
         List<String> tabs = new ArrayList<>();
-        tabs.add("基金公告");
+        tabs.add("基金消息");
         tabs.add("米罗公告");
         tablayout.removeAllTabs();
         for (int i = 0; i < tabs.size(); i++) {
