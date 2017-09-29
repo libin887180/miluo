@@ -8,4 +8,9 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface ModifyDealPswView extends BaseView {
+
+    void onSuccess();
+
+    void onError(String message);
+    void enableSubmitBtn(boolean enable);
 }

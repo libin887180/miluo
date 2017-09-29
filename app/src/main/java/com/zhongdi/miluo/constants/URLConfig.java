@@ -71,6 +71,10 @@ public class URLConfig {
      */
     public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifypassword";
     /**
+     * 修改登录密码
+     */
+    public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/modifytradpassword";
+    /**
      * 基金搜索
      */
     public static final String SEARCH_FUND= BASE_URL + "/lead/v1/fundqry";

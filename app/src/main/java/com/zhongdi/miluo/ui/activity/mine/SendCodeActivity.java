@@ -17,6 +17,7 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.SendCoderesenter;
 import com.zhongdi.miluo.ui.activity.login.ForgetDealPswActivity1;
 import com.zhongdi.miluo.ui.activity.login.ForgetPswActivity;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.SendCodeView;
 
 import butterknife.BindView;
@@ -142,6 +143,10 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @Override
     public void toNext() {
+        if(!StringUtil.isPhoneNum(etTel.getText().toString())){
+            showToast("请输入正确格式的手机号码");
+            return;
+        }
         if (from == IntentConfig.FROM_MODIFY_PSW) {
             Intent intent =  new Intent(mContext, ModifyLoginPswActivity.class);
             intent.putExtra("username",etTel.getText().toString());

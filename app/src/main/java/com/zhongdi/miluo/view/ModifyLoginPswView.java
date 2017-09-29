@@ -8,4 +8,8 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface ModifyLoginPswView extends BaseView {
+    void onSuccess();
+
+    void onError(String message);
+    void enableSubmitBtn(boolean enable);
 }
