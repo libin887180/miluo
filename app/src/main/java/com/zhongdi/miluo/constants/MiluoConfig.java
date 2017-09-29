@@ -37,4 +37,19 @@ public class MiluoConfig {
     public static final int JINQU = 4;//进取型
     public static final int JIJIN = 5;//激进型
 
+
+
+    public static final String GUPIAO = "1";//股票型
+    public static final String ZHAIQUAN = "2";//债券型
+    public static final String HUNHE = "3";//混合型
+    public static final String HUOBI = "4";//货币型
+    public static final String ZHISHU = "5";//指数型
+    public static final String BAOBEN = "6";//保本型
+    public static final String ETF = "7";//ETF联接
+    public static final String DQII = "8";//QDII
+    public static final String LOF = "9";//LOF
+    public static final String DUANQI = "98";//短期理财型
+    public static final String ALL = "99";//全部
+    public static final String ZUHE = "20";//组合型
+
 }

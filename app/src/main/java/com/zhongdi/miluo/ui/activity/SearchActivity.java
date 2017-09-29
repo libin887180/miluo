@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.SearchAdapter;
@@ -37,6 +38,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     List<SearchFund> datas = new ArrayList<>();
+    private int pageNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void initialize() {
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setEnableRefresh(false);
         presenter.getHotFund();
         adapter = new SearchAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
@@ -57,6 +62,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         recyclerView.setAdapter(adapter);
         setListener();
     }
+
     @Override
     public void setListener() {
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -72,10 +78,25 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.searchFund(etSearch.getText().toString());
+                pageNum = 1;
+                presenter.searchFund(etSearch.getText().toString(), pageNum);
 
             }
         });
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                pageNum = 1;
+                presenter.searchFund(etSearch.getText().toString(), pageNum);
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                presenter.searchFund(etSearch.getText().toString(), pageNum);
+            }
+        });
+
     }
 
     @Override
@@ -87,8 +108,19 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void onSearchSuccess(List<SearchFund> body) {
+        if(pageNum==1){
+            datas.clear();
+        }
+        if (body.size() < 15) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            pageNum++;
+            refreshLayout.setEnableLoadmore(true);
+        }
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadmore();
         llHot.setVisibility(View.GONE);
-        datas.clear();
+        refreshLayout.setEnableRefresh(true);
         datas.addAll(body);
         adapter.notifyDataSetChanged();
     }

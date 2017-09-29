@@ -105,6 +105,7 @@
         android:id="@+id/ll_hot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -129,6 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         sl:emptyImg="@drawable/ic_state_empty"
+        android:background="@color/white"
         sl:emptyText="@string/empty_tip"
         sl:errorImg="@drawable/ic_state_error"
         sl:errorText="@string/error_tip"
@@ -149,8 +151,10 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                android:overScrollMode="never"
+                android:layout_height="match_parent"/>
 
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
     </com.fingdo.statelayout.StateLayout>

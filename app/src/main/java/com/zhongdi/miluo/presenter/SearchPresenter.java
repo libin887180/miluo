@@ -48,9 +48,10 @@ public class SearchPresenter extends BasePresenter<SearchView> {
 
                 });
     }
-    public void searchFund(String searchStr) {
+    public void searchFund(String searchStr,int pageNum) {
         Map<String, String> map = new HashMap<>();
         map.put("fundName", searchStr);
+        map.put("pageNumber", pageNum+"");
         Callback.Cancelable post = netRequestUtil.post(URLConfig.SEARCH_FUND, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<SearchFund>>>() {
                     @Override

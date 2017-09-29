@@ -77,9 +77,9 @@ public class URLConfig {
     /**
      * 基金搜索
      */
-    public static final String SEARCH_FUND= BASE_URL + "/lead/v1/fundqry";
+    public static final String SEARCH_FUND= BASE_URL + "/lead/v1/fundQry";
     /**
      * 热搜
      */
-    public static final String HOT_SEARCH= BASE_URL + "/lead/v1/hotsearch";
+    public static final String HOT_SEARCH= BASE_URL + "/lead/v1/hotSearch";
 }
