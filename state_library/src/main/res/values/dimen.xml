@@ -7,4 +7,6 @@
 
     <dimen name="retry_tip">13sp</dimen>
 
+    <dimen name="img_margin_top">60dp</dimen>
+
 </resources>

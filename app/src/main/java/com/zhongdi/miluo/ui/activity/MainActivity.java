@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import com.zhongdi.miluo.BackHandlerHelper;
 import com.zhongdi.miluo.BottomNavigationViewHelper;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.fragment.CollectionFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment2;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
@@ -28,7 +30,7 @@ public class MainActivity extends BaseActivity2 {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
-    private int selectTab = 0;
+//    private int selectTab = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,22 +113,23 @@ public class MainActivity extends BaseActivity2 {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
-                    selectTab = 0;
                     return true;
                 case R.id.navigation_market:
                     viewPager.setCurrentItem(1);
-                    selectTab = 1;
                     return true;
                 case R.id.navigation_self:
-//                    Intent intent = new Intent(mContext, LoginActivity.class);
-//                    startActivityForResult(intent, 101);
-//                    return true;
-                    viewPager.setCurrentItem(2);
-                    selectTab = 2;
-                    return true;
+                    if (MyApplication.getInstance().isLogined) {
+                        viewPager.setCurrentItem(2);
+                        return true;
+                    } else {
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        startActivityForResult(intent, 101);
+                        return false;
+                    }
+
+
                 case R.id.navigation_mine:
                     viewPager.setCurrentItem(3);
-                    selectTab = 3;
                     return true;
             }
             return false;
@@ -139,8 +142,6 @@ public class MainActivity extends BaseActivity2 {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case 0:
-                viewPager.setCurrentItem(selectTab);
-                navigation.getMenu().getItem(selectTab).setChecked(true);
                 break;
 
         }

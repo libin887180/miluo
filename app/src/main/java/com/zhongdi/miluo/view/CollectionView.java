@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.OptionalFund;
+
+import java.util.List;
 
 
 /**
@@ -8,10 +11,9 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface CollectionView extends BaseView {
-    void doSomething();
 
+    void onDataSuccess(List<OptionalFund> data);
     void initInCreasePop();
-
 
     void initAnimation();
 }

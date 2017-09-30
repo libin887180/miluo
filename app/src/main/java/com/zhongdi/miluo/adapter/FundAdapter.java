@@ -25,8 +25,15 @@ public class FundAdapter extends BaseRecyclerAdapter<Fund> {
         TextView tvFundCode = holder.getView(R.id.tv_fund_code);
         tvFundCode.setText(item.getFundCode());
         TextView tvValue = holder.getView(R.id.tv_value);
+
+
         tvValue.setText(item.getNetValue() + "");
         TextView tvInfo = holder.getView(R.id.tv_info);
+        if(item.getRate().contains("-")){
+            tvInfo.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+        }else{
+            tvInfo.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
         tvInfo.setText(item.getRate() + "%");
     }
 }

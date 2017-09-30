@@ -2,7 +2,6 @@ package com.fingdo.statelayout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,7 +119,7 @@ public class StateLayout extends FrameLayout {
 
         errorView = LayoutHelper.getErrorView(inflater, errorItem, this);
 
-        emptyView = LayoutHelper.getEmptyView(inflater, emptyItem);
+        emptyView = LayoutHelper.getEmptyView(inflater, emptyItem,this);
 
         notNetworkView = LayoutHelper.getNoNetworkView(inflater, noNetworkItem, this);
 
@@ -180,6 +179,7 @@ public class StateLayout extends FrameLayout {
         AnimationHelper.switchViewByAnim(useAnimation, viewAnimProvider, currentShowingView, errorView);
         currentShowingView = errorView;
     }
+
 
     /**
      * 展示错误的界面

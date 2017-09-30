@@ -86,4 +86,8 @@ public class URLConfig {
      * 基金消息
      */
     public static final String FUND_NEWS = BASE_URL + "/lead/v1/user/news";
+    /**
+     * 自选基金列表
+     */
+    public static final String OPTIONAL_FUND = BASE_URL + "/fund/optionalFund";
 }

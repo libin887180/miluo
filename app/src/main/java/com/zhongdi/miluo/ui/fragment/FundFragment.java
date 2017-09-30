@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +116,7 @@ public class FundFragment extends Fragment {
                         if (pageNum == 1) {
                             funds.clear();
                         }
-//                        funds.addAll(response.getBody().getData());
+                        funds.addAll(response.getBody().getData());
 
                         if (response.getBody().getData().size() < MiluoConfig.DEFAULT_PAGESIZE) {
                             refreshLayout.setEnableLoadmore(false);
@@ -129,7 +128,7 @@ public class FundFragment extends Fragment {
                         refreshLayout.finishRefreshing();
                         fundAdapter.notifyDataSetChanged();
                         if(funds.size()==0){
-                            stateLayout.showEmptyView();
+                            stateLayout.showNoNetworkView();
                         }
                     }
 
@@ -177,12 +176,14 @@ public class FundFragment extends Fragment {
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                Log.i("11", "刷新");
+//                pageNum =1;
+//                getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
+                stateLayout.showContentView();
             }
 
             @Override
             public void loginClick() {
-                Log.i("11", "登录");
+//                Log.i("11", "登录");
             }
         });
     }

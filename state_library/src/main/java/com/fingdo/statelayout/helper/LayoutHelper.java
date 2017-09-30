@@ -6,10 +6,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.fingdo.statelayout.R;
 import com.fingdo.statelayout.StateLayout;
@@ -92,6 +89,9 @@ public class LayoutHelper {
 
             if (!TextUtils.isEmpty(item.getTip())) {
                 holder.tvTip.setText(item.getTip());
+                holder.tvTip.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvTip.setVisibility(View.GONE);
             }
             if (item.getResId() != -1) {
                 holder.ivImg.setImageResource(item.getResId());
@@ -125,6 +125,9 @@ public class LayoutHelper {
 
             if (!TextUtils.isEmpty(item.getTip())) {
                 holder.tvTip.setText(item.getTip());
+                holder.tvTip.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvTip.setVisibility(View.GONE);
             }
             if (item.getResId() != -1) {
                 holder.ivImg.setImageResource(item.getResId());
@@ -182,6 +185,9 @@ public class LayoutHelper {
 
             if (!TextUtils.isEmpty(item.getTip())) {
                 holder.tvTip.setText(item.getTip());
+                holder.tvTip.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvTip.setVisibility(View.GONE);
             }
             if (item.getResId() != -1) {
                 holder.ivImg.setImageResource(item.getResId());
@@ -205,7 +211,7 @@ public class LayoutHelper {
      * @param item           空数据bean
      * @return 空数据View
      */
-    public static View getEmptyView(LayoutInflater layoutInflater, EmptyItem item) {
+    public static View getEmptyView(LayoutInflater layoutInflater, EmptyItem item, final StateLayout layout) {
         View view = layoutInflater.inflate(R.layout.layout_empty, null);
         if (item != null) {
             EmptyViewHolder holder = new EmptyViewHolder(view);
@@ -213,10 +219,21 @@ public class LayoutHelper {
 
             if (!TextUtils.isEmpty(item.getTip())) {
                 holder.tvTip.setText(item.getTip());
+                holder.tvTip.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvTip.setVisibility(View.GONE);
             }
             if (item.getResId() != -1) {
                 holder.ivImg.setImageResource(item.getResId());
             }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (layout.getRefreshLListener() != null) {
+                        layout.getRefreshLListener().refreshClick();
+                    }
+                }
+            });
         }
         return view;
     }
@@ -238,6 +255,9 @@ public class LayoutHelper {
 
             if (!TextUtils.isEmpty(item.getTip())) {
                 holder.tvTip.setText(item.getTip());
+                holder.tvTip.setVisibility(View.VISIBLE);
+            }else{
+                holder.tvTip.setVisibility(View.GONE);
             }
             if (item.getResId() != -1) {
                 holder.ivImg.setImageResource(item.getResId());

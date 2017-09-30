@@ -16,12 +16,16 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.FragmentBackHandler;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CollectionAdapter;
 import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.model.OptionalFund;
 import com.zhongdi.miluo.presenter.CollectionPresenter;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.view.CollectionView;
@@ -55,11 +59,13 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     TwinklingRefreshLayout refreshLayout;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
-
+    List<OptionalFund> optionalFunds = new ArrayList<>();//自选基金列表
     private ListView lvIncrease;
     private PopupWindow increaseWindow;
     private IncreaseAdapter increaseAdapter;
-
+    private int pageNum =1;
+    CollectionAdapter fundAdapter;
+    private String rateType = "dayrate";//默认日涨幅
     public static CollectionFragment newInstance(String info) {
         Bundle args = new Bundle();
         CollectionFragment fragment = new CollectionFragment();
@@ -93,40 +99,58 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         return rootView;
     }
 
+//    @Override
+//    public boolean prepareFetchData(boolean forceUpdate) {
+//        return super.prepareFetchData(true);
+//    }
+
     @Override
     protected void initListener() {
         super.initListener();
-
 
         lvIncrease.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 increaseAdapter.setCheck(i);
                 increaseWindow.dismiss();
-
+                switch (i) {
+                    case 0:
+                        rateType = "dayrate";
+                        break;
+                    case 1:
+                        rateType = "weekrate";
+                        break;
+                    case 2:
+                        rateType = "monthrate";
+                        break;
+                    case 3:
+                        rateType = "seasonrate";
+                        break;
+                    case 4:
+                        rateType = "semesterrate";
+                        break;
+                    case 5:
+                        rateType = "yearrate";
+                        break;
+                }
+                pageNum =1;
+                presenter.getOptionalFund(rateType,pageNum);
             }
         });
-    }
+        refreshLayout.setEnableLoadmore(true);
+        refreshLayout.setOverScrollRefreshShow(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                pageNum = 1;
+                presenter.getOptionalFund(rateType,pageNum);
+            }
 
-    @Override
-    protected void initView(View view) {
-        initInCreasePop();
-        initAnimation();
-        initialize();
-    }
-    private void initialize() {
-
-        List<String> strings = new ArrayList<>();
-        strings.add("aaa");
-        strings.add("bbb");
-        strings.add("vvv");
-        strings.add("ccc");
-        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
-        CollectionAdapter fundAdapter = new CollectionAdapter(getActivity(), strings);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(fundAdapter);
-        stateLayout.setUseAnimation(true);
-//        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                presenter.getOptionalFund(rateType,pageNum);
+            }
+        });
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
@@ -138,6 +162,29 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
                 Log.i("11", "登录");
             }
         });
+
+    }
+
+    @Override
+    protected void initView(View view) {
+        initInCreasePop();
+        initAnimation();
+        initialize();
+    }
+    private void initialize() {
+
+        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
+         fundAdapter = new CollectionAdapter(getActivity(), optionalFunds);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(fundAdapter);
+        stateLayout.setUseAnimation(true);
+//        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
+        if(MyApplication.getInstance().isLogined) {
+            presenter.getOptionalFund(rateType, pageNum);
+//            ViseLog.w("登录了刷新");
+        }else{
+//            ViseLog.w("没登录刷新");
+        }
     }
     @Override
     protected int getLayoutId() {
@@ -146,7 +193,9 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     @Override
     public void fetchData() {
-
+        if(MyApplication.getInstance().isLogined) {//登录了,查询数据
+            presenter.getOptionalFund(rateType, pageNum);
+        }
     }
 
     @Override
@@ -161,10 +210,27 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         downAnimation.setFillAfter(true);
     }
 
-    @Override
-    public void doSomething() {
-    }
 
+    @Override
+    public void onDataSuccess(List<OptionalFund> data) {
+        if (pageNum == 1) {
+            optionalFunds.clear();
+        }
+        optionalFunds.addAll(data);
+
+        if (data.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            refreshLayout.setEnableLoadmore(true);
+            pageNum++;
+        }
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+        fundAdapter.notifyDataSetChanged();
+        if(optionalFunds.size()==0){
+            stateLayout.showNoNetworkView();
+        }
+    }
 
     @Override
     public void initInCreasePop() {
