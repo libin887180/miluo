@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,16 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.FundAdapter;
-import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.Fund;
@@ -32,7 +29,6 @@ import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import org.xutils.common.Callback;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +54,8 @@ public class FundFragment extends Fragment {
     private MarketFragment parentFragment;
     private View rootView;
     private List<Fund> funds = new ArrayList<>();
-    private int pageNum;
+    private int pageNum = 1;
+    FundAdapter fundAdapter;
 
     public static FundFragment newInstance(FundType fundType) {
         Bundle args = new Bundle();
@@ -94,23 +91,8 @@ public class FundFragment extends Fragment {
 
     private void initData() {
 
-//        getFunds(fundType.getDicno(),parentFragment.getRateType(),parentFragment.getSortType(),pageNum);
-        String result = "{\"body\":{\"total\":1624,\"data\":[{\"netvalue\":1.48,\"fundtype\":2,\"semesterrate\":0,\"fundcode\":\"150166\",\"weekrate\":0,\"fundname\":\"国富恒利分级B\",\"seasonrate\":0,\"yearyld\":0,\"dayrate\":-32.52,\"monthrate\":0,\"yearrate\":0,\"id\":6555,\"valuedate\":\"2017-01-09 00:03:00\",\"add_time\":1505802495000},{\"netvalue\":0.97,\"fundtype\":2,\"semesterrate\":0,\"fundcode\":\"150189\",\"weekrate\":0,\"fundname\":\"招商可转债B\",\"seasonrate\":0,\"yearyld\":0,\"dayrate\":-1.13,\"monthrate\":0,\"yearrate\":0,\"id\":10711,\"valuedate\":\"2017-01-06 00:09:00\",\"add_time\":1505802722000}]},\"code\":\"0\",\"msg\":\"success\"}";
-        Type type = new TypeToken<MResponse<FundListResponse>>() {
-        }.getType();
-        MResponse<FundListResponse> response = new Gson().fromJson(result, type);
-        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
+        getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
 
-            if (pageNum == 1) {
-                funds.clear();
-            } else {
-                funds.addAll(response.getBody().getData());
-            }
-            if(response.getBody().getData().size()<MiluoConfig.DEFAULT_PAGESIZE){
-                refreshLayout.setEnableLoadmore(false);
-            }
-
-        }
     }
 
     /**
@@ -121,22 +103,40 @@ public class FundFragment extends Fragment {
      */
     private void getFunds(String fundtype, String rate, String sort, int page) {
         Map<String, String> map = new HashMap<>();
+        map.put("fundType", fundtype);
+        map.put("page", page + "");
+        map.put("rate", rate);
+        if (!TextUtils.isEmpty(sort)) {
+            map.put("sort", sort);
+        }
+
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_LIST, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<FundListResponse>>() {
                     @Override
                     public void onSuccess(MResponse<FundListResponse> response, int requestCode) {
-                        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
-                            ViseLog.w(response.getBody());
+                        if (pageNum == 1) {
+                            funds.clear();
+                        }
+//                        funds.addAll(response.getBody().getData());
 
+                        if (response.getBody().getData().size() < MiluoConfig.DEFAULT_PAGESIZE) {
+                            refreshLayout.setEnableLoadmore(false);
                         } else {
-
-
+                            refreshLayout.setEnableLoadmore(true);
+                            pageNum++;
+                        }
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
+                        fundAdapter.notifyDataSetChanged();
+                        if(funds.size()==0){
+                            stateLayout.showEmptyView();
                         }
                     }
 
                     @Override
                     public void onFailed(MResponse<FundListResponse> response, int requestCode) {
                         ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -159,26 +159,17 @@ public class FundFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishRefreshing();
-                    }
-                }, 2000);
+                pageNum = 1;
+                getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishLoadmore();
-                    }
-                }, 2000);
+                getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
             }
         });
         rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
-        FundAdapter fundAdapter = new FundAdapter(getActivity(), funds);
+        fundAdapter = new FundAdapter(getActivity(), funds);
         rvFunds.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFunds.setAdapter(fundAdapter);
         stateLayout.setUseAnimation(true);

@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.zhongdi.miluo.FragmentBackHandler;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -23,11 +21,9 @@ import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.adapter.market.SortAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.model.FundType;
-import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.presenter.MarketPresenter;
 import com.zhongdi.miluo.view.MarketView;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +59,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     private PopupWindow increaseWindow;
     private IncreaseAdapter increaseAdapter;
     private boolean isup;
-    private String sortType = "asc";
+    private String sortType = "";
     private String rateType = "dayrate";
 
     public static MarketFragment newInstance(String info) {
@@ -85,7 +81,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
-
             initView(rootView);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -134,8 +129,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         lsvMore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0 || i == 1) {
+                if (i == 0) {
+                    sortType = "";
+                } else if (i == 1) {
                     sortType = "asc";
+
                 } else {
                     sortType = "desc";
                 }
@@ -150,27 +148,26 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 increaseAdapter.setCheck(i);
                 increaseWindow.dismiss();
-                switch (i){
-                    case  0:
+//                "日涨幅", "周涨幅", "月涨幅","季度涨幅","半年涨幅","一年涨幅"
+//                dayrate    weekrate monthrate  seasonrate  semesterrate  yearrate
+                switch (i) {
+                    case 0:
                         rateType = "dayrate";
                         break;
-                    case  1:
+                    case 1:
                         rateType = "weekrate";
                         break;
-                    case  2:
-                        rateType = "weekrate";
+                    case 2:
+                        rateType = "monthrate";
                         break;
-                    case  3:
-                        rateType = "weekrate";
+                    case 3:
+                        rateType = "seasonrate";
                         break;
-                    case  4:
-                        rateType = "weekrate";
+                    case 4:
+                        rateType = "semesterrate";
                         break;
-                    case  5:
-                        rateType = "weekrate";
-                        break;
-                    case  6:
-                        rateType = "weekrate";
+                    case 5:
+                        rateType = "yearrate";
                         break;
                 }
 
@@ -180,7 +177,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     protected void initView(View view) {
-
         getFundType();
         initSortPop();
         initInCreasePop();
@@ -188,12 +184,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     }
 
     private void getFundType() {
-//        presenter.getFundType();
-        String result = "{\"body\":[{\"Content_id\":1,\"description\":\"股票型\",\"id\":1,\"dicno\":\"01\"},{\"Content_id\":1,\"description\":\"债券型\",\"id\":3,\"dicno\":\"02\"},{\"Content_id\":1,\"description\":\"混合型\",\"id\":5,\"dicno\":\"03\"},{\"Content_id\":1,\"description\":\"货币市场型\",\"id\":7,\"dicno\":\"04\"},{\"Content_id\":1,\"description\":\"指数型\",\"id\":9,\"dicno\":\"05\"},{\"Content_id\":1,\"description\":\"保本型\",\"id\":11,\"dicno\":\"06\"}],\"code\":\"0\",\"msg\":\"success\"}";
-        Type type = new TypeToken<MResponse<List<FundType>>>() {
-        }.getType();
-        MResponse<List<FundType>> response = new Gson().fromJson(result, type);
-        initTabLayout(response.getBody());
+        presenter.getFundType();
     }
 
     @Override
@@ -203,7 +194,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     public void fetchData() {
-
     }
 
     @Override
@@ -214,17 +204,15 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         for (int i = 0; i < tabs.size(); i++) {
             FundType tab = tabs.get(i);
             if (i == 0) {
-                tablayout.addTab(tablayout.newTab().setText(tab.getDescription()), true);
+                tablayout.addTab(tablayout.newTab(), true);
             } else {
-                tablayout.addTab(tablayout.newTab().setText(tab.getDescription()), false);
+                tablayout.addTab(tablayout.newTab(), false);
             }
             titles.add(tab.getDescription());
             adapter.addFragment(FundFragment.newInstance(tab));
         }
 
-
         viewPager.setAdapter(adapter);
-
         tablayout.setupWithViewPager(viewPager);
     }
 

@@ -11,9 +11,9 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-    public static final String BASE_URL = "http://192.168.64.120:8085";
+//    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
-//    public static final String BASE_URL = "http://192.168.64.154:8085";
+    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**

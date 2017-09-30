@@ -21,12 +21,12 @@ public class FundAdapter extends BaseRecyclerAdapter<Fund> {
     @Override
     public void convert(BaseRecyclerHolder holder, Fund item, int position) {
         TextView tvFundName = holder.getView(R.id.tv_fund_name);
-        tvFundName.setText(item.getFundname());
+        tvFundName.setText(item.getFundName());
         TextView tvFundCode = holder.getView(R.id.tv_fund_code);
-        tvFundCode.setText(item.getFundcode());
+        tvFundCode.setText(item.getFundCode());
         TextView tvValue = holder.getView(R.id.tv_value);
-        tvValue.setText(item.getNetvalue() + "");
+        tvValue.setText(item.getNetValue() + "");
         TextView tvInfo = holder.getView(R.id.tv_info);
-        tvInfo.setText(item.getDayrate() + "%");
+        tvInfo.setText(item.getRate() + "%");
     }
 }

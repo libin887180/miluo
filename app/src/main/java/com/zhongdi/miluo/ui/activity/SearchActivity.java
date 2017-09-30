@@ -118,7 +118,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             refreshLayout.setEnableLoadmore(true);
         }
         refreshLayout.finishLoadmore();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
         llHot.setVisibility(View.GONE);
         refreshLayout.setEnableRefresh(true);
         datas.addAll(body);

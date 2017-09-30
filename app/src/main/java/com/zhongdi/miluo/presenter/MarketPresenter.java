@@ -1,10 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
-import android.text.TextUtils;
-
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
-import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.model.MResponse;
@@ -32,17 +29,12 @@ public class MarketPresenter extends BasePresenter<MarketView> {
                 new NetRequestUtil.NetResponseListener<MResponse<List<FundType>>>() {
                     @Override
                     public void onSuccess(MResponse<List<FundType>> response, int requestCode) {
-                        if (TextUtils.equals(response.getCode(), ErrorCode.SUCCESS)) {
-                            ViseLog.w(response.getBody());
-
                             view.initTabLayout(response.getBody());
-                        } else {
-                            view.showToast(response.getMsg());
-                        }
                     }
                     @Override
                     public void onFailed(MResponse<List<FundType>> response, int requestCode) {
                         ViseLog.e("请求失败");
+                        view.showToast(response.getMsg());
                     }
 
                     @Override
