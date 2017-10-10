@@ -10,6 +10,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
 import com.github.mikephil.charting.animation.Easing;
@@ -21,12 +22,22 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.MainHoldAdapter;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.AssetAllocation;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.MainHold;
+import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.widget.NOScollListView;
 
+import org.xutils.common.Callback;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +57,9 @@ public class FundCombinationFragment extends Fragment {
     StateLayout stateLayout;
     @BindView(R.id.lv_main_hold)
     NOScollListView lvMainHold;
-    Unbinder unbinder1;
+    MainHoldAdapter mainHoldAdapter;
+    List<MainHold> datas = new ArrayList<>();
+    private String sellFundId;
 
     public static FundCombinationFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -64,6 +77,7 @@ public class FundCombinationFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_fund_combination, null);
             unbinder = ButterKnife.bind(this, rootView);
+            sellFundId = getArguments().getString("sellFundId");
             initialize();
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -74,115 +88,151 @@ public class FundCombinationFragment extends Fragment {
             }
             unbinder = ButterKnife.bind(this, rootView);
         }
-        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     private void initialize() {
-        initPieChart();
         initListView();
+        getMainHold(sellFundId);
+        getAssetAllocation("2217");
+    }
+
+    private void getMainHold(String sellFundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", sellFundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_MAIN_HOLD, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<MainHold>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<MainHold>> response, int requestCode) {
+                        datas.clear();
+                        datas.addAll(response.getBody());
+                        mainHoldAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<MainHold>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    private void getAssetAllocation(String sellFundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", sellFundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_ZHANBI, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<AssetAllocation>>() {
+                    @Override
+                    public void onSuccess(MResponse<AssetAllocation> response, int requestCode) {
+                        initPieChart(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<AssetAllocation> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 
     private void initListView() {
         lvMainHold.setFocusable(false);
-        MainHoldAdapter mainHoldAdapter = new MainHoldAdapter(getActivity());
+        mainHoldAdapter = new MainHoldAdapter(getActivity());
         lvMainHold.setAdapter(mainHoldAdapter);
-
-        List<String> datas = new ArrayList<>();
-        datas.add("111");
-        datas.add("222");
-        datas.add("333");
-        datas.add("444");
-        datas.add("444");
-        datas.add("444");
-        datas.add("444");
-        datas.add("444");
-
         mainHoldAdapter.setDataList(datas);
     }
 
-    private void initPieChart() {
+    private void initPieChart(AssetAllocation allocation) {
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
-        mChart.setExtraOffsets(5, 10, 5, 5);   //设置pieChart图表上下左右的偏移，类似于外边距
+        mChart.setExtraOffsets(5, 10, 5, 5);
 
-        mChart.setDragDecelerationFrictionCoef(0.95f);//设置pieChart图表转动阻力摩擦系数[0,1]
+        mChart.setDragDecelerationFrictionCoef(0.95f);
 
+        mChart.setCenterText(generateCenterSpannableText("0.12"));
 
-        mChart.setDrawHoleEnabled(true);  //是否显示PieChart内部圆环(true:下面属性才有意义)
-        mChart.setHoleColor(Color.WHITE);//设置PieChart内部圆的颜色
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColor(Color.WHITE);
 
-        mChart.setTransparentCircleColor(Color.WHITE);//设置PieChart内部透明圆与内部圆间距(31f-28f)填充颜色
-        mChart.setTransparentCircleAlpha(110);//设置PieChart内部透明圆与内部圆间距(31f-28f)透明度[0~255]数值越小越透明
+        mChart.setTransparentCircleColor(Color.WHITE);
+        mChart.setTransparentCircleAlpha(110);
 
-        mChart.setHoleRadius(58f);//设置PieChart内部圆的半径(这里设置28.0f)
-        mChart.setTransparentCircleRadius(61f);//设置PieChart内部透明圆的半径(这里设置31.0f)
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
 
-        mChart.setDrawCenterText(true); //是否绘制PieChart内部中心文本（true：下面属性才有意义）
-        mChart.setCenterText(generateCenterSpannableText()); //设置PieChart内部圆文字的内容
-        mChart.setCenterTextSize(13f);
-        mChart.setRotationAngle(0);//设置pieChart图表起始角度
+        mChart.setDrawCenterText(true);
+
+        mChart.setRotationAngle(0);
         // enable rotation of the chart by touch
-        mChart.setRotationEnabled(true);//设置pieChart图表是否可以手动旋转
-        mChart.setHighlightPerTapEnabled(true);   //设置piecahrt图表点击Item高亮是否可用
+        mChart.setRotationEnabled(true);
+        mChart.setHighlightPerTapEnabled(true);
 
         // mChart.setUnit(" €");
         // mChart.setDrawUnitsInChart(true);
 
-        // add a selection listener
-//        mChart.setOnChartValueSelectedListener(this);
 
-        setData(4, 100);
+        setData(8, 100);
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
 
         Legend l = mChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setXEntrySpace(7f);
-        l.setXOffset(30f);
-        l.setTextSize(16f);
-        l.setFormSize(16f);
-        l.setYEntrySpace(10f);
+        l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
         // entry label styling
-        mChart.setDrawEntryLabels(false);//设置pieChart是否只显示饼图上百分比不显示文字（true：下面属性才有效果）
-        mChart.setEntryLabelColor(Color.WHITE); //设置pieChart图表文本字体颜色
-        mChart.setEntryLabelTextSize(12f); //设置pieChart图表文本字体大小
-
+        mChart.setDrawEntryLabels(false);
+        mChart.setEntryLabelColor(Color.WHITE);
+        mChart.setEntryLabelTextSize(12f);
 
     }
-
-    private SpannableString generateCenterSpannableText() {
-
-        SpannableString s = new SpannableString("1.95亿\n基金规模");
-        s.setSpan(new RelativeSizeSpan(1.6f), 0, 5, 0);
-        s.setSpan(new ForegroundColorSpan(Color.parseColor("#FF3F51")), 0, 5, 0);
-        s.setSpan(new RelativeSizeSpan(1f), 5, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 5, s.length(), 0);
-        return s;
-    }
-
+    protected String[] mParties = new String[] {
+            "Party Aasdsadasdasd", "Party adsdasdasdasB", "Partdasdasdasdasy C", "Party D", "Party dasdasdE", "Partyasdasdasdasdasdasd F", "Party G", "Party H",
+            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+            "Party Y", "Party Z"
+    };
     private void setData(int count, float range) {
 
         float mult = range;
-        String[] mParties = new String[]{"Party A", "Party B", "Party C", "Party D",};
+
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count ; i++) {
             entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5),
-                    mParties[i % mParties.length]));
+                    mParties[i % mParties.length],
+                    getResources().getDrawable(R.drawable.ic_error)));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "");
-
+        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
         dataSet.setDrawIcons(false);
-        dataSet.setDrawValues(false);
+
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         dataSet.setSelectionShift(5f);
@@ -222,6 +272,16 @@ public class FundCombinationFragment extends Fragment {
 
         mChart.invalidate();
     }
+    private SpannableString generateCenterSpannableText(String netAsset) {
+
+        SpannableString s = new SpannableString(netAsset + "亿\n基金规模");
+        s.setSpan(new RelativeSizeSpan(1.6f), 0, 5, 0);
+        s.setSpan(new ForegroundColorSpan(Color.parseColor("#FF3F51")), 0, 5, 0);
+        s.setSpan(new RelativeSizeSpan(1f), 5, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 5, s.length(), 0);
+        return s;
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -229,7 +289,5 @@ public class FundCombinationFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
-        unbinder1.unbind();
-
     }
 }

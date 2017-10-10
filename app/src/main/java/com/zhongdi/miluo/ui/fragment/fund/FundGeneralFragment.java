@@ -96,7 +96,7 @@ public class FundGeneralFragment extends Fragment {
                 new NetRequestUtil.NetResponseListener<MResponse<Archives>>() {
                     @Override
                     public void onSuccess(MResponse<Archives> response, int requestCode) {
-                        tvFundName.setText(response.getBody().getFName());
+                        tvFundName.setText(response.getBody().getFundName());
                         tvFundCode.setText(response.getBody().getFundCode());
                         tvEstabDate.setText(response.getBody().getEstabDate());
                         tvMinFene.setText(response.getBody().getMinredemptionvol());

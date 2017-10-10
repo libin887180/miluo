@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.model.MainHold;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +21,13 @@ import butterknife.ButterKnife;
 
 public class MainHoldAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> dataList = new ArrayList<>();
+    private List<MainHold> dataList = new ArrayList<>();
 
     public MainHoldAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setDataList(List<String> dataList) {
+    public void setDataList(List<MainHold> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
     }
@@ -38,7 +39,7 @@ public class MainHoldAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public MainHold getItem(int position) {
         return dataList.get(position);
     }
 
@@ -50,6 +51,7 @@ public class MainHoldAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
+        MainHold mainHold = dataList.get(position);
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_main_hold, null);
             holder = new ViewHolder(convertView);
@@ -57,6 +59,14 @@ public class MainHoldAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.tvStockName.setText(mainHold.getStockName() + "(" + mainHold.getStockCode() + ")");
+        if(mainHold.getStockChangePercent().contains("-")){
+            holder.tvIncrease.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+        }else{
+            holder.tvIncrease.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
+        holder.tvIncrease.setText(mainHold.getStockChangePercent() + "%");
+        holder.tvRatio.setText(mainHold.getNewPercent()+ "%");
         return convertView;
     }
 

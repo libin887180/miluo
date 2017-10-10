@@ -110,4 +110,12 @@ public class URLConfig {
      * 基金概况
      */
     public static final String FUND_SURVEY = BASE_URL + "/fund/fundSurvey";
+    /**
+     * 基金重仓股
+     */
+    public static final String FUND_MAIN_HOLD = BASE_URL + "/fund/listOfZhongCangGu";
+    /**
+     * 基金资产占比
+     */
+    public static final String FUND_ZHANBI = BASE_URL + "/fund/assetAllocation";
 }
