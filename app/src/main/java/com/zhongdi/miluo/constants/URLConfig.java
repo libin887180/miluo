@@ -90,4 +90,24 @@ public class URLConfig {
      * 自选基金列表
      */
     public static final String OPTIONAL_FUND = BASE_URL + "/fund/optionalFund";
+    /**
+     * 基金详情
+     */
+    public static final String FUND_DETAIL = BASE_URL + "/fund/FundDetail";
+    /**
+     * 基金经理
+     */
+    public static final String FUND_MANAGER = BASE_URL + "/fund/fundManager";
+    /**
+     * 基金详情页公告
+     */
+    public static final String FUND_DETAIL_NOTICE = BASE_URL + "/fund/mainPageAnnouncement";
+    /**
+     * 基金公告列表
+     */
+    public static final String FUND_NOTICE_LIST = BASE_URL + "/fund/fundAnnouncement";
+    /**
+     * 基金概况
+     */
+    public static final String FUND_SURVEY = BASE_URL + "/fund/fundSurvey";
 }

@@ -3,18 +3,25 @@ package com.zhongdi.miluo.ui.fragment.fund;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.fingdo.statelayout.StateLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.FundGeneralAdapter;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.Archives;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.net.NetRequestUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.xutils.common.Callback;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,16 +34,31 @@ import butterknife.Unbinder;
 public class FundGeneralFragment extends Fragment {
     Unbinder unbinder;
     View rootView;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.state_layout)
-    StateLayout stateLayout;
     FundGeneralAdapter adapter;
+    @BindView(R.id.tv_fund_name)
+    TextView tvFundName;
+    @BindView(R.id.tv_fund_code)
+    TextView tvFundCode;
+    @BindView(R.id.tv_fund_type)
+    TextView tvFundType;
+    @BindView(R.id.tv_estab_date)
+    TextView tvEstabDate;
+    @BindView(R.id.tv_min_fene)
+    TextView tvMinFene;
+    @BindView(R.id.tv_fund_size)
+    TextView tvFundSize;
+    @BindView(R.id.tv_manager_name)
+    TextView tvManagerName;
+    @BindView(R.id.tv_fund_custodian)
+    TextView tvFundCustodian;
+    @BindView(R.id.tv_manager)
+    TextView tvManager;
+    private String sellFundId;
 
     public static FundGeneralFragment newInstance(String info) {
         Bundle args = new Bundle();
         FundGeneralFragment fragment = new FundGeneralFragment();
-        args.putString("info", info);
+        args.putString("sellFundId", info);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,8 +69,9 @@ public class FundGeneralFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.layout_refresh_list, null);
+            rootView = inflater.inflate(R.layout.layout_fund_general, null);
             unbinder = ButterKnife.bind(this, rootView);
+            sellFundId = getArguments().getString("sellFundId");
             initialize();
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -63,17 +86,80 @@ public class FundGeneralFragment extends Fragment {
     }
 
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        adapter = new FundGeneralAdapter(getActivity(), datas);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+        getfundSurvey(sellFundId);
+    }
+
+    private void getfundSurvey(String sellFundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", sellFundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_SURVEY, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<Archives>>() {
+                    @Override
+                    public void onSuccess(MResponse<Archives> response, int requestCode) {
+                        tvFundName.setText(response.getBody().getFName());
+                        tvFundCode.setText(response.getBody().getFundCode());
+                        tvEstabDate.setText(response.getBody().getEstabDate());
+                        tvMinFene.setText(response.getBody().getMinredemptionvol());
+                        tvFundSize.setText(response.getBody().getFundSize());
+                        tvManagerName.setText(response.getBody().getFundManagerName());
+                        tvFundCustodian.setText(response.getBody().getCustodian());
+                        tvManager.setText(response.getBody().getFundManager());
+                        switch (response.getBody().getFundType()) {
+                            case MiluoConfig.GUPIAO:
+                                tvFundType.setText("股票型");
+                                break;
+                            case MiluoConfig.ZHAIQUAN:
+                                tvFundType.setText("债券型");
+                                break;
+                            case MiluoConfig.HUNHE:
+                                tvFundType.setText("混合型");
+                                break;
+                            case MiluoConfig.HUOBI:
+                                tvFundType.setText("货币型");
+                                break;
+                            case MiluoConfig.ZHISHU:
+                                tvFundType.setText("指数型");
+                                break;
+                            case MiluoConfig.BAOBEN:
+                                tvFundType.setText("保本型");
+                                break;
+                            case MiluoConfig.ETF:
+                                tvFundType.setText("ETF联接");
+                                break;
+                            case MiluoConfig.DQII:
+                                tvFundType.setText("QDII");
+                                break;
+                            case MiluoConfig.LOF:
+                                tvFundType.setText("LOF");
+                                break;
+                            case MiluoConfig.DUANQI:
+                                tvFundType.setText("短期理财型");
+                                break;
+                            case MiluoConfig.ALL:
+                                tvFundType.setText("全部");
+                                break;
+                            case MiluoConfig.ZUHE:
+                                tvFundType.setText("组合型");
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Archives> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 
     @Override
@@ -82,6 +168,5 @@ public class FundGeneralFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
-
     }
 }

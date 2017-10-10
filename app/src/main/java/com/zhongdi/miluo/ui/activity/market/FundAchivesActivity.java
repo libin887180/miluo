@@ -23,10 +23,11 @@ public class FundAchivesActivity extends BaseActivity<FundAchivesPresenter> impl
     ViewPager viewPager;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
-
+    private String sellFundId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sellFundId = getIntent().getStringExtra("fundId");
         binding(R.layout.activity_fund_archives);
     }
 
@@ -56,9 +57,9 @@ public class FundAchivesActivity extends BaseActivity<FundAchivesPresenter> impl
             }
         }
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), tabs);
-        adapter.addFragment(FundGeneralFragment.newInstance("基金概况"));
-        adapter.addFragment(FundCombinationFragment.newInstance("投资组合"));
-        adapter.addFragment(FundDistributeFragment.newInstance("分红配送"));
+        adapter.addFragment(FundGeneralFragment.newInstance(sellFundId));//基金概况
+        adapter.addFragment(FundCombinationFragment.newInstance(sellFundId));//投资组合
+        adapter.addFragment(FundDistributeFragment.newInstance(sellFundId));//分红明细
         viewPager.setAdapter(adapter);
 
         tablayout.setupWithViewPager(viewPager);

@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.FundAdapter;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -24,6 +26,7 @@ import com.zhongdi.miluo.model.FundListResponse;
 import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import org.xutils.common.Callback;
@@ -54,7 +57,7 @@ public class FundFragment extends Fragment {
     private View rootView;
     private List<Fund> funds = new ArrayList<>();
     private int pageNum = 1;
-    FundAdapter fundAdapter;
+    private FundAdapter fundAdapter;
 
     public static FundFragment newInstance(FundType fundType) {
         Bundle args = new Bundle();
@@ -169,6 +172,15 @@ public class FundFragment extends Fragment {
         });
         rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         fundAdapter = new FundAdapter(getActivity(), funds);
+        fundAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Fund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Fund fund, int position) {
+                Intent intent  = new Intent(getActivity(), FundDetailActivity.class);
+                intent.putExtra("fundId",fund.getId());
+                ViseLog.i("fundid-->"+fund.getId());
+                startActivity(intent);
+            }
+        });
         rvFunds.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFunds.setAdapter(fundAdapter);
         stateLayout.setUseAnimation(true);
@@ -183,7 +195,6 @@ public class FundFragment extends Fragment {
 
             @Override
             public void loginClick() {
-//                Log.i("11", "登录");
             }
         });
     }

@@ -7,13 +7,21 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.model.FundDetail;
+import com.zhongdi.miluo.model.FundManagerInfo;
+import com.zhongdi.miluo.model.FundNotice;
 import com.zhongdi.miluo.presenter.FundDetailPresenter;
 import com.zhongdi.miluo.ui.fragment.fund.EstimateFragment;
+import com.zhongdi.miluo.util.TimeUtil;
+import com.zhongdi.miluo.util.xUtilsImageUtils;
 import com.zhongdi.miluo.view.FundDetailView;
 import com.zhongdi.miluo.widget.NoScrollViewPager;
 import com.zhongdi.miluo.widget.SegmentControl;
@@ -27,12 +35,47 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     SegmentControl segmentControl;
     @BindView(R.id.mViewPager)
     NoScrollViewPager mViewPager;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.tv_year_rate)
+    TextView tvYearRate;
+    @BindView(R.id.tv_fund_type)
+    TextView tvFundType;
+    @BindView(R.id.tv_fund_levle)
+    TextView tvFundLevle;
+    @BindView(R.id.tv_day_rate)
+    TextView tvDayRate;
+    @BindView(R.id.tv_net_value_date)
+    TextView tvNetValueDate;
+    @BindView(R.id.tv_net_value)
+    TextView tvNetValue;
+    @BindView(R.id.tv_title_right)
+    ImageView tvTitleRight;
+    @BindView(R.id.tv_fundSize)
+    TextView tvFundSize;
+    @BindView(R.id.tv_estabdate)
+    TextView tvEstabdate;
+    @BindView(R.id.tv_fund_company_name)
+    TextView tvFundCompanyName;
+    @BindView(R.id.iv_manager_icon)
+    ImageView ivManagerIcon;
+    @BindView(R.id.tv_manager_name)
+    TextView tvManagerName;
+    @BindView(R.id.tv_start_date)
+    TextView tvStartDate;
+    @BindView(R.id.tv_fund_notice)
+    TextView tvFundNotice;
+    @BindView(R.id.tv_notice_date)
+    TextView tvNoticeDate;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
+    private String sellFundId;
+    private FundManagerInfo managerInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sellFundId = getIntent().getStringExtra("fundId");
         binding(R.layout.activity_fund_detail);
     }
 
@@ -52,6 +95,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             }
         });
 
+        presenter.getFundDetail(sellFundId);
+        presenter.getFundManagerInfo(sellFundId);
+        presenter.getFundNotice(sellFundId);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(EstimateFragment.newInstance("估值"));
         adapter.addFragment(EstimateFragment.newInstance("债券"));
@@ -59,6 +105,13 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         adapter.addFragment(EstimateFragment.newInstance("货币"));
         adapter.addFragment(EstimateFragment.newInstance("指数"));
         mViewPager.setAdapter(adapter);
+        setListener();
+
+    }
+
+    @Override
+    public void setListener() {
+
         /**
          * 设置viewpager的选择事件
          */
@@ -81,9 +134,27 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         });
 
     }
+
+    @Override
+    public void OnFundManagerSuccess(FundManagerInfo managerInfo) {
+        this.managerInfo = managerInfo;
+        tvManagerName.setText(managerInfo.getManagerName());
+        tvStartDate.setText("从业时间:" + managerInfo.getStartDate() + "至今");
+//        Glide.with(mContext).load(managerInfo.getIndiImgUrl()).apply(new RequestOptions().placeholder(R.drawable.head_default).error(R.drawable.head_default))
+//                .into(ivManagerIcon);
+        xUtilsImageUtils.display(ivManagerIcon, managerInfo.getIndiImgUrl(), true, R.drawable.head_default, R.drawable.head_default);
+    }
+
+    @Override
+    public void OnFundNoticeSuccess(FundNotice notice) {
+        tvFundNotice.setText(notice.getTitle());
+        tvNoticeDate.setText(notice.getPubDate());
+    }
+
     private void showCardPopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
     // 显示弹窗
     public void setupSharePopupWindow() {
         // 初始化弹窗
@@ -101,20 +172,27 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
         mCardPopupWindow.setOutsideTouchable(true);
     }
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history,R.id.tv_buy,R.id.img_title_right})
+
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
-                startActivity(new Intent(mContext, ManagerDetailActivity.class));
+                Intent managerIntent = new Intent(mContext, ManagerDetailActivity.class);
+                managerIntent.putExtra("managerDetail", managerInfo);
+                startActivity(managerIntent);
                 break;
             case R.id.rl_fund_notice:
-                startActivity(new Intent(mContext, FundNoticeActivity.class));
+                Intent noticeIntent = new Intent(mContext, FundNoticeActivity.class);
+                noticeIntent.putExtra("fundId",sellFundId);
+                startActivity(noticeIntent);
                 break;
             case R.id.rl_premium:
                 startActivity(new Intent(mContext, PremiumActivity.class));
                 break;
             case R.id.rl_archives:
-                startActivity(new Intent(mContext, FundAchivesActivity.class));
+                Intent archivesIntent = new Intent(mContext, FundAchivesActivity.class);
+                archivesIntent.putExtra("fundId",sellFundId);
+                startActivity(archivesIntent);
                 break;
             case R.id.rl_fund_history:
                 startActivity(new Intent(mContext, FundHistoryValueActivity.class));
@@ -127,6 +205,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -137,5 +216,77 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void OnDataSuccess(FundDetail fundDetail) {
+        title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
+        tvYearRate.setText(fundDetail.getYearRate());
+        tvNetValue.setText(fundDetail.getNetValue());
+        tvDayRate.setText(fundDetail.getDayRate());
+        tvNetValueDate.setText("单位净值(" + TimeUtil.changeToDate(fundDetail.getValueDate()) + ")");
+        if (fundDetail.getStatus().equals("1")) {
+            tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
+        } else {
+            tvTitleRight.setBackgroundResource(R.drawable.ic_no_collect);
+        }
+
+        tvFundCompanyName.setText(fundDetail.getFundManagerName());
+        tvFundSize.setText(fundDetail.getFundSize() + "亿元");
+        tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
+        switchFundType(fundDetail.getFundType());
+    }
+
+    private void switchFundType(String fundType) {
+
+        switch (fundType) {
+            case MiluoConfig.GUPIAO:
+                tvFundType.setText("股票型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.ZHAIQUAN:
+                tvFundType.setText("债券型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.HUNHE:
+                tvFundType.setText("混合型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.HUOBI:
+                tvFundType.setText("货币型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.ZHISHU:
+                tvFundType.setText("指数型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.BAOBEN:
+                tvFundType.setText("保本型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.ETF:
+                tvFundType.setText("ETF联接");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.DQII:
+                tvFundType.setText("QDII");
+                tvFundType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.LOF:
+                tvFundType.setText("LOF");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.DUANQI:
+                tvFundType.setText("短期理财型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.ALL:
+                tvFundType.setText("全部");
+                break;
+            case MiluoConfig.ZUHE:
+                tvFundType.setText("组合型");
+                tvFundType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+        }
     }
 }

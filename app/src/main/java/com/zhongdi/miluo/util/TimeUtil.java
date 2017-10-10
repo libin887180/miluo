@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.util;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -103,12 +104,13 @@ public class TimeUtil {
      * @param millisecond yyyy-MM-dd HH:mm:ss
      * @return
      */
-    public static String getDateTimeFromMillisecond(Long millisecond){
+    public static String getDateTimeFromMillisecond(Long millisecond) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(millisecond);
         String dateStr = simpleDateFormat.format(date);
         return dateStr;
     }
+
     /**
      * 将毫秒转化成固定格式的时间
      * 时间格式: yyyy-MM-dd
@@ -116,7 +118,7 @@ public class TimeUtil {
      * @param millisecond yyyy-MM-dd
      * @return
      */
-    public static String getDateTimeFromMillisecond2(Long millisecond){
+    public static String getDateTimeFromMillisecond2(Long millisecond) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(millisecond);
         String dateStr = simpleDateFormat.format(date);
@@ -131,7 +133,7 @@ public class TimeUtil {
      * @param millisecond yyyy-MM-dd HH:mm:ss
      * @return
      */
-    public static String getDateTimeFromMillisecond3(Long millisecond){
+    public static String getDateTimeFromMillisecond3(Long millisecond) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
         Date date = new Date(millisecond);
         String dateStr = simpleDateFormat.format(date);
@@ -155,6 +157,84 @@ public class TimeUtil {
         }
 
         return -1l;
+    }
+
+    /**
+     * 将长时间格式时间转换为字符串 yyyy-MM-dd HH:mm:ss
+     *
+     * @param dateDate
+     * @return
+     */
+    public static String dateToStrLong(java.util.Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+
+
+    /**
+     * 将短时间格式时间转换为字符串 yyyy-MM-dd
+     *
+     * @param dateDate
+     * @return
+     */
+    public static String dateToStr(java.util.Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+    /**
+     * 将短时间格式时间转换为字符串 MM-dd
+     *
+     * @param dateDate
+     * @return
+     */
+    public static String dateToMonthStr(java.util.Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+    /**
+     * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
+     *
+     * @param strDate
+     * @return
+     */
+    public static Date strToDateLong(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
+    }
+    /**
+     * 将长时间格式字符串转换为时间 yyyy-MM-dd
+     *
+     * @param strDate
+     * @return
+     */
+    public static Date strToDate(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
+    }
+    /**
+     * 将yyyy-MM-dd HH:mm:ss 转换成 MM-DD
+     * @param strDate
+     * @return
+     */
+    public static String changeToDate(String strDate) {
+        Date date = strToDate(strDate);
+        return dateToMonthStr(date);
+    }
+    /**
+     * 将yyyy-MM-dd HH:mm:ss 转换成 YY-MM-DD
+     * @param strDate
+     * @return
+     */
+    public static String changeToYYMMDD(String strDate) {
+        Date date = strToDate(strDate);
+        return dateToStr(date);
     }
 
     /**
@@ -183,9 +263,9 @@ public class TimeUtil {
             return spaceSecond / (60 * 60) + "小时之前";
         }
         //3天之内
-        else if (spaceSecond/(60*60*24)>0&&spaceSecond/(60*60*24)<3){
-            return spaceSecond/(60*60*24)+"天之前";
-        }else {
+        else if (spaceSecond / (60 * 60 * 24) > 0 && spaceSecond / (60 * 60 * 24) < 3) {
+            return spaceSecond / (60 * 60 * 24) + "天之前";
+        } else {
             return getDateTimeFromMillisecond(millisecond);
         }
     }

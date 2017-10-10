@@ -135,10 +135,11 @@
                 android:id="@+id/tv_return"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_alignLeft="@+id/tv_time"
                 android:textSize="15sp"
                 android:layout_below="@id/tv_time"
+                android:paddingBottom="5dp"
                 android:text="任期回报率："
                 android:textColor="@color/white_70" />
 
@@ -157,12 +158,10 @@
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/tv_resume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_555"
-        android:text="     啊时间打卡手机端啦就是达拉斯
-    几点啦看似简单拉斯科几点啦神界
-    大陆三等奖埃里克森肯德基阿拉山口电机拉上觉得拉丝机"
         android:layout_margin="15dp" />
 
 </LinearLayout>
