@@ -6,6 +6,14 @@ package com.zhongdi.miluo.model;
 
 public class FundNotice {
 
+//    attachment (string, optional): 附件地址
+//    content (string, optional): 文章正文
+//    id (string, optional): 基金公告表主键id
+//    noticeType (string, optional): 公告类型
+//    pubDate (string, optional): 发布日期
+//    sellFundId (string, optional): 基金表主键id
+//    source (string, optional): 来源
+//    title (string, optional): 文章标题
 
     private String attachment;
     private String content;
