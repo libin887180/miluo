@@ -199,7 +199,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 startActivity(noticeIntent);
                 break;
             case R.id.rl_premium:
-                startActivity(new Intent(mContext, PremiumActivity.class));
+                Intent rateIntent = new Intent(mContext, PremiumActivity.class);
+                rateIntent.putExtra("fundId",sellFundId);
+                startActivity(rateIntent);
                 break;
             case R.id.rl_archives:
                 Intent archivesIntent = new Intent(mContext, FundAchivesActivity.class);

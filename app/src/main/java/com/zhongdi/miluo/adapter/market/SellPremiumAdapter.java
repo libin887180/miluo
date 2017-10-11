@@ -1,12 +1,15 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.model.RateDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +23,13 @@ import butterknife.ButterKnife;
 
 public class SellPremiumAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> dataList = new ArrayList<>();
+    private List<RateDetail> dataList = new ArrayList<>();
 
     public SellPremiumAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setDataList(List<String> dataList) {
+    public void setDataList(List<RateDetail> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
     }
@@ -38,7 +41,7 @@ public class SellPremiumAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public RateDetail getItem(int position) {
         return dataList.get(position);
     }
 
@@ -57,10 +60,19 @@ public class SellPremiumAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvDec.setText(dataList.get(position));
+
+        holder.tvDec.setText(dataList.get(position).getAmountDesc());
 //        holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-//        holder.tvDepRate.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
-        holder.tvDepRate.setText("");
+        holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
+
+        if(TextUtils.isEmpty(dataList.get(position).getDiscount())){//没有折扣
+            holder.tvDepRate.setText("");
+            holder.tvRate.setText(dataList.get(position).getRateValue());
+        }else{
+            holder.tvRate.setText(dataList.get(position).getDiscount());
+            holder.tvDepRate.setText(dataList.get(position).getRateValue());
+        }
+
         return convertView;
     }
 

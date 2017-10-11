@@ -1,12 +1,17 @@
 package com.zhongdi.miluo.ui.activity.market;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.BuyPremiumAdapter;
 import com.zhongdi.miluo.adapter.market.OperationPremiumAdapter;
 import com.zhongdi.miluo.adapter.market.SellPremiumAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.RateDetail;
+import com.zhongdi.miluo.model.RateResponse;
+import com.zhongdi.miluo.model.RateTypeDetail;
 import com.zhongdi.miluo.presenter.PremiumPresenter;
 import com.zhongdi.miluo.view.PremiumView;
 import com.zhongdi.miluo.widget.NOScollListView;
@@ -17,23 +22,31 @@ import java.util.List;
 import butterknife.BindView;
 
 public class PremiumActivity extends BaseActivity<PremiumPresenter> implements PremiumView {
-
+    @BindView(R.id.tv_manage_dep_rate)
+    TextView tvManageDepRate;
+    @BindView(R.id.tv_manage_rate)
+    TextView tvManageRate;
+    @BindView(R.id.tv_tuoguan_dep_rate)
+    TextView tvTuoguanDepRate;
+    @BindView(R.id.tv_tuoguan_rate)
+    TextView tvTuoguanRate;
+    private String sellFundId;
 
     @BindView(R.id.lv_apply)
     NOScollListView lvApply;
     @BindView(R.id.lv_redeem)
     NOScollListView lvRedeem;
-    @BindView(R.id.lv_operations)
-    NOScollListView lvOperations;
-
-
-    private BuyPremiumAdapter premiumAdapter;
+    List<RateDetail> applyRates = new ArrayList<>();
+    List<RateDetail> sellRedems = new ArrayList<>();
+    private BuyPremiumAdapter applyAdapter;
     private SellPremiumAdapter sellPremiumAdapter;
     private OperationPremiumAdapter operationPremiumAdapter;
-    List<String> strings = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sellFundId = getIntent().getStringExtra("fundId");
         binding(R.layout.activity_premium_rate);
     }
 
@@ -44,35 +57,47 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
 
     @Override
     protected void initialize() {
+        presenter.getFundRate(sellFundId);
+        applyAdapter = new BuyPremiumAdapter(mContext);
+        lvApply.setAdapter(applyAdapter);
 
-        premiumAdapter = new BuyPremiumAdapter(mContext);
-        lvApply.setAdapter(premiumAdapter);
-        List<String> strings = new ArrayList<>();
-        strings.add("111");
-        strings.add("222");
-        strings.add("333");
-        strings.add("444");
-        premiumAdapter.setDataList(strings);
+        applyAdapter.setDataList(applyRates);
 
 
         sellPremiumAdapter = new SellPremiumAdapter(mContext);
         lvRedeem.setAdapter(sellPremiumAdapter);
-        List<String> redems = new ArrayList<>();
-        redems.add("111");
-        redems.add("222");
-        redems.add("333");
-        redems.add("444");
-        sellPremiumAdapter.setDataList(redems);
+
+        sellPremiumAdapter.setDataList(sellRedems);
 
 
-        operationPremiumAdapter = new OperationPremiumAdapter(mContext);
-        lvOperations.setAdapter(operationPremiumAdapter);
-        List<String> operations = new ArrayList<>();
-        operations.add("111");
-        operations.add("222");
-        operations.add("333");
-        operations.add("444");
-        operationPremiumAdapter.setDataList(operations);
+//        operationPremiumAdapter = new OperationPremiumAdapter(mContext);
+//        lvOperations.setAdapter(operationPremiumAdapter);
+//        List<String> operations = new ArrayList<>();
+//        operations.add("111");
+//        operations.add("222");
+//        operations.add("333");
+//        operations.add("444");
+//        operationPremiumAdapter.setDataList(operations);
     }
 
+    @Override
+    public void onDateSuccess(RateResponse body) {
+        if(!TextUtils.isEmpty(body.getManageRate())){
+            tvManageRate .setText(body.getManageRate());
+        }
+        if(!TextUtils.isEmpty(body.getCustodyRate())){
+            tvTuoguanRate .setText(body.getCustodyRate());
+        }
+        List<RateTypeDetail> rateTypes = body.getList();
+        for (int i = 0; i < rateTypes.size(); i++) {
+            if(rateTypes.get(i).getRateType().equals("02")) {//前端申购
+                applyRates.addAll(rateTypes.get(i).getData());
+            }
+            if(rateTypes.get(i).getRateType().equals("04")) {//前端申购
+                sellRedems.addAll(rateTypes.get(i).getData());
+            }
+        }
+        applyAdapter.notifyDataSetChanged();
+        sellPremiumAdapter.notifyDataSetChanged();
+    }
 }

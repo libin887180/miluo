@@ -129,5 +129,9 @@ public class URLConfig {
     /**
      * 基金删除自选
      */
-    public static final String FUND_DIS_COLLECT= BASE_URL + "/fund/delOptionalFund ";
+    public static final String FUND_DIS_COLLECT= BASE_URL + "/fund/delOptionalFund";
+    /**
+     * 基金费率
+     */
+    public static final String FUND_RATE= BASE_URL + "/fund/fundRate";
 }

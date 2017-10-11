@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.RateResponse;
 
 
 /**
@@ -8,4 +9,6 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface PremiumView extends BaseView {
+    void onDateSuccess(RateResponse body);
+
 }

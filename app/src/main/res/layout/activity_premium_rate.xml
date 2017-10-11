@@ -541,12 +541,81 @@
 
             </RelativeLayout>
 
-            <com.zhongdi.miluo.widget.NOScollListView
-                android:id="@+id/lv_operations"
-                android:background="@color/white"
-                android:divider="@null"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:paddingTop="10dp"
+                android:background="@color/white"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="管理费用"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_manage_dep_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_manage_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tv_manage_dep_rate"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="0%"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingBottom="10dp"
+                android:background="@color/white"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="托管费用"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_tuoguan_dep_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_tuoguan_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tv_tuoguan_dep_rate"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="0%"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
