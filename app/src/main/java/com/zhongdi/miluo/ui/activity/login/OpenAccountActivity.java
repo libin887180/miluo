@@ -181,7 +181,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         requestMap.put("identityno",identityno);
         requestMap.put("name",name);
         requestMap.put("phone",phone);
-        requestMap.put("registryid",registryid);
+//        requestMap.put("registryid",registryid);
         requestMap.put("tradepwd",tradepwd);
         presenter.openAccount(requestMap);
 

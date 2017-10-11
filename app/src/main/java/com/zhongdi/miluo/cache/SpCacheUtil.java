@@ -119,7 +119,7 @@ public class SpCacheUtil {
      * @return 如：cgzjobdcs@cgzjobdcs
      */
     public String getRealName() {
-        return spCache.get("REAL_NAME", "李斌斌");
+        return spCache.get("REAL_NAME", "");
     }
     /**
      * 保存登录密码

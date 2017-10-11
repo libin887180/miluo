@@ -11,17 +11,20 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-    public static final String BASE_URL = "http://192.168.64.120:8085";
+//    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
-//    public static final String BASE_URL = "http://192.168.64.13:8085";
+    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**
      * 测试接口
      */
 //    public static final String URL = "http://202.102.101.138:12099/Service.asmx/GetInformation";
-
-    public static final String LOGIN = BASE_URL + "/lead/v1/login";
+    /**
+     * 登录
+     */
+//    public static final String LOGIN = BASE_URL + "/lead/v1/login";
+    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
     /**
      * 验证码(0：单独注册 1:免注册登录 3：重置登录密码 5：重置交易密码)
      */

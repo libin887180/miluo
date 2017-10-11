@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.ui.activity.login.ChooseBankActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
@@ -88,7 +87,7 @@ public class OpenStep3Fragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             tvIdCardNum.setText(StringUtil.hindIdcardNum(parentActivity.identityno));
-            String name = SpCacheUtil.getInstance().getRealName();
+            String name = parentActivity.name;
             StringBuffer nameBuffer = new StringBuffer(name);
             nameBuffer.replace(0, 1, "*");
             tvRealName.setText(nameBuffer.toString());
