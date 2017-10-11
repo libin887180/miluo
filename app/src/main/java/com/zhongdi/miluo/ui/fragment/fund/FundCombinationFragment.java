@@ -61,7 +61,7 @@ public class FundCombinationFragment extends Fragment {
     public static FundCombinationFragment newInstance(String info) {
         Bundle args = new Bundle();
         FundCombinationFragment fragment = new FundCombinationFragment();
-        args.putString("info", info);
+        args.putString("sellFundId", info);
         fragment.setArguments(args);
         return fragment;
     }

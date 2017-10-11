@@ -203,7 +203,7 @@ public class NetRequestUtil {
      * @param listener
      * @return
      */
-    public Callback.Cancelable post(String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
+    public Callback.Cancelable post(final String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
         params.setConnectTimeout(30*1000);//设置连接超时时间
 //        params.addHeader("Content-Type", "application/json");
@@ -232,14 +232,14 @@ public class NetRequestUtil {
 
         ViseLog.setTag("Url").i(url);
 //        ViseLog.setTag("Headers").w(params.getHeaders());
-        ViseLog.setTag("params").v(params.getBodyContent());
+        ViseLog.setTag("params").v(url+params.getBodyContent());
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 if (response != null) {
 //                    String result = AES.decrypt(response);
 //                    if (!StringUtil.isEmpty(result)) {
-                        ViseLog.setTag("response").v(response);
+                        ViseLog.setTag("response").v(url+response);
                         MResponse mResponse = gson.fromJson(response, getType(listener));//按正常响应解析
                         if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
                             listener.onSuccess(mResponse, requestCode);

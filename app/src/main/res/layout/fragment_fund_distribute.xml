@@ -8,46 +8,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/grey_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingBottom="10dp"
-        android:background="@color/grey_bg"
-        android:paddingTop="10dp"
-        android:orientation="horizontal">
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:text="权益登记日"
-            android:textSize="14sp"
             android:textColor="@color/text_color_normal"
-            android:layout_weight="3" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:text="除息日"
-            android:textSize="14sp"
             android:textColor="@color/text_color_normal"
-            android:layout_weight="3" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color_normal"
-            android:text="每份分红"
+            android:layout_weight="2"
             android:gravity="right"
-            android:textSize="14sp"
-            android:layout_weight="2" />
+            android:text="每份分红"
+            android:textColor="@color/text_color_normal"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="right"
             android:text="分红发放日"
             android:textColor="@color/text_color_normal"
-            android:gravity="right"
-            android:textSize="14sp"
-            android:layout_weight="3" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <com.fingdo.statelayout.StateLayout
@@ -67,6 +67,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:background="@color/white" />
     </com.fingdo.statelayout.StateLayout>
 </LinearLayout>

@@ -9,7 +9,7 @@
     android:paddingTop="15dp">
 
     <TextView
-        android:id="@+id/tv_dengji"
+        android:id="@+id/tv_dengji_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
@@ -18,7 +18,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_chuxi"
+        android:id="@+id/tv_chuxi_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
@@ -37,7 +37,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_fafang"
+        android:id="@+id/tv_fafang_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"

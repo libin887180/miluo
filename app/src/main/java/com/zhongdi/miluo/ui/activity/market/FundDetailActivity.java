@@ -151,7 +151,19 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvNoticeDate.setText(notice.getPubDate());
     }
 
-    private void showCardPopupWindow() {
+    @Override
+    public void OnCollectSuccess() {
+        tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
+        tvTitleRight.setTag(1);
+    }
+
+    @Override
+    public void OnDisCollectSuccess() {
+        tvTitleRight.setBackgroundResource(R.drawable.ic_no_collect);
+        tvTitleRight.setTag(0);
+    }
+
+    private void showpSharePopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -173,7 +185,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         mCardPopupWindow.setOutsideTouchable(true);
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right,R.id.tv_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -201,7 +213,16 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 startActivity(new Intent(mContext, BuyFundActivity.class));
                 break;
             case R.id.img_title_right:
-                showCardPopupWindow();
+                showpSharePopupWindow();
+                break;
+            case R.id.tv_title_right:
+                int tag = (int) tvTitleRight.getTag();
+                if(tag==0){
+                    presenter.collectFund(sellFundId);
+                }else{
+                    presenter.discollectFund(sellFundId);
+                }
+
                 break;
         }
     }
@@ -227,8 +248,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvNetValueDate.setText("单位净值(" + TimeUtil.changeToDate(fundDetail.getValueDate()) + ")");
         if (fundDetail.getStatus().equals("1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
+            tvTitleRight.setTag(1);
         } else {
             tvTitleRight.setBackgroundResource(R.drawable.ic_no_collect);
+            tvTitleRight.setTag(0);
         }
 
         tvFundCompanyName.setText(fundDetail.getFundManagerName());

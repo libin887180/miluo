@@ -15,4 +15,7 @@ public interface FundDetailView extends BaseView {
     void setListener();
     void OnFundManagerSuccess(FundManagerInfo managerInfo);
     void OnFundNoticeSuccess(FundNotice notice);
+    void OnCollectSuccess();
+
+    void OnDisCollectSuccess();
 }

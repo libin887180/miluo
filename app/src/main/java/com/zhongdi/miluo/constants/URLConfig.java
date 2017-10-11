@@ -21,7 +21,7 @@ public class URLConfig {
      */
 //    public static final String URL = "http://202.102.101.138:12099/Service.asmx/GetInformation";
 
-    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
+    public static final String LOGIN = BASE_URL + "/lead/v1/login";
     /**
      * 验证码
      */
@@ -33,7 +33,7 @@ public class URLConfig {
     /**
      * 注册
      */
-    public static final String REGISTER = BASE_URL + "/lead/v1/user/register";
+    public static final String REGISTER = BASE_URL + "/lead/v1/register";
     /**
      * 基金类型
      */
@@ -118,4 +118,16 @@ public class URLConfig {
      * 基金资产占比
      */
     public static final String FUND_ZHANBI = BASE_URL + "/fund/assetAllocation";
+    /**
+     * 基金分红列表
+     */
+    public static final String FUND_DIVIDEND = BASE_URL + "/fund/fundDividend";
+    /**
+     * 基金添加自选
+     */
+    public static final String FUND_COLLECT= BASE_URL + "/fund/addOptionalFund";
+    /**
+     * 基金删除自选
+     */
+    public static final String FUND_DIS_COLLECT= BASE_URL + "/fund/delOptionalFund ";
 }

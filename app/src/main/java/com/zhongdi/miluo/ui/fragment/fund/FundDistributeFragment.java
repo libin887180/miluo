@@ -8,13 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.FundDistributeAdapter;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.FundDividend;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.widget.RecycleViewDivider;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,11 +43,13 @@ public class FundDistributeFragment extends Fragment {
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     FundDistributeAdapter adapter;
+    private String sellFundId;
+    List<FundDividend> datas = new ArrayList<>();
 
     public static FundDistributeFragment newInstance(String info) {
         Bundle args = new Bundle();
         FundDistributeFragment fragment = new FundDistributeFragment();
-        args.putString("info", info);
+        args.putString("sellFundId", info);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,6 +62,7 @@ public class FundDistributeFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_fund_distribute, null);
             unbinder = ButterKnife.bind(this, rootView);
+            sellFundId = getArguments().getString("sellFundId");
             initialize();
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -62,18 +76,59 @@ public class FundDistributeFragment extends Fragment {
         return rootView;
     }
 
+    private void getFundDividend(String sellFundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", sellFundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DIVIDEND, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<FundDividend>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<FundDividend>> response, int requestCode) {
+                        datas.clear();
+                        datas.addAll(response.getBody());
+                        adapter.notifyDataSetChanged();
+                        if (datas.size() == 0) {
+                            stateLayout.showEmptyView();
+                        }else{
+                            stateLayout.showContentView();
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<FundDividend>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
+
         adapter = new FundDistributeAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
+        getFundDividend("2217");
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                getFundDividend("2215");
+            }
+
+            @Override
+            public void loginClick() {
+
+            }
+        });
     }
 
     @Override

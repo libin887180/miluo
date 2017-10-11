@@ -53,7 +53,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     }
     public void getFundManagerInfo(String fundId) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", "2215");
+        map.put("sellFundId", "2217");
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_MANAGER, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<FundManagerInfo>>() {
                     @Override
@@ -78,9 +78,64 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
                     }
                 });
     }
+
+    public void collectFund(String fundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", fundId);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_COLLECT, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.OnCollectSuccess();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        ViseLog.e("请求失败");
+//                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+    public void discollectFund(String fundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", fundId);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DIS_COLLECT, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.OnDisCollectSuccess();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        ViseLog.e("请求失败");
+//                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
     public void getFundNotice(String fundId) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", "2215");
+        map.put("sellFundId", "2217");
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DETAIL_NOTICE, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<FundNotice>>() {
                     @Override
