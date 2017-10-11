@@ -7,20 +7,6 @@
 
     >
 
-    <com.fingdo.statelayout.StateLayout
-        android:id="@+id/state_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ll_button1"
-        sl:emptyImg="@drawable/ic_state_empty"
-        sl:errorImg="@drawable/ic_state_error"
-        sl:loadingText="@string/loading_tip"
-        sl:loginImg="@drawable/ic_state_login"
-        sl:loginText="@string/no_login_tip"
-        sl:noNetworkImg="@drawable/ic_state_no_network"
-        sl:timeOutImg="@drawable/ic_state_time_out"
-        sl:timeOutText="@string/time_out_tip">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,6 +87,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_zcg_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -171,7 +158,5 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-
         </ScrollView>
-    </com.fingdo.statelayout.StateLayout>
 </LinearLayout>

@@ -9,17 +9,17 @@ public class Archives {
 
 
     /**
-     * id : 12419
-     * fundCode : 150290
-     * fundName : 中融中证煤炭指数分级证券投资基金
+     * id : 6309
+     * fundCode : 150350
+     * fundName : 融通中证大农业指数分级证券投资基金
      * fundType : 1
-     * estabDate : 2015-01-25
+     * estabDate : 2015-08-25
      * minredemptionvol : 0.01
-     * fundSize : 11.38
-     * fundManagerName : 中融基金
-     * custodian : 海通证券
-     * fundManager : 赵菲
-     * lastTime : 2017-09-22
+     * fundSize : 0.31
+     * fundManagerName : 融通基金
+     * custodian : 中国农业银行
+     * fundManager :
+     * lastTime : 2017-10-10
      */
 
     private String id;

@@ -5,23 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fingdo.statelayout.StateLayout;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.MainHoldAdapter;
@@ -53,12 +50,12 @@ public class FundCombinationFragment extends Fragment {
     View rootView;
     @BindView(R.id.chart1)
     PieChart mChart;
-    @BindView(R.id.state_layout)
-    StateLayout stateLayout;
     @BindView(R.id.lv_main_hold)
     NOScollListView lvMainHold;
     MainHoldAdapter mainHoldAdapter;
     List<MainHold> datas = new ArrayList<>();
+    @BindView(R.id.tv_zcg_date)
+    TextView tvZcgDate;
     private String sellFundId;
 
     public static FundCombinationFragment newInstance(String info) {
@@ -135,6 +132,7 @@ public class FundCombinationFragment extends Fragment {
                     @Override
                     public void onSuccess(MResponse<AssetAllocation> response, int requestCode) {
                         initPieChart(response.getBody());
+                        tvZcgDate.setText(response.getBody().getReportDate());
                     }
 
                     @Override
@@ -163,122 +161,70 @@ public class FundCombinationFragment extends Fragment {
     }
 
     private void initPieChart(AssetAllocation allocation) {
-        mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
-        mChart.setExtraOffsets(5, 10, 5, 5);
-
-        mChart.setDragDecelerationFrictionCoef(0.95f);
-
-        mChart.setCenterText(generateCenterSpannableText("0.12"));
-
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColor(Color.WHITE);
-
-        mChart.setTransparentCircleColor(Color.WHITE);
-        mChart.setTransparentCircleAlpha(110);
-
-        mChart.setHoleRadius(58f);
-        mChart.setTransparentCircleRadius(61f);
-
-        mChart.setDrawCenterText(true);
-
-        mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChart.setRotationEnabled(true);
-        mChart.setHighlightPerTapEnabled(true);
-
-        // mChart.setUnit(" €");
-        // mChart.setDrawUnitsInChart(true);
-
-
-        setData(8, 100);
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChart.spin(2000, 0, 360);
+        mChart.setCenterText(generateCenterSpannableText("1213"));
+        mChart.setCenterTextSize(10f);
+        mChart.getDescription().setEnabled(false);
+        // radius of the center hole in percent of maximum radius
+        mChart.setHoleRadius(45f);
+        mChart.setTransparentCircleRadius(50f);
 
         Legend l = mChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
+        l.setTextSize(12f);
+        l.setYEntrySpace(10f);
         l.setYOffset(0f);
-
-        // entry label styling
         mChart.setDrawEntryLabels(false);
-        mChart.setEntryLabelColor(Color.WHITE);
-        mChart.setEntryLabelTextSize(12f);
-
+        mChart.setData(generatePieData(allocation));
     }
-    protected String[] mParties = new String[] {
-            "Party Aasdsadasdasd", "Party adsdasdasdasB", "Partdasdasdasdasy C", "Party D", "Party dasdasdE", "Partyasdasdasdasdasdasd F", "Party G", "Party H",
-            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-            "Party Y", "Party Z"
-    };
-    private void setData(int count, float range) {
 
-        float mult = range;
+    protected PieData generatePieData(AssetAllocation allocation) {
 
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5),
-                    mParties[i % mParties.length],
-                    getResources().getDrawable(R.drawable.ic_error)));
+        ArrayList<PieEntry> entries1 = new ArrayList<PieEntry>();
+
+        if (!TextUtils.isEmpty(allocation.getStockPercent())) {
+            entries1.add(new PieEntry(Float.parseFloat(allocation.getStockPercent()), "股票占净比" + allocation.getStockPercent() + "%"));
+        } else {
+            entries1.add(new PieEntry(0, "债券占净比0.00%"));
         }
+        if (!TextUtils.isEmpty(allocation.getDebtPercent())) {
+            entries1.add(new PieEntry(Float.parseFloat(allocation.getDebtPercent()), "债券占净比" + allocation.getDebtPercent() + "%"));
+        } else {
+            entries1.add(new PieEntry(0, "债券占净比0.00%"));
+        }
+        if (!TextUtils.isEmpty(allocation.getOtherPercent())) {
+            entries1.add(new PieEntry(Float.parseFloat(allocation.getOtherPercent()), "其他占净比" + allocation.getOtherPercent() + "%"));
+        } else {
+            entries1.add(new PieEntry(0, "其他占净比0.00%"));
+        }
+        PieDataSet ds1 = new PieDataSet(entries1, "");
+        int[] VORDIPLOM_COLORS = {
+                Color.parseColor("#ff2c40"), Color.parseColor("#fda54d"), Color.parseColor("#7e91f8"),
+                Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+        };
+        ds1.setColors(VORDIPLOM_COLORS);
+        ds1.setSliceSpace(2f);
+        ds1.setValueTextColor(Color.WHITE);
+        ds1.setValueTextSize(12f);
+        ds1.setDrawValues(false);
+        PieData d = new PieData(ds1);
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
-        dataSet.setDrawIcons(false);
-
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-
-        // add a lot of colors
-
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-        mChart.setData(data);
-
-        // undo all highlights
-        mChart.highlightValues(null);
-
-        mChart.invalidate();
+        return d;
     }
+
+
     private SpannableString generateCenterSpannableText(String netAsset) {
 
         SpannableString s = new SpannableString(netAsset + "亿\n基金规模");
-        s.setSpan(new RelativeSizeSpan(1.6f), 0, 5, 0);
-        s.setSpan(new ForegroundColorSpan(Color.parseColor("#FF3F51")), 0, 5, 0);
-        s.setSpan(new RelativeSizeSpan(1f), 5, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 5, s.length(), 0);
+        s.setSpan(new RelativeSizeSpan(1.6f), 0, netAsset.length() + 1, 0);
+        s.setSpan(new ForegroundColorSpan(Color.parseColor("#FF3F51")), 0, netAsset.length() + 1, 0);
+        s.setSpan(new RelativeSizeSpan(1f), netAsset.length() + 1, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), netAsset.length() + 1, s.length(), 0);
         return s;
     }
 

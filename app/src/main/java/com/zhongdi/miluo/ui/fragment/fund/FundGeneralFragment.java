@@ -99,8 +99,8 @@ public class FundGeneralFragment extends Fragment {
                         tvFundName.setText(response.getBody().getFundName());
                         tvFundCode.setText(response.getBody().getFundCode());
                         tvEstabDate.setText(response.getBody().getEstabDate());
-                        tvMinFene.setText(response.getBody().getMinredemptionvol());
-                        tvFundSize.setText(response.getBody().getFundSize());
+                        tvMinFene.setText(response.getBody().getMinredemptionvol()+"份");
+                        tvFundSize.setText("(截止至:"+response.getBody().getLastTime()+")");
                         tvManagerName.setText(response.getBody().getFundManagerName());
                         tvFundCustodian.setText(response.getBody().getCustodian());
                         tvManager.setText(response.getBody().getFundManager());

@@ -26,6 +26,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':state_library')
+    compile project(':MPChartLib')
     compile 'com.vise.xiaoyaoyou:viselog:1.1.2'
     compile 'com.android.support:appcompat-v7:25.+'
     compile 'com.jakewharton:butterknife:8.7.0'
@@ -39,5 +40,4 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-    compile project(':MPChartLib')
 }
