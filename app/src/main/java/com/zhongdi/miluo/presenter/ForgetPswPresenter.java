@@ -41,7 +41,7 @@ public class ForgetPswPresenter extends BasePresenter<ForgetPswView> {
         map.put("password", psw1);
         map.put("type", "3");//2：修改登录密码 3：重置登录密码 4：修改交易密码 5：重置交易密码
         map.put("username", username);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_LOGIN_PSW, map, 101,
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.RESET_LOGIN_PSW, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

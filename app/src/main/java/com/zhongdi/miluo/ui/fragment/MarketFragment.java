@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zhongdi.miluo.FragmentBackHandler;
 import com.zhongdi.miluo.R;
@@ -49,6 +50,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     ViewPager viewPager;
     @BindView(R.id.iv_increase)
     ImageView ivIncrease;
+    @BindView(R.id.tv_increase)
+    TextView tvIncrease;
     Unbinder unbinder;
     RotateAnimation upAnimation;
     RotateAnimation downAnimation;
@@ -153,21 +156,27 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 switch (i) {
                     case 0:
                         rateType = "dayrate";
+                        tvIncrease.setText("日涨幅");
                         break;
                     case 1:
                         rateType = "weekrate";
+                        tvIncrease.setText("周涨幅");
                         break;
                     case 2:
                         rateType = "monthrate";
+                        tvIncrease.setText("月涨幅");
                         break;
                     case 3:
                         rateType = "seasonrate";
+                        tvIncrease.setText("季度涨幅");
                         break;
                     case 4:
                         rateType = "semesterrate";
+                        tvIncrease.setText("一年涨幅");
                         break;
                     case 5:
                         rateType = "yearrate";
+                        tvIncrease.setText("半年涨幅");
                         break;
                 }
 

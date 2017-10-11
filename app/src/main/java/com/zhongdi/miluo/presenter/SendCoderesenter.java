@@ -24,7 +24,7 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         super.attachView(view);
     }
 
-    public void sendMessage(String tel,String type) {
+    public void sendMessage(String tel, String type) {
         if (!StringUtil.isPhoneNum(tel)) {
             view.showToast("请输入正确格式的手机号");
             return;
@@ -32,7 +32,13 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         Map<String, String> map = new HashMap<>();
         map.put("username", tel);
         map.put("type", type); //(0：单独注册 1:免注册登录 2：修改登录密码 3：重置登录密码 4：修改交易密码 5：重置交易密码）
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
+        String url;
+        if (type.equals("2") || type.equals("4")) {
+            url = URLConfig.SEND_MODIFY_MSG;
+        } else {
+            url = URLConfig.SEND_MSG;
+        }
+        Callback.Cancelable post = netRequestUtil.post(url, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -57,7 +63,7 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
                 });
     }
 
-    public void checkCode(String tel, String code,String  type) {
+    public void checkCode(String tel, String code, String type) {
         if (!StringUtil.isPhoneNum(tel)) {
             view.showToast("请输入正确格式的手机号");
             return;
@@ -70,7 +76,13 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         map.put("username", tel);
         map.put("validateseq", code);//默认写1
         map.put("type", type);//(0：单独注册 1:免注册登录 2：修改登录密码 3：重置登录密码 4：修改交易密码 5：重置交易密码）
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG_CHECK, map, 101,
+        String url;
+        if (type.equals("2") || type.equals("4")) {
+            url = URLConfig.SEND_MODIFY_MSG_CHECK;
+        } else {
+            url = URLConfig.SEND_MSG_CHECK;
+        }
+        Callback.Cancelable post = netRequestUtil.post(url, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

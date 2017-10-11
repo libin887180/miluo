@@ -11,9 +11,9 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-//    public static final String BASE_URL = "http://192.168.64.120:8085";
+    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
-    public static final String BASE_URL = "http://192.168.64.154:8085";
+//    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**
@@ -23,13 +23,21 @@ public class URLConfig {
 
     public static final String LOGIN = BASE_URL + "/lead/v1/login";
     /**
-     * 验证码
+     * 验证码(0：单独注册 1:免注册登录 3：重置登录密码 5：重置交易密码)
      */
-    public static final String SEND_MSG = BASE_URL + "/lead/v1/user/sendMessage";
+    public static final String SEND_MSG = BASE_URL + "/lead/v1/sendMessage";
     /**
-     * 验证码校验
+     * 验证码(2：修改登录密码 4：修改交易密码)
      */
-    public static final String SEND_MSG_CHECK = BASE_URL + "/lead/v1/user/isvalidateseq";
+    public static final String SEND_MODIFY_MSG = BASE_URL + "/lead/v1/user/shiroSendMessage";
+    /**
+     * 验证码校验(2：修改登录密码 4：修改交易密码)
+     */
+    public static final String SEND_MODIFY_MSG_CHECK = BASE_URL + "/lead/v1/user/updateIsValidateseq";
+    /**
+     * 验证码校验(1:注册 3：重置登录密码 5：重置交易密码)
+     */
+    public static final String SEND_MSG_CHECK = BASE_URL + "/lead/v1/isValidateseq";
     /**
      * 注册
      */
@@ -70,6 +78,10 @@ public class URLConfig {
      * 修改登录密码
      */
     public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifypassword";
+    /**
+     * 重置登录密码
+     */
+    public static final String RESET_LOGIN_PSW= BASE_URL + "/lead/v1/resetPassword";
     /**
      * 修改登录密码
      */

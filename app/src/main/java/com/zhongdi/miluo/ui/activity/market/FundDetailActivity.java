@@ -3,6 +3,7 @@ package com.zhongdi.miluo.ui.activity.market;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -67,6 +68,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     TextView tvFundNotice;
     @BindView(R.id.tv_notice_date)
     TextView tvNoticeDate;
+    @BindView(R.id.tv_current_rate)
+    TextView tvCurrentRate;
+    @BindView(R.id.tv_dep_rate)
+    TextView tvDepRate;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
@@ -185,7 +190,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         mCardPopupWindow.setOutsideTouchable(true);
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right,R.id.tv_title_right})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right, R.id.tv_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -195,17 +200,17 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
             case R.id.rl_fund_notice:
                 Intent noticeIntent = new Intent(mContext, FundNoticeActivity.class);
-                noticeIntent.putExtra("fundId",sellFundId);
+                noticeIntent.putExtra("fundId", sellFundId);
                 startActivity(noticeIntent);
                 break;
             case R.id.rl_premium:
                 Intent rateIntent = new Intent(mContext, PremiumActivity.class);
-                rateIntent.putExtra("fundId",sellFundId);
+                rateIntent.putExtra("fundId", sellFundId);
                 startActivity(rateIntent);
                 break;
             case R.id.rl_archives:
                 Intent archivesIntent = new Intent(mContext, FundAchivesActivity.class);
-                archivesIntent.putExtra("fundId",sellFundId);
+                archivesIntent.putExtra("fundId", sellFundId);
                 startActivity(archivesIntent);
                 break;
             case R.id.rl_fund_history:
@@ -219,9 +224,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
             case R.id.tv_title_right:
                 int tag = (int) tvTitleRight.getTag();
-                if(tag==0){
+                if (tag == 0) {
                     presenter.collectFund(sellFundId);
-                }else{
+                } else {
                     presenter.discollectFund(sellFundId);
                 }
 
@@ -260,6 +265,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvFundSize.setText(fundDetail.getFundSize() + "亿元");
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
+
+        if(!TextUtils.isEmpty(fundDetail.getDiscount())){
+            tvCurrentRate.setText(fundDetail.getDiscount());
+            tvDepRate.setText(fundDetail.getRateValue());
+        }else{
+            tvDepRate.setVisibility(View.GONE);
+            tvCurrentRate.setText(fundDetail.getRateValue());
+        }
     }
 
     private void switchFundType(String fundType) {

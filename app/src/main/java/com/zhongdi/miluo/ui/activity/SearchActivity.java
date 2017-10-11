@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +13,14 @@ import android.widget.LinearLayout;
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.SearchAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.SearchFund;
 import com.zhongdi.miluo.presenter.SearchPresenter;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.SearchView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
@@ -94,6 +98,15 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
                 presenter.searchFund(etSearch.getText().toString(), pageNum);
+            }
+        });
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<SearchFund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, SearchFund searchFund, int position) {
+                Intent intent  = new Intent(mContext, FundDetailActivity.class);
+                intent.putExtra("fundId",searchFund.getId());
+                ViseLog.i("fundid-->"+searchFund.getId());
+                startActivity(intent);
             }
         });
 
