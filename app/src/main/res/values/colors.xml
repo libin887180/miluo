@@ -30,6 +30,8 @@
     <color name="grey_light_bg">#F2F4F4</color>
     <color name="tab_text_selected">#FF3F51</color>
     <color name="bg_circle_blue">#2FA4FA</color>
+    <color name="bg_circle_green">#63C76A</color>
+    <color name="bg_circle_orange">#FF5500</color>
 
     <!--ios7dialog-->
     <color name="alertdialog_line">#c6c6c6</color>

@@ -157,4 +157,12 @@ public class URLConfig {
      * 我的资产列表
      */
     public static final String MY_PROPERTY_LIST= BASE_URL + "/lead/v1/user/myPropertyList";
+    /**
+     * 交易记录
+     */
+    public static final String TRADE_RECORD_LIST= BASE_URL + "/lead/v1/user/tradeRecordList";
+    /**
+     * 交易详情
+     */
+    public static final String TRADE_DETAIL= BASE_URL + "/lead/v1/user/myPropertyDetail";
 }

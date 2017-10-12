@@ -87,8 +87,6 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
         if (arguments != null) {
             title = arguments.getString(KEY);
         }
-
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(mContext,
                 LinearLayoutManager.VERTICAL);
@@ -102,10 +100,13 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
         //0当前资产1历史资产
         if (title.equals("当前资产")) {
             mAdapter = new CurAssetAdapter(mContext, mDatas);
-            mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeAssetBean>() {
                 @Override
-                public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                    startActivity(new Intent(getActivity(), TransationsDetailActivity.class));
+                public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
+                    Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
+                    intent.putExtra("fundcode", assetBean.getFundcode());
+                    startActivity(intent);
+
                 }
             });
             presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);

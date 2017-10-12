@@ -8,14 +8,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.FinishedTransAdapter;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.DealRecord;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
+import org.xutils.common.Callback;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,8 +44,11 @@ public class FinishedTransFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
     FinishedTransAdapter adapter;
-
+    private int pageIndex = 1;
+    List<DealRecord> dealRecords = new ArrayList<>();
     public static FinishedTransFragment newInstance(String info) {
         Bundle args = new Bundle();
         FinishedTransFragment fragment = new FinishedTransFragment();
@@ -64,22 +79,61 @@ public class FinishedTransFragment extends Fragment {
     }
 
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        adapter = new FinishedTransAdapter(getActivity(), datas);
+        adapter = new FinishedTransAdapter(getActivity(), dealRecords);
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,25, getResources().getColor(R.color.grey_bg)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        getFinishedRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
     }
+    /**
+     * 获取交易记录
+     * @param pageindex 页数
+     * @param pageSize 每页条数
+     */
+    private void getFinishedRecords(final int pageindex, int pageSize) {
+        Map<String, String> map = new HashMap<>();
+        map.put("pageIndex", pageindex + "");
+        map.put("pageSize", pageSize + "");
+        map.put("type",  "2");//1 进行中2 已完成
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TRADE_RECORD_LIST, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<DealRecord>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<DealRecord>> response, int requestCode) {
+                        if (pageIndex == 1) {
+                            dealRecords.clear();
+                        }
+                        if (response.getBody().size() < MiluoConfig.DEFAULT_PAGESIZE) {
+                            refreshLayout.setEnableLoadmore(false);
+                        } else {
+                            refreshLayout.setEnableLoadmore(true);
+                            pageIndex++;
+                        }
+                        dealRecords.addAll(response.getBody());
+                        adapter.notifyDataSetChanged();
+                        if (dealRecords.size() == 0) {
+                            stateLayout.showEmptyView();
+                        } else {
+                            stateLayout.showContentView();
+                        }
+                    }
 
+                    @Override
+                    public void onFailed(MResponse<List<DealRecord>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
     @Override
     public void onDestroyView() {
         if (unbinder != null && unbinder != Unbinder.EMPTY) {

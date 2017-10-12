@@ -30,6 +30,8 @@ import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.FenhongTypeAdapter;
 import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
@@ -57,12 +59,17 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     TextView tvFenhong;
     private TransAdapter adapter;
     private RecyclerView fenhongRv;
-    private  FenhongTypeAdapter listAdapter;
+    private FenhongTypeAdapter listAdapter;
     private PopupWindow mCardPopupWindow;
     private View fenhongPopView;
+    private String fundcode = "";
+    private int pageIndex = 1;
+    List<DealRecord> dealRecords = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fundcode = getIntent().getStringExtra("fundcode");
         binding(R.layout.activity_transaction_detail);
     }
 
@@ -85,35 +92,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        List<String> datas = new ArrayList<>();
-                        datas.add("股票");
-                        datas.add("债券");
-                        datas.add("保本");
-                        datas.add("保本");
-                        datas.add("保本");
-                        datas.add("保本");
-                        datas.add("保本");
-                        adapter.addDatas(datas, true);
                         refreshLayout.finishLoadmore();
                     }
                 }, 2000);
             }
         });
         setUpChart();
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        adapter = new TransAdapter(mContext, datas);
+        adapter = new TransAdapter(mContext, dealRecords);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
             @Override
@@ -128,13 +113,15 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
             }
         });
+
+        presenter.getPropertyDetail(fundcode);
+        presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
-    public void setData() {
+    public void setChartData() {
         ArrayList<Entry> values = new ArrayList<Entry>();
         ArrayList<Entry> values2 = new ArrayList<Entry>();
         ArrayList<Entry> values3 = new ArrayList<Entry>();
-
         for (int i = 0; i < 40; i++) {
 
             float val = (float) (Math.random() * 100) + 3;
@@ -145,9 +132,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             if (i == 20) {
                 values3.add(new Entry(i, val));
             }
-
         }
-
         LineDataSet set1;
         LineDataSet set2;
         LineDataSet set3;
@@ -226,9 +211,11 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 break;
         }
     }
+
     private void showPswPopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
     // 显示弹窗
     public void setupCardPopupWindow() {
         // 初始化弹窗
@@ -286,7 +273,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         leftAxis.setDrawAxisLine(true);//Y轴坐标
 
         mChart.getAxisRight().setEnabled(false);
-        setData();
+        setChartData();
         Legend legend = mChart.getLegend();
 
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -296,8 +283,23 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     }
 
     @Override
+    public void onTradRecordsSuccess(List<DealRecord> records) {
+        if (pageIndex == 1) {
+            dealRecords.clear();
+        }
+        if (records.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            refreshLayout.setEnableLoadmore(true);
+            pageIndex++;
+        }
+        dealRecords.addAll(records);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_pop_card_back:
                 mCardPopupWindow.dismiss();
                 break;
@@ -311,7 +313,6 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 mCardPopupWindow.dismiss();
                 return true;
             }
-
         }
         return super.onKeyDown(keyCode, event);
     }

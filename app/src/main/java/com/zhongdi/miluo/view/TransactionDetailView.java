@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.DealRecord;
+
+import java.util.List;
 
 
 /**
@@ -9,4 +12,6 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface TransactionDetailView extends BaseView {
     void setUpChart();
+
+    void onTradRecordsSuccess(List<DealRecord> records);
 }
