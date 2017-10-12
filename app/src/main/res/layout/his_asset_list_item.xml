@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:id="@+id/iv_status"
+        android:visibility="invisible"
         android:layout_marginRight="-10dp"
         android:src="@drawable/bg_buying"/>
     <LinearLayout
@@ -88,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="持仓收益（元）"
+                android:text="累计收益（元）"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/text_color_light_grey" />
 

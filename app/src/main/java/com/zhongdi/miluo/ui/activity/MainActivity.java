@@ -66,6 +66,8 @@ public class MainActivity extends BaseActivity2 {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
+                finish();
+                System.exit(0);
                 super.onBackPressed();
             }
 

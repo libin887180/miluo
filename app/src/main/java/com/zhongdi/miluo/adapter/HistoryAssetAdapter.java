@@ -13,9 +13,9 @@ import java.util.List;
  * @ author：xujun on 2016/10/18 16:42
  * @ email：gdutxiaoxu@163.com
  */
-public class CurAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
+public class HistoryAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
 
-    public CurAssetAdapter(Context context, List<HomeAssetBean> datas) {
+    public HistoryAssetAdapter(Context context, List<HomeAssetBean> datas) {
         super(context, R.layout.asset_list_item, datas);
     }
 

@@ -153,4 +153,8 @@ public class URLConfig {
      * 我的资产
      */
     public static final String MY_PROPERTY= BASE_URL + "/lead/v1/user/myProperty";
+    /**
+     * 我的资产列表
+     */
+    public static final String MY_PROPERTY_LIST= BASE_URL + "/lead/v1/user/myPropertyList";
 }

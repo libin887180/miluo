@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -290,24 +289,43 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (MyApplication.getInstance().isLogined) {
+            if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                btnLogin.setText("去开户");
+            } else {
+                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {
+                    btnLogin.setText("去测评");
+                } else {
+                    rlLoginState.setVisibility(View.GONE);
+                }
+            }
+        } else {
+            rlLoginState.setVisibility(View.VISIBLE);
+            btnLogin.setText("立即登录");
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == 102) {
-            if (MyApplication.getInstance().isLogined) {
-                if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
-                    btnLogin.setText("去开户");
-                } else {
-                    if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {
-                        btnLogin.setText("去测评");
-                    } else {
-                        rlLoginState.setVisibility(View.GONE);
-                    }
-                }
-            } else {
-                rlLoginState.setVisibility(View.VISIBLE);
-                btnLogin.setText("立即登录");
-            }
-        }
+//        if (resultCode == Activity.RESULT_OK && requestCode == 102) {
+//            if (MyApplication.getInstance().isLogined) {
+//                if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+//                    btnLogin.setText("去开户");
+//                } else {
+//                    if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {
+//                        btnLogin.setText("去测评");
+//                    } else {
+//                        rlLoginState.setVisibility(View.GONE);
+//                    }
+//                }
+//            } else {
+//                rlLoginState.setVisibility(View.VISIBLE);
+//                btnLogin.setText("立即登录");
+//            }
+//        }
     }
 
     @OnClick({R.id.btn_login, R.id.img_msg,R.id.et_search})
@@ -319,7 +337,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
                     startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去开户")) {
-                    ActivityUtil.startForwardActivity(getActivity(), OpenAccountActivity.class);
+                    Intent intent = new Intent(getActivity(), OpenAccountActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去测评")) {
                     ActivityUtil.startForwardActivity(getActivity(), TestActivity.class);
                 }

@@ -74,7 +74,6 @@ public class ListFragment extends BaseFragment<ListFragmentPresenter> implements
             title = arguments.getString(KEY);
         }
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setEnabled(false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);

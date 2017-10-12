@@ -15,6 +15,7 @@ import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
 import com.zhongdi.miluo.ui.activity.mine.SettingActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransactionsActivity;
@@ -97,12 +98,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             presenter.getProperty();
         }
         setupViewPager(viewpage);
-//        // 设置数据
-//        tvTotalAsset.withNumber(892666.50f);
-//        // 设置动画播放时间
-//        tvTotalAsset.setDuration(1000);
-//        // 开始播放动画
-//        tvTotalAsset.start();
+
     }
 
 
@@ -120,6 +116,26 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpage);
+    }
+
+    @Override
+    public void onDataSuccess(MyProperty property) {
+                // 设置数据
+        tvTotalAsset.withNumber(Float.parseFloat(property.getTotalasset()));
+        // 设置动画播放时间
+        tvTotalAsset.setDuration(1000);
+        // 开始播放动画
+        tvTotalAsset.start();
+
+        tvYestodayIncome.withNumber(Float.parseFloat(property.getDayincome()));
+        tvYestodayIncome.setDuration(1000);
+        // 开始播放动画
+        tvYestodayIncome.start();
+
+        tvTotalIncome.withNumber(Float.parseFloat(property.getAccumulatedincome()));
+        tvTotalIncome.setDuration(1000);
+        // 开始播放动画
+        tvTotalIncome.start();
     }
 
     @Override

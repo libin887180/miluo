@@ -164,6 +164,8 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     @Override
     public void toOpenSuccess() {
         codeAlertDialog.dismiss();
+        finish();
+
         ActivityUtil.startForwardActivity(this, OpenAccountSuccessActivity.class);
     }
 
