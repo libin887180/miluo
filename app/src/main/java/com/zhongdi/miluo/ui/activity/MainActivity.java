@@ -129,8 +129,14 @@ public class MainActivity extends BaseActivity2 {
 
 
                 case R.id.navigation_mine:
-                    viewPager.setCurrentItem(3);
-                    return true;
+                    if (MyApplication.getInstance().isLogined) {
+                        viewPager.setCurrentItem(3);
+                        return true;
+                    } else {
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        startActivityForResult(intent, 101);
+                        return false;
+                    }
             }
             return false;
         }

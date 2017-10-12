@@ -149,4 +149,8 @@ public class URLConfig {
      * 基金费率
      */
     public static final String FUND_RATE= BASE_URL + "/fund/fundRate";
+    /**
+     * 我的资产
+     */
+    public static final String MY_PROPERTY= BASE_URL + "/lead/v1/user/myProperty";
 }

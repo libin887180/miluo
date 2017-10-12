@@ -127,7 +127,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
 
-                                    android:text="25.97"
+                                    android:text="--.--"
                                     android:textColor="@color/red"
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
@@ -206,7 +206,7 @@
                                         android:id="@+id/tv_day_rate"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="56.53"
+                                        android:text="--.--"
                                         android:textColor="@color/text_222"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />
@@ -242,7 +242,7 @@
                                         android:id="@+id/tv_net_value"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="856.53"
+                                        android:text="--.--"
                                         android:textColor="@color/text_222"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />

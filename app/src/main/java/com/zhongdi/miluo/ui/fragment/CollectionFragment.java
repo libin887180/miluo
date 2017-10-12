@@ -228,7 +228,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         refreshLayout.finishRefreshing();
         fundAdapter.notifyDataSetChanged();
         if(optionalFunds.size()==0){
-            stateLayout.showNoNetworkView();
+            stateLayout.showEmptyView();
         }
     }
 

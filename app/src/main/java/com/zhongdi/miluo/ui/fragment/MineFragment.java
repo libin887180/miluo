@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
@@ -61,7 +62,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         return fragment;
     }
 
-
     @Override
     protected MineFragPresenter initPresenter() {
         return new MineFragPresenter(this);
@@ -93,13 +93,16 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void fetchData() {
+        if(MyApplication.getInstance().isLogined) {//登录了,查询数据
+            presenter.getProperty();
+        }
         setupViewPager(viewpage);
-        // 设置数据
-        tvTotalAsset.withNumber(892666.50f);
-        // 设置动画播放时间
-        tvTotalAsset.setDuration(1000);
-        // 开始播放动画
-        tvTotalAsset.start();
+//        // 设置数据
+//        tvTotalAsset.withNumber(892666.50f);
+//        // 设置动画播放时间
+//        tvTotalAsset.setDuration(1000);
+//        // 开始播放动画
+//        tvTotalAsset.start();
     }
 
 

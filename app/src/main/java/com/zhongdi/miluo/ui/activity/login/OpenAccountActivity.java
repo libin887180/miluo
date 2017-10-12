@@ -121,6 +121,8 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         codeAlertDialog = new CodeAlertDialog(mContext).builder();
         codeAlertDialog.setTitle("短信验证码");
         codeAlertDialog.setMsg("输入尾号为" + phone.substring(phone.length() - 4, phone.length()) + "接收到的短信验证码");
+        timer.start();
+        codeAlertDialog.getTxt_code().setEnabled(false);
         codeAlertDialog.show();
         codeAlertDialog.setNegativeButton("取消", new View.OnClickListener() {
             @Override
@@ -161,6 +163,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
     @Override
     public void toOpenSuccess() {
+        codeAlertDialog.dismiss();
         ActivityUtil.startForwardActivity(this, OpenAccountSuccessActivity.class);
     }
 

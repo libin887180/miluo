@@ -50,17 +50,18 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
 
     public void openAccountConfirm(String smscode) {
         Map<String, String> map = new HashMap<>();
-        map.put("smscode",smscode);
+        map.put("smscode", smscode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_CONFIRM, map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<String>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
-                    public void onSuccess(MResponse<String> response, int requestCode) {
-
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.toOpenSuccess();
                     }
 
                     @Override
-                    public void onFailed(MResponse<String> response, int requestCode) {
-                        view.showCodeError();
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        view.showToast(response.getMsg());
+//                        view.showCodeError();
                     }
 
                     @Override
