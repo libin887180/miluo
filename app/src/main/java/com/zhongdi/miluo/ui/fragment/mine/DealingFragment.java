@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
@@ -96,7 +97,18 @@ public class DealingFragment extends Fragment {
                 startActivityForResult(intent, 102);
             }
         });
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                pageIndex = 1;
+                getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+            }
 
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+            }
+        });
         getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
     }
 

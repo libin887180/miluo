@@ -85,6 +85,11 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> im
         btnSubmit.setEnabled(enable);
     }
 
+    @Override
+    public void onSuccess() {
+
+    }
+
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
     }

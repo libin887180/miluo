@@ -9,4 +9,7 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface ForgetDealPsw2View extends BaseView {
     void enableSubmitBtn(boolean enable);
+
+    void onSuccess();
+
 }

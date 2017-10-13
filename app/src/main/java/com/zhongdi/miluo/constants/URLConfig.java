@@ -11,11 +11,11 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-//    public static final String BASE_URL = "http://192.168.64.120:8085";
+    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
-    public static final String BASE_URL = "http://192.168.64.13:8085";
+//    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**
      * 测试接口
      */
@@ -23,8 +23,8 @@ public class URLConfig {
     /**
      * 登录
      */
-//    public static final String LOGIN = BASE_URL + "/lead/v1/login";
-    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
+    public static final String LOGIN = BASE_URL + "/lead/v1/login";
+//    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
     /**
      * 验证码(0：单独注册 1:免注册登录 3：重置登录密码 5：重置交易密码)
      */
@@ -80,15 +80,15 @@ public class URLConfig {
     /**
      * 修改登录密码
      */
-    public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifypassword";
+    public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifyPassword";
     /**
      * 重置登录密码
      */
     public static final String RESET_LOGIN_PSW= BASE_URL + "/lead/v1/resetPassword";
     /**
-     * 修改登录密码
+     * 修改交易密码
      */
-    public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/modifytradpassword";
+    public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/resetTradPassword";
     /**
      * 基金搜索
      */

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BaseRecyclerAdapter;
@@ -96,7 +97,26 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
 
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableOverScroll(false);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                pageIndex = 1;
+                if (title.equals("当前资产")) {
+                    presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
+                } else {
+                    presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+                }
+            }
 
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                if (title.equals("当前资产")) {
+                    presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
+                } else {
+                    presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+                }
+            }
+        });
         //0当前资产1历史资产
         if (title.equals("当前资产")) {
             mAdapter = new CurAssetAdapter(mContext, mDatas);
