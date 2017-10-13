@@ -11,17 +11,21 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.model.BeforeBuyInfo;
+import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
@@ -35,6 +39,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static java.lang.Float.parseFloat;
 
 public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements BuyFundView, View.OnClickListener {
 
@@ -50,10 +56,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     TextView tvBankName;
     @BindView(R.id.tv_desc)
     TextView tvDesc;
-    @BindView(R.id.tv_dep_cost)
-    TextView tvDepCost;
-    @BindView(R.id.tv_cost)
-    TextView tvCost;
+    @BindView(R.id.tv_dep_rate)
+    TextView tvDepRate;
+    @BindView(R.id.tv_rate)
+    TextView tvRate;
     @BindView(R.id.tv_dep_sxf)
     TextView tvDepSxf;
     @BindView(R.id.tv_sxf)
@@ -62,6 +68,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     Button btnSubmit;
     @BindView(R.id.et_money)
     ClearEditText etMoney;
+    @BindView(R.id.cb_agreement)
+    CheckBox cbAgreement;
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
@@ -71,6 +79,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private View cardPopView;
     private String fundCode;
     private List<BeforeBuyInfo.FeesBean> fees;
+    private float minsubscribeamt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,14 +109,25 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                startActivity(new Intent(mContext, TransationsRecordActivity.class));
-                Toast.makeText(mContext, mPayView.getPassword(), Toast.LENGTH_SHORT).show();
+                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
+                dismissPswPopWindow();
+//                startActivity(new Intent(mContext, TransationsRecordActivity.class));
+//                Toast.makeText(mContext, mPayView.getPassword(), Toast.LENGTH_SHORT).show();
             }
         });
         mPayView.getCancel().setOnClickListener(this);
         mPayView.getForgetPsw().setOnClickListener(this);
     }
 
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
 
     // 显示银行卡弹窗
     public void setupCardPopupWindow() {
@@ -167,7 +187,40 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
             @Override
             public void afterTextChanged(Editable editable) {
+
                 if (etMoney.getText().length() > 0) {
+                    float amount = parseFloat(etMoney.getText().toString());
+                    for (int i = 0; i < fees.size(); i++) {
+                        if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
+                            if (fees.get(i).getDiscount().equals("1")) {
+                                tvDepRate.setText("");
+                                tvDepSxf.setText("");
+                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//达到上限
+                                    tvRate.setText(fees.get(i).getRatevalue() + "元");
+                                    tvSxf.setText(fees.get(i).getRatevalue() + "元");
+                                } else {//需要乘以费率
+                                    tvRate.setText(parseFloat(fees.get(i).getRatevalue()) * 100 + "%");
+                                    tvSxf.setText(amount * parseFloat(fees.get(i).getRatevalue()) + "元");
+                                }
+                                break;
+                            } else {//有优惠折扣
+                                float rate = parseFloat(fees.get(i).getRatevalue());
+                                float discount = parseFloat(fees.get(i).getDiscount());
+                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//  达到上限
+                                    tvDepRate.setText(rate + "元");
+                                    tvRate.setText(rate * discount + "元");
+                                    tvSxf.setText(rate * discount + "元");
+                                    tvDepSxf.setText(rate + "元");
+                                } else {
+                                    tvDepRate.setText(rate * 100 + "%");
+                                    tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
+                                    tvDepSxf.setText(amount * rate + "元");
+                                    tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
+                                }
+                                break;
+                            }
+                        }
+                    }
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -203,7 +256,14 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     }
 
     @Override
+    public void dismissPswPopWindow() {
+        mPopupWindow.dismiss();
+    }
+
+    @Override
     public void onDataSuccess(BeforeBuyInfo buyInfo) {
+
+//        minsubscribeamt = Float.parseFloat();
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
@@ -211,7 +271,17 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         tvBankName.setText(buyInfo.getBankInfo().getBankname());
         tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());
         fees = buyInfo.getFees();
+        Glide.with(mContext).load(buyInfo.getBankInfo().getLogourl()).apply(new RequestOptions().placeholder(R.drawable.icon_bank_default).error(R.drawable.icon_bank_default))
+                .into(ivBankIcon);
 
+
+    }
+
+    @Override
+    public void onBuySuccess(BuyResponse body) {
+        Intent intent = new Intent(mContext, TransationsRecordActivity.class);
+        intent.putExtra("tradeid", body.getTradeid()+"");
+        startActivity(intent);
     }
 
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit})
@@ -223,6 +293,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             case R.id.tv_ld_protocol:
                 break;
             case R.id.btn_submit:
+                if (!cbAgreement.isChecked()) {
+                    showToast("请阅读并同意服务协议");
+                    return;
+                }
                 showPswPopupWindow();
                 break;
         }
@@ -236,11 +310,12 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     //    private void showCardPopupWindow() {
 //        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 //    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_pay_back:
-                mPopupWindow.dismiss();
+                dismissPswPopWindow();
                 break;
             case R.id.tv_pay_forgetPwd:
                 Toast.makeText(mContext, "忘记密码", Toast.LENGTH_SHORT).show();

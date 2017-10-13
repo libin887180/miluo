@@ -266,22 +266,22 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_dep_cost"
+                        android:id="@+id/tv_dep_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_toRightOf="@id/yhfl"
-                        android:text="0.05%"
+                        android:text="0.00%"
                         android:textColor="@color/text_color_normal"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_cost"
+                        android:id="@+id/tv_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@id/tv_dep_cost"
-                        android:text="0.05%"
+                        android:layout_toRightOf="@id/tv_dep_rate"
+                        android:text="0.00%"
                         android:textColor="@color/red"
                         android:textSize="14sp" />
 
@@ -289,7 +289,7 @@
                         android:id="@+id/tv_dep_sxf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/tv_dep_cost"
+                        android:layout_alignLeft="@id/tv_dep_rate"
                         android:layout_alignTop="@id/yhsxf"
                         android:text="0.00元"
                         android:textColor="@color/text_color_normal"
@@ -299,10 +299,10 @@
                         android:id="@+id/tv_sxf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/tv_cost"
+                        android:layout_alignLeft="@id/tv_rate"
                         android:layout_alignTop="@id/tv_dep_sxf"
                         android:layout_toRightOf="@id/tv_dep_sxf"
-                        android:text="0.05元"
+                        android:text="0.00元"
                         android:textColor="@color/red"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -315,6 +315,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/cb_agreement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"

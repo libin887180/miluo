@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity2 {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
-        getLoadingProgressDialog().show();
+//        getLoadingProgressDialog().show();
     }
 
     private void setupViewPager(NoScrollViewPager viewPager) {

@@ -20,9 +20,11 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     NOScollListView listview;
     TransInfoAdapter transAdapter;
 
+    private String tradeid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tradeid = getIntent().getStringExtra("tradeid");
         binding(R.layout.activity_transaction_record);
     }
 
@@ -46,5 +48,6 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         transAdapter.setDataList(datas);
         listview.setFocusable(false);
         listview.setAdapter(transAdapter);
+        showToast(tradeid);
     }
 }

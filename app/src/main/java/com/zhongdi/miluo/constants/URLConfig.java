@@ -169,4 +169,8 @@ public class URLConfig {
      * 购买初始化
      */
     public static final String FUND_BUY_BEFORE= BASE_URL + "/lead/v1/user/beforeBuy";
+    /**
+     * 购买基金
+     */
+    public static final String BUY_FUND= BASE_URL + "/lead/v1/user/fundBuy";
 }
