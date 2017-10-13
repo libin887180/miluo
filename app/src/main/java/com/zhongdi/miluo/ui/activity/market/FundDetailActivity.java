@@ -75,8 +75,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
+    private String fundCode;
     private FundManagerInfo managerInfo;
-
+    FundDetail fundDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,7 +218,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 startActivity(new Intent(mContext, FundHistoryValueActivity.class));
                 break;
             case R.id.tv_buy:
-                startActivity(new Intent(mContext, BuyFundActivity.class));
+                if(!TextUtils.isEmpty(fundCode)){
+                    Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
+                    buyIntent.putExtra("fundCode", fundCode);
+                    startActivity(buyIntent);
+                }else{
+                    showToast("暂未获取到基金代码");
+                }
+
                 break;
             case R.id.img_title_right:
                 showpSharePopupWindow();
@@ -248,6 +256,8 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 
     @Override
     public void OnDataSuccess(FundDetail fundDetail) {
+//        this.fundDetail = fundDetail;
+        fundCode =  fundDetail.getFundCode();
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
         tvYearRate.setText(fundDetail.getYearRate());
         tvNetValue.setText(fundDetail.getNetValue());

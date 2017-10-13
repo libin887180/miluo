@@ -11,11 +11,11 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-    public static final String BASE_URL = "http://192.168.64.120:8085";
+//    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
-//    public static final String BASE_URL = "http://192.168.64.13:8085";
+    public static final String BASE_URL = "http://192.168.64.13:8085";
     /**
      * 测试接口
      */
@@ -165,4 +165,8 @@ public class URLConfig {
      * 交易详情
      */
     public static final String TRADE_DETAIL= BASE_URL + "/lead/v1/user/myPropertyDetail";
+    /**
+     * 购买初始化
+     */
+    public static final String FUND_BUY_BEFORE= BASE_URL + "/lead/v1/user/beforeBuy";
 }

@@ -21,6 +21,7 @@ import com.zhongdi.miluo.adapter.BankListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.BankInfo;
+import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
@@ -63,16 +64,18 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     ClearEditText etMoney;
     private PopupWindow mPopupWindow;
     private View popView;
-
     private PayView mPayView;
     private RecyclerView recyclerView;
     private BankListAdapter listAdapter;
     private PopupWindow mCardPopupWindow;
     private View cardPopView;
+    private String fundCode;
+    private List<BeforeBuyInfo.FeesBean> fees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fundCode = getIntent().getStringExtra("fundCode");
         binding(R.layout.activity_buy);
     }
 
@@ -106,7 +109,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     }
 
 
-    // 显示弹窗
+    // 显示银行卡弹窗
     public void setupCardPopupWindow() {
         // 初始化弹窗
         cardPopView = View.inflate(this, R.layout.pop_card_list_view, null);
@@ -119,12 +122,12 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             }
         });
         cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
-         recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
+        recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
         List<BankInfo> datas = new ArrayList<>();
         datas.add(new BankInfo());
         datas.add(new BankInfo());
         datas.add(new BankInfo());
-       listAdapter = new BankListAdapter(mContext, datas);
+        listAdapter = new BankListAdapter(mContext, datas);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
@@ -147,8 +150,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
     @Override
     protected void initialize() {
-//        setupPswPopupWindow();
-        setupCardPopupWindow();
+        setupPswPopupWindow();
+//        setupCardPopupWindow();
+        presenter.beforeBuyInit(fundCode);
 
         etMoney.addTextChangedListener(new TextWatcher() {
             @Override
@@ -168,7 +172,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 } else {
                     disableSubmitBtn();
                 }
-
             }
         });
     }
@@ -199,11 +202,23 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         btnSubmit.setEnabled(true);
     }
 
+    @Override
+    public void onDataSuccess(BeforeBuyInfo buyInfo) {
+        etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
+        tvFundName.setText(buyInfo.getFund().getFundname());
+        tvNum.setText(buyInfo.getFund().getFundcode());
+        tvFundType.setText(buyInfo.getFund().getFundtype());
+        tvBankName.setText(buyInfo.getBankInfo().getBankname());
+        tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());
+        fees = buyInfo.getFees();
+
+    }
+
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
-                showCardPopupWindow();
+//                showCardPopupWindow();
                 break;
             case R.id.tv_ld_protocol:
                 break;
@@ -217,9 +232,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         setupPswPopupWindow();
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
-    private void showCardPopupWindow() {
-        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-    }
+
+    //    private void showCardPopupWindow() {
+//        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

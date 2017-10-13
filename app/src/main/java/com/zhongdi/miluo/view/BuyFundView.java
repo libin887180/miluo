@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.BeforeBuyInfo;
 
 
 /**
@@ -11,4 +12,6 @@ public interface BuyFundView extends BaseView {
     void disableSubmitBtn();
 
     void enableSubmitBtn();
+
+    void onDataSuccess(BeforeBuyInfo body);
 }

@@ -184,6 +184,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         GridImageAdapter gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
         gvActivity.setAdapter(gridImageAdapter);
         gvActivity.setFocusable(false);
+
     }
 
     private void setUpMarqueeView() {
