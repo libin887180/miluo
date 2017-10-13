@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
@@ -20,6 +21,7 @@ import com.zhongdi.miluo.model.FundDetail;
 import com.zhongdi.miluo.model.FundManagerInfo;
 import com.zhongdi.miluo.model.FundNotice;
 import com.zhongdi.miluo.presenter.FundDetailPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.fragment.fund.EstimateFragment;
 import com.zhongdi.miluo.util.TimeUtil;
 import com.zhongdi.miluo.util.xUtilsImageUtils;
@@ -72,12 +74,15 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     TextView tvCurrentRate;
     @BindView(R.id.tv_dep_rate)
     TextView tvDepRate;
+    @BindView(R.id.tv_buy)
+    TextView tvBuy;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
     private String fundCode;
     private FundManagerInfo managerInfo;
     FundDetail fundDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,11 +223,16 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 startActivity(new Intent(mContext, FundHistoryValueActivity.class));
                 break;
             case R.id.tv_buy:
-                if(!TextUtils.isEmpty(fundCode)){
+                if (!MyApplication.getInstance().isLogined) {
+                    Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    startActivityForResult(intent, 101);
+                    return;
+                }
+                if (!TextUtils.isEmpty(fundCode)) {
                     Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                     buyIntent.putExtra("fundCode", fundCode);
                     startActivity(buyIntent);
-                }else{
+                } else {
                     showToast("暂未获取到基金代码");
                 }
 
@@ -231,6 +241,11 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 showpSharePopupWindow();
                 break;
             case R.id.tv_title_right:
+                if (!MyApplication.getInstance().isLogined) {
+                    Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    startActivityForResult(intent, 101);
+                    return;
+                }
                 int tag = (int) tvTitleRight.getTag();
                 if (tag == 0) {
                     presenter.collectFund(sellFundId);
@@ -257,7 +272,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     @Override
     public void OnDataSuccess(FundDetail fundDetail) {
 //        this.fundDetail = fundDetail;
-        fundCode =  fundDetail.getFundCode();
+        fundCode = fundDetail.getFundCode();
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
         tvYearRate.setText(fundDetail.getYearRate());
         tvNetValue.setText(fundDetail.getNetValue());
@@ -270,18 +285,23 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             tvTitleRight.setBackgroundResource(R.drawable.ic_no_collect);
             tvTitleRight.setTag(0);
         }
-
         tvFundCompanyName.setText(fundDetail.getFundManagerName());
         tvFundSize.setText(fundDetail.getFundSize() + "亿元");
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
 
-        if(!TextUtils.isEmpty(fundDetail.getDiscount())){
+        if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
             tvCurrentRate.setText(fundDetail.getDiscount());
             tvDepRate.setText(fundDetail.getRateValue());
-        }else{
+        } else {
             tvDepRate.setVisibility(View.GONE);
             tvCurrentRate.setText(fundDetail.getRateValue());
+        }
+
+        if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
+            tvBuy.setEnabled(false);
+        } else {
+            tvBuy.setEnabled(true);
         }
     }
 

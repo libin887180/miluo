@@ -173,6 +173,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_open_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -190,6 +191,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_open_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_with_border"

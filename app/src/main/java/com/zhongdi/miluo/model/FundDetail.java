@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class FundDetail implements Serializable{
 
+    private String buyStatus ;
     private String dayRate;
     private String discount;
     private String estabDate;
@@ -22,6 +23,14 @@ public class FundDetail implements Serializable{
     private String status;
     private String valueDate;
     private String yearRate;
+
+    public String getBuyStatus() {
+        return buyStatus;
+    }
+
+    public void setBuyStatus(String buyStatus) {
+        this.buyStatus = buyStatus;
+    }
 
     public String getDayRate() {
         return dayRate;

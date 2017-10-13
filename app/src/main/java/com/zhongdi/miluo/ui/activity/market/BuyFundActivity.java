@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +25,17 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankListAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
+import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
+import com.zhongdi.miluo.widget.AlertDialog;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
@@ -70,6 +77,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     ClearEditText etMoney;
     @BindView(R.id.cb_agreement)
     CheckBox cbAgreement;
+    @BindView(R.id.ll_open_account)
+    LinearLayout llOpenAccount;
+    @BindView(R.id.rl_bank_card)
+    RelativeLayout rlBankCard;
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
@@ -172,6 +183,14 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     protected void initialize() {
         setupPswPopupWindow();
 //        setupCardPopupWindow();
+        if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {//未开户
+            rlBankCard.setVisibility(View.GONE);
+            llOpenAccount.setVisibility(View.VISIBLE);
+            etMoney.setEnabled(false);
+        } else {
+            rlBankCard.setVisibility(View.VISIBLE);
+            llOpenAccount.setVisibility(View.GONE);
+        }
         presenter.beforeBuyInit(fundCode);
 
         etMoney.addTextChangedListener(new TextWatcher() {
@@ -268,11 +287,15 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
         tvFundType.setText(buyInfo.getFund().getFundtype());
-        tvBankName.setText(buyInfo.getBankInfo().getBankname());
-        tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());
+        if (buyInfo.getBankInfo() != null) {//没有银行信息，即没开户
+            tvBankName.setText(buyInfo.getBankInfo().getBankname());
+            tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());
+            Glide.with(mContext).load(buyInfo.getBankInfo().getLogourl()).apply(new RequestOptions().placeholder(R.drawable.icon_bank_default).error(R.drawable.icon_bank_default))
+                    .into(ivBankIcon);
+        }
+
         fees = buyInfo.getFees();
-        Glide.with(mContext).load(buyInfo.getBankInfo().getLogourl()).apply(new RequestOptions().placeholder(R.drawable.icon_bank_default).error(R.drawable.icon_bank_default))
-                .into(ivBankIcon);
+
 
 
     }
@@ -280,11 +303,27 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     @Override
     public void onBuySuccess(BuyResponse body) {
         Intent intent = new Intent(mContext, TransationsRecordActivity.class);
-        intent.putExtra("tradeid", body.getTradeid()+"");
+        intent.putExtra("tradeid", body.getTradeid() + "");
         startActivity(intent);
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit})
+    @Override
+    public void showTestDialog() {
+        new AlertDialog(mContext).builder().setMsg("您尚未完成风险测评，请完成测评后继续操作")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).setPositiveButton("立即测评", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        }).show();
+    }
+
+    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
@@ -292,9 +331,18 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 break;
             case R.id.tv_ld_protocol:
                 break;
+            case R.id.tv_open_account:
+                Intent intent = new Intent(mContext, OpenAccountActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                startActivityForResult(intent, 102);
+                break;
             case R.id.btn_submit:
                 if (!cbAgreement.isChecked()) {
                     showToast("请阅读并同意服务协议");
+                    return;
+                }
+                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
+                    showTestDialog();
                     return;
                 }
                 showPswPopupWindow();
@@ -326,4 +374,5 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 break;
         }
     }
+
 }

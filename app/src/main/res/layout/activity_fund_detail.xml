@@ -856,8 +856,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/title_bg"
+                    android:background="@drawable/btn_buy_fund"
                     android:gravity="center"
+                    android:enabled="false"
                     android:text="立即购买"
                     android:textColor="@color/white"
                     android:textSize="18sp" />

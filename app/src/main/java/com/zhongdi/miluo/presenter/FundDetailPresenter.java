@@ -92,7 +92,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-//                        view.showToast(response.getMsg());
+                        view.showToast(response.getMsg());
                     }
 
                     @Override
