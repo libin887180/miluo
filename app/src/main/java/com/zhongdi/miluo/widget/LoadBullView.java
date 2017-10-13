@@ -83,7 +83,7 @@ public class LoadBullView extends View {
             canvas.drawCircle(0, 0, radius, mPaint);
             canvas.restore();
         }
-//        startAnim();
+        startAnim();
     }
 
     @Override

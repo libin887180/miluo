@@ -51,7 +51,7 @@ public class LoadingProgressDialog extends Dialog {
     @Override
     public void show() {
         // TODO Auto-generated method stub
-        loadingImg.startAnim();
+//        loadingImg.startAnim();
         super.show();
     }
 
