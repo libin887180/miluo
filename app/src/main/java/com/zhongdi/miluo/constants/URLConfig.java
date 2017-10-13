@@ -30,6 +30,10 @@ public class URLConfig {
      */
     public static final String SEND_MSG = BASE_URL + "/lead/v1/sendMessage";
     /**
+     * 验证码校验(1:注册 3：重置登录密码 5：重置交易密码)
+     */
+    public static final String SEND_MSG_CHECK = BASE_URL + "/lead/v1/isValidateseq";
+    /**
      * 验证码(2：修改登录密码 4：修改交易密码)
      */
     public static final String SEND_MODIFY_MSG = BASE_URL + "/lead/v1/user/shiroSendMessage";
@@ -37,10 +41,7 @@ public class URLConfig {
      * 验证码校验(2：修改登录密码 4：修改交易密码)
      */
     public static final String SEND_MODIFY_MSG_CHECK = BASE_URL + "/lead/v1/user/updateIsValidateseq";
-    /**
-     * 验证码校验(1:注册 3：重置登录密码 5：重置交易密码)
-     */
-    public static final String SEND_MSG_CHECK = BASE_URL + "/lead/v1/isValidateseq";
+
     /**
      * 注册
      */
@@ -89,6 +90,10 @@ public class URLConfig {
      * 修改交易密码
      */
     public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/resetTradPassword";
+    /**
+     * 验证身份证号和姓名
+     */
+    public static final String CHECK_ID_NO= BASE_URL + "/lead/v1/user/isidno";
     /**
      * 基金搜索
      */

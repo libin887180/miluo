@@ -8,13 +8,14 @@ import android.widget.EditText;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.presenter.ForgetPsw2Presenter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.presenter.ForgetDealPsw2Presenter;
 import com.zhongdi.miluo.view.ForgetDealPsw2View;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> implements ForgetDealPsw2View {
+public class ForgetDealPswActivity2 extends BaseActivity<ForgetDealPsw2Presenter> implements ForgetDealPsw2View {
 
     @BindView(R.id.et_password1)
     EditText etPassword1;
@@ -30,8 +31,8 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> im
     }
 
     @Override
-    protected ForgetPsw2Presenter initPresenter() {
-        return new ForgetPsw2Presenter(this);
+    protected ForgetDealPsw2Presenter initPresenter() {
+        return new ForgetDealPsw2Presenter(this);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> im
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
+                if (etPassword1.getText().length() == 6 && etPassword2.getText().length() == 6) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);
@@ -70,7 +71,7 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> im
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etPassword1.getText().length() > 0 && etPassword2.getText().length() > 0) {
+                if (etPassword1.getText().length() == 6 && etPassword2.getText().length() == 6) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);
@@ -87,10 +88,16 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetPsw2Presenter> im
 
     @Override
     public void onSuccess() {
+        showToast("新交易密码设置成功");
+        setResult(RESULT_OK);
+        finish();
 
     }
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
+//重置交易 密码
+        presenter.modifyDealPsw(SpCacheUtil.getInstance().getLoginAccount(),
+                etPassword1.getText().toString(), etPassword2.getText().toString());
     }
 }

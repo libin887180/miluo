@@ -2,7 +2,6 @@ package com.zhongdi.miluo.ui.activity.market;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,31 +16,28 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankListAdapter;
-import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
-import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.ui.activity.login.TestActivity;
+import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.BuyFundView;
 import com.zhongdi.miluo.widget.AlertDialog;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
-import com.zhongdi.miluo.widget.RecycleViewDivider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -122,8 +118,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void inputFinish() {
                 presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
                 dismissPswPopWindow();
-//                startActivity(new Intent(mContext, TransationsRecordActivity.class));
-//                Toast.makeText(mContext, mPayView.getPassword(), Toast.LENGTH_SHORT).show();
             }
         });
         mPayView.getCancel().setOnClickListener(this);
@@ -141,39 +135,42 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     }
 
     // 显示银行卡弹窗
-    public void setupCardPopupWindow() {
-        // 初始化弹窗
-        cardPopView = View.inflate(this, R.layout.pop_card_list_view, null);
-        mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        cardPopView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCardPopupWindow.dismiss();
-            }
-        });
-        cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
-        recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
-        List<BankInfo> datas = new ArrayList<>();
-        datas.add(new BankInfo());
-        datas.add(new BankInfo());
-        datas.add(new BankInfo());
-        listAdapter = new BankListAdapter(mContext, datas);
-        recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(listAdapter);
-        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                mCardPopupWindow.dismiss();
-            }
-        });
-        // 设置动画
-        mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
-        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
-        mCardPopupWindow.setOutsideTouchable(true);
-    }
+//    public void setupCardPopupWindow() {
+//        // 初始化弹窗
+//        cardPopView = View.inflate(this, R.layout.pop_card_list_view, null);
+//        mCardPopupWindow = new PopupWindow(cardPopView, ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+//        cardPopView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mCardPopupWindow.dismiss();
+//            }
+//        });
+//        cardPopView.findViewById(R.id.tv_pop_card_back).setOnClickListener(this);
+//        recyclerView = (RecyclerView) cardPopView.findViewById(R.id.rl_card_list);
+//        List<BankInfo> datas = new ArrayList<>();
+//        datas.add(new BankInfo());
+//        datas.add(new BankInfo());
+//        datas.add(new BankInfo());
+//        listAdapter = new BankListAdapter(mContext, datas);
+//        recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//        recyclerView.setAdapter(listAdapter);
+//        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+//            @Override
+//            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+//                mCardPopupWindow.dismiss();
+//            }
+//        });
+//        // 设置动画
+//        mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+//        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
+//        mCardPopupWindow.setOutsideTouchable(true);
+//    }
 
+    //    private void showCardPopupWindow() {
+//        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//    }
     @Override
     protected BuyFundPresenter initPresenter() {
         return new BuyFundPresenter(this);
@@ -297,7 +294,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         fees = buyInfo.getFees();
 
 
-
     }
 
     @Override
@@ -318,7 +314,45 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 }).setPositiveButton("立即测评", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(mContext, TestActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                startActivityForResult(intent, 102);
+            }
+        }).show();
+    }
 
+    @Override
+    public void showReTestDialog() {
+        new AlertDialog(mContext).builder().setMsg("您的风险等级为保守型，根据相关法规无法购买当前产品")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).setPositiveButton("重新测评", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TestActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                startActivityForResult(intent, 102);
+            }
+        }).show();
+
+    }
+
+    @Override
+    public void showRiskTipDialog() {
+        new AlertDialog(mContext).builder().setMsg("该产品超过您的风险测评等级，是否仍要购买")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).setPositiveButton("继续购买", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //继续购买
+                showPswPopupWindow();
             }
         }).show();
     }
@@ -355,9 +389,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-    //    private void showCardPopupWindow() {
-//        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//    }
 
     @Override
     public void onClick(View view) {
@@ -366,7 +397,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 dismissPswPopWindow();
                 break;
             case R.id.tv_pay_forgetPwd:
-                Toast.makeText(mContext, "忘记密码", Toast.LENGTH_SHORT).show();
+                Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
+                intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_DEAL_PSW);//来自忘记交易密码
+                startActivity(intent_forget);
                 mPayView.clearPassword();
                 break;
             case R.id.tv_pop_card_back:

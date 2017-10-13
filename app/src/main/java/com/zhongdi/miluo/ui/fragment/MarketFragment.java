@@ -64,7 +64,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     private boolean isup;
     private String sortType = "";
     private String rateType = "dayrate";
-
+    MyFragmentPagerAdapter adapter;
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
@@ -179,6 +179,10 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                         tvIncrease.setText("半年涨幅");
                         break;
                 }
+                if(adapter!=null&& adapter.getItem(tablayout.getSelectedTabPosition())!=null) {
+                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
+                    currentFragment.initData();
+                }
 
             }
         });
@@ -209,7 +213,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public void initTabLayout(List<FundType> tabs) {
         List<String> titles = new ArrayList<>();
         tablayout.removeAllTabs();
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), titles);
+        adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), titles);
         for (int i = 0; i < tabs.size(); i++) {
             FundType tab = tabs.get(i);
             if (i == 0) {

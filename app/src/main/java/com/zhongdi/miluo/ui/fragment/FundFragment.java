@@ -91,8 +91,8 @@ public class FundFragment extends Fragment {
     }
 
 
-    private void initData() {
-
+    public void initData() {
+         pageNum = 1;
         getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
 
     }

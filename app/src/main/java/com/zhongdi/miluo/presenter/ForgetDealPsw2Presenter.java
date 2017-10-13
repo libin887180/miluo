@@ -17,17 +17,17 @@ import java.util.Map;
  * Created by libin on 2017/8/7.
  */
 
-public class ForgetPsw2Presenter extends BasePresenter<ForgetDealPsw2View> {
-    public ForgetPsw2Presenter(ForgetDealPsw2View view) {
+public class ForgetDealPsw2Presenter extends BasePresenter<ForgetDealPsw2View> {
+    public ForgetDealPsw2Presenter(ForgetDealPsw2View view) {
         super.attachView(view);
     }
-    public void modifyPsw(String  username ,String psw1, String psw2) {
+    public void modifyDealPsw(String  username ,String psw1, String psw2) {
         if (TextUtils.isEmpty(psw1)) {
-            view.showToast("请输入登录密码");
+            view.showToast("请输入确认交易密码");
             return;
         }
         if (TextUtils.isEmpty(psw2)) {
-            view.showToast("请输入确认登录密码");
+            view.showToast("请输入确认交易密码");
             return;
         }
         if (!TextUtils.equals(psw1,psw2)) {

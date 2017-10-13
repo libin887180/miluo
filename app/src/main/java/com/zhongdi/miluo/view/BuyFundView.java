@@ -24,4 +24,7 @@ public interface BuyFundView extends BaseView {
 
     void onBuySuccess(BuyResponse body);
     void showTestDialog();
+    void showReTestDialog();
+    void showRiskTipDialog();
+
 }

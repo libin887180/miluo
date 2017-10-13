@@ -8,14 +8,14 @@ import android.widget.Button;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.presenter.ForgetPsw1Presenter;
+import com.zhongdi.miluo.presenter.ForgetDealPsw1Presenter;
 import com.zhongdi.miluo.view.ForgetDealPsw1View;
 import com.zhongdi.miluo.widget.ClearEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> implements ForgetDealPsw1View {
+public class ForgetDealPswActivity1 extends BaseActivity<ForgetDealPsw1Presenter> implements ForgetDealPsw1View {
 
     @BindView(R.id.btn_submit)
     Button btnSubmit;
@@ -31,8 +31,8 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> im
     }
 
     @Override
-    protected ForgetPsw1Presenter initPresenter() {
-        return new ForgetPsw1Presenter(this);
+    protected ForgetDealPsw1Presenter initPresenter() {
+        return new ForgetDealPsw1Presenter(this);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> im
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etIdCard.getText().length() > 0 && etRealName.getText().length() > 0) {
+                if (etIdCard.getText().length() > 17 && etRealName.getText().length() > 0) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);
@@ -71,7 +71,7 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> im
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etIdCard.getText().length() > 0 && etRealName.getText().length() > 0) {
+                if (etIdCard.getText().length() > 17 && etRealName.getText().length() > 0) {
                     enableSubmitBtn(true);
                 } else {
                     enableSubmitBtn(false);
@@ -83,7 +83,9 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> im
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
-        startActivity(new Intent(mContext,ForgetDealPswActivity2.class));
+
+        presenter.checkUserInfo(etIdCard.getText().toString(),etRealName.getText().toString());
+
     }
 
     @Override
@@ -91,9 +93,11 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetPsw1Presenter> im
         btnSubmit.setEnabled(enable);
     }
 
-    @Override
-    public void onSuccess() {
 
+    @Override
+    public void toNext() {
+        startActivity(new Intent(mContext,ForgetDealPswActivity2.class));
+        finish();
     }
 
 }

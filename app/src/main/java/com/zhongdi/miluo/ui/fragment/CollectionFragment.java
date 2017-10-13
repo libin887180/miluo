@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -59,6 +60,8 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     TwinklingRefreshLayout refreshLayout;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
+    @BindView(R.id.tv_increase)
+    TextView tvIncrease;
     List<OptionalFund> optionalFunds = new ArrayList<>();//自选基金列表
     private ListView lvIncrease;
     private PopupWindow increaseWindow;
@@ -116,21 +119,27 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
                 switch (i) {
                     case 0:
                         rateType = "dayrate";
+                        tvIncrease.setText("日涨幅");
                         break;
                     case 1:
                         rateType = "weekrate";
+                        tvIncrease.setText("周涨幅");
                         break;
                     case 2:
                         rateType = "monthrate";
+                        tvIncrease.setText("月涨幅");
                         break;
                     case 3:
                         rateType = "seasonrate";
+                        tvIncrease.setText("季度涨幅");
                         break;
                     case 4:
                         rateType = "semesterrate";
+                        tvIncrease.setText("一年涨幅");
                         break;
                     case 5:
                         rateType = "yearrate";
+                        tvIncrease.setText("半年涨幅");
                         break;
                 }
                 pageNum =1;
