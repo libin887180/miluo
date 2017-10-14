@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="15dp">
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp">
 
         <ImageView
             android:id="@+id/img_icon"
@@ -26,9 +26,9 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/img_icon"
-            android:layout_marginLeft="10dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="刷卡机倒垃圾大路口圾大路口的骄圾大路口的骄的骄傲"
@@ -39,15 +39,16 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignBottom="@id/img_icon"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:drawableLeft="@drawable/btn_time_small"
             android:drawablePadding="5dp"
             android:text="08-06"
-            android:drawableLeft="@drawable/btn_time_small"
             android:textColor="@color/text_color_normal"
             android:textSize="14sp" />
     </RelativeLayout>
+
     <View
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"

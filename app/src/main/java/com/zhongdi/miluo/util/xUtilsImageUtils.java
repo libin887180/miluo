@@ -37,7 +37,7 @@ public class xUtilsImageUtils {
      */
     public static void display(ImageView imageView, String iconUrl, int radius,int failureId,int loadingId) {
         ImageOptions imageOptions = new ImageOptions.Builder()
-                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                .setImageScaleType(ImageView.ScaleType.FIT_XY)
                 .setRadius(DensityUtil.dip2px(radius))
                 .setIgnoreGif(false)
                 .setCrop(true)//是否对图片进行裁剪
