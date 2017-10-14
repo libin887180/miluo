@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
@@ -44,6 +45,10 @@ public class BeginnerFragment extends Fragment {
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     BeginnerInfoAdapter adapter;
+    List<InfomationNote> notes = new ArrayList<>();
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+    private int pageNumber = 1;
 
     public static BeginnerFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -75,25 +80,16 @@ public class BeginnerFragment extends Fragment {
     }
 
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        adapter = new BeginnerInfoAdapter(getActivity(), datas);
+        adapter = new BeginnerInfoAdapter(getActivity(), notes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
+        getFundEssay("08", pageNumber);
     }
 
     @Override
@@ -105,24 +101,28 @@ public class BeginnerFragment extends Fragment {
 
     }
 
-
+    /**
+     * @param articletag 01首页推荐 02利得原创 03基金资讯 04基金研报 05基金导读 06基金观点 07理财热点 08新手秘籍
+     *                   09其他 10要问(推荐,资讯,基金导读,理财热点) 11投研(原创,研报,基金观点)
+     * @param pageNumber 页码
+     */
     public void getFundEssay(String articletag, int pageNumber) {
         Map<String, String> map = new HashMap<>();
         map.put("articletag", articletag);
-        map.put("pageNumber", pageNumber+"");
-        map.put("pageSize", MiluoConfig.DEFAULT_PAGESIZE+"");
+        map.put("pageNumber", pageNumber + "");
+        map.put("pageSize", MiluoConfig.DEFAULT_PAGESIZE + "");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_ESSAY, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<InfomationNote>>>() {
                     @Override
                     public void onSuccess(MResponse<List<InfomationNote>> response, int requestCode) {
 
-                       onDataSuccess(response.getBody());
+                        onDataSuccess(response.getBody());
                     }
 
                     @Override
                     public void onFailed(MResponse<List<InfomationNote>> response, int requestCode) {
                         ViseLog.e("请求失败");
-                       showToast(response.getMsg());
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -135,5 +135,28 @@ public class BeginnerFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void onDataSuccess(List<InfomationNote> body) {
+
+        if (pageNumber == 1) {
+            notes.clear();
+        }
+        notes.addAll(body);
+
+        if(body.size()<MiluoConfig.DEFAULT_PAGESIZE){
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            refreshLayout.setEnableLoadmore(true);
+            pageNumber++;
+        }
+
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+        adapter.notifyDataSetChanged();
+        if(notes.size()==0){
+            stateLayout.showEmptyView();
+        }
+
     }
 }
