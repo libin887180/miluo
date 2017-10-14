@@ -30,7 +30,6 @@ public class MessagesActivity extends BaseActivity<MessagesPresenter> implements
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_message_list);
     }
-
     @Override
     protected MessagesPresenter initPresenter() {
         return new MessagesPresenter(this);
