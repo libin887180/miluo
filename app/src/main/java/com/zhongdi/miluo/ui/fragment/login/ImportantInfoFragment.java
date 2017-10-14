@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
@@ -49,7 +50,7 @@ public class ImportantInfoFragment extends Fragment {
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
     List<InfomationNote> notes = new ArrayList<>();
-
+    private String ARTICLETAG = "10";//10要问(推荐,资讯,基金导读,理财热点)
     public static ImportantInfoFragment newInstance(String info) {
         Bundle args = new Bundle();
         ImportantInfoFragment fragment = new ImportantInfoFragment();
@@ -86,10 +87,34 @@ public class ImportantInfoFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
-        getFundEssay("10", pageNumber);
+        getFundEssay(ARTICLETAG, pageNumber);
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                pageNumber = 1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void loginClick() {
+
+            }
+        });
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                pageNumber = 1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+        });
     }
 
     @Override
@@ -136,6 +161,7 @@ public class ImportantInfoFragment extends Fragment {
                     }
                 });
     }
+
     private void onDataSuccess(List<InfomationNote> body) {
 
         if (pageNumber == 1) {
@@ -143,7 +169,7 @@ public class ImportantInfoFragment extends Fragment {
         }
         notes.addAll(body);
 
-        if(body.size()<MiluoConfig.DEFAULT_PAGESIZE){
+        if (body.size() < MiluoConfig.DEFAULT_PAGESIZE) {
             refreshLayout.setEnableLoadmore(false);
         } else {
             refreshLayout.setEnableLoadmore(true);
@@ -153,7 +179,7 @@ public class ImportantInfoFragment extends Fragment {
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefreshing();
         adapter.notifyDataSetChanged();
-        if(notes.size()==0){
+        if (notes.size() == 0) {
             stateLayout.showEmptyView();
         }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
@@ -49,6 +50,9 @@ public class ResearchFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
+    private String ARTICLETAG = "11";//11投研(原创,研报,基金观点)
+
+
     public static ResearchFragment newInstance(String info) {
         Bundle args = new Bundle();
         ResearchFragment fragment = new ResearchFragment();
@@ -88,7 +92,32 @@ public class ResearchFragment extends Fragment {
                 Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
             }
         });
-        getFundEssay("11", pageNumber);
+        getFundEssay(ARTICLETAG, pageNumber);
+
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                pageNumber =1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void loginClick() {
+
+            }
+        });
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                pageNumber = 1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+        });
     }
 
     @Override
@@ -97,8 +126,8 @@ public class ResearchFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
-
     }
+
     /**
      * @param articletag 01首页推荐 02利得原创 03基金资讯 04基金研报 05基金导读 06基金观点 07理财热点 08新手秘籍
      *                   09其他 10要问(推荐,资讯,基金导读,理财热点) 11投研(原创,研报,基金观点)

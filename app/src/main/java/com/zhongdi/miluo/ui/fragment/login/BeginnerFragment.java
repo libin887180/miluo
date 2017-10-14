@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
@@ -49,7 +50,7 @@ public class BeginnerFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
-
+    private String ARTICLETAG = "08";// 08新手秘籍
     public static BeginnerFragment newInstance(String info) {
         Bundle args = new Bundle();
         BeginnerFragment fragment = new BeginnerFragment();
@@ -89,7 +90,31 @@ public class BeginnerFragment extends Fragment {
                 Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
-        getFundEssay("08", pageNumber);
+        getFundEssay(ARTICLETAG, pageNumber);
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                pageNumber =1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void loginClick() {
+
+            }
+        });
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                pageNumber =1;
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                getFundEssay(ARTICLETAG, pageNumber);
+            }
+        });
     }
 
     @Override
