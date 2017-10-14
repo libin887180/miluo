@@ -178,4 +178,8 @@ public class URLConfig {
      * 购买基金
      */
     public static final String BUY_FUND= BASE_URL + "/lead/v1/user/fundBuy";
+    /**
+     * 基金资讯列表
+     */
+    public static final String FUND_ESSAY= BASE_URL + "/lead/v1/fundEssay";
 }

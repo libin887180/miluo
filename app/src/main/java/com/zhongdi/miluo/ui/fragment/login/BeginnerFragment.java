@@ -11,12 +11,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.BeginnerInfoAdapter;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.InfomationNote;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.net.NetRequestUtil;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,5 +103,37 @@ public class BeginnerFragment extends Fragment {
         }
         super.onDestroyView();
 
+    }
+
+
+    public void getFundEssay(String articletag, int pageNumber) {
+        Map<String, String> map = new HashMap<>();
+        map.put("articletag", articletag);
+        map.put("pageNumber", pageNumber+"");
+        map.put("pageSize", MiluoConfig.DEFAULT_PAGESIZE+"");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_ESSAY, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<InfomationNote>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<InfomationNote>> response, int requestCode) {
+
+                       onDataSuccess(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<InfomationNote>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                       showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 }

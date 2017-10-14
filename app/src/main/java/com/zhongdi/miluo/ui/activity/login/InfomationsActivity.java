@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.InfomationNote;
 import com.zhongdi.miluo.presenter.InfomationssPresenter;
 import com.zhongdi.miluo.ui.fragment.login.BeginnerFragment;
 import com.zhongdi.miluo.ui.fragment.login.ImportantInfoFragment;
@@ -66,4 +67,5 @@ public class InfomationsActivity extends BaseActivity<InfomationssPresenter> imp
 
         tablayout.setupWithViewPager(viewPager);
     }
+
 }

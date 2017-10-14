@@ -9,4 +9,5 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface InfomationsView extends BaseView {
     void initTabLayout();
+
 }
