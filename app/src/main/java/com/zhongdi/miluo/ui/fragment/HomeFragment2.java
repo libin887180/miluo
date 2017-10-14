@@ -29,6 +29,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
+import com.zhongdi.miluo.ui.activity.login.LoginActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
@@ -347,7 +348,14 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
                 break;
             case R.id.img_msg:
-                startActivity(new Intent(getActivity(), MessagesActivity.class));
+
+                if (MyApplication.getInstance().isLogined) {
+                    startActivity(new Intent(getActivity(), MessagesActivity.class));
+                } else {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivityForResult(intent, 101);
+                }
+
                 break;
             case R.id.et_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));

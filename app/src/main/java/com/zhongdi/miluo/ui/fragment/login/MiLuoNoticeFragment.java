@@ -11,12 +11,25 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MiluoNoticeAdapter;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.MessageBean;
+import com.zhongdi.miluo.net.NetRequestUtil;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +46,11 @@ public class MiLuoNoticeFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
     MiluoNoticeAdapter adapter;
-
+    List<MessageBean> datas = new ArrayList<>();
+    private int pageNum = 1;
     public static MiLuoNoticeFragment newInstance(String info) {
         Bundle args = new Bundle();
         MiLuoNoticeFragment fragment = new MiLuoNoticeFragment();
@@ -65,16 +81,6 @@ public class MiLuoNoticeFragment extends Fragment {
     }
 
     private void initialize() {
-        List<String> datas = new ArrayList<>();
-        datas.add("股票");
-        datas.add("债券");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
-        datas.add("保本");
         adapter = new MiluoNoticeAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -84,8 +90,86 @@ public class MiLuoNoticeFragment extends Fragment {
                 Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
             }
         });
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                pageNum=1;
+                getMessages(pageNum);
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                getMessages(pageNum);
+            }
+        });
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                pageNum=1;
+                getMessages(pageNum);
+            }
+
+            @Override
+            public void loginClick() {
+
+            }
+        });
+        getMessages(pageNum);
     }
 
+    /**
+     * 获取消息列表
+     *
+     * @param page
+     */
+
+    private void getMessages(final int page) {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", SpCacheUtil.getInstance().getLoginAccount());
+        map.put("pageNumber", page + "");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MIMLUO_NEWS, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<MessageBean>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<MessageBean>> response, int requestCode) {
+
+                        OnDataSuccess(response.getBody());
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<MessageBean>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    private void OnDataSuccess(List<MessageBean> list) {
+        if (pageNum == 1) {
+            datas.clear();
+        }
+        if (list.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            pageNum++;
+            refreshLayout.setEnableLoadmore(true);
+        }
+        datas.addAll(list);
+        adapter.notifyDataSetChanged();
+        if(datas.size()==0){
+            stateLayout.showEmptyView();
+        }
+    }
     @Override
     public void onDestroyView() {
         if (unbinder != null && unbinder != Unbinder.EMPTY) {

@@ -107,6 +107,10 @@ public class URLConfig {
      */
     public static final String FUND_NEWS = BASE_URL + "/lead/v1/user/news";
     /**
+     * 米罗公告
+     */
+    public static final String MIMLUO_NEWS = BASE_URL + "/lead/v1/sysNews";
+    /**
      * 自选基金列表
      */
     public static final String OPTIONAL_FUND = BASE_URL + "/fund/optionalFund";

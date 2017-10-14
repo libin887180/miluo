@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,7 +49,6 @@ public class FundMessageFragment extends Fragment {
     MessageAdapter adapter;
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
-    Unbinder unbinder1;
     List<MessageBean> datas = new ArrayList<>();
     private int pageNum = 1;
 
@@ -80,7 +78,6 @@ public class FundMessageFragment extends Fragment {
             }
             unbinder = ButterKnife.bind(this, rootView);
         }
-        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -143,25 +140,27 @@ public class FundMessageFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishRefreshing();
-                    }
-                }, 2000);
+                pageNum=1;
+                getMessages(pageNum);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishLoadmore();
-                    }
-                }, 2000);
+                getMessages(pageNum);
             }
         });
+        stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
+            @Override
+            public void refreshClick() {
+                pageNum=1;
+                getMessages(pageNum);
+            }
 
+            @Override
+            public void loginClick() {
+
+            }
+        });
         adapter = new MessageAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -181,7 +180,6 @@ public class FundMessageFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
-        unbinder1.unbind();
 
     }
 }
