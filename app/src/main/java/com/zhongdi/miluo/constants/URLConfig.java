@@ -107,10 +107,6 @@ public class URLConfig {
      */
     public static final String FUND_NEWS = BASE_URL + "/lead/v1/user/news";
     /**
-     * 米罗公告
-     */
-    public static final String MIMLUO_NEWS = BASE_URL + "/lead/v1/sysNews";
-    /**
      * 自选基金列表
      */
     public static final String OPTIONAL_FUND = BASE_URL + "/fund/optionalFund";
@@ -186,4 +182,12 @@ public class URLConfig {
      * 基金资讯列表
      */
     public static final String FUND_ESSAY= BASE_URL + "/lead/v1/fundEssay";
+    /**
+     * 赎回初始化
+     */
+    public static final String FUND_SELL_BEFORE= BASE_URL + "/lead/v1/user/beforeRedeem";
+    /**
+     * 赎回初始化
+     */
+    public static final String SELL_FUND= BASE_URL + "/lead/v1/user/fundRedeem";
 }

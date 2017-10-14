@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +31,7 @@ import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.DealRecord;
+import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
@@ -57,6 +57,28 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     ImageView ivFenhong;
     @BindView(R.id.tv_fenhong)
     TextView tvFenhong;
+    @BindView(R.id.tv_fund_name)
+    TextView tvFundName;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.tv_risk)
+    TextView tvRisk;
+    @BindView(R.id.tv_value)
+    TextView tvValue;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.tv_total_share)
+    TextView tvTotalShare;
+    @BindView(R.id.tv_avaliable_share)
+    TextView tvAvaliableShare;
+    @BindView(R.id.tv_accumulated_income)
+    TextView tvAccumulatedIncome;
+    @BindView(R.id.tv_dayrate)
+    TextView tvDayrate;
+    @BindView(R.id.tv_netvalue)
+    TextView tvNetvalue;
+    @BindView(R.id.tv_totalshare_income)
+    TextView tvTotalshareIncome;
     private TransAdapter adapter;
     private RecyclerView fenhongRv;
     private FenhongTypeAdapter listAdapter;
@@ -81,20 +103,20 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     @Override
     protected void initialize() {
         setupCardPopupWindow();
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableRefresh(false);//不可下拉刷新
         refreshLayout.setEnableLoadmore(true);
         refreshLayout.setEnableOverScroll(false);
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+//                pageIndex=1;
+//                presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
+            }
+
+            @Override
             public void onLoadMore(TwinklingRefreshLayout refresh) {
 
-                super.onLoadMore(refreshLayout);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishLoadmore();
-                    }
-                }, 2000);
+                presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
             }
         });
         setUpChart();
@@ -203,7 +225,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 startActivity(new Intent(mContext, BuyFundActivity.class));
                 break;
             case R.id.tv_sell:
-                startActivity(new Intent(mContext, SellFundActivity.class));
+
+                Intent intent =  new Intent(mContext, SellFundActivity.class);
+                intent.putExtra("fundCode",fundcode);
+                startActivity(intent);
                 break;
             case R.id.ll_fenhong:
 
@@ -219,7 +244,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     // 显示弹窗
     public void setupCardPopupWindow() {
         // 初始化弹窗
-        fenhongPopView = View.inflate(this, R.layout.pop_card_list_view, null);
+        fenhongPopView = View.inflate(this, R.layout.pop_fenhong_view, null);
         mCardPopupWindow = new PopupWindow(fenhongPopView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         fenhongPopView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
@@ -293,9 +318,110 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             refreshLayout.setEnableLoadmore(true);
             pageIndex++;
         }
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+
         dealRecords.addAll(records);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onPropertySuccess(PropertyDetail body) {
+
+        tvFundName.setText(body.getFundname() + "(" + body.getFundcode() + ")");
+        switchRiskLevel(body.getRisklevel());
+        switchFundType(body.getFundtype()+"");
+
+        tvValue.setText(body.getMarketval() + "");
+        tvProfit.setText(body.getDayincome() + "");
+
+        tvAccumulatedIncome.setText(body.getAccumulatedincome() + "");
+        tvAvaliableShare.setText(body.getAvaliableshare());
+        tvNetvalue.setText(body.getNetvalue() + "");
+        tvDayrate.setText(body.getDayrate() + "");
+        tvTotalShare.setText(body.getTotalshare() + "");
+        tvTotalshareIncome.setText(body.getTotalshareincome()+"");
+
+    }
+
+    private void switchFundType(String fundType) {
+
+        switch (fundType) {
+            case MiluoConfig.GUPIAO:
+                tvType.setText("股票型");
+                tvType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.ZHAIQUAN:
+                tvType.setText("债券型");
+                tvType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.HUNHE:
+                tvType.setText("混合型");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.HUOBI:
+                tvType.setText("货币型");
+                tvType.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.ZHISHU:
+                tvType.setText("指数型");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.BAOBEN:
+                tvType.setText("保本型");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.ETF:
+                tvType.setText("ETF联接");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.DQII:
+                tvType.setText("QDII");
+                tvType.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.LOF:
+                tvType.setText("LOF");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.DUANQI:
+                tvType.setText("短期理财型");
+                tvType.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.ALL:
+                tvType.setText("全部");
+                break;
+            case MiluoConfig.ZUHE:
+                tvType.setText("组合型");
+                tvType.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+        }
+    }
+    private void switchRiskLevel(int risklevel) {
+
+        switch (risklevel) {
+            case MiluoConfig.RISK_LOW:
+                tvRisk.setText("低风险");
+                tvRisk.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.RISK_MID_LOW:
+                tvRisk.setText("中低风险");
+                tvRisk.setBackgroundResource(R.drawable.ic_signblue);
+                break;
+            case MiluoConfig.RISK_MID:
+                tvRisk.setText("中风险");
+                tvRisk.setBackgroundResource(R.drawable.ic_signyellow);
+                break;
+            case MiluoConfig.RISK_MID_HIGH:
+                tvRisk.setText("中高风险");
+                tvRisk.setBackgroundResource(R.drawable.ic_signred);
+                break;
+            case MiluoConfig.RISK_HIGH:
+                tvRisk.setText("高风险");
+                tvRisk.setBackgroundResource(R.drawable.ic_signred);
+                break;
+        }
+    }
+
 
     @Override
     public void onClick(View view) {

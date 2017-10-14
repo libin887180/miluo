@@ -4,8 +4,8 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.DealRecord;
-import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.TransactionDetailView;
 
@@ -28,14 +28,15 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_DETAIL, map, 102,
-                new NetRequestUtil.NetResponseListener<MResponse<List<HomeAssetBean>>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
                     @Override
-                    public void onSuccess(MResponse<List<HomeAssetBean>> response, int requestCode) {
-//                        view.onDataSuccess(response.getBody());
+                    public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
+
+                        view.onPropertySuccess(response.getBody());
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<HomeAssetBean>> response, int requestCode) {
+                    public void onFailed(MResponse<PropertyDetail> response, int requestCode) {
                         ViseLog.e("请求失败");
                         view.showToast(response.getMsg());
                     }

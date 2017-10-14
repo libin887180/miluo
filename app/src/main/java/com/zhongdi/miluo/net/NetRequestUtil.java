@@ -9,7 +9,6 @@ import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
-import com.zhongdi.miluo.util.CommonUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -209,7 +208,7 @@ public class NetRequestUtil {
 //        params.addHeader("Content-Type", "application/json");
 //        params.setAsJsonContent(true);
         params.setHeader("plam", "andorid");//平台
-        params.setHeader("deviceid", CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
+//        params.setHeader("deviceid", CommonUtils.getDeviceId(MyApplication.getInstance()));//设备号
         params.setHeader("mac", AndroidUtil.getMacAddress(MyApplication.getInstance()));//mac地址
         params.setHeader("versionName", AppUtil.getVersionName(MyApplication.getInstance()));//APP版本名称
         params.setHeader("versionCode", AppUtil.getVersionCode(MyApplication.getInstance()) + "");//APP版本号

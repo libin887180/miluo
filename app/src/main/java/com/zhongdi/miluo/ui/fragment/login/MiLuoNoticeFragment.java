@@ -128,7 +128,8 @@ public class MiLuoNoticeFragment extends Fragment {
         Map<String, String> map = new HashMap<>();
         map.put("username", SpCacheUtil.getInstance().getLoginAccount());
         map.put("pageNumber", page + "");
-        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MIMLUO_NEWS, map, 101,
+        map.put("type", "1");//2 消息 1公告
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_NEWS, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<MessageBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<MessageBean>> response, int requestCode) {

@@ -91,6 +91,7 @@ public class FundMessageFragment extends Fragment {
         Map<String, String> map = new HashMap<>();
         map.put("username", SpCacheUtil.getInstance().getLoginAccount());
         map.put("pageNumber", page + "");
+        map.put("type", "2");//2 消息 1公告)
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_NEWS, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<MessageBean>>>() {
                     @Override

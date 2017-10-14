@@ -31,11 +31,18 @@ public class MiluoConfig {
     public static final int DEFAULT_PAGESIZE = 15;//默认分页大小
     public static final int UN_OPEN_ACCOUNT = 0;//未开户
 
-    public static final int BAOSHOU = 1; //保守型
-    public static final int WENJIAN = 2;//稳健型
-    public static final int CHENGSHU = 3;//成熟型
-    public static final int JINQU = 4;//进取型
-    public static final int JIJIN = 5;//激进型
+    public static final int BAOSHOU = 1; //保守型C1
+    public static final int WENJIAN = 2;//稳健型C2
+    public static final int CHENGSHU = 3;//成熟型C3
+    public static final int JINQU = 4;//进取型C4
+    public static final int JIJIN = 5;//激进型C5
+
+
+    public static final int RISK_LOW = 1; //R1
+    public static final int RISK_MID_LOW = 2;//R2
+    public static final int RISK_MID = 3;//R3
+    public static final int RISK_MID_HIGH = 4;//R4
+    public static final int RISK_HIGH = 5;//R5
 
 
 

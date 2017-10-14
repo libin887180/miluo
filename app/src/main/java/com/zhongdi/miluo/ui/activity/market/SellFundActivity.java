@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,12 +9,20 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.model.BuyResponse;
+import com.zhongdi.miluo.model.SellResponse;
 import com.zhongdi.miluo.presenter.SellFundPresenter;
+import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
+import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.SellFundView;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
@@ -28,13 +37,33 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     ClearEditText etMoney;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+    @BindView(R.id.tv_fund_name)
+    TextView tvFundName;
+    @BindView(R.id.tv_num)
+    TextView tvNum;
+    @BindView(R.id.tv_fund_type)
+    TextView tvFundType;
+    @BindView(R.id.iv_bank_icon)
+    ImageView ivBankIcon;
+    @BindView(R.id.tv_bank_name)
+    TextView tvBankName;
+    @BindView(R.id.tv_last_num)
+    TextView tvLastNum;
+    @BindView(R.id.tv_total)
+    TextView tvTotal;
+    @BindView(R.id.tv_sell_all)
+    TextView tvSellAll;
+    @BindView(R.id.tv_accounting_date)
+    TextView tvAccountingDate;
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
+    private String fundCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fundCode = getIntent().getStringExtra("fundCode");
         binding(R.layout.activity_sell);
     }
 
@@ -53,11 +82,29 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                Toast.makeText(mContext, mPayView.getPassword(), Toast.LENGTH_SHORT).show();
+                presenter.sellFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
+                dismissPswPopWindow();
             }
         });
         mPayView.getCancel().setOnClickListener(this);
         mPayView.getForgetPsw().setOnClickListener(this);
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
+
+    @Override
+    public void onSellSuccess(BuyResponse body) {
+        Intent intent = new Intent(mContext, TransationsRecordActivity.class);
+        intent.putExtra("tradeid", body.getTradeid() + "");
+        startActivity(intent);
     }
 
 
@@ -69,6 +116,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     @Override
     protected void initialize() {
         setupPswPopupWindow();
+        presenter.beforeSellInit(fundCode);
         etMoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -114,6 +162,30 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
         btnSubmit.setEnabled(true);
     }
 
+    @Override
+    public void onDataSuccess(SellResponse body) {
+
+        etMoney.setHint("最低可赎回"+body.getFund().getMinredemptionvol()+"份");
+        tvFundName.setText(body.getFund().getFundname());
+        tvNum.setText(body.getFund().getFundcode());
+        tvFundType.setText(body.getFund().getFundtype());
+        if (body.getBankInfo() != null) {//没有银行信息，即没开户
+            tvBankName.setText(body.getBankInfo().getBankname());
+            tvLastNum.setText(body.getBankInfo().getCard());
+            Glide.with(mContext).load(body.getBankInfo().getLogourl()).apply(new RequestOptions().placeholder(R.drawable.icon_bank_default).error(R.drawable.icon_bank_default))
+                    .into(ivBankIcon);
+
+        }
+        tvTotal.setText(body.getFund().getAvaliableshare());
+        tvAccountingDate.setText(body.getFund().getPreredeemacctdate());
+
+    }
+
+    @Override
+    public void dismissPswPopWindow() {
+        mPopupWindow.dismiss();
+    }
+
     @OnClick({R.id.btn_submit, R.id.tv_sell_all})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -126,6 +198,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     }
 
     private void showPswPopupWindow() {
+        setupPswPopupWindow();
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -136,7 +209,10 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
                 mPopupWindow.dismiss();
                 break;
             case R.id.tv_pay_forgetPwd:
-                Toast.makeText(mContext, "忘记密码", Toast.LENGTH_SHORT).show();
+                Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
+                intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_DEAL_PSW);//来自忘记交易密码
+                startActivity(intent_forget);
+                mPayView.clearPassword();
                 break;
         }
     }
