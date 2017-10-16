@@ -194,4 +194,12 @@ public class URLConfig {
      * 交易记录
      */
     public static final String TRANS_RECORD= BASE_URL + "/lead/v1/user/tradeRecord";
+    /**
+     * 交易撤单
+     */
+    public static final String FUND_CHEDAN= BASE_URL + "/lead/v1/user/fundWithdraw";
+    /**
+     * 修改分红方式
+     */
+    public static final String MODIFY_BONUS= BASE_URL + "/lead/v1/user/modifiyBonus";
 }

@@ -50,4 +50,34 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
                 });
     }
 
+    public void fundWithdraw(String  tradeid ,String tradepwd ,String type ) {
+        Map<String, String> map = new HashMap<>();
+        map.put("tradeid", tradeid);
+        map.put("tradepwd", tradepwd);
+        map.put("type", type);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_CHEDAN, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.OnChedanSuccess();
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                });
+
+    }
 }

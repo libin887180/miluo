@@ -38,6 +38,8 @@ import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
+import com.zhongdi.miluo.widget.OnPasswordInputFinish;
+import com.zhongdi.miluo.widget.PayView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 import com.zhongdi.miluo.widget.mpchart.MyLineChart;
 
@@ -99,6 +101,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     List<DealRecord> dealRecords = new ArrayList<>();
     private String fundId;
 
+    private PopupWindow mPopupWindow;
+    private View popView;
+    private PayView mPayView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +116,43 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     protected TransactionDetailPresenter initPresenter() {
         return new TransactionDetailPresenter(this);
     }
+    // 显示弹窗
+    public void setupPswPopupWindow() {
+        // 初始化弹窗
+        popView = View.inflate(this, R.layout.pop_window, null);
+        mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        popView.findViewById(R.id.gray_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPopupWindow.dismiss();
+            }
+        });
+        mPayView = (PayView) popView.findViewById(R.id.pv_pop_win);
+        mPayView.getTitle().setText("输入六位数字密码");
+        // 设置动画
+        mPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+        mPopupWindow.setOutsideTouchable(true);
+        mPayView.setOnFinishInput(new OnPasswordInputFinish() {
+            @Override
+            public void inputFinish() {
+//                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
+                dismissPswPopWindow();
+            }
+        });
+        mPayView.getCancel().setOnClickListener(this);
+        mPayView.getForgetPsw().setOnClickListener(this);
+    }
+
+    private void showPswPopupWindow() {
+        setupPswPopupWindow();
+        mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+    @Override
+    public void dismissPswPopWindow() {
+        mPopupWindow.dismiss();
+    }
     @Override
     protected void initialize() {
         setupCardPopupWindow();
@@ -234,16 +276,16 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_buy:
-                startActivity(new Intent(mContext, BuyFundActivity.class));
+                Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
+                buyIntent.putExtra("fundCode", fundcode);
+                startActivity(buyIntent);
                 break;
             case R.id.tv_sell:
-
                 Intent intent = new Intent(mContext, SellFundActivity.class);
                 intent.putExtra("fundCode", fundcode);
                 startActivity(intent);
                 break;
             case R.id.ll_fenhong:
-
                 showPswPopupWindow();
                 break;
             case R.id.rl_fund_info:
@@ -256,9 +298,6 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         }
     }
 
-    private void showPswPopupWindow() {
-        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-    }
 
     // 显示弹窗
     public void setupCardPopupWindow() {
@@ -277,6 +316,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         List<String> datas = new ArrayList<>();
         datas.add("红利再投");
         datas.add("现金分红");
+        //分红方式  0红利再投  1现金分红
         listAdapter = new FenhongTypeAdapter(mContext, datas);
         fenhongRv.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         fenhongRv.setLayoutManager(new LinearLayoutManager(mContext));
@@ -286,6 +326,8 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
                 listAdapter.setCheck(position);
                 mCardPopupWindow.dismiss();
+
+                presenter.modifyBonus(position+"",fundcode,"123456");
             }
         });
         // 设置动画

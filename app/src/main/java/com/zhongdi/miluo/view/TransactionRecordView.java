@@ -10,4 +10,8 @@ import com.zhongdi.miluo.model.TradeRecord;
 
 public interface TransactionRecordView extends BaseView {
     void OnDataSuccess(TradeRecord body);
+    void dismissPswPopWindow();
+
+    void OnChedanSuccess();
+
 }

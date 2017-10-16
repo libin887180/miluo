@@ -17,4 +17,5 @@ public interface TransactionDetailView extends BaseView {
     void onTradRecordsSuccess(List<DealRecord> records);
 
     void onPropertySuccess(PropertyDetail body);
+    void dismissPswPopWindow();
 }

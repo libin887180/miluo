@@ -52,6 +52,38 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
                     }
                 });
     }
+
+
+    public void modifyBonus(String bonusmethod ,String  productid ,String tradepwd ) {
+        Map<String, String> map = new HashMap<>();
+        map.put("bonusmethod", bonusmethod);//红利再投1现金分红
+        map.put("productid", productid);
+        map.put("tradepwd", tradepwd);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_BONUS, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
+                    @Override
+                    public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
+
+                        view.onPropertySuccess(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<PropertyDetail> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
     /**
      * 获取交易记录
      * @param pageIndex 页数

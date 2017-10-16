@@ -103,7 +103,6 @@
                 android:inputType="numberPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
 
 
@@ -130,7 +129,6 @@
                 android:inputType="numberPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
 
 

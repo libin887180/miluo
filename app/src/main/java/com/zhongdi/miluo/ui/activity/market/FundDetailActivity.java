@@ -289,7 +289,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvFundSize.setText(fundDetail.getFundSize() + "亿元");
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
-        switchRiskLevel(Integer.parseInt(fundDetail.getRateValue()));
+        switchRiskLevel(Integer.parseInt(fundDetail.getRiskLevel()));
         if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
             tvCurrentRate.setText(fundDetail.getDiscount());
             tvDepRate.setText(fundDetail.getRateValue());

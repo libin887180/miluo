@@ -281,6 +281,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     public void onDataSuccess(BeforeBuyInfo buyInfo) {
 
 //        minsubscribeamt = Float.parseFloat();
+        this.beforeBuyInfo = buyInfo;
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
