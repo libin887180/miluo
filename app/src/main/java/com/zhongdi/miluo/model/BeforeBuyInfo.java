@@ -91,6 +91,15 @@ public class BeforeBuyInfo {
         private String fundcode;
         private String fundname;
         private String minsubscribeamt;
+        private int risklevel;
+
+        public int getRisklevel() {
+            return risklevel;
+        }
+
+        public void setRisklevel(int risklevel) {
+            this.risklevel = risklevel;
+        }
 
         public String getFundtype() {
             return fundtype;

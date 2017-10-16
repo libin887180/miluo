@@ -87,6 +87,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private String fundCode;
     private List<BeforeBuyInfo.FeesBean> fees;
     private float minsubscribeamt;
+    private BeforeBuyInfo beforeBuyInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -337,7 +338,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 startActivityForResult(intent, 102);
             }
         }).show();
-
     }
 
     @Override
@@ -379,6 +379,18 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                     showTestDialog();
                     return;
                 }
+                if (SpCacheUtil.getInstance().getUserTestLevel() == MiluoConfig.BAOSHOU) {//如果是保守型，并且风险等级比R1高 那重新测评
+                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+                        showReTestDialog();
+                        return;
+                    }
+                } else {//如果不是是保守型，并且风险等级比R1高 那提示风险
+                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+                        showRiskTipDialog();
+                        return;
+                    }
+                }
+
                 showPswPopupWindow();
                 break;
         }
