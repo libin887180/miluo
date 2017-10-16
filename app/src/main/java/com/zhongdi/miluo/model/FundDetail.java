@@ -24,6 +24,24 @@ public class FundDetail implements Serializable{
     private String valueDate;
     private String yearRate;
     private String riskLevel ;
+    private String  yearyld ;
+    private String  tenthouunitincm ;
+
+    public String getYearyld() {
+        return yearyld;
+    }
+
+    public void setYearyld(String yearyld) {
+        this.yearyld = yearyld;
+    }
+
+    public String getTenthouunitincm() {
+        return tenthouunitincm;
+    }
+
+    public void setTenthouunitincm(String tenthouunitincm) {
+        this.tenthouunitincm = tenthouunitincm;
+    }
 
     public String getRiskLevel() {
         return riskLevel;

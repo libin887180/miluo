@@ -145,7 +145,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         mCardPopupWindow.setOutsideTouchable(true);
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.rl_fund_history, R.id.tv_buy, R.id.img_title_right, R.id.tv_title_right})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.tv_buy, R.id.img_title_right, R.id.tv_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -167,9 +167,6 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
                 Intent archivesIntent = new Intent(mContext, FundAchivesActivity.class);
                 archivesIntent.putExtra("fundId", sellFundId);
                 startActivity(archivesIntent);
-                break;
-            case R.id.rl_fund_history:
-                startActivity(new Intent(mContext, FundHistoryValueActivity.class));
                 break;
             case R.id.tv_buy:
                 if (!MyApplication.getInstance().isLogined) {
@@ -222,6 +219,8 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     public void OnDataSuccess(FundDetail fundDetail) {
 //        this.fundDetail = fundDetail;
         fundCode = fundDetail.getFundCode();
+        tvIncrease.setText(fundDetail.getYearyld());
+        tvProfit.setText(fundDetail.getTenthouunitincm());
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
         if (fundDetail.getStatus().equals("1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);

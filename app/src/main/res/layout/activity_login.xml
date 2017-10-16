@@ -65,6 +65,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
+            android:visibility="gone"
             android:text="注册"
             android:textColor="@color/black"
             android:textSize="14sp" />

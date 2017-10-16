@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/setp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请已受理"
+        android:textColor="@color/text_222"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/step_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setp_name"
+        android:layout_marginTop="5dp"
+        android:text="2017-08-02 10:56"
+        android:textColor="@color/text_color_normal" />
+
+    <TextView
+        android:id="@+id/tv_cancel_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_with_border"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        android:text="下单撤回"
+        android:textColor="@color/red"
+        android:visibility="gone" />
+</RelativeLayout>

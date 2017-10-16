@@ -22,6 +22,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.presenter.AssetFragmentPresenter;
 import com.zhongdi.miluo.ui.activity.mine.TransationsDetailActivity;
+import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.AssetFragmentView;
 
 import java.util.ArrayList;
@@ -123,21 +124,38 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
             mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeAssetBean>() {
                 @Override
                 public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
-                    Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
-                    intent.putExtra("fundcode", assetBean.getFundcode());
-                    startActivity(intent);
+                    if(assetBean.getStatus().equals("收益中")) {
+                        Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
+                        intent.putExtra("fundcode", assetBean.getFundcode());
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
+                        intent.putExtra("tradeid", assetBean.getTradeid());
+                        if (assetBean.getStatus().contains("申购")) {
+                            intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
+                        } else  {
+                            intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
+                        }
+                        startActivity(intent);
+                    }
 
                 }
             });
             presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
 
-
         } else {
             mAdapter = new HisAssetAdapter(mContext, mDatas);
-            mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeAssetBean>() {
                 @Override
-                public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                    startActivity(new Intent(getActivity(), TransationsDetailActivity.class));
+                public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
+                    Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
+                    intent.putExtra("tradeid", assetBean.getTradeid());
+                    if (assetBean.getStatus().contains("申购")) {
+                        intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
+                    } else  {
+                        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
+                    }
+                    startActivity(intent);
                 }
             });
             presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);

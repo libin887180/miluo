@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.model.TradeRecord;
+import com.zhongdi.miluo.util.xUtilsImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,13 @@ import butterknife.ButterKnife;
 
 public class TransInfoAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> dataList = new ArrayList<>();
+    private List<TradeRecord.Part3Bean> dataList = new ArrayList<>();
 
     public TransInfoAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setDataList(List<String> dataList) {
+    public void setDataList(List<TradeRecord.Part3Bean> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
     }
@@ -41,7 +43,7 @@ public class TransInfoAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public TradeRecord.Part3Bean getItem(int position) {
         return dataList.get(position);
     }
 
@@ -65,6 +67,27 @@ public class TransInfoAdapter extends BaseAdapter {
         }else{
             holder.contentView.setBackgroundColor(Color.TRANSPARENT);
         }
+
+        holder.cpxx.setText(dataList.get(position).getKey1());
+        if(dataList.get(position).getKey1().equals("产品信息")){
+            holder.ivNext.setVisibility(View.VISIBLE);
+        }else{
+            if(dataList.get(position).getKey1().equals("支付方式")){
+                holder.ivBankIcon.setVisibility(View.VISIBLE);
+                xUtilsImageUtils.display(holder.ivBankIcon,dataList.get(position).getKey2(),R.drawable.icon_bank_default,R.drawable.icon_bank_default);
+            }else{
+                holder.ivBankIcon.setVisibility(View.GONE);
+            }
+            holder.ivNext.setVisibility(View.GONE);
+        }
+        if(dataList.get(position).getKey1().equals("支付方式")){
+            holder.tvName.setText(dataList.get(position).getKey3());
+        }else{
+            holder.tvName.setText(dataList.get(position).getKey2());
+        }
+
+
+
         return convertView;
     }
 
@@ -72,6 +95,10 @@ public class TransInfoAdapter extends BaseAdapter {
     static class ViewHolder {
         @BindView(R.id.cpxx)
         TextView cpxx;
+        @BindView(R.id.iv_next)
+        ImageView ivNext;
+        @BindView(R.id.tv_name)
+        TextView tvName;
         @BindView(R.id.iv_bank_icon)
         ImageView ivBankIcon;
         @BindView(R.id.contentView)

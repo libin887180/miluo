@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,14 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.FinishedTransAdapter;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import org.xutils.common.Callback;
@@ -81,6 +84,21 @@ public class FinishedTransFragment extends Fragment {
 
     private void initialize() {
         adapter = new FinishedTransAdapter(getActivity(), dealRecords);
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
+                if (dealRecord.getTransstatus().equals("申购") || dealRecord.getTransstatus().equals("赎回")) {
+                    Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
+                    intent.putExtra("tradeid", dealRecord.getTradeid() + "");
+                    if (dealRecord.getTransstatus().equals("申购")) {
+                        intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
+                    } else {
+                        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
+                    }
+                    startActivity(intent);
+                }
+            }
+        });
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,25, getResources().getColor(R.color.grey_bg)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);

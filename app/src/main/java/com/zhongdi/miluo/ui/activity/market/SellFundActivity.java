@@ -104,6 +104,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     public void onSellSuccess(BuyResponse body) {
         Intent intent = new Intent(mContext, TransationsRecordActivity.class);
         intent.putExtra("tradeid", body.getTradeid() + "");
+        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
         startActivity(intent);
     }
 

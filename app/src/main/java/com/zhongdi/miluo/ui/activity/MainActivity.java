@@ -13,7 +13,7 @@ import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
-import com.zhongdi.miluo.ui.activity.login.LoginActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.fragment.CollectionFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment2;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity2 {
                         viewPager.setCurrentItem(2);
                         return true;
                     } else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        Intent intent = new Intent(mContext, QuickLoginActivity.class);
                         startActivityForResult(intent, 101);
                         return false;
                     }
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity2 {
                         viewPager.setCurrentItem(3);
                         return true;
                     } else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        Intent intent = new Intent(mContext, QuickLoginActivity.class);
                         startActivityForResult(intent, 101);
                         return false;
                     }

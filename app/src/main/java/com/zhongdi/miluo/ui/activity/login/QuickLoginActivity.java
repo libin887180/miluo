@@ -16,6 +16,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.QuickLoginPresenter;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
 
 import butterknife.BindView;
@@ -74,6 +75,10 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
                 startActivityForResult(intent,101);
                 break;
             case R.id.tv_send_code:
+                if (!StringUtil.isPhoneNum(etUsername.getText().toString())) {
+                    showToast("请输入正确格式的手机号");
+                    return;
+                }
                 presenter.sendMessage(etUsername.getText().toString());
                 view.setEnabled(false);
                 timer.start();

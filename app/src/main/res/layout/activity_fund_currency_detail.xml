@@ -57,7 +57,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_share" />
 
-        <CheckBox
+        <ImageView
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:scaleType="fitXY"
-            android:button="@drawable/checkbox_collect" />
+            android:src="@drawable/checkbox_collect" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -251,6 +251,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_archives"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">
@@ -284,10 +285,10 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_premium"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">
-
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -331,6 +332,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_fundSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -363,6 +365,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_estabdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -546,6 +549,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_fund_manager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -574,6 +578,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/tv_manager_name"
@@ -600,6 +605,7 @@
                     android:background="@color/divider_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_fund_notice"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/commen_item_height"
                     android:background="@color/white">

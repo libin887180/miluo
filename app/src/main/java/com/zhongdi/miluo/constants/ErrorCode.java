@@ -21,9 +21,9 @@ public class ErrorCode {
 
     public static final String EMPTYUSER = "-1";//账号不存在
 
-    public static final String ERRORPWDE = "-2";//密码错误
+    public static final String ERRORPWDE = "ERRORPWDE";//密码错误
 
-    public static final String USERLOCKED = "-3";//用户被锁定
+    public static final String USERLOCKED = "USERLOCKED";//用户被锁定
 
     public static final String ERRORSENDMESSAGE = "-4";//发送验证码异常
 

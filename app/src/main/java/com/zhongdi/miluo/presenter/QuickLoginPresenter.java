@@ -27,6 +27,7 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
     }
 
     public void sendMessage(String userName) {
+
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("type", "1");//验证码渠道

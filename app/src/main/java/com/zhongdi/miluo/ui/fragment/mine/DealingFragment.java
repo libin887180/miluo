@@ -91,10 +91,16 @@ public class DealingFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
-
-                Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
-//                intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
-                startActivityForResult(intent, 102);
+                if (dealRecord.getTransstatus().equals("申购") || dealRecord.getTransstatus().equals("赎回")) {
+                    Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
+                    intent.putExtra("tradeid", dealRecord.getTradeid() + "");
+                    if (dealRecord.getTransstatus().equals("申购")) {
+                        intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
+                    } else {
+                        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
+                    }
+                    startActivity(intent);
+                }
             }
         });
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {

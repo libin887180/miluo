@@ -85,12 +85,13 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="20dp">
+                android:paddingTop="15dp">
 
                 <TextView
+                    android:id="@+id/tv_trade_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申购(元)"
@@ -102,6 +103,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_reqtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -110,6 +112,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -142,7 +145,7 @@
                     android:layout_marginTop="20dp"
                     android:drawableTop="@drawable/ic_empty"
                     android:gravity="center_horizontal"
-                    android:text="支付失败!"
+                    android:text="交易失败!"
                     android:textColor="@color/red" />
 
             </LinearLayout>
@@ -154,21 +157,30 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="20dp">
+                android:paddingTop="10dp">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:id="@+id/iv_steps"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/transaction_step" />
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/step3_2" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -194,6 +206,7 @@
                             android:textColor="@color/text_color_normal" />
 
                         <TextView
+                            android:id="@+id/tv_cancelstatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -291,6 +304,8 @@
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="@color/transparent"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="20dp" />
         </LinearLayout>
     </ScrollView>

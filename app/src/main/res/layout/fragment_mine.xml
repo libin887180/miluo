@@ -44,7 +44,7 @@
                             android:id="@+id/tv_total_asset"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="89273.12"
+                            android:text="0"
                             android:textColor="@color/white"
                             android:textSize="40sp" />
 
@@ -88,7 +88,7 @@
                                android:id="@+id/tv_yestoday_income"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="73.12"
+                                android:text="0"
                                 android:textColor="@color/white"
                                 android:textSize="25sp" />
 
@@ -111,7 +111,7 @@
                                 android:id="@+id/tv_total_income"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="83.12"
+                                android:text="0"
                                 android:textColor="@color/white"
                                 android:textSize="25sp" />
 

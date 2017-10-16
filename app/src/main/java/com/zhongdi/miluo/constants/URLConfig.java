@@ -190,4 +190,8 @@ public class URLConfig {
      * 赎回初始化
      */
     public static final String SELL_FUND= BASE_URL + "/lead/v1/user/fundRedeem";
+    /**
+     * 交易记录
+     */
+    public static final String TRANS_RECORD= BASE_URL + "/lead/v1/user/tradeRecord";
 }

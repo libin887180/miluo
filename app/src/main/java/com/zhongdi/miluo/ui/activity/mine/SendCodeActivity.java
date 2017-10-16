@@ -120,6 +120,11 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_code:
+                if (!StringUtil.isPhoneNum(etTel.getText().toString())) {
+                   showToast("请输入正确格式的手机号");
+                    return;
+                }
+                view.setEnabled(false);
                 timer.start();
                 presenter.sendMessage(etTel.getText().toString(), sendCodeType);
                 break;
