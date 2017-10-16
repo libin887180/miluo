@@ -391,7 +391,14 @@
                         android:layout_marginLeft="15dp"
                         android:text="基金公司"
                         android:textSize="16sp" />
-
+                    <TextView
+                        android:id="@+id/tv_fund_company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/text_color_normal" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
@@ -405,6 +412,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     android:padding="10dp">
 
                     <ImageView
@@ -441,6 +449,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp">
 
@@ -630,6 +639,7 @@
                     android:padding="20dp">
 
                     <TextView
+                        android:id="@+id/tv_fund_notice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="手机按了电机拉上看见的撒旦教案了圣诞节奥斯卡大家阿拉山口解答录数据的萨拉丁骄傲了可视对讲"
@@ -637,6 +647,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_notice_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -708,10 +719,11 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_buy"
+                    android:background="@drawable/btn_buy_fund"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/title_bg"
                     android:gravity="center"
                     android:text="立即购买"
                     android:textColor="@color/white"

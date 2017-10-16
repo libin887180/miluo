@@ -26,6 +26,7 @@ import com.zhongdi.miluo.model.FundListResponse;
 import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
@@ -175,7 +176,12 @@ public class FundFragment extends Fragment {
         fundAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Fund>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Fund fund, int position) {
-                Intent intent  = new Intent(getActivity(), FundDetailActivity.class);
+                Intent intent;
+                if(fund.getFundType().equals(MiluoConfig.HUOBI)){
+                     intent  = new Intent(getActivity(), FundCurrencyDetailActivity.class);
+                }else {
+                    intent = new Intent(getActivity(), FundDetailActivity.class);
+                }
                 intent.putExtra("fundId",fund.getId());
                 ViseLog.i("fundid-->"+fund.getId());
                 startActivity(intent);

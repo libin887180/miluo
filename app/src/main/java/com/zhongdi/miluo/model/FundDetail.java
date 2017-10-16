@@ -23,6 +23,15 @@ public class FundDetail implements Serializable{
     private String status;
     private String valueDate;
     private String yearRate;
+    private String riskLevel ;
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
 
     public String getBuyStatus() {
         return buyStatus;

@@ -23,7 +23,7 @@ public class FundNoticePresenter extends BasePresenter<FundNoticeView> {
     }
     public void getFundNotice(String fundId, int page) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", "2217");
+        map.put("sellFundId",fundId);
         map.put("page", page + "");
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_NOTICE_LIST, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<FundNoticeResponse>>() {

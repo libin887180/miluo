@@ -91,7 +91,7 @@ public class FundCombinationFragment extends Fragment {
     private void initialize() {
         initListView();
         getMainHold(sellFundId);
-        getAssetAllocation("2217");
+        getAssetAllocation(sellFundId);
     }
 
     private void getMainHold(String sellFundId) {

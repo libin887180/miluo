@@ -53,7 +53,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     }
     public void getFundManagerInfo(String fundId) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", "2217");
+        map.put("sellFundId", fundId);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_MANAGER, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<FundManagerInfo>>() {
                     @Override
@@ -135,7 +135,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     }
     public void getFundNotice(String fundId) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", "2217");
+        map.put("sellFundId",fundId);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DETAIL_NOTICE, map, 105,
                 new NetRequestUtil.NetResponseListener<MResponse<FundNotice>>() {
                     @Override

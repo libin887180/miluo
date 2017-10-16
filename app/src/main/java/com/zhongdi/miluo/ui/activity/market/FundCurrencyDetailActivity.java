@@ -2,7 +2,6 @@ package com.zhongdi.miluo.ui.activity.market;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
-import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.FundDetail;
@@ -22,42 +20,31 @@ import com.zhongdi.miluo.model.FundManagerInfo;
 import com.zhongdi.miluo.model.FundNotice;
 import com.zhongdi.miluo.presenter.FundDetailPresenter;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
-import com.zhongdi.miluo.ui.fragment.fund.EstimateFragment;
 import com.zhongdi.miluo.util.TimeUtil;
 import com.zhongdi.miluo.util.xUtilsImageUtils;
 import com.zhongdi.miluo.view.FundDetailView;
-import com.zhongdi.miluo.widget.NoScrollViewPager;
-import com.zhongdi.miluo.widget.SegmentControl;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implements FundDetailView {
+public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter> implements FundDetailView {
 
-    @BindView(R.id.segment_control)
-    SegmentControl segmentControl;
-    @BindView(R.id.mViewPager)
-    NoScrollViewPager mViewPager;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.tv_year_rate)
-    TextView tvYearRate;
     @BindView(R.id.tv_fund_type)
     TextView tvFundType;
     @BindView(R.id.tv_fund_levle)
     TextView tvFundLevle;
-    @BindView(R.id.tv_day_rate)
-    TextView tvDayRate;
-    @BindView(R.id.tv_net_value_date)
-    TextView tvNetValueDate;
-    @BindView(R.id.tv_net_value)
-    TextView tvNetValue;
     @BindView(R.id.tv_title_right)
     ImageView tvTitleRight;
     @BindView(R.id.tv_fundSize)
     TextView tvFundSize;
     @BindView(R.id.tv_estabdate)
     TextView tvEstabdate;
+    @BindView(R.id.tv_increase)
+    TextView tvIncrease;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
     @BindView(R.id.tv_fund_company_name)
     TextView tvFundCompanyName;
     @BindView(R.id.iv_manager_icon)
@@ -70,10 +57,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     TextView tvFundNotice;
     @BindView(R.id.tv_notice_date)
     TextView tvNoticeDate;
-    @BindView(R.id.tv_current_rate)
-    TextView tvCurrentRate;
-    @BindView(R.id.tv_dep_rate)
-    TextView tvDepRate;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
     private View sharePopView;
@@ -87,7 +70,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sellFundId = getIntent().getStringExtra("fundId");
-        binding(R.layout.activity_fund_detail);
+        binding(R.layout.activity_fund_currency_detail);
     }
 
     @Override
@@ -98,24 +81,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     @Override
     protected void initialize() {
         setupSharePopupWindow();
-        mViewPager.setScroll(false);
-        segmentControl.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-            @Override
-            public void onSegmentControlClick(int index) {
-                mViewPager.setCurrentItem(index);
-            }
-        });
         tvTitleRight.setTag(0);
         presenter.getFundDetail(sellFundId);
         presenter.getFundManagerInfo(sellFundId);
         presenter.getFundNotice(sellFundId);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(EstimateFragment.newInstance("估值"));
-        adapter.addFragment(EstimateFragment.newInstance("债券"));
-        adapter.addFragment(EstimateFragment.newInstance("混合"));
-        adapter.addFragment(EstimateFragment.newInstance("货币"));
-        adapter.addFragment(EstimateFragment.newInstance("指数"));
-        mViewPager.setAdapter(adapter);
         setListener();
 
     }
@@ -123,26 +92,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     @Override
     public void setListener() {
 
-        /**
-         * 设置viewpager的选择事件
-         */
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                segmentControl.setSelectedIndex(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
     }
 
@@ -274,10 +223,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 //        this.fundDetail = fundDetail;
         fundCode = fundDetail.getFundCode();
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
-        tvYearRate.setText(fundDetail.getYearRate());
-        tvNetValue.setText(fundDetail.getNetValue());
-        tvDayRate.setText(fundDetail.getDayRate());
-        tvNetValueDate.setText("单位净值(" + TimeUtil.changeToDate(fundDetail.getValueDate()) + ")");
         if (fundDetail.getStatus().equals("1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
             tvTitleRight.setTag(1);
@@ -290,13 +235,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
         switchRiskLevel(Integer.parseInt(fundDetail.getRateValue()));
-        if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
-            tvCurrentRate.setText(fundDetail.getDiscount());
-            tvDepRate.setText(fundDetail.getRateValue());
-        } else {
-            tvDepRate.setVisibility(View.GONE);
-            tvCurrentRate.setText(fundDetail.getRateValue());
-        }
 
         if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
             tvBuy.setEnabled(false);
@@ -304,6 +242,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             tvBuy.setEnabled(true);
         }
     }
+
     private void switchRiskLevel(int risklevel) {
 
         switch (risklevel) {
@@ -329,6 +268,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
         }
     }
+
     private void switchFundType(String fundType) {
 
         switch (fundType) {

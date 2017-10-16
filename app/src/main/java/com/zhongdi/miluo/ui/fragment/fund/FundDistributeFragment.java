@@ -117,11 +117,11 @@ public class FundDistributeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
-        getFundDividend("2217");
+        getFundDividend(sellFundId);
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                getFundDividend("2215");
+                getFundDividend(sellFundId);
             }
 
             @Override

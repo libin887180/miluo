@@ -48,6 +48,7 @@
         <activity android:name=".ui.activity.mine.BankCardListActivity"/>
         <activity android:name=".ui.activity.mine.AddBankCardActivity"/>
         <activity android:name=".ui.activity.market.FundDetailActivity"/>
+        <activity android:name=".ui.activity.market.FundCurrencyDetailActivity"/>
         <activity android:name=".ui.activity.market.FundNoticeActivity"/>
         <activity android:name=".ui.activity.market.ManagerDetailActivity"/>
         <activity android:name=".ui.activity.market.PremiumActivity"/>
