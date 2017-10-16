@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
@@ -79,6 +81,14 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     TextView tvNetvalue;
     @BindView(R.id.tv_totalshare_income)
     TextView tvTotalshareIncome;
+    @BindView(R.id.tv_increase_type)
+    TextView tvIncreaseType;
+    @BindView(R.id.tv_netvalue_type)
+    TextView tvNetvalueType;
+    @BindView(R.id.tv_sell)
+    TextView tvSell;
+    @BindView(R.id.tv_buy)
+    TextView tvBuy;
     private TransAdapter adapter;
     private RecyclerView fenhongRv;
     private FenhongTypeAdapter listAdapter;
@@ -87,6 +97,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     private String fundcode = "";
     private int pageIndex = 1;
     List<DealRecord> dealRecords = new ArrayList<>();
+    private String fundId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +144,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+
             }
         });
 
@@ -218,7 +230,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         }
     }
 
-    @OnClick({R.id.tv_sell, R.id.tv_buy, R.id.ll_fenhong})
+    @OnClick({R.id.tv_sell, R.id.tv_buy, R.id.ll_fenhong, R.id.rl_fund_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_buy:
@@ -226,13 +238,20 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 break;
             case R.id.tv_sell:
 
-                Intent intent =  new Intent(mContext, SellFundActivity.class);
-                intent.putExtra("fundCode",fundcode);
+                Intent intent = new Intent(mContext, SellFundActivity.class);
+                intent.putExtra("fundCode", fundcode);
                 startActivity(intent);
                 break;
             case R.id.ll_fenhong:
 
                 showPswPopupWindow();
+                break;
+            case R.id.rl_fund_info:
+                if (!TextUtils.isEmpty(fundId)) {
+                    Intent detail = new Intent(mContext, FundDetailActivity.class);
+                    detail.putExtra("fundId", fundId);
+                    startActivity(detail);
+                }
                 break;
         }
     }
@@ -327,20 +346,42 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
 
     @Override
     public void onPropertySuccess(PropertyDetail body) {
-
+        fundId = body.getFundid() + "";
         tvFundName.setText(body.getFundname() + "(" + body.getFundcode() + ")");
         switchRiskLevel(body.getRisklevel());
-        switchFundType(body.getFundtype()+"");
+        switchFundType(body.getFundtype() + "");
 
         tvValue.setText(body.getMarketval() + "");
         tvProfit.setText(body.getDayincome() + "");
 
         tvAccumulatedIncome.setText(body.getAccumulatedincome() + "");
         tvAvaliableShare.setText(body.getAvaliableshare());
-        tvNetvalue.setText(body.getNetvalue() + "");
-        tvDayrate.setText(body.getDayrate() + "");
+
         tvTotalShare.setText(body.getTotalshare() + "");
-        tvTotalshareIncome.setText(body.getTotalshareincome()+"");
+        tvTotalshareIncome.setText(body.getTotalshareincome() + "");
+
+        if (body.getRedeemstatus() == 1) {
+            tvSell.setEnabled(true);
+        } else {
+            tvSell.setEnabled(false);
+        }
+        if (body.getBuystatus() == 1) {
+            tvBuy.setEnabled(true);
+        } else {
+            tvSell.setEnabled(false);
+        }
+        if ((body.getFundtype() + "").equals(MiluoConfig.HUOBI)) {
+            tvIncreaseType.setText("七日年化");
+            tvNetvalueType.setText("万分收益");
+            tvNetvalue.setText(body.getTenthouunitincm() + "");
+            tvDayrate.setText(body.getYearyld() + "");
+        } else {
+            tvIncreaseType.setText("日涨幅");
+            tvNetvalueType.setText("最新净值");
+            tvNetvalue.setText(body.getNetvalue() + "");
+            tvDayrate.setText(body.getDayrate() + "");
+        }
+
 
     }
 
@@ -396,6 +437,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 break;
         }
     }
+
     private void switchRiskLevel(int risklevel) {
 
         switch (risklevel) {

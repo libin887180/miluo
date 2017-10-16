@@ -6,8 +6,30 @@ package com.zhongdi.miluo.model;
 
 public class PropertyDetail {
 
+
+    /**
+     * netvalue : 1.46
+     * fundtype : 1
+     * buystatus : 1
+     * avaliableshare : 398959.85
+     * fundcode : 000803
+     * fundname : 工银研究精选股票
+     * risklevel : 3
+     * dayincome : 3487052.4
+     * yearyld : 0.0
+     * dayrate : 0.9
+     * marketval : 126405.65
+     * fundid : 16419
+     * totalshareincome : 998715.8
+     * totalshare : 401503.85
+     * Accumulatedincome : 998715.8
+     * tenthouunitincm : 0.0
+     * redeemstatus : 1
+     */
+
     private double netvalue;
     private int fundtype;
+    private int buystatus;
     private String avaliableshare;
     private String fundcode;
     private String fundname;
@@ -16,10 +38,12 @@ public class PropertyDetail {
     private double yearyld;
     private double dayrate;
     private double marketval;
+    private int fundid;
     private double totalshareincome;
     private String totalshare;
     private double Accumulatedincome;
     private double tenthouunitincm;
+    private int redeemstatus;
 
     public double getNetvalue() {
         return netvalue;
@@ -35,6 +59,14 @@ public class PropertyDetail {
 
     public void setFundtype(int fundtype) {
         this.fundtype = fundtype;
+    }
+
+    public int getBuystatus() {
+        return buystatus;
+    }
+
+    public void setBuystatus(int buystatus) {
+        this.buystatus = buystatus;
     }
 
     public String getAvaliableshare() {
@@ -101,6 +133,14 @@ public class PropertyDetail {
         this.marketval = marketval;
     }
 
+    public int getFundid() {
+        return fundid;
+    }
+
+    public void setFundid(int fundid) {
+        this.fundid = fundid;
+    }
+
     public double getTotalshareincome() {
         return totalshareincome;
     }
@@ -131,5 +171,13 @@ public class PropertyDetail {
 
     public void setTenthouunitincm(double tenthouunitincm) {
         this.tenthouunitincm = tenthouunitincm;
+    }
+
+    public int getRedeemstatus() {
+        return redeemstatus;
+    }
+
+    public void setRedeemstatus(int redeemstatus) {
+        this.redeemstatus = redeemstatus;
     }
 }
