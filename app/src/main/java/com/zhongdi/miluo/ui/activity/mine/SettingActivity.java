@@ -90,12 +90,12 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 break;
             case R.id.ll_test:
                 int level = SpCacheUtil.getInstance().getUserTestLevel();
-                if (level > 0) {
+                if (level > 0) {//已测评 跳转到测评结果页
                     Intent intent_test = new Intent(mContext, TestResultActivity.class);
                     intent_test.putExtra("result",level);
                     intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
                     startActivity(intent_test);
-                } else {
+                } else {//为测评到 去测评
                     Intent intent_test = new Intent(mContext, TestActivity.class);
                     intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
                     startActivity(intent_test);

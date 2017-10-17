@@ -320,7 +320,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
-                startActivityForResult(intent, 102);
+                startActivityForResult(intent, 101);
             }
         }).show();
     }
@@ -404,6 +404,16 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==101){
+            if(resultCode==RESULT_OK){
+
+            }
+        }
+    }
 
     @Override
     public void onClick(View view) {

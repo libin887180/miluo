@@ -83,7 +83,10 @@ public class TestResultActivity extends BaseActivity2 {
                     Intent intent_test = new Intent(mContext, TestActivity.class);
                     intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
                     startActivity(intent_test);
+                    finish();
                 } else if (btnSubmit.getText().equals("马上申购")) {
+                    setResult(RESULT_OK);
+                    finish();
 
                 } else {//完成
                     finish();
