@@ -393,8 +393,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                         return;
                     }
                 }
-
-                showPswPopupWindow();
+                showTestDialog();
+               // showPswPopupWindow();
                 break;
         }
     }
