@@ -13,4 +13,7 @@ public interface BankCardListView extends BaseView {
     void setupStatusView();
 
     void setupHeadView();
+
+    void onDataSuccess(Object body);
+
 }

@@ -202,4 +202,8 @@ public class URLConfig {
      * 修改分红方式
      */
     public static final String MODIFY_BONUS= BASE_URL + "/lead/v1/user/modifiyBonus";
+    /**
+     * 我的银行卡
+     */
+    public static final String MY_BANK_CARDS= BASE_URL + "/lead/v1/user/myBankCards";
 }

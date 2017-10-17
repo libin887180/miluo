@@ -2,16 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:background="@color/white"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/white"
         android:layout_alignParentTop="true"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
@@ -19,8 +19,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:onClick="back"
             android:layout_marginLeft="@dimen/title_img_margin"
+            android:onClick="back"
             android:scaleType="centerInside"
             android:src="@drawable/nav_icon_back" />
 
@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
             android:text=""
-            android:layout_marginLeft="@dimen/title_text_margin"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -66,9 +66,9 @@
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
             android:text="注册"
-            android:visibility="gone"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <View
@@ -130,14 +130,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/username_layout"
-            android:gravity="center_vertical"
             android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_weight="5"
                 android:layout_height="wrap_content"
+                android:layout_weight="5"
                 app:hintEnabled="false"
 
                 app:passwordToggleEnabled="true">
@@ -151,8 +151,8 @@
                     android:background="@null"
                     android:drawablePadding="10dp"
                     android:hint="输入验证码"
-
                     android:imeActionId="@+id/login"
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
@@ -170,18 +170,18 @@
             <TextView
                 android:id="@+id/tv_send_code"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="获取验证码"
-                android:textColor="@color/send_msg_text_color"
                 android:gravity="center_horizontal"
-                android:layout_height="wrap_content" />
+                android:text="获取验证码"
+                android:textColor="@color/send_msg_text_color" />
         </LinearLayout>
 
         <View
             android:id="@+id/view_divier"
-            android:layout_below="@+id/pwd_layout"
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:layout_below="@+id/pwd_layout"
             android:layout_marginTop="10dp"
             android:background="@color/divider_list" />
 

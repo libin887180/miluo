@@ -114,7 +114,6 @@
                             android:id="@+id/tv_fund_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="融通中国风1号前收(005253)"
                             android:textColor="@color/text_222"
                             android:textSize="17sp" />
 
@@ -127,7 +126,6 @@
                             android:background="@drawable/ic_signred"
                             android:paddingLeft="2dp"
                             android:paddingRight="5dp"
-                            android:text="激进型"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -136,12 +134,10 @@
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@id/tv_type"
                             android:layout_marginLeft="5dp"
-
                             android:layout_toRightOf="@+id/tv_type"
                             android:background="@drawable/ic_signyellow"
                             android:paddingLeft="2dp"
                             android:paddingRight="5dp"
-                            android:text="中风险"
                             android:textColor="@color/white" />
 
                         <ImageView
@@ -165,7 +161,7 @@
                             android:id="@+id/tv_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="11.19"
+                            android:text="--.--"
                             android:textColor="@color/white"
                             android:textSize="30sp"
                             android:textStyle="bold" />
@@ -185,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
-                            android:text="0.15"
+                            android:text="-.-"
                             android:textColor="@color/white"
                             android:textSize="30sp"
                             android:textStyle="bold" />
@@ -237,7 +233,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -265,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -312,7 +308,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -340,7 +336,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -388,7 +384,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -417,7 +413,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="9.12"
+                                android:text="-.-"
                                 android:textColor="@color/text_222"
                                 android:textSize="14sp" />
                         </RelativeLayout>
@@ -516,9 +512,8 @@
                         android:id="@+id/tv_fenhong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:gravity="center_horizontal"
-                        android:text="现金分红"
+                        android:text="红利再投"
                         android:textColor="@color/text_555"
                         android:textSize="12sp" />
                 </LinearLayout>

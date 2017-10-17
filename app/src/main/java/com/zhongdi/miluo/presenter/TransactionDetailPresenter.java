@@ -63,7 +63,6 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
                 new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
                     @Override
                     public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
-
                         view.onPropertySuccess(response.getBody());
                     }
 

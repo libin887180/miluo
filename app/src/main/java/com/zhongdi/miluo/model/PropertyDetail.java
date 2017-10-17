@@ -25,6 +25,7 @@ public class PropertyDetail {
      * Accumulatedincome : 998715.8
      * tenthouunitincm : 0.0
      * redeemstatus : 1
+     * dividendMethod :1
      */
 
     private double netvalue;
@@ -44,6 +45,15 @@ public class PropertyDetail {
     private double Accumulatedincome;
     private double tenthouunitincm;
     private int redeemstatus;
+    private String dividendMethod;
+
+    public String getDividendMethod() {
+        return dividendMethod;
+    }
+
+    public void setDividendMethod(String dividendMethod) {
+        this.dividendMethod = dividendMethod;
+    }
 
     public double getNetvalue() {
         return netvalue;

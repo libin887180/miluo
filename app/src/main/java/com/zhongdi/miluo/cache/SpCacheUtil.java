@@ -74,8 +74,17 @@ public class SpCacheUtil {
         spCache.put("USER_STATE", userInfo.getState());
         spCache.put("USER_ID", userInfo.getUid()+"");
         spCache.putInt("FUND_STATE", userInfo.getFundStatus());
+        spCache.putInt("BANK_CARD_COUNT", userInfo.getFundStatus());
     }
 
+    /**
+     * 获取用户评测等级
+     *
+     * @return 如：cgzjobdcs@cgzjobdcs
+     */
+    public int getBankCardCount() {
+        return spCache.getInt("BANK_CARD_COUNT",0);
+    }
     /**
      * 获取用户评测等级
      *
