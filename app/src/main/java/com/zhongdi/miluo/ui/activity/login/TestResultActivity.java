@@ -93,6 +93,10 @@ public class TestResultActivity extends BaseActivity2 {
                 }
                 break;
             case R.id.tv_retest:
+                Intent intent_test = new Intent(mContext, TestActivity.class);
+                intent_test.putExtra(IntentConfig.SOURCE, SOURCE);
+                startActivity(intent_test);
+                finish();
                 break;
         }
     }

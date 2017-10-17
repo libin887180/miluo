@@ -410,7 +410,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
         if (requestCode == 101) {
             if (resultCode == RESULT_OK) {
-                showToast("测评返回");
+              btnSubmit.performClick();
             }
         }
     }
