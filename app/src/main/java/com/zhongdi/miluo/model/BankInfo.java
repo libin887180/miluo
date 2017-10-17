@@ -19,6 +19,15 @@ public class BankInfo implements Serializable{
     private String logourl;
     private String productcategory;
     private int transamt;//单笔限额
+    private  String  cardno;
+
+    public String getCardno() {
+        return cardno;
+    }
+
+    public void setCardno(String cardno) {
+        this.cardno = cardno;
+    }
 
     public String getAmtdesc() {
         return amtdesc;

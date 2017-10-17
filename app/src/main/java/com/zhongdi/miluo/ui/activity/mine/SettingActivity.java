@@ -68,7 +68,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
         if (TextUtils.isEmpty(SpCacheUtil.getInstance().getBankCardCount())) {
             tvBankCardNum.setText("0");
         } else {
-            tvBankCardNum.setText(SpCacheUtil.getInstance().getBankCardCount() + "");
+            tvBankCardNum.setText(SpCacheUtil.getInstance().getBankCardCount() + "张");
         }
     }
 

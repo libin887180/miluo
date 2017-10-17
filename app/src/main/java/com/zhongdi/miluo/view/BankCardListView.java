@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.BankInfo;
+
+import java.util.List;
 
 
 /**
@@ -14,6 +17,6 @@ public interface BankCardListView extends BaseView {
 
     void setupHeadView();
 
-    void onDataSuccess(Object body);
+    void onDataSuccess(List<BankInfo> body);
 
 }

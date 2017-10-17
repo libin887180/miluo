@@ -12,6 +12,7 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BankCardListAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.presenter.BankCardListPresenter;
 import com.zhongdi.miluo.view.BankCardListView;
 
@@ -32,7 +33,7 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     private BankCardListAdapter listAdapter;
-    List<String> cardList = new ArrayList<>();
+    List<BankInfo> cardList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +114,10 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
     }
 
     @Override
-    public void onDataSuccess(Object body) {
+    public void onDataSuccess(List<BankInfo> body) {
 
+        cardList.clear();
+        cardList.addAll(body);
+        listAdapter.notifyDataSetChanged();
     }
 }
