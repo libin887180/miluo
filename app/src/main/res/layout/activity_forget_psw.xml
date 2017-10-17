@@ -100,7 +100,7 @@
                 android:background="@null"
                 android:hint="新登录密码"
                 android:imeOptions="actionNext"
-                android:inputType="numberPassword"
+                android:inputType="textPassword"
                 android:maxLength="11"
                 android:maxLines="1"
                 android:textSize="16sp" />
@@ -126,7 +126,7 @@
                 android:background="@null"
                 android:hint="再次输入新登录密码"
                 android:imeOptions="actionNext"
-                android:inputType="numberPassword"
+                android:inputType="textPassword"
                 android:maxLength="11"
                 android:maxLines="1"
                 android:textSize="16sp" />
