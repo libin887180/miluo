@@ -100,7 +100,6 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
         intent.putExtra(IntentConfig.SOURCE,SOURCE);
         startActivity(intent);
         setResult(RESULT_OK);
-
         finish();
     }
 
