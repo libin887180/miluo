@@ -15,7 +15,9 @@ public class URLConfig {
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
-    public static final String BASE_URL = "http://192.168.64.13:8085";
+//    public static final String BASE_URL = "http://192.168.64.13:8085";
+    //测试环境
+    public static final String BASE_URL = "http://192.168.151.13:8085";
     /**
      * 测试接口
      */
@@ -90,6 +92,10 @@ public class URLConfig {
      * 修改交易密码
      */
     public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/resetTradPassword";
+    /**
+     * 退出登录
+     */
+    public static final String LOGIN_OUT= BASE_URL + "/lead/v1/user/logout";
     /**
      * 验证身份证号和姓名
      */

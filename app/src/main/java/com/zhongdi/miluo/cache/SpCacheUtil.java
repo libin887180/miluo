@@ -64,6 +64,20 @@ public class SpCacheUtil {
     }
 
 
+
+
+    /**
+     * 退出登录
+     *
+     */
+    public void clearUserInfo() {
+        spCache.remove("ACCOUNT");
+        spCache.remove("USER_LEVEL");
+        spCache.remove("USER_STATE");
+        spCache.remove("USER_ID");
+        spCache.remove("FUND_STATE");
+        spCache.remove("BANK_CARD_COUNT");
+    }
     /**
      * 保存登录账号信息
      *
@@ -74,17 +88,25 @@ public class SpCacheUtil {
         spCache.put("USER_STATE", userInfo.getState());
         spCache.put("USER_ID", userInfo.getUid()+"");
         spCache.putInt("FUND_STATE", userInfo.getFundStatus());
-        spCache.putInt("BANK_CARD_COUNT", userInfo.getFundStatus());
+        spCache.put("BANK_CARD_COUNT", userInfo.getBankNums());
     }
 
     /**
-     * 获取用户评测等级
+     * 获取用户银行卡数量
      *
-     * @return 如：cgzjobdcs@cgzjobdcs
      */
-    public int getBankCardCount() {
-        return spCache.getInt("BANK_CARD_COUNT",0);
+    public String getBankCardCount() {
+        return spCache.get("BANK_CARD_COUNT","");
     }
+    /**
+     *设置用户评测等级
+     *
+     */
+    public void setUserTestLevel(int  level) {
+        spCache.putInt("USER_LEVEL", level);
+    }
+
+
     /**
      * 获取用户评测等级
      *

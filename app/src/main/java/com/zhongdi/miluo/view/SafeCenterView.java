@@ -10,4 +10,6 @@ import com.zhongdi.miluo.base.BaseView;
 public interface SafeCenterView extends BaseView {
 
     void showQuitDialog();
+
+    void onSuccess();
 }

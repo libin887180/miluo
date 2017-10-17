@@ -163,8 +163,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             case R.id.tv_total_asset:
                 break;
             case R.id.tv_title_left:
-
-                startActivity(new Intent(mContext, SettingActivity.class));
+                Intent intent = new Intent(mContext, SettingActivity.class);
+                getActivity().startActivityForResult(intent, 101);
                 break;
             case R.id.tv_title_right:
                 startActivity(new Intent(mContext, TransactionsActivity.class));

@@ -7,6 +7,8 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.model.RiskTestResult;
 import com.zhongdi.miluo.model.TestQuestion;
 import com.zhongdi.miluo.presenter.TestPresenter;
@@ -26,10 +28,12 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
     NoScrollViewPager viewPager;
 
     public ArrayList<String> result;
+    private int SOURCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SOURCE = getIntent().getIntExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
         binding(R.layout.activity_test);
     }
 
@@ -89,8 +93,10 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
 
     @Override
     public void toResultView(RiskTestResult riskTestResult) {
+        SpCacheUtil.getInstance().setUserTestLevel(riskTestResult.getRisklevel());
         Intent  intent  = new Intent(mContext, TestResultActivity.class);
-        intent.putExtra("result",riskTestResult);
+        intent.putExtra("result",riskTestResult.getRisklevel());
+        intent.putExtra(IntentConfig.SOURCE,SOURCE);
         startActivity(intent);
         finish();
     }

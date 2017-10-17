@@ -2,15 +2,18 @@ package com.zhongdi.miluo.ui.activity.mine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.presenter.SettingPresenter;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
+import com.zhongdi.miluo.ui.activity.login.TestResultActivity;
 import com.zhongdi.miluo.view.SettingView;
 
 import butterknife.BindView;
@@ -36,9 +39,13 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
 
     @Override
     protected void initialize() {
+        reFresh();
+    }
+
+    private void reFresh() {
         int level = SpCacheUtil.getInstance().getUserTestLevel();
 
-        switch (level){
+        switch (level) {
             case MiluoConfig.BAOSHOU:
                 tvRiskLevel.setText("保守型");
                 break;
@@ -58,7 +65,17 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 tvRiskLevel.setText("未测评");
                 break;
         }
-        tvBankCardNum.setText(SpCacheUtil.getInstance().getBankCardCount()+"");
+        if (TextUtils.isEmpty(SpCacheUtil.getInstance().getBankCardCount())) {
+            tvBankCardNum.setText("0");
+        } else {
+            tvBankCardNum.setText(SpCacheUtil.getInstance().getBankCardCount() + "");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reFresh();
     }
 
     @OnClick({R.id.rl_bank_card, R.id.rl_safe_center, R.id.ll_test})
@@ -68,11 +85,33 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 startActivity(new Intent(mContext, BankCardListActivity.class));
                 break;
             case R.id.rl_safe_center:
-                startActivity(new Intent(mContext, SafeCenterActivity.class));
+                Intent intent = new Intent(mContext, SafeCenterActivity.class);
+                startActivityForResult(intent, 101);
                 break;
             case R.id.ll_test:
-                startActivity(new Intent(mContext, TestActivity.class));
+                int level = SpCacheUtil.getInstance().getUserTestLevel();
+                if (level > 0) {
+                    Intent intent_test = new Intent(mContext, TestResultActivity.class);
+                    intent_test.putExtra("result",level);
+                    intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+                    startActivity(intent_test);
+                } else {
+                    Intent intent_test = new Intent(mContext, TestActivity.class);
+                    intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+                    startActivity(intent_test);
+                }
                 break;
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == 1001) {//退出登录
+            setResult(1001);
+            finish();
+        }
+
     }
 }

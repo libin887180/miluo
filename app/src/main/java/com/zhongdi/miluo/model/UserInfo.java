@@ -15,6 +15,24 @@ public class UserInfo {
     private String username;
     private int failTimes;
     private int fundStatus;
+    private String registorLogin;//登录或者注册（0：登录 1注册）
+    private String bankNums;//银行卡数量
+
+    public String getRegistorLogin() {
+        return registorLogin;
+    }
+
+    public void setRegistorLogin(String registorLogin) {
+        this.registorLogin = registorLogin;
+    }
+
+    public String getBankNums() {
+        return bankNums;
+    }
+
+    public void setBankNums(String bankNums) {
+        this.bankNums = bankNums;
+    }
 
     public int getFundStatus() {
         return fundStatus;
