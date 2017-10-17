@@ -53,7 +53,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
         @Override
         public void onTick(long millisUntilFinished) {
-            codeAlertDialog.getTxt_code().setText(millisUntilFinished / 1000 + "秒后重发");
+            codeAlertDialog.getTxt_code().setText("验证码("+millisUntilFinished / 1000 + "S)");
         }
 
         @Override

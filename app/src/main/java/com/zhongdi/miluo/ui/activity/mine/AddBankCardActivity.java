@@ -130,7 +130,7 @@ public class AddBankCardActivity extends BaseActivity<AddBankCardPresenter> impl
 
         @Override
         public void onTick(long millisUntilFinished) {
-            codeAlertDialog.getTxt_code().setText(millisUntilFinished / 1000 + "秒");
+            codeAlertDialog.getTxt_code().setText("验证码("+millisUntilFinished / 1000 + "S)");
         }
 
         @Override

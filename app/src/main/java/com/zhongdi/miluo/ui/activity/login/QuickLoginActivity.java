@@ -44,7 +44,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
 
         @Override
         public void onTick(long millisUntilFinished) {
-            tvSendCode.setText(millisUntilFinished / 1000 + "秒");
+            tvSendCode.setText("验证码("+millisUntilFinished / 1000 + "S)");
         }
 
         @Override
