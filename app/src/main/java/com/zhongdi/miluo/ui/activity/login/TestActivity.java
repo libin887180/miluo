@@ -99,6 +99,7 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
         intent.putExtra("result",riskTestResult.getRisklevel());
         intent.putExtra(IntentConfig.SOURCE,SOURCE);
         startActivity(intent);
+        setResult(RESULT_OK);
         finish();
     }
 
