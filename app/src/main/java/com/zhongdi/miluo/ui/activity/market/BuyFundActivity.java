@@ -408,9 +408,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==101){
-            if(resultCode==RESULT_OK){
-
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
+                showToast("测评返回");
             }
         }
     }
