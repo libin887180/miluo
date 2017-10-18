@@ -22,7 +22,9 @@ public interface LoginView extends BaseView {
 
     void enableLoginBtn();
 
-    void showErrorPswDialog();
+    void showErrorPswDialog(int times);
+    void showLockedDialog();
+
 
 
 }

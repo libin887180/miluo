@@ -2,6 +2,7 @@ package com.zhongdi.miluo.ui.activity.mine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zhongdi.miluo.MyApplication;
@@ -37,9 +38,15 @@ public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_login_psw:
-                Intent intent = new Intent(mContext, SendCodeActivity.class);
-                intent.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_MODIFY_PSW);
-                startActivity(intent);
+                if(TextUtils.isEmpty(SpCacheUtil.getInstance().getUserPwd())){//没有设置密码
+                    Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
+                    intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_PSW);
+                    startActivity(intent_forget);
+                }else {//已设置密码  修改密码
+                    Intent intent = new Intent(mContext, SendCodeActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_MODIFY_PSW);
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_modify_deal_psw:
                 Intent intent_deal = new Intent(mContext, SendCodeActivity.class);

@@ -93,13 +93,28 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void showErrorPswDialog() {
-        showDialog("", "登录密码错误，还剩4次机会", "找回密码", new View.OnClickListener() {
+    public void showErrorPswDialog(int times) {
+        showDialog("", "登录密码错误，还剩"+(5-times)+"次机会", "重新输入", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        }, "重新输入", new View.OnClickListener() {
+        }, "找回密码", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findPsw();
+            }
+        });
+    }
+
+    @Override
+    public void showLockedDialog() {
+        showDialog("", "登录密码错已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            showToast("联系客服");
+            }
+        }, "取消", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

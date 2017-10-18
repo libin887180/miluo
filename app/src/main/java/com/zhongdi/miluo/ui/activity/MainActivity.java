@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -31,10 +32,11 @@ public class MainActivity extends BaseActivity2 {
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
 //    private int selectTab = 0;
-
+private String  TO ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -107,6 +109,18 @@ public class MainActivity extends BaseActivity2 {
 //        });
 
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(!TextUtils.isEmpty(intent.getStringExtra("to"))){
+            if(intent.getStringExtra("to").equals("mine")){
+                navigation.getMenu().getItem(3).setChecked(true);
+                viewPager.setCurrentItem(3);
+            }
+        }
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

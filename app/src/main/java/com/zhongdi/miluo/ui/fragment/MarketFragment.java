@@ -176,11 +176,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                         break;
                     case 4:
                         rateType = "semesterrate";
-                        tvIncrease.setText("一年涨幅");
+                        tvIncrease.setText("半年涨幅");
                         break;
                     case 5:
                         rateType = "yearrate";
-                        tvIncrease.setText("半年涨幅");
+                        tvIncrease.setText("一年涨幅");
                         break;
                 }
                 if(adapter!=null&& adapter.getItem(tablayout.getSelectedTabPosition())!=null) {

@@ -3,6 +3,7 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.UserInfo;
@@ -64,14 +65,22 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {
                         ViseLog.w(response.getBody());
-                       MiLuoUtil.saveUserInfo(response.getBody());
+                        MiLuoUtil.saveUserInfo(response.getBody());
                         view.loginSuccess();
                     }
 
                     @Override
                     public void onFailed(MResponse<UserInfo> response, int requestCode) {
+                        if (response.getCode().equals(ErrorCode.ERRORPWDE)) {//你嘛错误
+                            view.showErrorPswDialog(response.getBody().getFailTimes());
+                        }else if (response.getCode().equals(ErrorCode.USERLOCKED)){
+                            view.showLockedDialog();
+
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                         ViseLog.e("请求失败");
-                        view.showToast(response.getMsg());
+
                     }
 
                     @Override

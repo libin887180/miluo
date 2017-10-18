@@ -340,7 +340,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
-                startActivityForResult(intent, 102);
+                startActivityForResult(intent, 103);
             }
         }).show();
     }
@@ -413,6 +413,13 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         if (requestCode == 101) {
             if (resultCode == RESULT_OK) {
               btnSubmit.performClick();
+            }
+        }
+
+        if(requestCode ==102){//开户返回
+            if (resultCode == RESULT_OK) {
+                //刷新数据
+                initialize();
             }
         }
     }

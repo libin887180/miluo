@@ -18,8 +18,8 @@ public class HomeAssetBean {
      */
 
     private int fundtype;
-    private double marketval;
-    private double totalshareincome;
+    private String marketval;
+    private String totalshareincome;
     private String fundcode;
     private String fundname;
     private String transamount;
@@ -34,19 +34,19 @@ public class HomeAssetBean {
         this.fundtype = fundtype;
     }
 
-    public double getMarketval() {
+    public String getMarketval() {
         return marketval;
     }
 
-    public void setMarketval(double marketval) {
+    public void setMarketval(String marketval) {
         this.marketval = marketval;
     }
 
-    public double getTotalshareincome() {
+    public String getTotalshareincome() {
         return totalshareincome;
     }
 
-    public void setTotalshareincome(double totalshareincome) {
+    public void setTotalshareincome(String totalshareincome) {
         this.totalshareincome = totalshareincome;
     }
 

@@ -61,6 +61,7 @@ public class AlertDialog {
         // 定义Dialog布局和参数
         dialog = new Dialog(context, R.style.AlertDialogStyle);
         dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display

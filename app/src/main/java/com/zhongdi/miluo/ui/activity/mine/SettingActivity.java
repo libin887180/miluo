@@ -92,13 +92,18 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 int level = SpCacheUtil.getInstance().getUserTestLevel();
                 if (level > 0) {//已测评 跳转到测评结果页
                     Intent intent_test = new Intent(mContext, TestResultActivity.class);
-                    intent_test.putExtra("result",level);
+                    intent_test.putExtra("result", level);
                     intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
                     startActivity(intent_test);
                 } else {//为测评到 去测评
-                    Intent intent_test = new Intent(mContext, TestActivity.class);
-                    intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
-                    startActivity(intent_test);
+
+                    if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                        showToast("您尚未开户");
+                    } else {
+                        Intent intent_test = new Intent(mContext, TestActivity.class);
+                        intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+                        startActivity(intent_test);
+                    }
                 }
                 break;
         }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.OpenAccoutPresenter;
 import com.zhongdi.miluo.ui.fragment.login.OpenStep1Fragment;
@@ -191,11 +192,13 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
     @Override
     public void toOpenSuccess() {
+        SpCacheUtil.getInstance().saveUserFundState();
         codeAlertDialog.dismiss();//关闭验证码对话框
         //到开户成功界面
         Intent intent = new Intent(mContext, OpenAccountSuccessActivity.class);
         intent.putExtra(IntentConfig.SOURCE, source);
         startActivity(intent);
+        setResult(RESULT_OK);
         finish();
     }
 

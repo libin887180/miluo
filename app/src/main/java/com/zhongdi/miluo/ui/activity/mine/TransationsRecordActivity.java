@@ -21,6 +21,7 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
+import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionRecordView;
 import com.zhongdi.miluo.widget.NOScollListView;
@@ -229,6 +230,9 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
     @OnClick(R.id.tv_title_right)
     public void onViewClicked() {
+        Intent  intent =   new Intent(mContext, MainActivity.class);
+        intent.putExtra("to","mine");
+        startActivity(intent);
         finish();
     }
 }
