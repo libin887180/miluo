@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -60,7 +61,13 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
-                        view.showToast(response.getMsg());
+
+                        if (response.getCode().equals(ErrorCode.ERROR_MSG)) {
+                            view.showCodeError();
+                        } else {
+                            view.showToast(response.getMsg());
+                        }
+
 //                        view.showCodeError();
                     }
 

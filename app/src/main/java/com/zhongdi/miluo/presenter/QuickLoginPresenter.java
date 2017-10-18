@@ -89,7 +89,7 @@ public class QuickLoginPresenter extends BasePresenter<QuickLoginView> {
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {
                         ViseLog.w(response.getBody());
                         MiLuoUtil.saveUserInfo(response.getBody());
-                        view.loginSuccess();
+                        view.loginSuccess(response.getBody());
 
                     }
 

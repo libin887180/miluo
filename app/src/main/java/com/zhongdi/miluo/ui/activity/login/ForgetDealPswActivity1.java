@@ -85,7 +85,6 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetDealPsw1Presenter
     public void onViewClicked() {
 
         presenter.checkUserInfo(etIdCard.getText().toString(),etRealName.getText().toString());
-
     }
 
     @Override

@@ -45,4 +45,6 @@ public class ErrorCode {
 
     public static final String nameoridno = "-13";//身份证号和姓名不符
 
+    public static final String ERROR_MSG = "2031";//短信验证码错误
+
 }

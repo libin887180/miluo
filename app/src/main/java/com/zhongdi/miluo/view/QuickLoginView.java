@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.UserInfo;
 
 
 /**
@@ -9,7 +10,7 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface QuickLoginView extends BaseView {
 
-    void loginSuccess();
+    void loginSuccess(UserInfo userInfo);
 
     void disableLoginBtn();
 

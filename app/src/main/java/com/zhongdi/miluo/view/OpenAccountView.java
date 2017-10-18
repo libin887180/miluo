@@ -13,4 +13,5 @@ public interface OpenAccountView extends BaseView {
     void toOpenSuccess();
     void  showCodeDialog();
     void showCodeError();
+    void showSendCode();
 }

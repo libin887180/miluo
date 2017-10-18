@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.RegistSuccessPresenter;
 import com.zhongdi.miluo.view.RegistSuccessView;
 import com.zhongdi.miluo.widget.CustomStatusView;
@@ -18,10 +19,12 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
 
     @BindView(R.id.as_status)
     CustomStatusView asStatus;
+    private int source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE,-1);
         binding(R.layout.activity_regist_success);
     }
 
@@ -54,10 +57,13 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_open:
-                startActivity(new Intent(mContext, OpenAccountActivity.class));
+                Intent   intent =  new Intent(mContext, OpenAccountActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn_main:
+                finish();
                 break;
         }
     }

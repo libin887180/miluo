@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.OpenAccountSuccessPresenter;
 import com.zhongdi.miluo.view.OpenAccountSuccessView;
 import com.zhongdi.miluo.widget.CustomStatusView;
@@ -18,10 +21,16 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
 
     @BindView(R.id.as_status)
     CustomStatusView asStatus;
+    @BindView(R.id.btn_test)
+    Button btnTest;
+    @BindView(R.id.btn_main)
+    Button btnMain;
+    private int source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
         binding(R.layout.activity_openaccount_success);
     }
 
@@ -46,6 +55,13 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
 
     @Override
     protected void initialize() {
+        if (SpCacheUtil.getInstance().getUserTestLevel() > 0) {//不用风险评测
+            btnTest.setText("完成");
+            btnMain.setVisibility(View.GONE);
+        } else {
+            btnTest.setText("风险评测");
+            btnMain.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -54,10 +70,13 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_test:
-                startActivity(new Intent(mContext, TestActivity.class));
+                Intent intent =  new Intent(mContext, TestActivity.class);
+                intent.putExtra(IntentConfig.SOURCE,source);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn_main:
+                finish();
                 break;
         }
     }

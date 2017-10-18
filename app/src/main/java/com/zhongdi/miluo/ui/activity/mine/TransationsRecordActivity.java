@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class TransationsRecordActivity extends BaseActivity<TransactionRecordPresenter> implements TransactionRecordView, View.OnClickListener {
 
@@ -50,23 +52,28 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     RecyclerView recyclerView;
     @BindView(R.id.ll_steps)
     LinearLayout llSteps;
+    @BindView(R.id.btn_back)
+    ImageView btn_back;
+    @BindView(R.id.tv_title_right)
+    TextView tvTitleRight;
 
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
     TradeRecord tradeRecord;
-
     TradeStepAdapter stepAdapter;
     private String tradeid;
     private String tradeType;
     List<StepsBean> tradeSteps = new ArrayList<>();
     List<TradeRecord.Part3Bean> transInfo = new ArrayList<>();
+    private String SOURCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tradeid = getIntent().getStringExtra("tradeid");
         tradeType = getIntent().getStringExtra("tradType");
+        SOURCE = getIntent().getStringExtra(IntentConfig.SOURCE);
         binding(R.layout.activity_transaction_record);
     }
 
@@ -77,6 +84,18 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
     @Override
     protected void initialize() {
+        if (TextUtils.isEmpty(SOURCE)) {
+            btn_back.setVisibility(View.VISIBLE);
+            tvTitleRight.setVisibility(View.GONE);
+        } else {
+            if (SOURCE.equals("sell") || SOURCE.equals("buy")) {
+                btn_back.setVisibility(View.GONE);
+                tvTitleRight.setVisibility(View.VISIBLE);
+            } else {
+                btn_back.setVisibility(View.VISIBLE);
+                tvTitleRight.setVisibility(View.GONE);
+            }
+        }
 
         presenter.getTransRecord(tradeid, tradeType);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -85,7 +104,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         transAdapter.setDataList(transInfo);
         listview.setFocusable(false);
         listview.setAdapter(transAdapter);
-        showToast(tradeid);
+//        showToast(tradeid);
     }
 
     @Override
@@ -206,5 +225,10 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
                 mPayView.clearPassword();
                 break;
         }
+    }
+
+    @OnClick(R.id.tv_title_right)
+    public void onViewClicked() {
+        finish();
     }
 }

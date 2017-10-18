@@ -1,9 +1,12 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,11 +14,11 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.OpenAccoutPresenter;
 import com.zhongdi.miluo.ui.fragment.login.OpenStep1Fragment;
 import com.zhongdi.miluo.ui.fragment.login.OpenStep2Fragment;
 import com.zhongdi.miluo.ui.fragment.login.OpenStep3Fragment;
-import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.view.OpenAccountView;
 import com.zhongdi.miluo.widget.CodeAlertDialog;
 import com.zhongdi.miluo.widget.NoScrollViewPager;
@@ -49,11 +52,12 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     public String registryid;
     public String tradepwd;
     CodeAlertDialog codeAlertDialog;
+    private int source;
     CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            codeAlertDialog.getTxt_code().setText("验证码("+millisUntilFinished / 1000 + "S)");
+            codeAlertDialog.getTxt_code().setText("验证码(" + millisUntilFinished / 1000 + "S)");
         }
 
         @Override
@@ -66,6 +70,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
         binding(R.layout.activity_open_account);
     }
 
@@ -112,8 +117,6 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         });
 
 
-
-
     }
 
     @Override
@@ -144,14 +147,39 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
                 view.setEnabled(false);
             }
         });
+
+        codeAlertDialog.getEditCode().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                showSendCode();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         codeAlertDialog.show();
     }
 
     @Override
     public void showCodeError() {
-        if(codeAlertDialog!=null&&codeAlertDialog.isShowing()){
+        if (codeAlertDialog != null && codeAlertDialog.isShowing()) {
             codeAlertDialog.getTxt_msg().setTextColor(Color.RED);
             codeAlertDialog.getTxt_msg().setText("验证码错误，请重新输入");
+        }
+    }
+
+    @Override
+    public void showSendCode() {
+        if (codeAlertDialog != null && codeAlertDialog.isShowing()) {
+            codeAlertDialog.getTxt_msg().setTextColor(getResources().getColor(R.color.text_555));
+            codeAlertDialog.setMsg("输入尾号为" + phone.substring(phone.length() - 4, phone.length()) + "接收到的短信验证码");
         }
     }
 
@@ -163,10 +191,12 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
     @Override
     public void toOpenSuccess() {
-        codeAlertDialog.dismiss();
+        codeAlertDialog.dismiss();//关闭验证码对话框
+        //到开户成功界面
+        Intent intent = new Intent(mContext, OpenAccountSuccessActivity.class);
+        intent.putExtra(IntentConfig.SOURCE, source);
+        startActivity(intent);
         finish();
-
-        ActivityUtil.startForwardActivity(this, OpenAccountSuccessActivity.class);
     }
 
     @OnClick(R.id.tv_title_left)
@@ -181,13 +211,14 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
 
     public void openAccount() {
         Map<String, String> requestMap = new HashMap<>();
-        requestMap.put("bankcardno",bankcardno);
-        requestMap.put("bankno",bankno);
-        requestMap.put("identityno",identityno);
-        requestMap.put("name",name);
-        requestMap.put("phone",phone);
+        requestMap.put("bankcardno", bankcardno);
+        requestMap.put("bankno", bankno);
+        requestMap.put("identityno", identityno);
+        requestMap.put("name", name);
+        requestMap.put("phone", phone);
 //        requestMap.put("registryid",registryid);
-        requestMap.put("tradepwd",tradepwd);
+        requestMap.put("tradepwd", tradepwd);
+        requestMap.put("source", source + "");
         presenter.openAccount(requestMap);
 
     }

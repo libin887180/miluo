@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.presenter.QuickLoginPresenter;
 import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
@@ -95,7 +96,12 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
         }
     }
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(UserInfo userInfo) {
+        if(userInfo.getRegistorLogin().equals("1")){
+            Intent intent = new Intent(mContext, RegistSuccessActivity.class);
+            intent.putExtra(IntentConfig.SOURCE, source);
+            startActivity(intent);
+        }
         setResult(RESULT_OK);
         finish();
     }
