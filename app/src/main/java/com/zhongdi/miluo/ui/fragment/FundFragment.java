@@ -144,12 +144,15 @@ public class FundFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFinished() {
-
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
+                        fundAdapter.notifyDataSetChanged();
+//                        Toast.makeText(getActivity(), "onFinished", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

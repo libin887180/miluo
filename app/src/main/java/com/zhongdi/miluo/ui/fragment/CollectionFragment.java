@@ -188,13 +188,27 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         recyclerView.setAdapter(fundAdapter);
         stateLayout.setUseAnimation(true);
 //        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    private void refreshData() {
         if(MyApplication.getInstance().isLogined) {
+            increaseAdapter.setCheck(0);
+            rateType = "dayrate";
+            tvIncrease.setText("日涨幅");
+            pageNum =1;
             presenter.getOptionalFund(rateType, pageNum);
 //            ViseLog.w("登录了刷新");
         }else{
 //            ViseLog.w("没登录刷新");
         }
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_collection;

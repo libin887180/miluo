@@ -140,6 +140,10 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 } else {
                     sortType = "desc";
                 }
+                if(adapter!=null&& adapter.getItem(tablayout.getSelectedTabPosition())!=null) {
+                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
+                    currentFragment.initData();
+                }
                 sortAdapter.setCheck(i);
                 sortWindow.dismiss();
 

@@ -44,7 +44,6 @@ public class MarketPresenter extends BasePresenter<MarketView> {
 
                     @Override
                     public void onFinished() {
-
                     }
                 });
     }

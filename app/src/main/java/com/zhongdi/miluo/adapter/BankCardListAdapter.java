@@ -24,7 +24,7 @@ public class BankCardListAdapter extends BaseRecyclerAdapter<BankInfo> {
     public void convert(BaseRecyclerHolder holder, BankInfo item, int position) {
 
         holder.setText(R.id.tv_bank_name,item.getBankname());
-        holder.setText(R.id.tv_bank_card_num,item.getCardno());
+        holder.setText(R.id.tv_card_num,item.getCardno());
         holder.setText(R.id.tv_dsc,item.getAmtdesc());
         ImageView ivBankIcon = (ImageView) holder.getView(R.id.iv_logo);
         Glide.with(mContext).load(item.getLogourl()).apply(new RequestOptions().placeholder(R.drawable.icon_bank_default).error(R.drawable.icon_bank_default))

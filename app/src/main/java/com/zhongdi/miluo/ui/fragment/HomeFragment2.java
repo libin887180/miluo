@@ -294,10 +294,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         super.onResume();
         if (MyApplication.getInstance().isLogined) {
             if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                rlLoginState.setVisibility(View.VISIBLE);
                 btnLogin.setText("去开户");
             } else {
                 if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {
                     btnLogin.setText("去测评");
+                    rlLoginState.setVisibility(View.VISIBLE);
                 } else {
                     rlLoginState.setVisibility(View.GONE);
                 }

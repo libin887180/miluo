@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
@@ -60,12 +61,12 @@ public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implem
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        presenter.loginOut();
+
                     }
                 }).setPositiveButton("退出", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                presenter.loginOut();
             }
         }).show();
     }
@@ -73,6 +74,7 @@ public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implem
     @Override
     public void onSuccess() {
         SpCacheUtil.getInstance().clearUserInfo();
+        MyApplication.getInstance().isLogined = false;
         setResult(1001);
         finish();
 

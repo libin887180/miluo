@@ -204,7 +204,8 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(final String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         RequestParams params = new RequestParams(url);
-        params.setConnectTimeout(30*1000);//设置连接超时时间
+        params.setConnectTimeout(60*1000);//设置连接超时时间
+        params.setReadTimeout(60*1000);//设置读取超时时间
 //        params.addHeader("Content-Type", "application/json");
 //        params.setAsJsonContent(true);
         params.setHeader("plam", "andorid");//平台
@@ -258,6 +259,7 @@ public class NetRequestUtil {
 
             @Override
             public void onCancelled(CancelledException cex) {
+
             }
 
             @Override

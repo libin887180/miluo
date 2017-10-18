@@ -154,6 +154,7 @@ public class MainActivity extends BaseActivity2 {
                 break;
             case 1001:
                 navigation.getMenu().getItem(0).setChecked(true);
+                viewPager.setCurrentItem(0);
                 break;
         }
     }
