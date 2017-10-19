@@ -13,13 +13,17 @@ import java.util.List;
  * @ author：libin
  */
 public class FenhongTypeAdapter extends BaseRecyclerAdapter<String> {
+
+
     int selectPosotion =0;
     private Context mContext;
     public void setCheck(int index) {
         selectPosotion = index;
         notifyDataSetChanged();
     }
-
+    public int getSelectPosotion() {
+        return selectPosotion;
+    }
     public FenhongTypeAdapter(Context context, List<String> datas) {
         super(context, R.layout.item_fenhong_type, datas);
         mContext =context;

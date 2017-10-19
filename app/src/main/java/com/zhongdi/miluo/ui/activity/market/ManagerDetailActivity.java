@@ -48,15 +48,17 @@ public class ManagerDetailActivity extends BaseActivity<ManagerDetailPresenter> 
 
     @Override
     protected void initialize() {
-        xUtilsImageUtils.display(ivHeadImg, managerDetail.getIndiImgUrl(), true, R.drawable.head_default, R.drawable.head_default);
-        tvManagerName.setText(managerDetail.getManagerName());
-        if(TextUtils.isEmpty(managerDetail.getEndDate())){
-            tvDate.setText(managerDetail.getStartDate() + "至今");
-        }else{
-            tvDate.setText(managerDetail.getStartDate() + managerDetail.getEndDate());
+        if (managerDetail != null) {
+            xUtilsImageUtils.display(ivHeadImg, managerDetail.getIndiImgUrl(), true, R.drawable.head_default, R.drawable.head_default);
+            tvManagerName.setText(managerDetail.getManagerName());
+            if (TextUtils.isEmpty(managerDetail.getEndDate())) {
+                tvDate.setText(managerDetail.getStartDate() + "至今");
+            } else {
+                tvDate.setText(managerDetail.getStartDate() + managerDetail.getEndDate());
+            }
+            tvReturnRate.setText(managerDetail.getRqhb() + "%");
+            tvResume.setText("        " + managerDetail.getResume());
         }
-        tvReturnRate.setText(managerDetail.getRqhb() + "%");
-        tvResume.setText("        " + managerDetail.getResume());
     }
 
 }

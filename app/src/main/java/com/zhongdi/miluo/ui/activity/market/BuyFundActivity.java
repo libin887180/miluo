@@ -435,6 +435,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_DEAL_PSW);//来自忘记交易密码
                 startActivity(intent_forget);
                 mPayView.clearPassword();
+                dismissPswPopWindow();
                 break;
             case R.id.tv_pop_card_back:
                 mCardPopupWindow.dismiss();

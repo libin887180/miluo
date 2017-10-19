@@ -35,15 +35,15 @@ public class PropertyDetail {
     private String fundcode;
     private String fundname;
     private int risklevel;
-    private double dayincome;
-    private double yearyld;
-    private double dayrate;
-    private double marketval;
+    private String dayincome;
+    private String yearyld;
+    private String dayrate;
+    private String marketval;
     private int fundid;
-    private double totalshareincome;
+    private String totalshareincome;
     private String totalshare;
-    private double Accumulatedincome;
-    private double tenthouunitincm;
+    private String Accumulatedincome;
+    private String tenthouunitincm;
     private int redeemstatus;
     private String dividendMethod;
 
@@ -111,37 +111,6 @@ public class PropertyDetail {
         this.risklevel = risklevel;
     }
 
-    public double getDayincome() {
-        return dayincome;
-    }
-
-    public void setDayincome(double dayincome) {
-        this.dayincome = dayincome;
-    }
-
-    public double getYearyld() {
-        return yearyld;
-    }
-
-    public void setYearyld(double yearyld) {
-        this.yearyld = yearyld;
-    }
-
-    public double getDayrate() {
-        return dayrate;
-    }
-
-    public void setDayrate(double dayrate) {
-        this.dayrate = dayrate;
-    }
-
-    public double getMarketval() {
-        return marketval;
-    }
-
-    public void setMarketval(double marketval) {
-        this.marketval = marketval;
-    }
 
     public int getFundid() {
         return fundid;
@@ -151,13 +120,7 @@ public class PropertyDetail {
         this.fundid = fundid;
     }
 
-    public double getTotalshareincome() {
-        return totalshareincome;
-    }
 
-    public void setTotalshareincome(double totalshareincome) {
-        this.totalshareincome = totalshareincome;
-    }
 
     public String getTotalshare() {
         return totalshare;
@@ -167,19 +130,59 @@ public class PropertyDetail {
         this.totalshare = totalshare;
     }
 
-    public double getAccumulatedincome() {
+    public String getDayincome() {
+        return dayincome;
+    }
+
+    public void setDayincome(String dayincome) {
+        this.dayincome = dayincome;
+    }
+
+    public String getYearyld() {
+        return yearyld;
+    }
+
+    public void setYearyld(String yearyld) {
+        this.yearyld = yearyld;
+    }
+
+    public String getDayrate() {
+        return dayrate;
+    }
+
+    public void setDayrate(String dayrate) {
+        this.dayrate = dayrate;
+    }
+
+    public String getMarketval() {
+        return marketval;
+    }
+
+    public void setMarketval(String marketval) {
+        this.marketval = marketval;
+    }
+
+    public String getTotalshareincome() {
+        return totalshareincome;
+    }
+
+    public void setTotalshareincome(String totalshareincome) {
+        this.totalshareincome = totalshareincome;
+    }
+
+    public String getAccumulatedincome() {
         return Accumulatedincome;
     }
 
-    public void setAccumulatedincome(double Accumulatedincome) {
-        this.Accumulatedincome = Accumulatedincome;
+    public void setAccumulatedincome(String accumulatedincome) {
+        Accumulatedincome = accumulatedincome;
     }
 
-    public double getTenthouunitincm() {
+    public String getTenthouunitincm() {
         return tenthouunitincm;
     }
 
-    public void setTenthouunitincm(double tenthouunitincm) {
+    public void setTenthouunitincm(String tenthouunitincm) {
         this.tenthouunitincm = tenthouunitincm;
     }
 

@@ -18,4 +18,9 @@ public interface TransactionDetailView extends BaseView {
 
     void onPropertySuccess(PropertyDetail body);
     void dismissPswPopWindow();
+
+
+    void modifyBonusSuccess();
+
+    void modifyBonusFailed();
 }

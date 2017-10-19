@@ -164,7 +164,6 @@
                                     android:paddingRight="15dp"
                                     android:layout_marginTop="5dp"
                                     android:background="@drawable/ic_signyellow"
-                                    android:text="股票型"
                                     android:textColor="#99ffffff"
                                     android:textSize="14sp" />
 
@@ -178,7 +177,6 @@
                                     android:paddingLeft="5dp"
                                     android:paddingRight="15dp"
                                     android:background="@drawable/ic_signyellow"
-                                    android:text="高风险"
                                     android:textColor="#99ffffff"
                                     android:textSize="14sp" />
                             </RelativeLayout>
@@ -448,7 +446,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:text="5.36亿元"
                         android:textColor="@color/text_color_normal" />
 
                     <View
@@ -481,7 +478,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:text="2015-03-06"
                         android:textColor="@color/text_color_normal" />
 
                     <View
@@ -683,7 +679,7 @@
                         android:layout_alignTop="@id/iv_manager_icon"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/iv_manager_icon"
-                        android:text="张菲"
+                        android:text="--"
                         android:textColor="@color/text_222"
                         android:textSize="16sp" />
 
@@ -693,7 +689,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/tv_manager_name"
                         android:layout_below="@id/tv_manager_name"
-                        android:text="从业时间：2014年至今"
+                        android:text="从业时间："
                         android:textColor="@color/text_color_normal"
                         android:textSize="14sp" />
 
@@ -836,7 +832,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="0.15%"
                         android:textColor="@color/red"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -846,7 +841,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="0.15%"
                         android:textColor="@color/text_color_normal"
                         android:textSize="12sp" />
                 </LinearLayout>

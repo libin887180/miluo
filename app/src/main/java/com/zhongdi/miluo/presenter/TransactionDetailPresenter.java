@@ -60,16 +60,17 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         map.put("productid", productid);
         map.put("tradepwd", tradepwd);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_BONUS, map, 102,
-                new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
-                    public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
-                        view.onPropertySuccess(response.getBody());
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        view.modifyBonusSuccess();
                     }
 
                     @Override
-                    public void onFailed(MResponse<PropertyDetail> response, int requestCode) {
+                    public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
                         view.showToast(response.getMsg());
+                        view.modifyBonusFailed();
                     }
 
                     @Override

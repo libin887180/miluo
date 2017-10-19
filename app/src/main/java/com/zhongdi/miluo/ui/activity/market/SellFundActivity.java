@@ -193,6 +193,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_sell_all:
+                etMoney.setText(tvTotal.getText());
                 break;
             case R.id.btn_submit:
                 showPswPopupWindow();
@@ -209,13 +210,14 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_pay_back:
-                mPopupWindow.dismiss();
+                dismissPswPopWindow();
                 break;
             case R.id.tv_pay_forgetPwd:
                 Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
                 intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_DEAL_PSW);//来自忘记交易密码
                 startActivity(intent_forget);
                 mPayView.clearPassword();
+                dismissPswPopWindow();
                 break;
         }
     }

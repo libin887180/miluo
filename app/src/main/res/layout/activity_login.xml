@@ -163,15 +163,6 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/tv_quick_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/pwd_layout"
-            android:layout_below="@+id/pwd_layout"
-            android:layout_marginTop="15dp"
-            android:text="快速登录"
-            android:textColor="@color/text_blue" />
 
         <TextView
             android:id="@+id/tv_forget_psw"
@@ -194,7 +185,15 @@
             android:text="登录"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-
+        <TextView
+            android:id="@+id/tv_quick_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_login"
+            android:layout_marginTop="30dp"
+            android:text="快速登录"
+            android:textColor="@color/text_blue" />
     </RelativeLayout>
 
 

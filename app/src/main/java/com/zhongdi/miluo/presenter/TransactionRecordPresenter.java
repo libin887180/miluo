@@ -35,6 +35,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFailed(MResponse<TradeRecord> response, int requestCode) {
+                        view.showToast(response.getMsg());
                     }
 
                     @Override
@@ -50,7 +51,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
                 });
     }
 
-    public void fundWithdraw(String  tradeid ,String tradepwd ,String type ) {
+    public void fundWithdraw(String tradeid, String tradepwd, String type) {
         Map<String, String> map = new HashMap<>();
         map.put("tradeid", tradeid);
         map.put("tradepwd", tradepwd);
@@ -65,6 +66,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
+                        view.showToast(response.getMsg());
                     }
 
                     @Override

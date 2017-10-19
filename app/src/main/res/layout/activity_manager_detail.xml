@@ -107,7 +107,6 @@
                 android:layout_marginLeft="20dp"
                 android:textSize="18sp"
                 android:layout_toRightOf="@id/iv_head_img"
-                android:text="张菲"
                 android:textColor="@color/white" />
 
             <TextView
@@ -128,7 +127,6 @@
                 android:layout_alignTop="@id/tv_time"
                 android:textSize="15sp"
                 android:layout_toRightOf="@id/tv_time"
-                android:text="2015-12-06 至今"
                 android:textColor="@color/white" />
 
             <TextView
@@ -151,7 +149,6 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:layout_toRightOf="@id/tv_return"
-                android:text="142%"
                 android:textColor="@color/white" />
 
         </RelativeLayout>

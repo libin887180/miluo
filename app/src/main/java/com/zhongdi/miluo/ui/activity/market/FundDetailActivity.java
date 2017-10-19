@@ -200,6 +200,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
+                if(managerInfo==null){
+                    showToast("暂未获取到基金经理信息");
+                    return;
+                }
                 Intent managerIntent = new Intent(mContext, ManagerDetailActivity.class);
                 managerIntent.putExtra("managerDetail", managerInfo);
                 startActivity(managerIntent);

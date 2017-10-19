@@ -30,6 +30,7 @@ import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.FenhongTypeAdapter;
 import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.PropertyDetail;
@@ -162,6 +163,18 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     public void dismissPswPopWindow() {
         mPopupWindow.dismiss();
     }
+
+    @Override
+    public void modifyBonusSuccess() {
+        presenter.getPropertyDetail(fundcode);
+    }
+
+    @Override
+    public void modifyBonusFailed() {
+        presenter.getPropertyDetail(fundcode);
+    }
+
+
     @Override
     protected void initialize() {
         setupCardPopupWindow();
@@ -333,8 +346,11 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                if(listAdapter.getSelectPosotion()==position){
+                    mCardPopupWindow.dismiss();
+                    return;
+                }
                 selectFenHong=position+"";
-                listAdapter.setCheck(position);
                 mCardPopupWindow.dismiss();
                 showPswPopupWindow();
 
@@ -530,6 +546,16 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         switch (view.getId()) {
             case R.id.tv_pop_card_back:
                 mCardPopupWindow.dismiss();
+                break;
+            case R.id.tv_pay_back:
+                dismissPswPopWindow();
+                break;
+            case R.id.tv_pay_forgetPwd:
+                Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
+                intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_DEAL_PSW);//来自忘记交易密码
+                startActivity(intent_forget);
+                mPayView.clearPassword();
+                dismissPswPopWindow();
                 break;
         }
     }

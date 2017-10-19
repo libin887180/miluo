@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
@@ -137,6 +138,10 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         codeAlertDialog.setPositiveButton("确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(TextUtils.isEmpty(codeAlertDialog.getEditCode().getText().toString())){
+                    showToast("请输入验证码");
+                    return;
+                }
                 presenter.openAccountConfirm(codeAlertDialog.getEditCode().getText().toString());
             }
         });
