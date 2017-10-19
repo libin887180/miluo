@@ -19,4 +19,8 @@ public interface BankCardListView extends BaseView {
 
     void onDataSuccess(List<BankInfo> body);
 
+    void dismissLoadingDialog();
+
+    void showLoadingDialog();
+
 }

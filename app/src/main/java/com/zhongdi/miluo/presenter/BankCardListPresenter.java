@@ -25,6 +25,7 @@ public class BankCardListPresenter extends BasePresenter<BankCardListView> {
 
 
     public void getMyBankCards() {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_BANK_CARDS, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<List<BankInfo>>>() {
@@ -46,7 +47,7 @@ public class BankCardListPresenter extends BasePresenter<BankCardListView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
                 });
     }

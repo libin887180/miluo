@@ -89,7 +89,15 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
 //            }
 //        });
     }
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
 
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
     @Override
     public void setupStatusView() {
         stateLayout.setUseAnimation(true);
