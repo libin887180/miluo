@@ -24,6 +24,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
     }
 
     public void beforeBuyInit(String fundCode) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("fundCode", fundCode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_BUY_BEFORE, map, 101,
@@ -46,7 +47,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
                 });
     }

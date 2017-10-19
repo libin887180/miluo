@@ -25,6 +25,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
     }
 
     public void getPropertyDetail(String fundcode) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_DETAIL, map, 102,
@@ -48,13 +49,14 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
 
                     @Override
                     public void onFinished() {
-
+                        view.showLoadingDialog();
                     }
                 });
     }
 
 
-    public void modifyBonus(String bonusmethod ,String  productid ,String tradepwd ) {
+    public void modifyBonus(String bonusmethod, String productid, String tradepwd) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("bonusmethod", bonusmethod);//红利再投1现金分红
         map.put("productid", productid);
@@ -80,20 +82,22 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
                 });
     }
+
     /**
      * 获取交易记录
+     *
      * @param pageIndex 页数
-     * @param pageSize 每页条数
+     * @param pageSize  每页条数
      */
-    public void getTradRecords(final int pageIndex, int pageSize,String fundcode) {
+    public void getTradRecords(final int pageIndex, int pageSize, String fundcode) {
         Map<String, String> map = new HashMap<>();
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
-        map.put("fundcode",  fundcode);//基金代码
+        map.put("fundcode", fundcode);//基金代码
         Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_RECORD_LIST, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<DealRecord>>>() {
                     @Override
@@ -104,7 +108,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
                     @Override
                     public void onFailed(MResponse<List<DealRecord>> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        view.showToast( response.getMsg());
+                        view.showToast(response.getMsg());
                     }
 
                     @Override

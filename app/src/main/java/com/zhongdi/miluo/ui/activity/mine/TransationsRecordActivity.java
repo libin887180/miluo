@@ -82,7 +82,15 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     protected TransactionRecordPresenter initPresenter() {
         return new TransactionRecordPresenter(this);
     }
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
 
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
     @Override
     protected void initialize() {
         if (TextUtils.isEmpty(SOURCE)) {

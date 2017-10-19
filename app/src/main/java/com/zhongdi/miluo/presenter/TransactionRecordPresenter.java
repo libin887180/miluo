@@ -22,6 +22,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
     }
 
     public void getTransRecord(String tradeid, String tradeType) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("tradeid", tradeid);
         map.put("type", tradeType);
@@ -45,13 +46,14 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
 
                 });
     }
 
     public void fundWithdraw(String tradeid, String tradepwd, String type) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("tradeid", tradeid);
         map.put("tradepwd", tradepwd);
@@ -76,7 +78,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
 
                 });

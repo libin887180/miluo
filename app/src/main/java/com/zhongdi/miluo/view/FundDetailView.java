@@ -18,4 +18,8 @@ public interface FundDetailView extends BaseView {
     void OnCollectSuccess();
 
     void OnDisCollectSuccess();
+
+    void dismissLoadingDialog();
+
+    void showLoadingDialog();
 }

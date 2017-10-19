@@ -118,6 +118,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     protected TransactionDetailPresenter initPresenter() {
         return new TransactionDetailPresenter(this);
     }
+
     // 显示弹窗
     public void setupPswPopupWindow() {
         // 初始化弹窗
@@ -139,10 +140,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                if(TextUtils.isEmpty(selectFenHong)){
+                if (TextUtils.isEmpty(selectFenHong)) {
                     showToast("请选择分红方式");
                 }
-                presenter.modifyBonus(selectFenHong,fundcode,mPayView.getPassword());
+                presenter.modifyBonus(selectFenHong, fundcode, mPayView.getPassword());
 //                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
                 dismissPswPopWindow();
             }
@@ -159,6 +160,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     private void showFenHongPopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
     @Override
     public void dismissPswPopWindow() {
         mPopupWindow.dismiss();
@@ -214,6 +216,16 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
 
         presenter.getPropertyDetail(fundcode);
         presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
     }
 
     public void setChartData() {
@@ -346,11 +358,11 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                if(listAdapter.getSelectPosotion()==position){
+                if (listAdapter.getSelectPosotion() == position) {
                     mCardPopupWindow.dismiss();
                     return;
                 }
-                selectFenHong=position+"";
+                selectFenHong = position + "";
                 mCardPopupWindow.dismiss();
                 showPswPopupWindow();
 
@@ -450,10 +462,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             tvNetvalue.setText(body.getNetvalue() + "");
             tvDayrate.setText(body.getDayrate() + "");
         }
-        if(body.getDividendMethod().equals("0")){
+        if (body.getDividendMethod().equals("0")) {
             listAdapter.setCheck(0);
             tvFenhong.setText("红利再投");
-        }else{
+        } else {
             listAdapter.setCheck(1);
             tvFenhong.setText("现金分红");
         }

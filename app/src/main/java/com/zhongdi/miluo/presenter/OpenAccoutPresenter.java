@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.presenter;
 
 import com.zhongdi.miluo.base.BasePresenter;
-import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -22,6 +21,7 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
     }
 
     public void openAccount(Map<String, String> requestMap) {
+        view.showLoadingDialog();
         Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT, requestMap, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
@@ -43,13 +43,14 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
 
                 });
     }
 
     public void openAccountConfirm(String smscode) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("smscode", smscode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_CONFIRM, map, 101,
@@ -62,11 +63,11 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
 
-                        if (response.getCode().equals(ErrorCode.ERROR_MSG)) {
-                            view.showCodeError();
-                        } else {
-                            view.showToast(response.getMsg());
-                        }
+//                        if (response.getCode().equals(ErrorCode.ERROR_MSG)) {
+//                            view.showCodeError();
+//                        } else {
+                        view.showToast(response.getMsg());
+//                        }
 
 //                        view.showCodeError();
                     }
@@ -78,7 +79,7 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
 
                 });

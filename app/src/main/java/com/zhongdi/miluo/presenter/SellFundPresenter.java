@@ -22,9 +22,11 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
     public SellFundPresenter(SellFundView view) {
         super.attachView(view);
     }
-    public void beforeSellInit(String   fundCode) {
+
+    public void beforeSellInit(String fundCode) {
+        view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        map.put("fundCode", fundCode );
+        map.put("fundCode", fundCode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_SELL_BEFORE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<SellResponse>>() {
                     @Override
@@ -45,7 +47,7 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.dismissLoadingDialog();
                     }
                 });
     }
@@ -54,10 +56,10 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
 
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        map.put("productid", fundCode );
-        map.put("tradepwd", tradepwd );
-        map.put("transshare", transshare );
-        map.put("redeembizcode", "024" ); //赎回方式024-普通赎回098-快速赎回n
+        map.put("productid", fundCode);
+        map.put("tradepwd", tradepwd);
+        map.put("transshare", transshare);
+        map.put("redeembizcode", "024"); //赎回方式024-普通赎回098-快速赎回n
         Callback.Cancelable post = netRequestUtil.post(URLConfig.SELL_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override

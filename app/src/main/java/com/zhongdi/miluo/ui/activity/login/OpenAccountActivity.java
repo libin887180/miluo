@@ -5,9 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,6 +81,16 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     }
 
     @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
+
+    @Override
     protected void initialize() {
         stepView.setSteps(steps);
 
@@ -138,38 +146,40 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         codeAlertDialog.setPositiveButton("确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(codeAlertDialog.getEditCode().getText().toString())){
+                if (TextUtils.isEmpty(codeAlertDialog.getEditCode().getText().toString())) {
                     showToast("请输入验证码");
                     return;
                 }
+//                openAccount();
                 presenter.openAccountConfirm(codeAlertDialog.getEditCode().getText().toString());
             }
         });
         codeAlertDialog.setSendCodeText("发送验证码", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.resendMessage("");
+//                presenter.resendMessage("");
+                openAccount();
                 timer.start();
                 view.setEnabled(false);
             }
         });
 
-        codeAlertDialog.getEditCode().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                showSendCode();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        codeAlertDialog.getEditCode().addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                showSendCode();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
         codeAlertDialog.show();
     }
 

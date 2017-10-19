@@ -121,7 +121,15 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         setListener();
 
     }
+    @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
 
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
     @Override
     public void setListener() {
 
@@ -281,7 +289,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         fundCode = fundDetail.getFundCode();
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
 
-        if (fundDetail.getYearyld().contains("-")) {
+        if (fundDetail.getYearRate().contains("-")) {
             tvYearRate.setTextColor(mContext.getResources().getColor(R.color.increase_green));
             tvPercent.setTextColor(mContext.getResources().getColor(R.color.increase_green));
 
