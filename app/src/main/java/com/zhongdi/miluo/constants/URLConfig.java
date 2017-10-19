@@ -18,6 +18,7 @@ public class URLConfig {
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     //测试环境
     public static final String BASE_URL = "http://192.168.151.13:8085";
+
     /**
      * 测试接口
      */
