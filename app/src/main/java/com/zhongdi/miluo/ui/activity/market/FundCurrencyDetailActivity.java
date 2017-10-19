@@ -98,6 +98,15 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     }
 
     @Override
+    public void dismissLoadingDialog() {
+        getLoadingProgressDialog().dismiss();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        getLoadingProgressDialog().show();
+    }
+    @Override
     public void OnFundManagerSuccess(FundManagerInfo managerInfo) {
         this.managerInfo = managerInfo;
         tvManagerName.setText(managerInfo.getManagerName());

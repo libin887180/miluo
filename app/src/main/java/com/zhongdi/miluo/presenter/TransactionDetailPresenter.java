@@ -49,7 +49,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
 
                     @Override
                     public void onFinished() {
-                        view.showLoadingDialog();
+                        view.dismissLoadingDialog();
                     }
                 });
     }
