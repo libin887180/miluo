@@ -97,9 +97,8 @@
                 android:hint="输入原登录密码"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:maxLength="11"
+                android:maxLength="12"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
 
 
@@ -125,9 +124,8 @@
                 android:hint="输入登录密码"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:maxLength="11"
+                android:maxLength="12"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
 
 
@@ -153,9 +151,8 @@
                 android:hint="再次输入登录密码"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:maxLength="11"
+                android:maxLength="12"
                 android:maxLines="1"
-                android:phoneNumber="true"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

@@ -131,7 +131,7 @@ public class OpenStep2Fragment extends Fragment {
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
         if(!TextUtils.equals(etPassword1.getText().toString(),etPassword2.getText().toString())){
-            Toast.makeText(getActivity(), "密码输入不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
             return;
         }
         OpenAccountActivity activity = (OpenAccountActivity) getActivity();

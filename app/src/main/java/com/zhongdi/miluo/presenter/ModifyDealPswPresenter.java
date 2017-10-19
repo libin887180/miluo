@@ -36,7 +36,7 @@ public class ModifyDealPswPresenter extends BasePresenter<ModifyDealPswView> {
             return;
         }
         if (!TextUtils.equals(new_psw1,new_psw2)) {
-            view.showToast("两次输入的新密码不正确");
+            view.showToast("两次新密码不一致，请重新输入");
             return;
         }
 

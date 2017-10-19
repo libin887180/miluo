@@ -83,7 +83,7 @@
         android:background="#E5E5E5"
         android:gravity="center_vertical">
 
-        <EditText
+        <com.zhongdi.miluo.widget.ClearEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"

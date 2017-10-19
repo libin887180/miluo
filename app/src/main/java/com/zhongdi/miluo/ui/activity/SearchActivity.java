@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.fingdo.statelayout.StateLayout;
@@ -24,6 +23,7 @@ import com.zhongdi.miluo.presenter.SearchPresenter;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.SearchView;
+import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import butterknife.BindView;
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchView {
     SearchAdapter adapter;
     @BindView(R.id.et_search)
-    EditText etSearch;
+    ClearEditText etSearch;
     @BindView(R.id.ll_hot)
     LinearLayout llHot;
     @BindView(R.id.recyclerView)
@@ -143,5 +143,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         refreshLayout.setEnableRefresh(true);
         datas.addAll(body);
         adapter.notifyDataSetChanged();
+        if(datas.size()==0){
+            stateLayout.showEmptyView();
+        }else{
+            stateLayout.showContentView();
+        }
     }
 }

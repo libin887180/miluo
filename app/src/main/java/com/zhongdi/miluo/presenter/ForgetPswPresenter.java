@@ -33,7 +33,7 @@ public class ForgetPswPresenter extends BasePresenter<ForgetPswView> {
             return;
         }
         if (!TextUtils.equals(psw1,psw2)) {
-            view.showToast("两次输入的密码不正确");
+            view.showToast("两次密码不一致，请重新输入");
             return;
         }
 

@@ -136,7 +136,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                     sortType = "";
                 } else if (i == 1) {
                     sortType = "asc";
-
                 } else {
                     sortType = "desc";
                 }

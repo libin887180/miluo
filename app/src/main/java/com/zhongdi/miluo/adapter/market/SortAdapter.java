@@ -23,7 +23,7 @@ public class SortAdapter extends BaseAdapter {
 
     public SortAdapter(Context context) {
         this.mContext = context;
-        dataList = new String[]{"默认", "正序", "倒序"};
+        dataList = new String[]{"默认", "由低到高排序", "由高到低排序"};
     }
 
     public void setCheck(int index) {

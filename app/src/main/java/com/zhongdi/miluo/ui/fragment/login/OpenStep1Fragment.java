@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
@@ -128,7 +130,14 @@ public class OpenStep1Fragment extends Fragment {
 
     @OnClick(R.id.btn_next)
     public void onViewClicked() {
-
+        if(TextUtils.isEmpty(etRealName.getText().toString())){
+            Toast.makeText(getActivity(), "请填写真实姓名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(etIdCard.getText().toString())){
+            Toast.makeText(getActivity(), "请填写身份证号", Toast.LENGTH_SHORT).show();
+            return;
+        }
         OpenAccountActivity activity = (OpenAccountActivity) getActivity();
         activity.swapViewPagerTo(1);
         activity.identityno = etIdCard.getText().toString();
