@@ -177,7 +177,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     public void showCodeError() {
         if (codeAlertDialog != null && codeAlertDialog.isShowing()) {
             codeAlertDialog.getTxt_msg().setTextColor(Color.RED);
-            codeAlertDialog.getTxt_msg().setText("验证码错误，请重新输入");
+            codeAlertDialog.getTxt_msg().setText("验证码错误或失效，请重新输入");
         }
     }
 

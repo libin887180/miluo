@@ -76,6 +76,8 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     TextView tvDepRate;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.tv_percent)
+    TextView tvPercent;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
@@ -200,7 +202,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
-                if(managerInfo==null){
+                if (managerInfo == null) {
                     showToast("暂未获取到基金经理信息");
                     return;
                 }
@@ -278,6 +280,15 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 //        this.fundDetail = fundDetail;
         fundCode = fundDetail.getFundCode();
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
+
+        if (fundDetail.getYearyld().contains("-")) {
+            tvYearRate.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+            tvPercent.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+
+        } else {
+            tvYearRate.setTextColor(mContext.getResources().getColor(R.color.red));
+            tvPercent.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
         tvYearRate.setText(fundDetail.getYearRate());
         tvNetValue.setText(fundDetail.getNetValue());
         tvDayRate.setText(fundDetail.getDayRate());
@@ -308,6 +319,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             tvBuy.setEnabled(true);
         }
     }
+
     private void switchRiskLevel(int risklevel) {
 
         switch (risklevel) {
@@ -333,6 +345,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 break;
         }
     }
+
     private void switchFundType(String fundType) {
 
         switch (fundType) {

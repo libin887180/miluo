@@ -59,6 +59,8 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     TextView tvNoticeDate;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.tv_percent)
+    TextView tvPercent;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
@@ -149,6 +151,10 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
+                if (managerInfo == null) {
+                    showToast("暂未获取到基金经理信息");
+                    return;
+                }
                 Intent managerIntent = new Intent(mContext, ManagerDetailActivity.class);
                 managerIntent.putExtra("managerDetail", managerInfo);
                 startActivity(managerIntent);
@@ -219,6 +225,15 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     public void OnDataSuccess(FundDetail fundDetail) {
 //        this.fundDetail = fundDetail;
         fundCode = fundDetail.getFundCode();
+
+        if (fundDetail.getYearyld().contains("-")) {
+            tvIncrease.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+            tvPercent.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+
+        } else {
+            tvIncrease.setTextColor(mContext.getResources().getColor(R.color.red));
+            tvPercent.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
         tvIncrease.setText(fundDetail.getYearyld());
         tvProfit.setText(fundDetail.getTenthouunitincm());
         title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");

@@ -22,9 +22,10 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
     public BuyFundPresenter(BuyFundView view) {
         super.attachView(view);
     }
-    public void beforeBuyInit(String   fundCode) {
+
+    public void beforeBuyInit(String fundCode) {
         Map<String, String> map = new HashMap<>();
-        map.put("fundCode", fundCode );
+        map.put("fundCode", fundCode);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_BUY_BEFORE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<BeforeBuyInfo>>() {
                     @Override
@@ -50,12 +51,12 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                 });
     }
 
-    public void buyFund(String   fundCode,String  tradepwd ,String  transamount ) {
+    public void buyFund(String fundCode, String tradepwd, String transamount) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        map.put("productid", fundCode );
-        map.put("tradepwd", tradepwd );
-        map.put("transamount", transamount );
+        map.put("productid", fundCode);
+        map.put("tradepwd", tradepwd);
+        map.put("transamount", transamount);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.BUY_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override

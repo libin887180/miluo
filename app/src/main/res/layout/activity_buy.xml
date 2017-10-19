@@ -231,9 +231,8 @@
                     android:paddingTop="15dp"
                     android:drawableLeft="@drawable/cny"
                     android:drawablePadding="10dp"
-                    android:hint="1元起"
-                    android:textColor="@color/grey_60"
-                    android:textColorHint="@color/text_color_normal"
+                    android:textColor="@color/text_222"
+                    android:textColorHint="@color/grey_60"
                     android:textSize="18sp" />
 
                 <View
