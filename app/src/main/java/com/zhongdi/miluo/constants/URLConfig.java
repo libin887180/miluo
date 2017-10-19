@@ -75,7 +75,7 @@ public class URLConfig {
     /**
      * 风险评测题目
      */
-    public static final String RISK_TEST_QUESTION = BASE_URL + "/lead/v1/selrisk";
+    public static final String RISK_TEST_QUESTION = BASE_URL + "/lead/v1/user/selrisk";
     /**
      * 风险答案提交
      */
