@@ -527,7 +527,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="红利再投"
                         android:textColor="@color/text_555"
                         android:textSize="12sp" />
                 </LinearLayout>
