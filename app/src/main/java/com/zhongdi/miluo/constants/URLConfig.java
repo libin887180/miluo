@@ -17,7 +17,9 @@ public class URLConfig {
     //秦松
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     //测试环境
-    public static final String BASE_URL = "http://192.168.151.13:8085";
+//    public static final String BASE_URL = "http://192.168.151.13:8085";
+    //外网
+    public static final String BASE_URL = "http://218.94.82.38:8085";
 
     /**
      * 测试接口
@@ -80,35 +82,35 @@ public class URLConfig {
     /**
      * 风险答案提交
      */
-    public static final String RISK_SUBMIT= BASE_URL + "/lead/v1/user/riskevaluating";
+    public static final String RISK_SUBMIT = BASE_URL + "/lead/v1/user/riskevaluating";
     /**
      * 修改登录密码
      */
-    public static final String MODIFY_LOGIN_PSW= BASE_URL + "/lead/v1/user/modifyPassword";
+    public static final String MODIFY_LOGIN_PSW = BASE_URL + "/lead/v1/user/modifyPassword";
     /**
      * 重置登录密码
      */
-    public static final String RESET_LOGIN_PSW= BASE_URL + "/lead/v1/resetPassword";
+    public static final String RESET_LOGIN_PSW = BASE_URL + "/lead/v1/resetPassword";
     /**
      * 修改交易密码
      */
-    public static final String MODIFY_DEAL_PSW= BASE_URL + "/lead/v1/user/resetTradPassword";
+    public static final String MODIFY_DEAL_PSW = BASE_URL + "/lead/v1/user/resetTradPassword";
     /**
      * 退出登录
      */
-    public static final String LOGIN_OUT= BASE_URL + "/lead/v1/user/logout";
+    public static final String LOGIN_OUT = BASE_URL + "/lead/v1/user/logout";
     /**
      * 验证身份证号和姓名
      */
-    public static final String CHECK_ID_NO= BASE_URL + "/lead/v1/user/isidno";
+    public static final String CHECK_ID_NO = BASE_URL + "/lead/v1/user/isidno";
     /**
      * 基金搜索
      */
-    public static final String SEARCH_FUND= BASE_URL + "/lead/v1/fundQry";
+    public static final String SEARCH_FUND = BASE_URL + "/lead/v1/fundQry";
     /**
      * 热搜
      */
-    public static final String HOT_SEARCH= BASE_URL + "/lead/v1/hotSearch";
+    public static final String HOT_SEARCH = BASE_URL + "/lead/v1/hotSearch";
     /**
      * 基金消息
      */
@@ -152,65 +154,65 @@ public class URLConfig {
     /**
      * 基金添加自选
      */
-    public static final String FUND_COLLECT= BASE_URL + "/fund/addOptionalFund";
+    public static final String FUND_COLLECT = BASE_URL + "/fund/addOptionalFund";
     /**
      * 基金删除自选
      */
-    public static final String FUND_DIS_COLLECT= BASE_URL + "/fund/delOptionalFund";
+    public static final String FUND_DIS_COLLECT = BASE_URL + "/fund/delOptionalFund";
     /**
      * 基金费率
      */
-    public static final String FUND_RATE= BASE_URL + "/fund/fundRate";
+    public static final String FUND_RATE = BASE_URL + "/fund/fundRate";
     /**
      * 我的资产
      */
-    public static final String MY_PROPERTY= BASE_URL + "/lead/v1/user/myProperty";
+    public static final String MY_PROPERTY = BASE_URL + "/lead/v1/user/myProperty";
     /**
      * 我的资产列表
      */
-    public static final String MY_PROPERTY_LIST= BASE_URL + "/lead/v1/user/myPropertyList";
+    public static final String MY_PROPERTY_LIST = BASE_URL + "/lead/v1/user/myPropertyList";
     /**
      * 交易记录
      */
-    public static final String TRADE_RECORD_LIST= BASE_URL + "/lead/v1/user/tradeRecordList";
+    public static final String TRADE_RECORD_LIST = BASE_URL + "/lead/v1/user/tradeRecordList";
     /**
      * 交易详情
      */
-    public static final String TRADE_DETAIL= BASE_URL + "/lead/v1/user/myPropertyDetail";
+    public static final String TRADE_DETAIL = BASE_URL + "/lead/v1/user/myPropertyDetail";
     /**
      * 购买初始化
      */
-    public static final String FUND_BUY_BEFORE= BASE_URL + "/lead/v1/user/beforeBuy";
+    public static final String FUND_BUY_BEFORE = BASE_URL + "/lead/v1/user/beforeBuy";
     /**
      * 购买基金
      */
-    public static final String BUY_FUND= BASE_URL + "/lead/v1/user/fundBuy";
+    public static final String BUY_FUND = BASE_URL + "/lead/v1/user/fundBuy";
     /**
      * 基金资讯列表
      */
-    public static final String FUND_ESSAY= BASE_URL + "/lead/v1/fundEssay";
+    public static final String FUND_ESSAY = BASE_URL + "/lead/v1/fundEssay";
     /**
      * 赎回初始化
      */
-    public static final String FUND_SELL_BEFORE= BASE_URL + "/lead/v1/user/beforeRedeem";
+    public static final String FUND_SELL_BEFORE = BASE_URL + "/lead/v1/user/beforeRedeem";
     /**
      * 赎回初始化
      */
-    public static final String SELL_FUND= BASE_URL + "/lead/v1/user/fundRedeem";
+    public static final String SELL_FUND = BASE_URL + "/lead/v1/user/fundRedeem";
     /**
      * 交易记录
      */
-    public static final String TRANS_RECORD= BASE_URL + "/lead/v1/user/tradeRecord";
+    public static final String TRANS_RECORD = BASE_URL + "/lead/v1/user/tradeRecord";
     /**
      * 交易撤单
      */
-    public static final String FUND_CHEDAN= BASE_URL + "/lead/v1/user/fundWithdraw";
+    public static final String FUND_CHEDAN = BASE_URL + "/lead/v1/user/fundWithdraw";
     /**
      * 修改分红方式
      */
-    public static final String MODIFY_BONUS= BASE_URL + "/lead/v1/user/modifiyBonus";
+    public static final String MODIFY_BONUS = BASE_URL + "/lead/v1/user/modifiyBonus";
     /**
      * 我的银行卡
      */
-    public static final String MY_BANK_CARDS= BASE_URL + "/lead/v1/user/myBankCards";
+    public static final String MY_BANK_CARDS = BASE_URL + "/lead/v1/user/myBankCards";
 }
