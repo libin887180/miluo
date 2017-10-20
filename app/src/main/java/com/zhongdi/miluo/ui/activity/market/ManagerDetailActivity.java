@@ -9,6 +9,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.FundManagerInfo;
 import com.zhongdi.miluo.presenter.ManagerDetailPresenter;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.util.xUtilsImageUtils;
 import com.zhongdi.miluo.view.ManagerDetailView;
 
@@ -56,7 +57,8 @@ public class ManagerDetailActivity extends BaseActivity<ManagerDetailPresenter> 
             } else {
                 tvDate.setText(managerDetail.getStartDate() + managerDetail.getEndDate());
             }
-            tvReturnRate.setText(managerDetail.getRqhb() + "%");
+
+            tvReturnRate.setText(StringUtil.parseStr2Num(managerDetail.getRqhb()) + "%");
             tvResume.setText("        " + managerDetail.getResume());
         }
     }

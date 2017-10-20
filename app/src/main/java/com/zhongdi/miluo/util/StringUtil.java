@@ -718,7 +718,18 @@ public class StringUtil {
         double mvalue = Double.parseDouble(value);
         return df.format(mvalue);
     }
-
+    /**
+     * <p>描述:保留2位小数</p>
+     *
+     * @param value
+     * @return 设定文件
+     */
+    public static String parseStr2Num(String value) {
+        if (StringUtil.isNullString(value)) return "0.00";
+        DecimalFormat df = new DecimalFormat("######0.00");
+        double mvalue = Double.parseDouble(value);
+        return df.format(mvalue);
+    }
     public static String parseStr(double value) {
         if (value == 0) return "0.0";
         DecimalFormat df = new DecimalFormat("######0.0");
