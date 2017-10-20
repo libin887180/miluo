@@ -32,11 +32,12 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
 
     @BindView(R.id.line_chart)
     MyLineChart mChart;
+    String fundcode;
 
-    public static EstimateFragment newInstance(String info) {
+    public static EstimateFragment newInstance(String fundcode) {
         Bundle args = new Bundle();
         EstimateFragment fragment = new EstimateFragment();
-        args.putString("info", info);
+        args.putString("fundcode", fundcode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +62,6 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
         xAxis.setDrawAxisLine(false);
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(true);
         leftAxis.setXOffset(10f);
@@ -82,7 +82,8 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
 
     @Override
     public void fetchData() {
-
+        fundcode  = getArguments().getString("fundcode");
+        presenter.getFundVal(fundcode);
     }
 
 

@@ -112,6 +112,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                     intent = new Intent(mContext, FundDetailActivity.class);
                 }
                 intent.putExtra("fundId",searchFund.getId());
+                intent.putExtra("fundcode",searchFund.getFundcode());
                 ViseLog.i("fundid-->"+searchFund.getId());
                 startActivity(intent);
             }

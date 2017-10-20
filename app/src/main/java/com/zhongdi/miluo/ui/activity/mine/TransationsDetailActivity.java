@@ -326,6 +326,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 if (!TextUtils.isEmpty(fundId)) {
                     Intent detail = new Intent(mContext, FundDetailActivity.class);
                     detail.putExtra("fundId", fundId);
+                    detail.putExtra("fundcode", fundcode);
                     startActivity(detail);
                 }
                 break;

@@ -112,7 +112,8 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         presenter.getFundManagerInfo(sellFundId);
         presenter.getFundNotice(sellFundId);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(EstimateFragment.newInstance("估值"));
+
+        adapter.addFragment(EstimateFragment.newInstance( getIntent().getStringExtra("fundcode")));//估值图
         adapter.addFragment(EstimateFragment.newInstance("债券"));
         adapter.addFragment(EstimateFragment.newInstance("混合"));
         adapter.addFragment(EstimateFragment.newInstance("货币"));

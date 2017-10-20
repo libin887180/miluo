@@ -186,6 +186,7 @@ public class FundFragment extends Fragment {
                     intent = new Intent(getActivity(), FundDetailActivity.class);
                 }
                 intent.putExtra("fundId",fund.getId());
+                intent.putExtra("fundcode",fund.getFundCode());
                 ViseLog.i("fundid-->"+fund.getId());
                 startActivity(intent);
             }

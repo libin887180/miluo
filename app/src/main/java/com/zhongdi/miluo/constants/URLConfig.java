@@ -215,4 +215,8 @@ public class URLConfig {
      * 我的银行卡
      */
     public static final String MY_BANK_CARDS = BASE_URL + "/lead/v1/user/myBankCards";
+    /**
+     * 估值曲线
+     */
+    public static final String FUND_VAL = BASE_URL + "/fund/fundVal";
 }
