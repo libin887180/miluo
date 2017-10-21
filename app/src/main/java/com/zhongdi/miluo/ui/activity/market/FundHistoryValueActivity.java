@@ -92,13 +92,13 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
     }
 
     @Override
-    public void onDataSuccess(List<HistoryValue> data) {
+    public void onDataSuccess(List<HistoryValue> hisdata) {
         if (pageNum == 1) {
             datas.clear();
         }
-        datas.addAll(datas);
+        datas.addAll(hisdata);
 
-        if (data.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+        if (hisdata.size() < MiluoConfig.DEFAULT_PAGESIZE) {
             refreshLayout.setEnableLoadmore(false);
         } else {
             refreshLayout.setEnableLoadmore(true);

@@ -28,7 +28,7 @@ public class HistoryValueAdapter extends BaseRecyclerAdapter<HistoryValue> {
         }else{
             holder.setTextColor(R.id.tv_dayrate,mContext.getResources().getColor(R.color.red));
         }
-        holder.setText(R.id.tv_dayrate, item.getDayRate());
+        holder.setText(R.id.tv_dayrate, item.getDayRate()+"%");
 
     }
 }

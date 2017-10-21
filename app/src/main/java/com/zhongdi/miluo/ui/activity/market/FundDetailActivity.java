@@ -235,7 +235,9 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 startActivity(archivesIntent);
                 break;
             case R.id.rl_fund_history:
-                startActivity(new Intent(mContext, FundHistoryValueActivity.class));
+                Intent hisIntent = new Intent(mContext, FundHistoryValueActivity.class);
+                hisIntent.putExtra("fundId", sellFundId);
+                startActivity(hisIntent);
                 break;
             case R.id.tv_buy:
                 if (!MyApplication.getInstance().isLogined) {
