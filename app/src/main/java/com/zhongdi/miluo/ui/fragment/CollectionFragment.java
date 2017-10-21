@@ -19,16 +19,20 @@ import android.widget.TextView;
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.FragmentBackHandler;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CollectionAdapter;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.OptionalFund;
 import com.zhongdi.miluo.presenter.CollectionPresenter;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.CollectionView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
@@ -88,7 +92,6 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
-
             initView(rootView);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -172,14 +175,37 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             }
         });
 
+
+        fundAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<OptionalFund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, OptionalFund searchFund, int position) {
+                Intent intent;
+                if(searchFund.getFundType().equals(MiluoConfig.HUOBI)){
+                    intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
+                }else {
+                    intent = new Intent(mContext, FundDetailActivity.class);
+                }
+                intent.putExtra("fundId",searchFund.getSellFundId());
+                intent.putExtra("fundcode",searchFund.getFundCode());
+                ViseLog.i("fundid-->"+searchFund.getSellFundId());
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
     protected void initView(View view) {
         initInCreasePop();
+        initEmptyView();
         initAnimation();
         initialize();
+
+
     }
+
+
     private void initialize() {
 
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
@@ -252,6 +278,8 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         fundAdapter.notifyDataSetChanged();
         if(optionalFunds.size()==0){
             stateLayout.showEmptyView();
+        }else{
+            stateLayout.showContentView();
         }
     }
 
@@ -286,6 +314,13 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         });
         // TODO：更新popupwindow的状态
         increaseWindow.update();
+    }
+
+    @Override
+    public void initEmptyView() {
+
+
+
     }
 
 

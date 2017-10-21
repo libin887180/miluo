@@ -132,6 +132,10 @@ public class URLConfig {
      */
     public static final String FUND_DETAIL_NOTICE = BASE_URL + "/fund/mainPageAnnouncement";
     /**
+     * 基金历史净值
+     */
+    public static final String FUND_HISTORY_VALUE = BASE_URL + "/fund/historyOffundValue";
+    /**
      * 基金公告列表
      */
     public static final String FUND_NOTICE_LIST = BASE_URL + "/fund/fundAnnouncement";

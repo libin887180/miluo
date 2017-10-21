@@ -3,23 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:paddingBottom="15dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingTop="15dp">
 
     <TextView
-        android:id="@+id/tv_dengji"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="3"
         android:text="2017-07-23"
         android:textColor="@color/text_222"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_chuxi"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_netvalue"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="0.8819"
@@ -27,8 +28,8 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_fenhong"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_cumvalue"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="0.8819"
@@ -37,13 +38,12 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_fafang"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_dayrate"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:textColor="@color/red"
         android:gravity="right"
         android:text="2.63%"
-
         android:textSize="14sp" />
 </LinearLayout>

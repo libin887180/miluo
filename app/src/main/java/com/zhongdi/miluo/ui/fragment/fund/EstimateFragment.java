@@ -83,7 +83,7 @@ public class EstimateFragment extends BaseFragment<EstimateFragPresenter> implem
     @Override
     public void fetchData() {
         fundcode  = getArguments().getString("fundcode");
-        presenter.getFundVal(fundcode);
+//        presenter.getFundVal(fundcode);
     }
 
 
