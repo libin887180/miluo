@@ -14,6 +14,6 @@ public interface CollectionView extends BaseView {
 
     void onDataSuccess(List<OptionalFund> data);
     void initInCreasePop();
-
+    void initEmptyView();
     void initAnimation();
 }

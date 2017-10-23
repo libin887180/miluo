@@ -132,7 +132,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         if(pageNum==1){
             datas.clear();
         }
-        if (body.size() < 15) {
+        if (body.size() < MiluoConfig.DEFAULT_PAGESIZE) {
             refreshLayout.setEnableLoadmore(false);
         } else {
             pageNum++;

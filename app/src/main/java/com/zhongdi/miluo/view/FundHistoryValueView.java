@@ -1,6 +1,9 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.HistoryValue;
+
+import java.util.List;
 
 
 /**
@@ -9,5 +12,8 @@ import com.zhongdi.miluo.base.BaseView;
 
 public interface FundHistoryValueView extends BaseView {
 
+    void dismissLoadingDialog();
 
+    void showLoadingDialog();
+    void  onDataSuccess(List<HistoryValue> data);
 }
