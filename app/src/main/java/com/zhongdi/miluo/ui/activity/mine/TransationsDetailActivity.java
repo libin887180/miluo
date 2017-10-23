@@ -215,6 +215,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         });
 
         presenter.getPropertyDetail(fundcode);
+        presenter.getLines(fundcode);
         presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 

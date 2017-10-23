@@ -23,6 +23,10 @@ import com.zhongdi.miluo.model.FundNotice;
 import com.zhongdi.miluo.presenter.FundDetailPresenter;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.fragment.fund.EstimateFragment;
+import com.zhongdi.miluo.ui.fragment.fund.HalfYearLineFragment;
+import com.zhongdi.miluo.ui.fragment.fund.MonthLineFragment;
+import com.zhongdi.miluo.ui.fragment.fund.SeasonLineFragment;
+import com.zhongdi.miluo.ui.fragment.fund.YearLineFragment;
 import com.zhongdi.miluo.util.TimeUtil;
 import com.zhongdi.miluo.util.xUtilsImageUtils;
 import com.zhongdi.miluo.view.FundDetailView;
@@ -114,10 +118,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(EstimateFragment.newInstance( getIntent().getStringExtra("fundcode")));//估值图
-        adapter.addFragment(EstimateFragment.newInstance("债券"));
-        adapter.addFragment(EstimateFragment.newInstance("混合"));
-        adapter.addFragment(EstimateFragment.newInstance("货币"));
-        adapter.addFragment(EstimateFragment.newInstance("指数"));
+        adapter.addFragment(MonthLineFragment.newInstance(getIntent().getStringExtra("fundcode")));
+        adapter.addFragment(SeasonLineFragment.newInstance(getIntent().getStringExtra("fundcode")));
+        adapter.addFragment(HalfYearLineFragment.newInstance(getIntent().getStringExtra("fundcode")));
+        adapter.addFragment(YearLineFragment.newInstance(getIntent().getStringExtra("fundcode")));
         mViewPager.setAdapter(adapter);
         setListener();
 

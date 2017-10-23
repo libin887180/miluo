@@ -122,5 +122,36 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
                     }
                 });
     }
+    /**
+     * 获取交易曲线
+     *
+     */
+    public void getLines(String fundcode) {
+        Map<String, String> map = new HashMap<>();
+        map.put("fundcode", fundcode);//基金代码
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.NET_VALUE_LINE, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+//                        view.onTradRecordsSuccess(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
 
 }

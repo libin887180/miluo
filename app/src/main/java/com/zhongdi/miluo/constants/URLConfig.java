@@ -176,6 +176,10 @@ public class URLConfig {
      */
     public static final String TRADE_RECORD_LIST = BASE_URL + "/lead/v1/user/tradeRecordList";
     /**
+     * 交易记录曲线
+     */
+    public static final String NET_VALUE_LINE = BASE_URL + "/lead/v1/user/tradeDetailNetValue";
+    /**
      * 交易详情
      */
     public static final String TRADE_DETAIL = BASE_URL + "/lead/v1/user/myPropertyDetail";
