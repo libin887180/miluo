@@ -30,7 +30,7 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
      */
     private int numberType = 2;
 
-    private boolean flags = true;
+    private boolean flags = false;
 
     private EndListener mEndListener = null;
 

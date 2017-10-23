@@ -251,6 +251,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/tv_sell_all"
                         android:background="@null"
+                        android:inputType="numberDecimal"
                         android:drawablePadding="10dp"
                         android:textColor="@color/text_222"
                         android:layout_marginRight="10dp"

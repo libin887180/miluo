@@ -66,11 +66,12 @@ public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
         holder.setText(R.id.tv_fund_name, item.getFundname());
         holder.setText(R.id.tv_asset, item.getMarketval() + "");
         holder.setText(R.id.tv_profit, item.getTotalshareincome() + "");
-        if(item.getStatus().equals("申购中")){
-            holder.setImageResource(R.id.iv_status,R.drawable.bg_buying);
-        }else {
-            holder.setImageResource(R.id.iv_status,R.drawable.bg_income);
-        }
+        holder.setVisible(R.id.iv_status, false);
+//        if(item.getStatus().equals("申购中")){
+//            holder.setImageResource(R.id.iv_status,R.drawable.bg_buying);
+//        }else {
+//            holder.setImageResource(R.id.iv_status,R.drawable.bg_income);
+//        }
 
 
 

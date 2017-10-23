@@ -43,7 +43,7 @@ public class AssetFragmentPresenter extends BasePresenter<AssetFragmentView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ViseLog.e(e);
                     }
 
                     @Override

@@ -21,6 +21,8 @@ import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.presenter.AssetFragmentPresenter;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsDetailActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.AssetFragmentView;
@@ -141,24 +143,25 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
 
                 }
             });
-            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
+//            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
 
         } else {
             mAdapter = new HisAssetAdapter(mContext, mDatas);
             mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeAssetBean>() {
                 @Override
                 public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
-                    Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
-                    intent.putExtra("tradeid", assetBean.getTradeid());
-                    if (assetBean.getStatus().contains("申购")) {
-                        intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
-                    } else  {
-                        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
+                    Intent intent;
+                    if((assetBean.getFundtype()+"").equals(MiluoConfig.HUOBI)){
+                        intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
+                    }else {
+                        intent = new Intent(mContext, FundDetailActivity.class);
                     }
+                    intent.putExtra("fundId",assetBean.getFundid());
+                    intent.putExtra("fundcode",assetBean.getFundcode());
                     startActivity(intent);
                 }
             });
-            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+//            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -182,8 +185,19 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
     }
 
     @Override
-    public void fetchData() {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData(true);
+    }
 
+    @Override
+    public void fetchData() {
+        pageIndex = 1;
+        if (title.equals("当前资产")) {
+            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
+        } else {
+            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+        }
     }
 
     @Override
@@ -193,7 +207,9 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
             mDatas.clear();
         }
         mDatas.addAll(assetList);
-
+        if (pageIndex == 1) {
+            scrollToFirst(true);
+        }
         if (assetList.size() < MiluoConfig.DEFAULT_PAGESIZE) {
             refreshLayout.setEnableLoadmore(false);
         } else {
@@ -205,7 +221,11 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
         mAdapter.notifyDataSetChanged();
         if (mDatas.size() == 0) {
             stateLayout.showEmptyView();
+        }else{
+            stateLayout.showContentView();
         }
+
+
     }
 
     @Override

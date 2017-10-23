@@ -53,7 +53,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     RiseNumberTextView tvYestodayIncome;
     @BindView(R.id.tv_total_income)
     RiseNumberTextView tvTotalIncome;
-
+    MyFragmentPagerAdapter adapter;
 
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -71,6 +71,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     protected void initView(View view) {
+        setupViewPager(viewpage);
         cbVisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean cheched) {
@@ -86,7 +87,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     }
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -94,24 +94,36 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void fetchData() {
-        if(MyApplication.getInstance().isLogined) {//登录了,查询数据
-            presenter.getProperty();
-        }
-        setupViewPager(viewpage);
+        refreshData();
+    }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData(true);
+    }
+
+    public void refreshData() {
+        if (MyApplication.getInstance().isLogined) {//登录了,查询数据
+            presenter.getProperty();
+            CurAssetFragment childAt = (CurAssetFragment) mFragments.get(viewpage.getCurrentItem());
+            childAt.fetchData();
+        }
     }
 
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
         mFragments = new ArrayList<>();
+        mTitles.clear();
         mTitles.add("当前资产");
         mTitles.add("历史资产");
         for (int i = 0; i < mTitles.size(); i++) {
             CurAssetFragment listFragment = CurAssetFragment.newInstance(mTitles.get(i));
             mFragments.add(listFragment);
         }
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(),
+        adapter = new MyFragmentPagerAdapter(getChildFragmentManager(),
                 mFragments, mTitles);
 
         viewPager.setAdapter(adapter);
@@ -120,7 +132,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void onDataSuccess(MyProperty property) {
-                // 设置数据
+        // 设置数据
         tvTotalAsset.withNumber(Float.parseFloat(property.getTotalasset()));
         // 设置动画播放时间
         tvTotalAsset.setDuration(1000);

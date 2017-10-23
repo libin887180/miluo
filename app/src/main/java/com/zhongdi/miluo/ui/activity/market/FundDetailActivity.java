@@ -294,7 +294,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     public void OnDataSuccess(FundDetail fundDetail) {
 //        this.fundDetail = fundDetail;
         fundCode = fundDetail.getFundCode();
-        title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
+        title.setText(fundDetail.getFundName() + "\n" + fundDetail.getFundCode() + "");
 
         if (fundDetail.getYearRate().contains("-")) {
             tvYearRate.setTextColor(mContext.getResources().getColor(R.color.increase_green));

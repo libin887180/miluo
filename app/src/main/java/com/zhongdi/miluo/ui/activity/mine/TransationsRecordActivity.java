@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,7 +23,9 @@ import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.TransactionRecordView;
 import com.zhongdi.miluo.widget.NOScollListView;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
@@ -82,6 +85,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     protected TransactionRecordPresenter initPresenter() {
         return new TransactionRecordPresenter(this);
     }
+
     @Override
     public void dismissLoadingDialog() {
         getLoadingProgressDialog().dismiss();
@@ -91,6 +95,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
     }
+
     @Override
     protected void initialize() {
         if (TextUtils.isEmpty(SOURCE)) {
@@ -113,6 +118,17 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         transAdapter.setDataList(transInfo);
         listview.setFocusable(false);
         listview.setAdapter(transAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    Intent detail = new Intent(mContext, FundDetailActivity.class);
+                    detail.putExtra("fundId", tradeRecord.getPart1().getFundid()+"");
+                    detail.putExtra("fundcode", tradeRecord.getPart1().getFundcode()+"");
+                    startActivity(detail);
+                }
+            }
+        });
 //        showToast(tradeid);
     }
 
@@ -124,10 +140,14 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         String cancelstatus = body.getPart1().getCancelstatus();
         String currentStep = body.getPart2().getCurrentStep();
         String title = body.getPart1().getTitle();
-
-        tvTradeName.setText(title);
+            tvTradeName.setText(title);
         tvReqtime.setText(body.getPart1().getReqtime());
-        tvAmount.setText(body.getPart1().getAmount() + "");
+
+        if (tradeType.equals("1")) {
+            tvAmount.setText("-" + StringUtil.parseStr2Num(body.getPart1().getAmount()+""));
+        } else {
+            tvAmount.setText  (StringUtil.parseStr2Num(body.getPart1().getAmount()+""));
+        }
         if (body.getPart2().getSteps() != null && body.getPart2().getSteps().size() > 0) {
             llEmpty.setVisibility(View.GONE);
             llSteps.setVisibility(View.VISIBLE);
@@ -238,8 +258,8 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
     @OnClick(R.id.tv_title_right)
     public void onViewClicked() {
-        Intent  intent =   new Intent(mContext, MainActivity.class);
-        intent.putExtra("to","mine");
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.putExtra("to", "mine");
         startActivity(intent);
         finish();
     }

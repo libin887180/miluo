@@ -152,6 +152,8 @@ public class DealingFragment extends Fragment {
                             pageIndex++;
                         }
                         dealRecords.addAll(response.getBody());
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
                         adapter.notifyDataSetChanged();
                         if (dealRecords.size() == 0) {
                             stateLayout.showEmptyView();

@@ -207,9 +207,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         };
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+            public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
+                Intent intent = new Intent(mContext, TransationsRecordActivity.class);
+                intent.putExtra("tradeid", dealRecord.getTradeid() + "");
+                intent.putExtra("tradType", dealRecord.getType());//type (integer): 交易类型0申购，1赎回
+                startActivity(intent);
 
             }
         });

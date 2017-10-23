@@ -59,6 +59,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     private View popView;
     private PayView mPayView;
     private String fundCode;
+    private SellResponse.Fund fundinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (etMoney.getText().length() > 0) {
+                if (etMoney.getText().length() > 0&&Double.parseDouble(etMoney.getText().toString())>=fundinfo.getMinredemptionvol()) {
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -167,7 +168,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
 
     @Override
     public void onDataSuccess(SellResponse body) {
-
+        fundinfo = body.getFund();
         etMoney.setHint("最低可赎回"+body.getFund().getMinredemptionvol()+"份");
         tvFundName.setText(body.getFund().getFundname());
         tvNum.setText(body.getFund().getFundcode());

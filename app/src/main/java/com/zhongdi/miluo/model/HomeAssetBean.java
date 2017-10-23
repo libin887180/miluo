@@ -16,7 +16,7 @@ public class HomeAssetBean {
      * tradeid : 111
      * status : 申购中
      */
-
+    private String fundid;
     private int fundtype;
     private String marketval;
     private String totalshareincome;
@@ -25,6 +25,14 @@ public class HomeAssetBean {
     private String transamount;
     private String tradeid;
     private String status;
+
+    public String getFundid() {
+        return fundid;
+    }
+
+    public void setFundid(String fundid) {
+        this.fundid = fundid;
+    }
 
     public int getFundtype() {
         return fundtype;

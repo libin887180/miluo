@@ -257,7 +257,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         tvFundSize.setText(fundDetail.getFundSize() + "亿元");
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
-        switchRiskLevel(Integer.parseInt(fundDetail.getRateValue()));
+        switchRiskLevel(Integer.parseInt(fundDetail.getRiskLevel()));
 
         if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
             tvBuy.setEnabled(false);

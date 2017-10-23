@@ -25,7 +25,7 @@ import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CollectionAdapter;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
-import com.zhongdi.miluo.adapter.market.IncreaseAdapter;
+import com.zhongdi.miluo.adapter.market.CollectIncreaseAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.OptionalFund;
@@ -69,10 +69,11 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     List<OptionalFund> optionalFunds = new ArrayList<>();//自选基金列表
     private ListView lvIncrease;
     private PopupWindow increaseWindow;
-    private IncreaseAdapter increaseAdapter;
-    private int pageNum =1;
+    private CollectIncreaseAdapter increaseAdapter;
+    private int pageNum = 1;
     CollectionAdapter fundAdapter;
     private String rateType = "dayrate";//默认日涨幅
+
     public static CollectionFragment newInstance(String info) {
         Bundle args = new Bundle();
         CollectionFragment fragment = new CollectionFragment();
@@ -122,31 +123,35 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
                 switch (i) {
                     case 0:
                         rateType = "dayrate";
-                        tvIncrease.setText("日涨幅");
+                        tvIncrease.setText("默认");
                         break;
                     case 1:
+                        rateType = "dayrate";
+                        tvIncrease.setText("日涨幅");
+                        break;
+                    case 2:
                         rateType = "weekrate";
                         tvIncrease.setText("周涨幅");
                         break;
-                    case 2:
+                    case 3:
                         rateType = "monthrate";
                         tvIncrease.setText("月涨幅");
                         break;
-                    case 3:
+                    case 4:
                         rateType = "seasonrate";
                         tvIncrease.setText("季度涨幅");
                         break;
-                    case 4:
+                    case 5:
                         rateType = "semesterrate";
                         tvIncrease.setText("一年涨幅");
                         break;
-                    case 5:
+                    case 6:
                         rateType = "yearrate";
                         tvIncrease.setText("半年涨幅");
                         break;
                 }
-                pageNum =1;
-                presenter.getOptionalFund(rateType,pageNum);
+                pageNum = 1;
+                presenter.getOptionalFund(rateType, pageNum);
             }
         });
         refreshLayout.setEnableLoadmore(true);
@@ -155,12 +160,12 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 pageNum = 1;
-                presenter.getOptionalFund(rateType,pageNum);
+                presenter.getOptionalFund(rateType, pageNum);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                presenter.getOptionalFund(rateType,pageNum);
+                presenter.getOptionalFund(rateType, pageNum);
             }
         });
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
@@ -180,14 +185,14 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, OptionalFund searchFund, int position) {
                 Intent intent;
-                if(searchFund.getFundType().equals(MiluoConfig.HUOBI)){
-                    intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
-                }else {
+                if (searchFund.getFundType().equals(MiluoConfig.HUOBI)) {
+                    intent = new Intent(mContext, FundCurrencyDetailActivity.class);
+                } else {
                     intent = new Intent(mContext, FundDetailActivity.class);
                 }
-                intent.putExtra("fundId",searchFund.getSellFundId());
-                intent.putExtra("fundcode",searchFund.getFundCode());
-                ViseLog.i("fundid-->"+searchFund.getSellFundId());
+                intent.putExtra("fundId", searchFund.getSellFundId());
+                intent.putExtra("fundcode", searchFund.getFundCode());
+                ViseLog.i("fundid-->" + searchFund.getSellFundId());
                 startActivity(intent);
             }
         });
@@ -202,20 +207,25 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         initAnimation();
         initialize();
 
-
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData(true);
+    }
 
     private void initialize() {
 
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
-         fundAdapter = new CollectionAdapter(getActivity(), optionalFunds);
+        fundAdapter = new CollectionAdapter(getActivity(), optionalFunds);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(fundAdapter);
         stateLayout.setUseAnimation(true);
 //        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -223,14 +233,14 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     }
 
     private void refreshData() {
-        if(MyApplication.getInstance().isLogined) {
+        if (MyApplication.getInstance().isLogined) {
             increaseAdapter.setCheck(0);
             rateType = "dayrate";
-            tvIncrease.setText("日涨幅");
-            pageNum =1;
+            tvIncrease.setText("默认");
+            pageNum = 1;
             presenter.getOptionalFund(rateType, pageNum);
 //            ViseLog.w("登录了刷新");
-        }else{
+        } else {
 //            ViseLog.w("没登录刷新");
         }
     }
@@ -242,7 +252,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     @Override
     public void fetchData() {
-        if(MyApplication.getInstance().isLogined) {//登录了,查询数据
+        if (MyApplication.getInstance().isLogined) {//登录了,查询数据
             presenter.getOptionalFund(rateType, pageNum);
         }
     }
@@ -259,6 +269,17 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         downAnimation.setFillAfter(true);
     }
 
+    public void scrollToFirst(boolean isSmooth) {
+        if (recyclerView == null) {
+            return;
+        }
+        if (isSmooth) {
+            recyclerView.smoothScrollToPosition(0);
+        } else {
+            recyclerView.scrollToPosition(0);
+        }
+    }
+
 
     @Override
     public void onDataSuccess(List<OptionalFund> data) {
@@ -266,7 +287,9 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             optionalFunds.clear();
         }
         optionalFunds.addAll(data);
-
+        if (pageNum == 1) {
+            scrollToFirst(true);
+        }
         if (data.size() < MiluoConfig.DEFAULT_PAGESIZE) {
             refreshLayout.setEnableLoadmore(false);
         } else {
@@ -276,9 +299,9 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefreshing();
         fundAdapter.notifyDataSetChanged();
-        if(optionalFunds.size()==0){
+        if (optionalFunds.size() == 0) {
             stateLayout.showEmptyView();
-        }else{
+        } else {
             stateLayout.showContentView();
         }
     }
@@ -287,7 +310,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void initInCreasePop() {
         View popView = View.inflate(mContext, R.layout.pop_win_layout, null);
         lvIncrease = (ListView) popView.findViewById(lsvMore);
-        increaseAdapter = new IncreaseAdapter(mContext);
+        increaseAdapter = new CollectIncreaseAdapter(mContext);
         lvIncrease.setAdapter(increaseAdapter);
         //创建PopupWindow对象，指定宽度和高度
         increaseWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -318,8 +341,6 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     @Override
     public void initEmptyView() {
-
-
 
     }
 

@@ -228,6 +228,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:paddingBottom="15dp"
+                    android:inputType="numberDecimal"
                     android:paddingTop="15dp"
                     android:drawableLeft="@drawable/cny"
                     android:drawablePadding="10dp"
