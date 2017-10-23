@@ -73,7 +73,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ViseLog.e(e);
                     }
 
                     @Override

@@ -86,7 +86,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private View cardPopView;
     private String fundCode;
     private List<BeforeBuyInfo.FeesBean> fees;
-    private float minsubscribeamt;
+    private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
 
     @Override
@@ -205,7 +205,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (etMoney.getText().length() > 0) {
+                if (etMoney.getText().length() > 0&&Double.parseDouble(etMoney.getText().toString())>=minsubscribeamt) {
                     float amount = parseFloat(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
                         if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
@@ -282,6 +282,13 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
 //        minsubscribeamt = Float.parseFloat();
         this.beforeBuyInfo = buyInfo;
+        String minbuy = buyInfo.getFund().getMinsubscribeamt().substring(0, buyInfo.getFund().getMinsubscribeamt().length() - 2);
+        try{
+            minsubscribeamt =  Double.parseDouble(minbuy);
+        }catch (Exception e){
+            minsubscribeamt = 0;
+        }
+
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());

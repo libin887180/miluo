@@ -23,11 +23,11 @@ public class FinishedTransAdapter extends BaseRecyclerAdapter<DealRecord> {
     public void convert(BaseRecyclerHolder holder, DealRecord item, int position) {
         holder.setText(R.id.iv_type, item.getTypeitem());
 
-        if (item.getTransstatus().equals("申购")) {
+        if (item.getTypeitem().equals("申购")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_blue);
-        } else if (item.getTransstatus().equals("赎回")) {
+        } else if (item.getTypeitem().equals("赎回")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_green);
-        } else if (item.getTransstatus().equals("分红")) {
+        } else if (item.getTypeitem().equals("分红")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_orange);
         }
         holder.setText(R.id.tv_title, item.getFundname());
