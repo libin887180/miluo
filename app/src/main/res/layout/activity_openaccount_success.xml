@@ -107,6 +107,7 @@
             android:textColor="@color/text_555"
             android:textSize="20sp" />
         <TextView
+            android:id="@+id/tv_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="国家证监会发《130号文》邀请您参与基金投资者风险评测，完成后可以参与更多优惠活动哦！"

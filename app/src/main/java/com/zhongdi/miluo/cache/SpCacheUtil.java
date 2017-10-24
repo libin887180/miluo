@@ -100,6 +100,13 @@ public class SpCacheUtil {
         return spCache.get("BANK_CARD_COUNT","");
     }
     /**
+     * 设置用户银行卡数量
+     *
+     */
+    public void setBankCardCount(String  num) {
+       spCache.put("BANK_CARD_COUNT", num);
+    }
+    /**
      *设置用户评测等级
      *
      */

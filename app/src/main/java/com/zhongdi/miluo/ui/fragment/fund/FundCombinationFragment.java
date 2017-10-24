@@ -188,17 +188,17 @@ public class FundCombinationFragment extends Fragment {
         ArrayList<PieEntry> entries1 = new ArrayList<PieEntry>();
 
         if (!TextUtils.isEmpty(allocation.getStockPercent())) {
-            entries1.add(new PieEntry(Float.parseFloat(allocation.getStockPercent()), "股票占净比" + allocation.getStockPercent() + "%"));
+            entries1.add(new PieEntry(Float.valueOf(allocation.getStockPercent()), "股票占净比" + allocation.getStockPercent() + "%"));
         } else {
             entries1.add(new PieEntry(0, "债券占净比0.00%"));
         }
         if (!TextUtils.isEmpty(allocation.getDebtPercent())) {
-            entries1.add(new PieEntry(Float.parseFloat(allocation.getDebtPercent()), "债券占净比" + allocation.getDebtPercent() + "%"));
+            entries1.add(new PieEntry(Float.valueOf(allocation.getDebtPercent()), "债券占净比" + allocation.getDebtPercent() + "%"));
         } else {
             entries1.add(new PieEntry(0, "债券占净比0.00%"));
         }
         if (!TextUtils.isEmpty(allocation.getOtherPercent())) {
-            entries1.add(new PieEntry(Float.parseFloat(allocation.getOtherPercent()), "其他占净比" + allocation.getOtherPercent() + "%"));
+            entries1.add(new PieEntry(Float.valueOf(allocation.getOtherPercent()), "其他占净比" + allocation.getOtherPercent() + "%"));
         } else {
             entries1.add(new PieEntry(0, "其他占净比0.00%"));
         }

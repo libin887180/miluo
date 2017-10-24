@@ -20,7 +20,7 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
 
     private int mPlayingState = STOPPED;
 
-    private float number;
+    private double number;
 
     private float fromNumber;
 
@@ -57,7 +57,7 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
     }
 
     private void runFloat() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(fromNumber, number);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(fromNumber, (float) number);
         valueAnimator.setDuration(duration);
 
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -65,12 +65,15 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 if (flags) {
                     setText(Utils.format(",##0.00").format(Double.parseDouble(valueAnimator.getAnimatedValue().toString())) + "");
-                    if (valueAnimator.getAnimatedValue().toString().equalsIgnoreCase(number + "")) {
+//                    if (valueAnimator.getAnimatedValue().toString().equalsIgnoreCase(number + "")) {
+                    if (
+                            Double.parseDouble(valueAnimator.getAnimatedValue().toString()) > number) {
                         setText(Utils.format(",##0.00").format(Double.parseDouble(number + "")));
                     }
                 } else {
                     setText(Utils.format("##0.00").format(Double.parseDouble(valueAnimator.getAnimatedValue().toString())) + "");
-                    if (valueAnimator.getAnimatedValue().toString().equalsIgnoreCase(number + "")) {
+                    if (
+                            Double.parseDouble(valueAnimator.getAnimatedValue().toString()) > number) {
                         setText(Utils.format("##0.00").format(Double.parseDouble(number + "")));
                     }
                 }
@@ -103,10 +106,10 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
         valueAnimator.start();
     }
 
-    public void setNumVisable(boolean  visable){
-        if(visable){
+    public void setNumVisable(boolean visable) {
+        if (visable) {
             setText(Utils.format("##0.00").format(Double.parseDouble(number + "")));
-        }else{
+        } else {
             setText("****");
         }
 
@@ -153,6 +156,14 @@ public class RiseNumberTextView extends TextView implements RiseNumberBase {
         numberType = 2;
         fromNumber = 0;
 
+        return this;
+    }
+
+    @Override
+    public RiseNumberTextView withNumber(double number) {
+        this.number = number;
+        numberType = 2;
+        fromNumber = 0;
         return this;
     }
 

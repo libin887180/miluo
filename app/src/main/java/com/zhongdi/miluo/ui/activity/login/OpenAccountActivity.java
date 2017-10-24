@@ -208,6 +208,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     @Override
     public void toOpenSuccess() {
         SpCacheUtil.getInstance().saveUserFundState();
+        SpCacheUtil.getInstance().setBankCardCount("1");
         codeAlertDialog.dismiss();//关闭验证码对话框
         //到开户成功界面
         Intent intent = new Intent(mContext, OpenAccountSuccessActivity.class);

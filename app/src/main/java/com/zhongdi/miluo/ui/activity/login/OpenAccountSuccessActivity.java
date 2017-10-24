@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.OpenAccountSuccessPresenter;
 import com.zhongdi.miluo.view.OpenAccountSuccessView;
@@ -25,6 +25,8 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
     Button btnTest;
     @BindView(R.id.btn_main)
     Button btnMain;
+    @BindView(R.id.tv_info)
+    TextView tvInfo;
     private int source;
 
     @Override
@@ -44,7 +46,6 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
         super.onResume();
         asStatus.loadLoading();
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 asStatus.loadSuccess();
@@ -55,11 +56,14 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
 
     @Override
     protected void initialize() {
-        if (SpCacheUtil.getInstance().getUserTestLevel() > 0) {//不用风险评测
-            btnTest.setText("完成");
+
+        if(source==IntentConfig.BUY_FUND){
+            btnTest.setText("马上申购");
+            tvInfo.setVisibility(View.GONE);
             btnMain.setVisibility(View.GONE);
         } else {
             btnTest.setText("风险评测");
+            tvInfo.setVisibility(View.VISIBLE);//显示风险信息提示
             btnMain.setVisibility(View.VISIBLE);
         }
 
@@ -70,10 +74,14 @@ public class OpenAccountSuccessActivity extends BaseActivity<OpenAccountSuccessP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_test:
-                Intent intent =  new Intent(mContext, TestActivity.class);
-                intent.putExtra(IntentConfig.SOURCE,source);
-                startActivity(intent);
-                finish();
+                if (btnTest.getText().equals("风险评测")) {
+                    Intent intent = new Intent(mContext, TestActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, source);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    finish();
+                }
                 break;
             case R.id.btn_main:
                 finish();
