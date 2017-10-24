@@ -2,6 +2,7 @@ package com.zhongdi.miluo.ui.activity.market;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -378,7 +379,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showToast("联系客服");
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             }, "取消", new View.OnClickListener() {
                 @Override

@@ -28,6 +28,7 @@ public class MiluoConfig {
     public static final String DEFAULT_DOWNLOAD_DIR = "download";//默认下载目录
     public static final String DEFAULT_DOWNLOAD_FILE_NAME = "download_file.tmp";//默认下载文件名称
 
+    public static final int TEL = 400888888;//客服电话
     public static final int DEFAULT_PAGESIZE = 15;//默认分页大小
     public static final int UN_OPEN_ACCOUNT = 0;//未开户
 

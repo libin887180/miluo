@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.zhongdi.miluo.adapter.TradeStepAdapter;
 import com.zhongdi.miluo.adapter.mine.TransInfoAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
@@ -101,7 +103,9 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("联系客服");
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         }, "取消", new View.OnClickListener() {
             @Override

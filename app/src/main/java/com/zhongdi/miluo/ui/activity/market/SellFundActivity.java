@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.activity.market;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.model.SellResponse;
 import com.zhongdi.miluo.presenter.SellFundPresenter;
@@ -116,7 +118,9 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
         showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("联系客服");
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         }, "取消", new View.OnClickListener() {
             @Override

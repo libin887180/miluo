@@ -2,6 +2,7 @@ package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.presenter.LoginPresenter;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.view.LoginView;
@@ -112,7 +114,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         showDialog("", "登录密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            showToast("联系客服");
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         }, "取消", new View.OnClickListener() {
             @Override

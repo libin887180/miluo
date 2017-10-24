@@ -3,6 +3,7 @@ package com.zhongdi.miluo.ui.activity.mine;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -181,7 +182,9 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("联系客服");
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         }, "取消", new View.OnClickListener() {
             @Override
