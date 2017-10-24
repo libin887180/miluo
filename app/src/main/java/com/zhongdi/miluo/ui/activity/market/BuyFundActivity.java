@@ -190,6 +190,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             rlBankCard.setVisibility(View.VISIBLE);
             llOpenAccount.setVisibility(View.GONE);
         }
+        tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         presenter.beforeBuyInit(fundCode);
 
         etMoney.addTextChangedListener(new TextWatcher() {
@@ -226,18 +228,15 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                 float discount = parseFloat(fees.get(i).getDiscount());
                                 if (parseFloat(fees.get(i).getRatevalue()) > 1) {//  达到上限
                                     tvDepRate.setText(rate + "元");
-                                    tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                                     tvRate.setText(rate * discount + "元");
                                     tvSxf.setText(rate * discount + "元");
                                     tvDepSxf.setText(rate + "元");
-                                    tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                                 } else {
                                     tvDepRate.setText(rate * 100 + "%");
                                     tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
                                     tvDepSxf.setText(amount * rate + "元");
                                     tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
-                                    tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-                                    tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+
                                 }
                                 break;
                             }

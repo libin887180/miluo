@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLockedDialog() {
-        showDialog("", "登录密码错已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+        showDialog("", "登录密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             showToast("联系客服");

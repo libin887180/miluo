@@ -95,7 +95,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="昨日受益（元）"
+                                android:text="昨日收益（元）"
                                 android:textColor="@color/white_70"
                                 android:textSize="12sp" />
                         </LinearLayout>
