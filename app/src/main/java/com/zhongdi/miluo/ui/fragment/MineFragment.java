@@ -2,6 +2,7 @@ package com.zhongdi.miluo.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -54,6 +56,10 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     @BindView(R.id.tv_total_income)
     RiseNumberTextView tvTotalIncome;
     MyFragmentPagerAdapter adapter;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
 
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -78,6 +84,19 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 setAssetVisable(cheched);
             }
         });
+
+        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (verticalOffset >= 0) {
+                    refreshLayout.setEnableRefresh(false);
+                } else {
+                    refreshLayout.setEnableRefresh(true);
+                }
+            }
+        });
+
     }
 
     private void setAssetVisable(boolean visable) {
@@ -133,7 +152,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     @Override
     public void onDataSuccess(MyProperty property) {
         // 设置数据
-        String   a="1519749.83";
+        String a = "1519749.83";
         float aFloat = Float.parseFloat(a);
         tvTotalAsset.withNumber(Double.parseDouble(property.getTotalasset()));
         // 设置动画播放时间
