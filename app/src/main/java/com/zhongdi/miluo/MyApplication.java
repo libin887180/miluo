@@ -9,6 +9,7 @@ import android.app.Application;
 public class MyApplication extends Application {
     private static MyApplication mInstance = null;
     public boolean isLogined;
+    public  boolean  netState = true;
     @Override
 
     public void onCreate() {

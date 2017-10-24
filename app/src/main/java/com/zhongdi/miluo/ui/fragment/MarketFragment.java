@@ -1,5 +1,10 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.FragmentBackHandler;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -23,6 +29,7 @@ import com.zhongdi.miluo.adapter.market.SortAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.model.FundType;
 import com.zhongdi.miluo.presenter.MarketPresenter;
+import com.zhongdi.miluo.util.CommonUtils;
 import com.zhongdi.miluo.view.MarketView;
 
 import java.util.ArrayList;
@@ -65,11 +72,15 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     private String sortType = "";
     private String rateType = "dayrate";
     MyFragmentPagerAdapter adapter;
+    private NetBroadcastReceiver receiver;
+    List<String> titles;
+
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
         args.putString("info", info);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -94,7 +105,44 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
             }
         }
         unbinder = ButterKnife.bind(this, rootView);
+        receiver = new NetBroadcastReceiver();
+
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        IntentFilter filter = new IntentFilter();
+        //添加动作，监听网络
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(receiver, filter);
+    }
+
+    public class NetBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO Auto-generated method stub
+            // 如果相等的话就说明网络状态发生了变化
+            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                // 接口回调传过去状态的类型
+                if (CommonUtils.checkNetWorkStatus(getActivity())) {
+                    ViseLog.i("网络状态");
+                    if (titles == null || titles.size() == 0) {
+                        getFundType();
+                    }
+
+//                    if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
+//                        FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
+//                        currentFragment.initData();
+//                    }
+
+                }
+
+            }
+        }
+
     }
 
     @Override
@@ -139,7 +187,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 } else {
                     sortType = "desc";
                 }
-                if(adapter!=null&& adapter.getItem(tablayout.getSelectedTabPosition())!=null) {
+                if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
                     FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
                     currentFragment.initData();
                 }
@@ -182,7 +230,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                         tvIncrease.setText("一年涨幅");
                         break;
                 }
-                if(adapter!=null&& adapter.getItem(tablayout.getSelectedTabPosition())!=null) {
+                if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
                     FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
                     currentFragment.initData();
                 }
@@ -199,6 +247,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         initAnimation();
     }
 
+
     private void getFundType() {
         presenter.getFundType();
     }
@@ -214,8 +263,9 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     public void initTabLayout(List<FundType> tabs) {
-        List<String> titles = new ArrayList<>();
+        titles = new ArrayList<>();
         tablayout.removeAllTabs();
+        viewPager.removeAllViews();
         adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), titles);
         for (int i = 0; i < tabs.size(); i++) {
             FundType tab = tabs.get(i);
@@ -313,6 +363,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        getActivity().unregisterReceiver(receiver);
     }
 
     @OnClick({R.id.img_title_right, R.id.ll_increase})

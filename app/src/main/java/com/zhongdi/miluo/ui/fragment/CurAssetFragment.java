@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BaseRecyclerAdapter;
 import com.zhongdi.miluo.adapter.CurAssetAdapter;
@@ -192,12 +193,16 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
 
     @Override
     public void fetchData() {
-        pageIndex = 1;
-        if (title.equals("当前资产")) {
-            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
-        } else {
-            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+        if (MyApplication.getInstance().isLogined) {//登录了,查询数据
+            pageIndex = 1;
+            if (title.equals("当前资产")) {
+                presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 0);
+            } else {
+                presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, 1);
+            }
         }
+
+
     }
 
     @Override

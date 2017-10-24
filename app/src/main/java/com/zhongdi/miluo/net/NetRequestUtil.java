@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.net;
 
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vise.log.ViseLog;
@@ -9,6 +10,7 @@ import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
+import com.zhongdi.miluo.util.CommonUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -203,6 +205,10 @@ public class NetRequestUtil {
      * @return
      */
     public Callback.Cancelable post(final String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
+        if (!CommonUtils.checkNetWorkStatus(MyApplication.getInstance())) {
+            Toast.makeText(MyApplication.getInstance(), "请检查网络", Toast.LENGTH_SHORT).show();
+            return null;
+        }
         RequestParams params = new RequestParams(url);
         params.setConnectTimeout(60*1000);//设置连接超时时间
         params.setReadTimeout(60*1000);//设置读取超时时间
@@ -226,7 +232,7 @@ public class NetRequestUtil {
 //            }
 //            String requestParameter = AES.encrypt(gson.toJson(maps));
             String requestParameter = gson.toJson(maps);
-            ViseLog.e(requestParameter);
+//            ViseLog.e(requestParameter);
             params.setBodyContent(requestParameter);//加入参数
         }
 
