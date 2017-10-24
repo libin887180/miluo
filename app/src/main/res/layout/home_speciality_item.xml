@@ -15,7 +15,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="3dp">
+        card_view:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
