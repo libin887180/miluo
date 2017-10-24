@@ -2,6 +2,7 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.TradeRecord;
@@ -69,7 +70,11 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.ERRORTRADEPWD)){
+                            view.showToast(response.getMsg());
+                        }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
+                            view.showPswLocked();
+                        }
                     }
 
                     @Override

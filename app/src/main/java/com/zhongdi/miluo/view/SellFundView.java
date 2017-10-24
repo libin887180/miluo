@@ -22,4 +22,7 @@ public interface SellFundView extends BaseView {
     void showLoadingDialog();
 
     void onSellSuccess(BuyResponse body);
+
+    void showPswLocked();
+
 }

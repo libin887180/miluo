@@ -27,4 +27,5 @@ public interface BuyFundView extends BaseView {
     void showReTestDialog();
     void showRiskTipDialog();
 
+    void showPswLocked();
 }

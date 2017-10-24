@@ -27,4 +27,6 @@ public interface TransactionDetailView extends BaseView {
     void modifyBonusSuccess();
 
     void modifyBonusFailed();
+
+    void showPswLocked();
 }

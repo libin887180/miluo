@@ -20,4 +20,5 @@ public interface TransactionRecordView extends BaseView {
     void showLoadingDialog();
 
 
+    void showPswLocked();
 }

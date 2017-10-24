@@ -176,6 +176,21 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         presenter.getPropertyDetail(fundcode);
     }
 
+    @Override
+    public void showPswLocked() {
+        showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showToast("联系客服");
+            }
+        }, "取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
 
     @Override
     protected void initialize() {

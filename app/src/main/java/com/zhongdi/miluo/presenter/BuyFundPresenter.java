@@ -2,6 +2,7 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
@@ -67,8 +68,11 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
 
                     @Override
                     public void onFailed(MResponse<BuyResponse> response, int requestCode) {
-                        ViseLog.e("请求失败");
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.ERRORTRADEPWD)){
+                            view.showToast(response.getMsg());
+                        }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
+                            view.showPswLocked();
+                        }
                     }
 
                     @Override

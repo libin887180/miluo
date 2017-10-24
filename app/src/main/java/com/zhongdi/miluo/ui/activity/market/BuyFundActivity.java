@@ -373,6 +373,21 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         }).show();
     }
 
+    @Override
+    public void showPswLocked() {
+            showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showToast("联系客服");
+                }
+            }, "取消", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+    }
+
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
