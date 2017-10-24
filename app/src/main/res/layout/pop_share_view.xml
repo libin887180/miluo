@@ -35,7 +35,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/share_wechat"
                 android:gravity="center_horizontal"
-                android:text="朋友圈"
+                android:text="微信"
                 android:textColor="@color/text_555"
                 android:textSize="14sp" />
 
