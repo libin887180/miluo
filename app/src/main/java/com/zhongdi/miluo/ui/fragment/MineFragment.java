@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -58,8 +57,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     MyFragmentPagerAdapter adapter;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @BindView(R.id.refreshLayout)
-    TwinklingRefreshLayout refreshLayout;
 
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -90,9 +87,9 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
                 if (verticalOffset >= 0) {
-                    refreshLayout.setEnableRefresh(false);
+//                    refreshLayout.setEnableRefresh(false);
                 } else {
-                    refreshLayout.setEnableRefresh(true);
+//                    refreshLayout.setEnableRefresh(true);
                 }
             }
         });
