@@ -1,14 +1,17 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.GiftListAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.GetGiftListPresenter;
@@ -56,8 +59,13 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
         listAdapter = new GiftListAdapter(mContext, cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
-
         presenter.getGiftList();
+        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                startActivity(new Intent(mContext,ExchangeActivity.class));
+            }
+        });
 
     }
 

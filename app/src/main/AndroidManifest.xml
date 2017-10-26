@@ -70,6 +70,7 @@
         <activity android:name=".ui.activity.mine.TransationsRecordActivity"/>
         <activity android:name=".ui.activity.mine.TransationsDetailActivity"/>
         <activity android:name=".ui.activity.SearchActivity"/>
+        <activity android:name=".ui.activity.mine.ExchangeActivity"/>
 
         <service android:name=".MyIntentService"></service>
     </application>
