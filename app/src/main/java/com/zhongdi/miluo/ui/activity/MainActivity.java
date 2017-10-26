@@ -80,33 +80,6 @@ private String  TO ;
 
     private void initView() {
 
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-////                if (prevMenuItem != null) {
-////                    prevMenuItem.setChecked(false);
-////                } else {
-////                    navigation.getMenu().getItem(0).setChecked(false);
-////                }
-//                if(position==2){
-//                    Intent intent = new Intent(mContext, LoginActivity.class);
-//                    startActivityForResult(intent, 101);
-//                }else{
-//                    navigation.getMenu().getItem(position).setChecked(true);
-//                    selectTab = position;
-//                }
-////                prevMenuItem = navigation.getMenu().getItem(position);
-//            }
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
 
     }
 

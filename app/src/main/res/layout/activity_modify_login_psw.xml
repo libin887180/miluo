@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登录密码修改"
+            android:text="设置登录密码"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

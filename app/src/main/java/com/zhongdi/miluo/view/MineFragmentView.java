@@ -1,9 +1,10 @@
 package com.zhongdi.miluo.view;
 
-import android.support.v4.view.ViewPager;
-
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MyProperty;
+
+import java.util.List;
 
 
 /**
@@ -12,7 +13,9 @@ import com.zhongdi.miluo.model.MyProperty;
 
 public interface MineFragmentView extends BaseView {
 
-    void setupViewPager(ViewPager viewPager);
 
     void onDataSuccess(MyProperty property);
+
+    void onCurrentPropertyList(List<HomeAssetBean> body);
+    void onHisPropertyList(List<HomeAssetBean> body);
 }

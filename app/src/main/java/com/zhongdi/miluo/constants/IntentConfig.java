@@ -20,6 +20,7 @@ public class IntentConfig {
     public static final int FROM_MODIFY_DEAL_PSW = 1;//交易密码修改
     public static final int FROM_FORGET_PSW = 2;//忘记登录密码
     public static final int FROM_FORGET_DEAL_PSW = 3;//忘记交易密码
+    public static final int FROM_SET_LOGIN_PSW = 5;//设置交易密码
 
 
     public static final int SETTING = 1;//设置界面

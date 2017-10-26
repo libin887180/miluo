@@ -72,7 +72,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     private CollectIncreaseAdapter increaseAdapter;
     private int pageNum = 1;
     CollectionAdapter fundAdapter;
-    private String rateType = "dayrate";//默认日涨幅
+    private String rateType = "";//默认日涨幅
 
     public static CollectionFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -122,7 +122,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
                 increaseWindow.dismiss();
                 switch (i) {
                     case 0:
-                        rateType = "dayrate";
+                        rateType = "";
                         tvIncrease.setText("默认");
                         break;
                     case 1:

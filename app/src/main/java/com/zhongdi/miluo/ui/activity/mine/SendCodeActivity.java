@@ -70,6 +70,9 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
         } else if (from == IntentConfig.FROM_FORGET_DEAL_PSW) {
             title.setText("忘记交易密码");
             sendCodeType = "5";
+        } else if (from == IntentConfig.FROM_SET_LOGIN_PSW) {
+            title.setText("设置登录密码");
+            sendCodeType = "2";
         }
         disableNextBtn();
         etTel.addTextChangedListener(new TextWatcher() {
@@ -121,7 +124,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
         switch (view.getId()) {
             case R.id.tv_send_code:
                 if (!StringUtil.isPhoneNum(etTel.getText().toString())) {
-                   showToast("请输入正确格式的手机号");
+                    showToast("请输入正确格式的手机号");
                     return;
                 }
                 view.setEnabled(false);
@@ -129,7 +132,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
                 presenter.sendMessage(etTel.getText().toString(), sendCodeType);
                 break;
             case R.id.btn_next:
-                presenter.checkCode(etTel.getText().toString(), etCode.getText().toString(),sendCodeType);
+                presenter.checkCode(etTel.getText().toString(), etCode.getText().toString(), sendCodeType);
                 break;
         }
 
@@ -148,25 +151,29 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @Override
     public void toNext() {
-        if(!StringUtil.isPhoneNum(etTel.getText().toString())){
+        if (!StringUtil.isPhoneNum(etTel.getText().toString())) {
             showToast("请输入正确格式的手机号码");
             return;
         }
         if (from == IntentConfig.FROM_MODIFY_PSW) {
-            Intent intent =  new Intent(mContext, ModifyLoginPswActivity.class);
-            intent.putExtra("username",etTel.getText().toString());
+            Intent intent = new Intent(mContext, ModifyLoginPswActivity.class);
+            intent.putExtra("username", etTel.getText().toString());
             startActivity(intent);
         } else if (from == IntentConfig.FROM_MODIFY_DEAL_PSW) {
-            Intent intent =  new Intent(mContext, ModifyDealPswActivity.class);
-            intent.putExtra("username",etTel.getText().toString());
+            Intent intent = new Intent(mContext, ModifyDealPswActivity.class);
+            intent.putExtra("username", etTel.getText().toString());
             startActivity(intent);
         } else if (from == IntentConfig.FROM_FORGET_PSW) {
-           Intent intent =  new Intent(mContext, ForgetPswActivity.class);
-            intent.putExtra("username",etTel.getText().toString());
+            Intent intent = new Intent(mContext, ForgetPswActivity.class);
+            intent.putExtra("username", etTel.getText().toString());
             startActivity(intent);
         } else if (from == IntentConfig.FROM_FORGET_DEAL_PSW) {
-            Intent intent =  new Intent(mContext, ForgetDealPswActivity1.class);
-            intent.putExtra("username",etTel.getText().toString());
+            Intent intent = new Intent(mContext, ForgetDealPswActivity1.class);
+            intent.putExtra("username", etTel.getText().toString());
+            startActivity(intent);
+        } else if (from == IntentConfig.FROM_SET_LOGIN_PSW) {
+            Intent intent = new Intent(mContext, ModifyLoginPswActivity.class);
+            intent.putExtra("username", etTel.getText().toString());
             startActivity(intent);
         }
         finish();
@@ -176,7 +183,7 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
         @Override
         public void onTick(long millisUntilFinished) {
-            tvSendCode.setText("验证码("+millisUntilFinished / 1000 + "S)");
+            tvSendCode.setText("验证码(" + millisUntilFinished / 1000 + "S)");
         }
 
         @Override

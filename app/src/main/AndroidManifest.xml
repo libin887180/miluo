@@ -63,6 +63,7 @@
         <activity android:name=".ui.activity.login.ChooseBankActivity"/>
         <activity android:name=".ui.activity.login.InfomationsActivity"/>
         <activity android:name=".ui.activity.login.MessagesActivity"/>
+        <activity android:name=".ui.activity.mine.GiftListActivity"/>
         <activity android:name=".ui.activity.login.TestResultActivity"/>
         <activity android:name=".ui.activity.HtmlActivity"/>
         <activity android:name=".ui.activity.login.OpenAccountSuccessActivity"/>

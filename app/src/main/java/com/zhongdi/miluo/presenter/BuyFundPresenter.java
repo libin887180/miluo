@@ -72,6 +72,8 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                             view.showToast(response.getMsg());
                         }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
                             view.showPswLocked();
+                        }else{
+                            view.showToast(response.getMsg());
                         }
                     }
 
