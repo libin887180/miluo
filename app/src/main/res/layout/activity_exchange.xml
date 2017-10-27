@@ -113,6 +113,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_ts"
+        android:drawablePadding="5dp"
         android:text="兑换后话费将在两个小时后充值到您的手机号中"
         android:textSize="12sp"
         android:layout_marginLeft="15dp"
