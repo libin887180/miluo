@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,9 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +38,7 @@ import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
+import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -185,6 +191,46 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         gvActivity.setAdapter(gridImageAdapter);
         gvActivity.setFocusable(false);
 
+        showHuodongDialog();
+    }
+
+    private void showHuodongDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.AlertDialogStyle);
+        View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_huodong,null);
+        //获得dialog的window窗口
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        ImageView  ivClose = (ImageView) dialogView.findViewById(R.id.iv_close);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        LinearLayout  ll_open = (LinearLayout) dialogView.findViewById(R.id.ll_open);
+        ll_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login_tiyan  = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                startActivity(login_tiyan);
+                dialog.dismiss();
+            }
+        });
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+        //将自定义布局加载到dialog上
+        dialog.setContentView(dialogView);
+        dialog.show();
     }
 
     private void setUpMarqueeView() {
