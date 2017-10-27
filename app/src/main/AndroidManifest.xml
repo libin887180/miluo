@@ -71,6 +71,7 @@
         <activity android:name=".ui.activity.mine.TransationsDetailActivity"/>
         <activity android:name=".ui.activity.SearchActivity"/>
         <activity android:name=".ui.activity.mine.ExchangeActivity"/>
+        <activity android:name=".ui.activity.login.TiyanjinLoginActivity"/>
 
         <service android:name=".MyIntentService"></service>
     </application>
