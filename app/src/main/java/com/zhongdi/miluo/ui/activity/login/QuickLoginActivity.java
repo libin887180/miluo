@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -109,13 +108,11 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     @Override
     public void disableLoginBtn() {
         btnLogin.setEnabled(false);
-        btnLogin.setTextColor(getResources().getColor(R.color.text_color_light_grey));
     }
 
     @Override
     public void enableLoginBtn() {
         btnLogin.setEnabled(true);
-        btnLogin.setTextColor(Color.WHITE);
     }
 
 

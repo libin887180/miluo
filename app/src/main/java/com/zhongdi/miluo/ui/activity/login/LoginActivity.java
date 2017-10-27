@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -85,13 +84,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void disableLoginBtn() {
         btnLogin.setEnabled(false);
-        btnLogin.setTextColor(getResources().getColor(R.color.text_color_light_grey));
     }
 
     @Override
     public void enableLoginBtn() {
         btnLogin.setEnabled(true);
-        btnLogin.setTextColor(Color.WHITE);
     }
 
     @Override
