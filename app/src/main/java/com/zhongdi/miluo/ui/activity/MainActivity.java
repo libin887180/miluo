@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.zhongdi.miluo.BackHandlerHelper;
 import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.MyApplication;
@@ -31,8 +32,9 @@ public class MainActivity extends BaseActivity2 {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
-//    private int selectTab = 0;
-private String  TO ;
+    //    private int selectTab = 0;
+    private String TO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,17 @@ private String  TO ;
         BottomNavigationViewHelper.disableShiftMode(navigation);
 //        getLoadingProgressDialog().show();
     }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 
     private void setupViewPager(NoScrollViewPager viewPager) {
         viewPager.setScroll(false);
@@ -86,8 +99,8 @@ private String  TO ;
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(!TextUtils.isEmpty(intent.getStringExtra("to"))){
-            if(intent.getStringExtra("to").equals("mine")){
+        if (!TextUtils.isEmpty(intent.getStringExtra("to"))) {
+            if (intent.getStringExtra("to").equals("mine")) {
                 navigation.getMenu().getItem(3).setChecked(true);
                 viewPager.setCurrentItem(3);
             }
