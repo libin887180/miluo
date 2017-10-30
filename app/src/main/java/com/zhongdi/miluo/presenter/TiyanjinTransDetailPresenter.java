@@ -36,6 +36,7 @@ public class TiyanjinTransDetailPresenter extends BasePresenter<TiyanjinTransDet
                     @Override
                     public void onFailed(MResponse<PropertyDetail> response, int requestCode) {
                         ViseLog.e("请求失败");
+
                         view.showToast(response.getMsg());
                     }
 

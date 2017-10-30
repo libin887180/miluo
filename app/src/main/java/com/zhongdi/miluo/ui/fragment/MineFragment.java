@@ -117,7 +117,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 if (assetBean.getStatus().equals("收益中")) {
                     Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
                     intent.putExtra("fundcode", assetBean.getFundcode());
-                    startActivity(intent);
+                    startActivityForResult(intent,101);
                 } else {
                     Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
                     intent.putExtra("tradeid", assetBean.getTradeid());
@@ -126,7 +126,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                     } else {
                         intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
                     }
-                    startActivity(intent);
+                    startActivityForResult(intent,101);
                 }
 
             }
@@ -353,6 +353,13 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==101&&resultCode==1001){
+            refreshData();
+        }
+    }
 
     @Override
     public void onDestroyView() {

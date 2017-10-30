@@ -258,6 +258,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     public void OnChedanSuccess() {
         showToast("撤单成功");
         presenter.getTransRecord(tradeid, tradeType);
+        setResult(1001);
     }
 
     @Override

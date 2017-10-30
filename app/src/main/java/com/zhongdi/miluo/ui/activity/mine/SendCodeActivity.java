@@ -172,8 +172,9 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
             intent.putExtra("username", etTel.getText().toString());
             startActivity(intent);
         } else if (from == IntentConfig.FROM_SET_LOGIN_PSW) {
-            Intent intent = new Intent(mContext, ModifyLoginPswActivity.class);
+            Intent intent = new Intent(mContext, ForgetPswActivity.class);
             intent.putExtra("username", etTel.getText().toString());
+            intent.putExtra("from", IntentConfig.FROM_SET_LOGIN_PSW);
             startActivity(intent);
         }
         finish();

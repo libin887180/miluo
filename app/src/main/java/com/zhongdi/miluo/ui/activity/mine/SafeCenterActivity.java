@@ -10,6 +10,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.presenter.SafeCenterPresenter;
 import com.zhongdi.miluo.view.SafeCenterView;
 import com.zhongdi.miluo.widget.AlertDialog;
@@ -38,20 +39,24 @@ public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_login_psw:
-                if(TextUtils.isEmpty(SpCacheUtil.getInstance().getUserPwd())){//没有设置密码
+                if (TextUtils.isEmpty(SpCacheUtil.getInstance().getUserPwd())) {//没有设置密码
                     Intent intent_forget = new Intent(mContext, SendCodeActivity.class);
-                    intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_FORGET_PSW);
+                    intent_forget.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_SET_LOGIN_PSW);
                     startActivity(intent_forget);
-                }else {//已设置密码  修改密码
+                } else {//已设置密码  修改密码
                     Intent intent = new Intent(mContext, SendCodeActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_MODIFY_PSW);
                     startActivity(intent);
                 }
                 break;
             case R.id.rl_modify_deal_psw:
-                Intent intent_deal = new Intent(mContext, SendCodeActivity.class);
-                intent_deal.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_MODIFY_DEAL_PSW);
-                startActivity(intent_deal);
+                if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                    showToast("您尚未设置交易密码");
+                } else {
+                    Intent intent_deal = new Intent(mContext, SendCodeActivity.class);
+                    intent_deal.putExtra(IntentConfig.SOURCE, IntentConfig.FROM_MODIFY_DEAL_PSW);
+                    startActivity(intent_deal);
+                }
                 break;
             case R.id.rl_modify_tel:
                 startActivity(new Intent(mContext, CheckDealPswActivity.class));

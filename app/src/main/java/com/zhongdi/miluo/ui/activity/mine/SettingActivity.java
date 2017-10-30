@@ -12,6 +12,7 @@ import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.presenter.SettingPresenter;
+import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.login.TestResultActivity;
 import com.zhongdi.miluo.view.SettingView;
@@ -82,7 +83,14 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
-                startActivity(new Intent(mContext, BankCardListActivity.class));
+
+                if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
+                    Intent intent = new Intent(mContext, OpenAccountActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    startActivityForResult(intent, 102);
+                } else {
+                    startActivity(new Intent(mContext, BankCardListActivity.class));
+                }
                 break;
             case R.id.rl_safe_center:
                 Intent intent = new Intent(mContext, SafeCenterActivity.class);

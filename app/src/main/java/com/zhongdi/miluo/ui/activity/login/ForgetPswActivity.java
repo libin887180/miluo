@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.ForgetPswPresenter;
 import com.zhongdi.miluo.view.ForgetPswView;
 
@@ -28,11 +29,15 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
     @BindView(R.id.btn_submit)
     Button btnSubmit;
     String userName;
+    int from;
+    @BindView(R.id.title)
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userName = getIntent().getStringExtra("username");
+        from = getIntent().getIntExtra("from", -1);
         binding(R.layout.activity_forget_psw);
     }
 
@@ -59,6 +64,9 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
 
     @Override
     protected void initialize() {
+        if (from == IntentConfig.FROM_SET_LOGIN_PSW) {
+            title.setText("设置登录密码");
+        }
         enableSubmitBtn(false);
         etNewPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,7 +119,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
                 finish();
                 break;
             case R.id.btn_submit:
-                presenter.modifyPsw(userName,etNewPassword.getText().toString(), etNewPassword2.getText().toString());
+                presenter.modifyPsw(userName, etNewPassword.getText().toString(), etNewPassword2.getText().toString());
                 break;
         }
     }

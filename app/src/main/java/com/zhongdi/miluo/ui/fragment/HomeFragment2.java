@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -81,6 +82,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     RelativeLayout rlLoginState;
     @BindView(R.id.btn_login)
     TextView btnLogin;
+    @BindView(R.id.btn_news)
+    Button btnNews;
     private View rootView;
     private List<String> scrollMsgs;
     private LinearLayoutManager mLayoutManager;
@@ -377,7 +380,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //        }
     }
 
-    @OnClick({R.id.btn_login, R.id.img_msg,R.id.et_search})
+    @OnClick({R.id.btn_login, R.id.img_msg,R.id.et_search,R.id.btn_news})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -406,6 +409,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 break;
             case R.id.et_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+            case R.id.btn_news:
+//               Intent  news =  new Intent(getActivity(), HtmlActivity.class);
+//                news.putExtra("url","http://www.baidu.com");
+//                startActivity(news);
+                Intent intent = new Intent(MyApplication.getInstance(), QuickLoginActivity.class);
+                MyApplication.getInstance().startActivity(intent);
                 break;
         }
     }

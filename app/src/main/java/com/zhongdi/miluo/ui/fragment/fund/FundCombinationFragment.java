@@ -162,7 +162,7 @@ public class FundCombinationFragment extends Fragment {
 
     private void initPieChart(AssetAllocation allocation) {
         mChart.getDescription().setEnabled(false);
-        mChart.setCenterText(generateCenterSpannableText("1213"));
+        mChart.setCenterText(generateCenterSpannableText(allocation.getNetAsset()));
         mChart.setCenterTextSize(10f);
         mChart.getDescription().setEnabled(false);
         // radius of the center hole in percent of maximum radius

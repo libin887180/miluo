@@ -62,30 +62,32 @@ public class TransInfoAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(position%2==0){
+        if (position % 2 == 0) {
             holder.contentView.setBackgroundColor(Color.WHITE);
-        }else{
+        } else {
             holder.contentView.setBackgroundColor(Color.TRANSPARENT);
         }
 
         holder.cpxx.setText(dataList.get(position).getKey1());
-        if(dataList.get(position).getKey1().equals("产品信息")){
-            holder.ivNext.setVisibility(View.VISIBLE);
-        }else{
-            if(dataList.get(position).getKey1().equals("支付方式")){
-                holder.ivBankIcon.setVisibility(View.VISIBLE);
-                xUtilsImageUtils.display(holder.ivBankIcon,dataList.get(position).getKey2(),R.drawable.icon_bank_default,R.drawable.icon_bank_default);
-            }else{
-                holder.ivBankIcon.setVisibility(View.GONE);
+        if (dataList != null) {
+            if (dataList.get(position).getKey1().equals("产品信息")) {
+                holder.ivNext.setVisibility(View.VISIBLE);
+            } else {
+                if (dataList.get(position).getKey1().equals("支付方式")) {
+                    holder.ivBankIcon.setVisibility(View.VISIBLE);
+                    xUtilsImageUtils.display(holder.ivBankIcon, dataList.get(position).getKey2(), R.drawable.icon_bank_default, R.drawable.icon_bank_default);
+                } else {
+                    holder.ivBankIcon.setVisibility(View.GONE);
+                }
+                holder.ivNext.setVisibility(View.GONE);
             }
-            holder.ivNext.setVisibility(View.GONE);
-        }
-        if(dataList.get(position).getKey1().equals("支付方式")){
-            holder.tvName.setText(dataList.get(position).getKey3());
-        }else{
-            holder.tvName.setText(dataList.get(position).getKey2());
-        }
+            if (dataList.get(position).getKey1().equals("支付方式")) {
+                holder.tvName.setText(dataList.get(position).getKey3());
+            } else {
+                holder.tvName.setText(dataList.get(position).getKey2());
+            }
 
+        }
 
 
         return convertView;

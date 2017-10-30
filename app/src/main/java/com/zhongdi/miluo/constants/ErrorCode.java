@@ -48,5 +48,6 @@ public class ErrorCode {
     public static final String ERROR_MSG = "2031";//短信验证码错误
     public static final String ERRORTRADEPWD = "20004";//交易密码错误
     public static final String LOCKEDTRADEPWD = "21005";//交易密码锁定
+    public static final String LOGIN_TIME_OUT = "505";//登录超时
 
 }

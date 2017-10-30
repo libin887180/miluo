@@ -359,7 +359,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
     @Override
     public void showRiskTipDialog() {
-        new AlertDialog(mContext).builder().setMsg("该产品超过您的风险测评等级，是否仍要购买")
+        new AlertDialog(mContext).builder().setMsg("该产品超过您的风险承受等级，是否仍要购买")
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

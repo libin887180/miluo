@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity2 {
     private MenuItem prevMenuItem;
     //    private int selectTab = 0;
     private String TO;
-
+    ViewPagerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity2 {
 
     private void setupViewPager(NoScrollViewPager viewPager) {
         viewPager.setScroll(false);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(HomeFragment2.newInstance("首页"));
         adapter.addFragment(MarketFragment.newInstance("超市"));
@@ -103,6 +103,7 @@ public class MainActivity extends BaseActivity2 {
             if (intent.getStringExtra("to").equals("mine")) {
                 navigation.getMenu().getItem(3).setChecked(true);
                 viewPager.setCurrentItem(3);
+                ((MineFragment) adapter.getItem(3)).fetchData();
             }
         }
     }
