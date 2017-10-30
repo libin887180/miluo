@@ -159,6 +159,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
                     mRecyclerView.setAdapter(mAdapter);
+
                 } else {
                     mRecyclerView.setAdapter(hisAdapter);
                 }

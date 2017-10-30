@@ -107,7 +107,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/icon"
-                    android:text="基金介绍"
+                    android:text="申购费率"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />
 
