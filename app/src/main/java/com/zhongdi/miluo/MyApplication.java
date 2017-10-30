@@ -6,6 +6,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2017/7/21.
  */
@@ -20,6 +22,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        JPushInterface.init(this); // 初始化 JPush
+        JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
         MyIntentService.start(this);
 //        SystemClock.sleep(1000);
 

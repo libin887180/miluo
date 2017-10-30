@@ -13,6 +13,8 @@ import com.vise.log.inner.LogcatTree;
 
 import org.xutils.x;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by kenn on 2017/9/17.
  */
@@ -38,6 +40,7 @@ public class MyIntentService extends IntentService {
         TwinklingRefreshLayout.setDefaultFooter(BallPulseView.class.getName());
         initLog();
         initNet();
+
         isInit=true;
     }
     private void initLog() {
