@@ -14,6 +14,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.GiftListAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.Prize;
 import com.zhongdi.miluo.presenter.GetGiftListPresenter;
 import com.zhongdi.miluo.view.GiftListView;
 
@@ -33,7 +34,8 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     private GiftListAdapter listAdapter;
-    List<String> cardList = new ArrayList<>();
+    List<Prize> cardList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,20 +52,19 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
         setupHeadView();
         setupRefreshView();
         setupStatusView();
-        cardList.add("1");
-        cardList.add("1");
-        cardList.add("1");
-        cardList.add("1");
-        cardList.add("1");
-        cardList.add("1");
         listAdapter = new GiftListAdapter(mContext, cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
         presenter.getGiftList();
-        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Prize>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                startActivity(new Intent(mContext,ExchangeActivity.class));
+            public void onClick(View view, RecyclerView.ViewHolder holder, Prize prize, int position) {
+
+                if (prize.getType().equals("1")) {
+                    Intent intent = new Intent(mContext, ExchangeActivity.class);
+                    intent.putExtra("prize", prize);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -96,6 +97,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
 //            }
 //        });
     }
+
     @Override
     public void dismissLoadingDialog() {
         getLoadingProgressDialog().dismiss();
@@ -105,6 +107,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
     }
+
     @Override
     public void setupStatusView() {
         stateLayout.setUseAnimation(true);
@@ -129,7 +132,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     }
 
     @Override
-    public void onDataSuccess(List<String> body) {
+    public void onDataSuccess(List<Prize> body) {
 
         cardList.clear();
         cardList.addAll(body);

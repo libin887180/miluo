@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.Prize;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface GiftListView extends BaseView {
 
     void setupHeadView();
 
-    void onDataSuccess(List<String> body);
+    void onDataSuccess(List<Prize> body);
 
     void dismissLoadingDialog();
 

@@ -245,6 +245,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                     }
                     enableSubmitBtn();
                 } else {
+                    tvDepRate.setText("");
+                    tvDepSxf.setText("");
+                    tvRate.setText("0.00%");
+                    tvSxf.setText( "0.00元");
                     disableSubmitBtn();
                 }
             }

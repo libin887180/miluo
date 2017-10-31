@@ -1,6 +1,8 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.FriendsInfo;
+import com.zhongdi.miluo.model.TiyanjinDetail;
 
 
 /**
@@ -16,4 +18,7 @@ public interface TiyanjinTransDetailView extends BaseView {
 
     void showLoadingDialog();
 
+    void OnDataSuccess(TiyanjinDetail body);
+
+    void OnFriendsSuccess(FriendsInfo friendsInfo);
 }

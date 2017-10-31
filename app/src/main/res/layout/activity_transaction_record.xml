@@ -138,6 +138,7 @@
                     android:background="@color/divider_list" />
 
                 <TextView
+                    android:id="@+id/tv_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"

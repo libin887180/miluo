@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -61,6 +62,8 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     TextView tvBuy;
     @BindView(R.id.tv_percent)
     TextView tvPercent;
+    @BindView(R.id.ll_his_value)
+    LinearLayout llHisValue;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
     private String sellFundId;
@@ -156,7 +159,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         mCardPopupWindow.setOutsideTouchable(true);
     }
 
-    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.tv_buy, R.id.img_title_right, R.id.tv_title_right})
+    @OnClick({R.id.rl_fund_manager, R.id.rl_fund_notice, R.id.rl_premium, R.id.rl_archives, R.id.tv_buy, R.id.img_title_right, R.id.tv_title_right,R.id.ll_his_value})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_fund_manager:
@@ -200,6 +203,11 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
                 break;
             case R.id.img_title_right:
                 showpSharePopupWindow();
+                break;
+            case R.id.ll_his_value:
+                Intent hisIntent = new Intent(mContext, FundHistoryValueActivity.class);
+                hisIntent.putExtra("fundId", sellFundId);
+                startActivity(hisIntent);
                 break;
             case R.id.tv_title_right:
                 if (!MyApplication.getInstance().isLogined) {

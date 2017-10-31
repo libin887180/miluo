@@ -3,8 +3,9 @@ package com.zhongdi.miluo.presenter;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.FriendsInfo;
 import com.zhongdi.miluo.model.MResponse;
-import com.zhongdi.miluo.model.PropertyDetail;
+import com.zhongdi.miluo.model.TiyanjinDetail;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.TiyanjinTransDetailView;
 
@@ -22,19 +23,18 @@ public class TiyanjinTransDetailPresenter extends BasePresenter<TiyanjinTransDet
         super.attachView(view);
     }
 
-    public void getPropertyDetail(String fundcode) {
+    public void getTiYanjinDetail() {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        map.put("fundcode", fundcode);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_DETAIL, map, 102,
-                new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.TIYANJIN_TRANS_DETAIL, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<TiyanjinDetail>>() {
                     @Override
-                    public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
-
+                    public void onSuccess(MResponse<TiyanjinDetail> response, int requestCode) {
+                        view.OnDataSuccess(response.getBody());
                     }
 
                     @Override
-                    public void onFailed(MResponse<PropertyDetail> response, int requestCode) {
+                    public void onFailed(MResponse<TiyanjinDetail> response, int requestCode) {
                         ViseLog.e("请求失败");
 
                         view.showToast(response.getMsg());
@@ -51,7 +51,34 @@ public class TiyanjinTransDetailPresenter extends BasePresenter<TiyanjinTransDet
                     }
                 });
     }
+    public void getFriendsNum() {
+        view.showLoadingDialog();
+        Map<String, String> map = new HashMap<>();
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.FRIENDS_NUM, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<FriendsInfo>>() {
+                    @Override
+                    public void onSuccess(MResponse<FriendsInfo> response, int requestCode) {
+                        view.OnFriendsSuccess(response.getBody());
+                    }
 
+                    @Override
+                    public void onFailed(MResponse<FriendsInfo> response, int requestCode) {
+                        ViseLog.e("请求失败");
+
+                        view.showToast(response.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+                        view.dismissLoadingDialog();
+                    }
+                });
+    }
 
 
 }

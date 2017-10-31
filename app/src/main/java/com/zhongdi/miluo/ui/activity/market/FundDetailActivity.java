@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.activity.market;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -306,6 +307,12 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         }
         tvYearRate.setText(fundDetail.getYearRate());
         tvNetValue.setText(fundDetail.getNetValue());
+        if (fundDetail.getYearRate().contains("-")) {
+            tvDayRate.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+        } else {
+            tvDayRate.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
+
         tvDayRate.setText(fundDetail.getDayRate()+"%");
         tvNetValueDate.setText("单位净值(" + TimeUtil.changeToDate(fundDetail.getValueDate()) + ")");
         if (fundDetail.getStatus().equals("1")) {
@@ -320,9 +327,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvEstabdate.setText(TimeUtil.changeToYYMMDD(fundDetail.getEstabDate()));
         switchFundType(fundDetail.getFundType());
         switchRiskLevel(Integer.parseInt(fundDetail.getRiskLevel()));
+        tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
-            tvCurrentRate.setText(fundDetail.getDiscount());
+            float discount = Float.parseFloat(fundDetail.getDiscount());
+            String rate = fundDetail.getRateValue().substring(fundDetail.getRateValue().length() - 1);
+            float value = Float.parseFloat(rate);
+            tvCurrentRate.setText(value*discount+"%");
             tvDepRate.setText(fundDetail.getRateValue());
+
         } else {
             tvDepRate.setVisibility(View.GONE);
             tvCurrentRate.setText(fundDetail.getRateValue());

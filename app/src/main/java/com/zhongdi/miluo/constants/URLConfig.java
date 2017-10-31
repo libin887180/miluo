@@ -227,4 +227,20 @@ public class URLConfig {
      * 估值曲线
      */
     public static final String FUND_VAL = BASE_URL + "/fund/fundVal";
+    /**
+     * 我的奖品
+     */
+    public static final String MY_PRIZE = BASE_URL + "/activity/v1/findMyWinprize";
+    /**
+     * 奖品兑换
+     */
+    public static final String EX_CHANGE = BASE_URL + "/activity/v1/reChargeBill";
+    /**
+     * 体验金交易详情
+     */
+    public static final String TIYANJIN_TRANS_DETAIL = BASE_URL + "/activity/v1/feeDetaileShow";
+    /**
+     * 获取邀请好友个数和收益
+     */
+    public static final String FRIENDS_NUM = BASE_URL + "/activity/v1/invitingFriends";
 }

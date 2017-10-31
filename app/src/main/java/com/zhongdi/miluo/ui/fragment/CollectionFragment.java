@@ -235,7 +235,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     private void refreshData() {
         if (MyApplication.getInstance().isLogined) {
             increaseAdapter.setCheck(0);
-            rateType = "dayrate";
+            rateType = "";
             tvIncrease.setText("默认");
             pageNum = 1;
             presenter.getOptionalFund(rateType, pageNum);
@@ -253,6 +253,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     @Override
     public void fetchData() {
         if (MyApplication.getInstance().isLogined) {//登录了,查询数据
+            pageNum = 1;
             presenter.getOptionalFund(rateType, pageNum);
         }
     }

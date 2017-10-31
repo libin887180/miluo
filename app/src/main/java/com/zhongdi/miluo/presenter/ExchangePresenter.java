@@ -3,7 +3,6 @@ package com.zhongdi.miluo.presenter;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
-import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.ExchangeView;
@@ -11,7 +10,6 @@ import com.zhongdi.miluo.view.ExchangeView;
 import org.xutils.common.Callback;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,19 +22,23 @@ public class ExchangePresenter extends BasePresenter<ExchangeView> {
     }
 
 
-    public void getGiftList() {
+    public void exchange( String  cardnum ,String  id ,String  type ,String  username ) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_BANK_CARDS, map, 102,
-                new NetRequestUtil.NetResponseListener<MResponse<List<BankInfo>>>() {
+        map.put("cardnum",cardnum);
+        map.put("id",id);
+        map.put("type",type);
+        map.put("username",username);
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.EX_CHANGE, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
-                    public void onSuccess(MResponse<List<BankInfo>> response, int requestCode) {
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
 
-//                        view.onDataSuccess(response.getBody());
+                        view.onDataSuccess();
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<BankInfo>> response, int requestCode) {
+                    public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
                         view.showToast(response.getMsg());
                     }

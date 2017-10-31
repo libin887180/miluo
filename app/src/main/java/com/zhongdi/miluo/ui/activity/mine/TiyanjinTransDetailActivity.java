@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.model.FriendsInfo;
+import com.zhongdi.miluo.model.TiyanjinDetail;
 import com.zhongdi.miluo.presenter.TiyanjinTransDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.TiyanjinTransDetailView;
@@ -32,6 +35,22 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
     TextView tvRisk;
     @BindView(R.id.iv_invite_friends)
     ImageView ivInviteFriends;
+    @BindView(R.id.tv_value)
+    TextView tvValue;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.tv_amount)
+    TextView tvAmount;
+    @BindView(R.id.tv_trans_status)
+    TextView tvTransStatus;
+    @BindView(R.id.btn_exchange)
+    Button btnExchange;
+    @BindView(R.id.tv_friends_num)
+    TextView tvFriendsNum;
+    @BindView(R.id.tv_friends_amount)
+    TextView tvFriendsAmount;
+    @BindView(R.id.tv_invite)
+    TextView tvInvite;
 
     private String fundcode = "";
     private String fundId = "";
@@ -67,7 +86,8 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         });
 
         Glide.with(mContext).asGif().load(R.drawable.invite_friends).into(ivInviteFriends);
-
+        presenter.getTiYanjinDetail();
+        presenter.getFriendsNum();
     }
 
     @Override
@@ -80,15 +100,77 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         getLoadingProgressDialog().show();
     }
 
+    @Override
+    public void OnDataSuccess(TiyanjinDetail body) {
+        tvFundName.setText(body.getFundname() + "(" + body.getFundcode() + ")");
+        tvAmount.setText(body.getAmount());
+        tvProfit.setText(body.getProfit());
+        tvValue.setText(body.getProfits());
+        switch (body.getStatus()) {
+//            101:份额确认中 102:收益中 103 已到期 104 已弃权
+            case "101":
+                tvTransStatus.setText("份额确认中");
+                break;
+            case "102":
+                tvTransStatus.setText("收益中");
+                break;
+            case "103":
+                tvTransStatus.setText("已到期");
+                break;
+            case "104":
+                tvTransStatus.setText("已弃权");
+                break;
+        }
+//        按钮状态（状态(101:份额确认中 如有一位数字的就为 [还剩4天收益] 103兑换话费 104邀请好友)
 
-    @OnClick({R.id.tv_invite, R.id.rl_fund_info})
+        if (body.getActivity_status().length() > 1) {
+            if (body.getActivity_status().equals("101")) {
+                btnExchange.setText("份额确认中");
+                btnExchange.setEnabled(false);
+            } else if (body.getActivity_status().equals("103")) {
+                btnExchange.setText("兑换话费");
+                btnExchange.setEnabled(true);
+            } else if (body.getActivity_status().equals("104")) {
+                btnExchange.setText("邀请好友");
+                btnExchange.setEnabled(true);
+            }
+        } else {
+            btnExchange.setText("还剩" + body.getActivity_status() + "天收益");
+            btnExchange.setEnabled(false);
+        }
+
+    }
+
+    @Override
+    public void OnFriendsSuccess(FriendsInfo friendsInfo) {
+        tvFriendsAmount.setText(friendsInfo.getAmount());
+        tvFriendsNum.setText(friendsInfo.getNums());
+//        邀请好友按钮状态(0:邀请好友 1:兑换)
+
+        if(friendsInfo.getStatus()==0){
+           tvInvite.setText("邀请好友");
+        }else{
+            tvInvite.setText("兑换");
+        }
+    }
+
+
+    @OnClick({R.id.tv_invite, R.id.rl_fund_info,R.id.btn_exchange})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btn_exchange:
+                if (btnExchange.getText().equals("兑换话费")) {
+                    showToast("兑换话费");
+                } else if (btnExchange.getText().equals("邀请好友")) {
+                    showToast("邀请好友");
+                }
+                break;
             case R.id.tv_invite:
-//                Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
-//                buyIntent.putExtra("fundCode", fundcode);
-//                startActivity(buyIntent);
-                showToast("邀请好友");
+                if (tvInvite.getText().equals("邀请好友")) {
+                    showToast("邀请好友");
+                } else if (tvInvite.getText().equals("兑换")) {
+                    showToast("兑换");
+                }
                 break;
             case R.id.rl_fund_info:
                 if (!TextUtils.isEmpty(fundId)) {

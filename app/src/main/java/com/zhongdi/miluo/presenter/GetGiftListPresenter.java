@@ -3,8 +3,8 @@ package com.zhongdi.miluo.presenter;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
-import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.Prize;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.GiftListView;
 
@@ -27,16 +27,15 @@ public class GetGiftListPresenter extends BasePresenter<GiftListView> {
     public void getGiftList() {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_BANK_CARDS, map, 102,
-                new NetRequestUtil.NetResponseListener<MResponse<List<BankInfo>>>() {
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PRIZE, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<List<Prize>>>() {
                     @Override
-                    public void onSuccess(MResponse<List<BankInfo>> response, int requestCode) {
-
-//                        view.onDataSuccess(response.getBody());
+                    public void onSuccess(MResponse<List<Prize>> response, int requestCode) {
+                        view.onDataSuccess(response.getBody());
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<BankInfo>> response, int requestCode) {
+                    public void onFailed(MResponse<List<Prize>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         view.showToast(response.getMsg());
                     }

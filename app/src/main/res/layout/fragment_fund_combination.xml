@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:textColor="@color/text_color_normal"
-                        android:text="日涨幅" />
+                        android:text="涨跌幅" />
 
                     <TextView
                         android:layout_toLeftOf="@id/tv_rzf"

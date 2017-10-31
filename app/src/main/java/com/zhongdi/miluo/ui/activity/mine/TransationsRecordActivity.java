@@ -50,6 +50,8 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     TextView tvReqtime;
     @BindView(R.id.tv_amount)
     TextView tvAmount;
+    @BindView(R.id.tv_result)
+    TextView tvResult;
     @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
     @BindView(R.id.iv_steps)
@@ -155,7 +157,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     public void OnDataSuccess(TradeRecord body) {
         this.tradeRecord = body;
         tradeSteps.clear();
-        tradeSteps.addAll(body.getPart2().getSteps());
+
         String cancelstatus = body.getPart1().getCancelstatus();
         String currentStep = body.getPart2().getCurrentStep();
         String title = body.getPart1().getTitle();
@@ -168,6 +170,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             tvAmount.setText  (StringUtil.parseStr2Num(body.getPart1().getAmount()+""));
         }
         if (body.getPart2().getSteps() != null && body.getPart2().getSteps().size() > 0) {
+            tradeSteps.addAll(body.getPart2().getSteps());
             llEmpty.setVisibility(View.GONE);
             llSteps.setVisibility(View.VISIBLE);
             if (body.getPart2().getSteps().size() == 3) {
@@ -188,6 +191,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
         } else {
             llEmpty.setVisibility(View.VISIBLE);
+            tvResult.setText(body.getPart2().getResult());
             llSteps.setVisibility(View.GONE);
         }
         stepAdapter = new TradeStepAdapter(mContext, tradeSteps, cancelstatus, Integer.parseInt(currentStep), title);

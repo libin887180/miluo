@@ -74,14 +74,18 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     MyFragmentPagerAdapter adapter;
     private NetBroadcastReceiver receiver;
     List<String> titles;
+    private static  MarketFragment marketFragment;
 
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
         args.putString("info", info);
         fragment.setArguments(args);
-
+        marketFragment = fragment;
         return fragment;
+    }
+    public static MarketFragment getInstance() {
+        return marketFragment;
     }
 
     @Override
@@ -187,9 +191,13 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                 } else {
                     sortType = "desc";
                 }
+
+
                 if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
                     FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
                     currentFragment.initData();
+//                    getChildFragmentManager().getFragments().get(tablayout.getSelectedTabPosition());
+
                 }
                 sortAdapter.setCheck(i);
                 sortWindow.dismiss();

@@ -51,6 +51,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.zhongdi.miluo.R.id.tv_increase_percent;
+
 public class TransationsDetailActivity extends BaseActivity<TransactionDetailPresenter> implements TransactionDetailView, View.OnClickListener {
 
     @BindView(R.id.line_chart)
@@ -179,10 +181,10 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
 
     @Override
     public void showPswLocked() {
-        showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+        showDialog("", "交易密码已被冻结，请联系客服", "联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + MiluoConfig.TEL));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -228,10 +230,15 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
-                Intent intent = new Intent(mContext, TransationsRecordActivity.class);
-                intent.putExtra("tradeid", dealRecord.getTradeid() + "");
-                intent.putExtra("tradType", dealRecord.getType());//type (integer): 交易类型0申购，1赎回
-                startActivity(intent);
+
+                if (dealRecord.getTypeitem().contains("分红")) {
+                    return;
+                } else {
+                    Intent intent = new Intent(mContext, TransationsRecordActivity.class);
+                    intent.putExtra("tradeid", dealRecord.getTradeid() + "");
+                    intent.putExtra("tradType", dealRecord.getType());//type (integer): 交易类型0申购，1赎回
+                    startActivity(intent);
+                }
 
             }
         });
@@ -343,7 +350,11 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 startActivity(intent);
                 break;
             case R.id.ll_fenhong:
-                showFenHongPopupWindow();
+                if (tvFenhong.getText().toString().contains("确认中")) {
+                    return;
+                } else {
+                    showFenHongPopupWindow();
+                }
                 break;
             case R.id.rl_fund_info:
                 if (!TextUtils.isEmpty(fundId)) {
@@ -479,19 +490,28 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             tvIncreaseType.setText("七日年化");
             tvNetvalueType.setText("万分收益");
             tvNetvalue.setText(body.getTenthouunitincm() + "");
-            tvDayrate.setText(body.getYearyld() + "");
+            if(body.getYearyld().contains("-")){
+                tvDayrate.setTextColor(mContext.getResources().getColor(R.color.increase_green));
+            }else{
+                tvDayrate.setTextColor(mContext.getResources().getColor(R.color.red));
+            }
+            tvDayrate.setText(body.getYearyld() + "%");
         } else {
             tvIncreaseType.setText("日涨幅");
             tvNetvalueType.setText("最新净值");
             tvNetvalue.setText(body.getNetvalue() + "");
-            tvDayrate.setText(body.getDayrate() + "");
+            tvDayrate.setText(body.getDayrate() + "%");
         }
         if (body.getDividendMethod().equals("0")) {
             listAdapter.setCheck(0);
             tvFenhong.setText("红利再投");
-        } else {
+        } else if (body.getDividendMethod().equals("1")) {
             listAdapter.setCheck(1);
             tvFenhong.setText("现金分红");
+        } else if (body.getDividendMethod().equals("3")) {
+            tvFenhong.setText("红利再投\n确认中");
+        } else {
+            tvFenhong.setText("现金分红\n确认中");
         }
 
 
