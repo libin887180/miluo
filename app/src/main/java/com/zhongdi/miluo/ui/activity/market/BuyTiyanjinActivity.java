@@ -27,12 +27,12 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
-import com.zhongdi.miluo.presenter.BuyFundPresenter;
+import com.zhongdi.miluo.presenter.BuyTiyanjinPresenter;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
-import com.zhongdi.miluo.view.BuyFundView;
+import com.zhongdi.miluo.view.BuyTiyanjinView;
 import com.zhongdi.miluo.widget.AlertDialog;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
@@ -45,7 +45,7 @@ import butterknife.OnClick;
 
 import static java.lang.Float.parseFloat;
 
-public class BuyTiyanjinActivity extends BaseActivity<BuyFundPresenter> implements BuyFundView, View.OnClickListener {
+public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> implements BuyTiyanjinView, View.OnClickListener {
 
     @BindView(R.id.tv_fund_name)
     TextView tvFundName;
@@ -136,8 +136,8 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyFundPresenter> implemen
     }
 
     @Override
-    protected BuyFundPresenter initPresenter() {
-        return new BuyFundPresenter(this);
+    protected BuyTiyanjinPresenter initPresenter() {
+        return new BuyTiyanjinPresenter(this);
     }
 
     @Override

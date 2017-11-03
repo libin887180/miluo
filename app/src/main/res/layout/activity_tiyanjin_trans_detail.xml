@@ -4,7 +4,7 @@
     android:id="@+id/main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_bg"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -52,11 +52,12 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
+            android:src="@drawable/ic_share_black"
             android:scaleType="centerCrop"
-            android:visibility="gone" />
+          />
 
         <TextView
             android:id="@+id/tv_title_right"
@@ -66,7 +67,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
-            android:text="注册"
+            android:text="分享"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:visibility="gone" />
@@ -105,10 +106,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingBottom="18sp"
+                        android:paddingBottom="15sp"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:paddingTop="18dp">
+                        android:paddingTop="15dp">
 
                         <TextView
                             android:id="@+id/tv_fund_name"
@@ -154,10 +155,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/title_bg"
-                        android:paddingBottom="28dp"
+                        android:paddingBottom="20dp"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:paddingTop="28dp">
+                        android:paddingTop="20dp">
 
                         <TextView
                             android:id="@+id/tv_value"

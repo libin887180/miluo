@@ -12,5 +12,10 @@ public class MiLuoUtil {
     public static void saveUserInfo( UserInfo userinfo) {
         SpCacheUtil.getInstance().saveUserInfo(userinfo);
         MyApplication.getInstance().isLogined=true;
+        if(userinfo.getNums()>0) {
+            MyApplication.getInstance().hasNewMsg = true;
+        }else{
+            MyApplication.getInstance().hasNewMsg = false;
+        }
     }
 }

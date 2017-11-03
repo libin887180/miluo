@@ -20,10 +20,27 @@ public class GiftListAdapter extends BaseRecyclerAdapter<Prize> {
     @Override
     public void convert(BaseRecyclerHolder holder, Prize item, int position) {
         holder.setText(R.id.tv_title, item.getTitle());
-        holder.setText(R.id.tv_dsc,"来源" +item.getType());
         holder.setText(R.id.tv_time, "有效期"+item.getAdd_time()+"-"+item.getInvalid_time());
         holder.setText(R.id.tv_amount, item.getAmount());
 
+//        类型1、体验金；2、新手;3、米罗盘；4、pk组团；5、推荐
+        switch (item.getType()){
+            case "1"://体验金
+                holder.setText(R.id.tv_dsc,"来源:体验金");
+                break;
+            case "2"://新手
+                holder.setText(R.id.tv_dsc,"来源:新手");
+                break;
+            case "3"://米罗盘
+                holder.setText(R.id.tv_dsc,"来源:米罗盘");
+                break;
+            case "4"://pk组团
+                holder.setText(R.id.tv_dsc,"来源:pk组团");
+                break;
+            case "5"://推荐
+                holder.setText(R.id.tv_dsc,"来源:推荐");
+                break;
+        }
         switch (item.getStatus()){
             case "1"://立即兑换
                 holder.setImageResource(R.id.iv_hfq,R.drawable.ic_hfq);

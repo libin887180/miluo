@@ -90,7 +90,6 @@ public class TiyanjinQuickLoginPresenter extends BasePresenter<TiyanjinQuickLogi
                         ViseLog.w(response.getBody());
                         MiLuoUtil.saveUserInfo(response.getBody());
                         view.loginSuccess(response.getBody());
-
                     }
 
                     @Override
