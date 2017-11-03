@@ -38,6 +38,7 @@ public class CollectionAdapter extends BaseRecyclerAdapter<OptionalFund> {
             holder.setTextColor(R.id.tv_info, mContext.getResources().getColor(R.color.red));
         }
         holder.setText(R.id.tv_value, item.getNetValue());
+        holder.setText(R.id.tv_info, item.getRate()+"%");
 
     }
 }

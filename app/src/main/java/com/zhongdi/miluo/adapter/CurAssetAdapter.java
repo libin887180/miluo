@@ -72,7 +72,11 @@ public class CurAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
             holder.setImageResource(R.id.iv_status,R.drawable.bg_income);
         }
 
-
+        if(item.getTotalshareincome().contains("-")){
+            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.increase_green));
+        }else{
+            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
+        }
 
     }
 }

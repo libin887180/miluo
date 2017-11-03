@@ -57,7 +57,6 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
 
     @Override
     protected void initialize() {
-
         if (from == IntentConfig.FROM_MODIFY_PSW) {
             title.setText("登录密码修改");
             sendCodeType = "2";

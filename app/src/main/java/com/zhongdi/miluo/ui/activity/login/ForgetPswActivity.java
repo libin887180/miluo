@@ -43,7 +43,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
 
     @Override
     public void onSuccess() {
-        showToast("登录密码设置成功");
+        showToast("密码设置成功");
         finish();
     }
 

@@ -8,6 +8,8 @@ import com.zhongdi.miluo.model.HomeAssetBean;
 
 import java.util.List;
 
+import static com.zhongdi.miluo.R.id.tv_increase_percent;
+
 /**
  * @ explain:
  * @ author：xujun on 2016/10/18 16:42
@@ -22,6 +24,7 @@ public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
     @Override
     public void convert(BaseRecyclerHolder holder, HomeAssetBean item, int position) {
         holder.setText(R.id.tv_fund_name, item.getFundname());
+        holder.setText(R.id.tv_profits, "累计收益(元)");
 
         String fundType = "";
         switch (item.getFundtype() + "") {
@@ -73,6 +76,11 @@ public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
 //            holder.setImageResource(R.id.iv_status,R.drawable.bg_income);
 //        }
 
+        if(item.getTotalshareincome().contains("-")){
+            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.increase_green));
+        }else{
+            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
+        }
 
 
     }

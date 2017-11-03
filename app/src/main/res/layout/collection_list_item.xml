@@ -22,7 +22,6 @@
             android:id="@+id/tv_fund_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="华夏盛世股票"
             android:textColor="@color/text_222"
             android:textSize="17sp" />
 
@@ -30,7 +29,6 @@
             android:id="@+id/tv_fund_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="000061"
             android:textColor="@color/text_color_normal"
             android:textSize="13sp" />
     </LinearLayout>
@@ -46,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="0.095"
+            android:text="--"
             android:textColor="@color/text_222"
             android:textSize="19sp" />
 
@@ -73,7 +71,7 @@
             android:id="@+id/tv_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2.25%"
+            android:text="--.--%"
             android:textColor="@color/red"
             android:textSize="19sp" />
 

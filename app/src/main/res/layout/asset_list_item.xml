@@ -86,6 +86,7 @@
                 android:textColor="@color/red" />
 
             <TextView
+                android:id="@+id/tv_profits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="持仓收益（元）"
