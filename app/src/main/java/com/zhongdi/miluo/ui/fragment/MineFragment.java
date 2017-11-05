@@ -229,6 +229,10 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         tvTotalAsset.setNumVisable(visable);
         tvYestodayIncome.setNumVisable(visable);
         tvTotalIncome.setNumVisable(visable);
+        mAdapter.setAssetVisable(visable);
+        hisAdapter.setAssetVisable(visable);
+        mAdapter.notifyDataSetChanged();
+        hisAdapter.notifyDataSetChanged();
     }
 
 

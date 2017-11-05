@@ -136,11 +136,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                         getFundType();
                     }
 
-//                    if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
-//                        FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
-//                        currentFragment.initData();
-//                    }
-
                 }
 
             }
@@ -162,7 +157,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3) {
+                if (position == 3||position==9) {
                     rlHuobi.setVisibility(View.VISIBLE);
                     rlOrther.setVisibility(View.GONE);
                 } else {

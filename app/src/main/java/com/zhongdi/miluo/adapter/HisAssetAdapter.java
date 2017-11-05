@@ -8,19 +8,20 @@ import com.zhongdi.miluo.model.HomeAssetBean;
 
 import java.util.List;
 
-import static com.zhongdi.miluo.R.id.tv_increase_percent;
-
 /**
  * @ explain:
  * @ author：xujun on 2016/10/18 16:42
  * @ email：gdutxiaoxu@163.com
  */
 public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
-
+    private boolean assetVisable =true;
     public HisAssetAdapter(Context context, List<HomeAssetBean> datas) {
         super(context, R.layout.asset_list_item, datas);
     }
 
+    public  void  setAssetVisable( boolean  visable){
+        assetVisable = visable;
+    }
     @Override
     public void convert(BaseRecyclerHolder holder, HomeAssetBean item, int position) {
         holder.setText(R.id.tv_fund_name, item.getFundname());
@@ -67,8 +68,19 @@ public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
         }
         holder.setText(R.id.tv_fund_code, "(" + item.getFundcode() + ") " + fundType);
         holder.setText(R.id.tv_fund_name, item.getFundname());
-        holder.setText(R.id.tv_asset, item.getMarketval() + "");
-        holder.setText(R.id.tv_profit, item.getTotalshareincome() + "");
+        if(assetVisable) {
+            holder.setText(R.id.tv_asset, item.getMarketval() + "");
+            holder.setText(R.id.tv_profit, item.getTotalshareincome() + "");
+            if(item.getTotalshareincome().contains("-")){
+                holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.increase_green));
+            }else{
+                holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
+            }
+        }else{
+            holder.setText(R.id.tv_asset, "****");
+            holder.setText(R.id.tv_profit,  "****");
+            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
+        }
         holder.setVisible(R.id.iv_status, false);
 //        if(item.getStatus().equals("申购中")){
 //            holder.setImageResource(R.id.iv_status,R.drawable.bg_buying);
@@ -76,11 +88,7 @@ public class HisAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
 //            holder.setImageResource(R.id.iv_status,R.drawable.bg_income);
 //        }
 
-        if(item.getTotalshareincome().contains("-")){
-            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.increase_green));
-        }else{
-            holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
-        }
+
 
 
     }

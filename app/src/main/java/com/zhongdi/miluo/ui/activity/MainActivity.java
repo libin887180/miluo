@@ -32,9 +32,10 @@ public class MainActivity extends BaseActivity2 {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     private MenuItem prevMenuItem;
-    //    private int selectTab = 0;
+    private int toTab = -1;
     private String TO;
     ViewPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity2 {
 
     private void setupViewPager(NoScrollViewPager viewPager) {
         viewPager.setScroll(false);
-         adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(HomeFragment2.newInstance("首页"));
         adapter.addFragment(MarketFragment.newInstance("超市"));
@@ -117,9 +118,11 @@ public class MainActivity extends BaseActivity2 {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
+                    toTab = 0;
                     return true;
                 case R.id.navigation_market:
                     viewPager.setCurrentItem(1);
+                    toTab = 1;
                     return true;
                 case R.id.navigation_self:
                     if (MyApplication.getInstance().isLogined) {
@@ -128,6 +131,7 @@ public class MainActivity extends BaseActivity2 {
                     } else {
                         Intent intent = new Intent(mContext, QuickLoginActivity.class);
                         startActivityForResult(intent, 101);
+                        toTab = 2;
                         return false;
                     }
 
@@ -139,6 +143,7 @@ public class MainActivity extends BaseActivity2 {
                     } else {
                         Intent intent = new Intent(mContext, QuickLoginActivity.class);
                         startActivityForResult(intent, 101);
+                        toTab = 3;
                         return false;
                     }
             }
@@ -151,9 +156,20 @@ public class MainActivity extends BaseActivity2 {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
-            case 0:
+            case RESULT_OK:
+                if (toTab != -1) {
+                    if (toTab == 2) {
+                        navigation.getMenu().getItem(2).setChecked(true);
+                        viewPager.setCurrentItem(2);
+                        ((CollectionFragment) adapter.getItem(2)).fetchData();
+                    } else if (toTab == 3) {
+                        navigation.getMenu().getItem(3).setChecked(true);
+                        viewPager.setCurrentItem(3);
+                        ((MineFragment) adapter.getItem(3)).fetchData();
+                    }
+                }
                 break;
-            case 1001:
+            case 1001://退出登录操作
                 navigation.getMenu().getItem(0).setChecked(true);
                 viewPager.setCurrentItem(0);
                 break;

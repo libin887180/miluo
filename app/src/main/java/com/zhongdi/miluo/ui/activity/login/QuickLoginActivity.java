@@ -65,6 +65,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                //登录
                 presenter.login(etUsername.getText().toString(), etCode.getText().toString(),source);
                 break;
             case R.id.tv_title_right:
@@ -96,7 +97,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     }
     @Override
     public void loginSuccess(UserInfo userInfo) {
-        if(userInfo.getRegistorLogin().equals("1")){
+        if(userInfo.getRegistorLogin().equals("1")){//如果是新用户注册
             Intent intent = new Intent(mContext, RegistSuccessActivity.class);
             intent.putExtra(IntentConfig.SOURCE, source);
             startActivity(intent);

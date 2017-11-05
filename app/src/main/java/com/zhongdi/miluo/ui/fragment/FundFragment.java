@@ -193,7 +193,7 @@ public class FundFragment extends Fragment {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Fund fund, int position) {
                 Intent intent;
-                if(fund.getFundType().equals(MiluoConfig.HUOBI)){
+                if(fund.getFundType().equals(MiluoConfig.HUOBI)||fund.getFundType().equals(MiluoConfig.DUANQI)){
                      intent  = new Intent(getActivity(), FundCurrencyDetailActivity.class);
                 }else {
                     intent = new Intent(getActivity(), FundDetailActivity.class);
