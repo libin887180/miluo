@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -43,12 +45,12 @@ import butterknife.Unbinder;
  */
 
 public class FundFragment extends Fragment {
-//    @BindView(R.id.rv_funds)
+    @BindView(R.id.rv_funds)
     RecyclerView rvFunds;
     Unbinder unbinder;
-//    @BindView(R.id.state_layout)
+    @BindView(R.id.state_layout)
     StateLayout stateLayout;
-//    @BindView(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private FundType fundType;
     private MarketFragment parentFragment;
@@ -71,18 +73,19 @@ public class FundFragment extends Fragment {
 
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_fund, container,false);
-//            unbinder = ButterKnife.bind(this, rootView);
+            unbinder = ButterKnife.bind(this, rootView);
             fundType = (FundType) getArguments().getSerializable("fundType");
             initView(rootView);
-            initData();
-        } else {
+//            initData();
+        }
+        else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
             // 要不然会发生这个rootview已经有parent的错误。
             ViewGroup parent = (ViewGroup) rootView.getParent();
             if (parent != null) {
                 parent.removeView(rootView);
             }
-//            unbinder = ButterKnife.bind(this, rootView);
+            unbinder = ButterKnife.bind(this, rootView);
         }
         return rootView;
     }
@@ -98,6 +101,14 @@ public class FundFragment extends Fragment {
         }
         getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            initData();
+        }
     }
 
     /**
@@ -160,9 +171,6 @@ public class FundFragment extends Fragment {
     }
 
     private void initView(View  rootView) {
-        refreshLayout  = (TwinklingRefreshLayout) rootView.findViewById(R.id.refreshLayout);
-        stateLayout  = (StateLayout) rootView.findViewById(R.id.state_layout);
-        rvFunds  = (RecyclerView) rootView.findViewById(R.id.rv_funds);
 
         parentFragment = (MarketFragment) getParentFragment();
         refreshLayout.setEnableLoadmore(true);
@@ -214,11 +222,12 @@ public class FundFragment extends Fragment {
         });
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        if (unbinder != null && unbinder != Unbinder.EMPTY) {
-//            unbinder.unbind();
-//        }
+        if (unbinder != null && unbinder != Unbinder.EMPTY) {
+            unbinder.unbind();
+        }
     }
 }

@@ -75,7 +75,6 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     private NetBroadcastReceiver receiver;
     List<String> titles;
     private static  MarketFragment marketFragment;
-
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
@@ -194,10 +193,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
 
                 if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
-                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
+                    FundFragment currentFragment = (FundFragment)     adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
                     currentFragment.initData();
-//                    getChildFragmentManager().getFragments().get(tablayout.getSelectedTabPosition());
-
                 }
                 sortAdapter.setCheck(i);
                 sortWindow.dismiss();
@@ -238,8 +235,11 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
                         tvIncrease.setText("一年涨幅");
                         break;
                 }
+
                 if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
-                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
+
+                    FundFragment currentFragment = (FundFragment)     adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
+//                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
                     currentFragment.initData();
                 }
 
