@@ -128,6 +128,7 @@ public class StateLayout extends FrameLayout {
         loadingView = LayoutHelper.getLoadingView(inflater, loadingItem);
 
         loginView = LayoutHelper.getLoginView(inflater, loginItem, this);
+
     }
 
     private void checkIsContentView(View view) {
@@ -552,12 +553,19 @@ public class StateLayout extends FrameLayout {
     public void showCustomView(View view) {
         if (view.getParent() == null) { //当前的view没有父类
             addView(view);
-        } else {
-            view.setLayoutParams(this.getLayoutParams());
         }
         AnimationHelper.switchViewByAnim(useAnimation, viewAnimProvider, currentShowingView, view);
         currentShowingView = view;
     }
+
+//    public void showCollectView() {
+//        if (collectView.getParent() == null) {
+//            addView(collectView);
+//        }
+//        AnimationHelper.switchViewByAnim(useAnimation, viewAnimProvider, currentShowingView, collectView);
+//        currentShowingView = collectView;
+//    }
+
 
     //************ update ************//
 

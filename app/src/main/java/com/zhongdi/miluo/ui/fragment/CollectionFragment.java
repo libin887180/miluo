@@ -73,7 +73,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     private int pageNum = 1;
     CollectionAdapter fundAdapter;
     private String rateType = "";//默认日涨幅
-
+    View emptyView;
     public static CollectionFragment newInstance(String info) {
         Bundle args = new Bundle();
         CollectionFragment fragment = new CollectionFragment();
@@ -222,6 +222,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(fundAdapter);
         stateLayout.setUseAnimation(true);
+
 //        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
 
     }
@@ -257,6 +258,8 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             presenter.getOptionalFund(rateType, pageNum);
         }
     }
+
+
 
     @Override
     public void initAnimation() {
@@ -301,7 +304,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         refreshLayout.finishRefreshing();
         fundAdapter.notifyDataSetChanged();
         if (optionalFunds.size() == 0) {
-            stateLayout.showEmptyView();
+            stateLayout.showCustomView(emptyView);
         } else {
             stateLayout.showContentView();
         }
@@ -342,7 +345,13 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     @Override
     public void initEmptyView() {
-
+        emptyView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_collect_empty, null);
+        emptyView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, SearchActivity.class));
+            }
+        });
     }
 
 
