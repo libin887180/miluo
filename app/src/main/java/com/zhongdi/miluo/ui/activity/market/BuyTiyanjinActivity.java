@@ -348,13 +348,18 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         });
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account})
+    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account,R.id.tv_risk})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
 //                showCardPopupWindow();
                 break;
             case R.id.tv_ld_protocol:
+                break;
+            case R.id.tv_risk:
+                Intent intent_risk = new Intent(mContext, TestActivity.class);
+                intent_risk.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                startActivityForResult(intent_risk, 103);
                 break;
             case R.id.tv_open_account:
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);

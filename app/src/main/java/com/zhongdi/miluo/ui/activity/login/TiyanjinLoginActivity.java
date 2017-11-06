@@ -63,11 +63,6 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
             case R.id.btn_login:
                 presenter.login(etUsername.getText().toString(), etCode.getText().toString(),source);
                 break;
-            case R.id.tv_username_login://到用户名密码登录
-                Intent intent =new Intent(applica, LoginActivity.class);
-                intent.putExtra(IntentConfig.SOURCE,source);
-                startActivityForResult(intent,101);
-                break;
             case R.id.tv_send_code:
                 if (!StringUtil.isPhoneNum(etUsername.getText().toString())) {
                     showToast("请输入正确格式的手机号");
@@ -81,18 +76,9 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            setResult(RESULT_OK);
-            finish();
-        }
-    }
-    @Override
     public void loginSuccess(UserInfo userInfo) {
         if(userInfo.getRegistorLogin().equals("1")){
-            Intent intent = new Intent(mContext, RegistSuccessActivity.class);
-            intent.putExtra(IntentConfig.SOURCE, source);
+            Intent intent = new Intent(mContext, TiyanjinInfoActivity.class);
             startActivity(intent);
         }
         setResult(RESULT_OK);

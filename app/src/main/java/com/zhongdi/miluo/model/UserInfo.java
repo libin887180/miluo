@@ -17,7 +17,16 @@ public class UserInfo {
     private int fundStatus;
     private String registorLogin;//登录或者注册（0：登录 1注册）
     private String bankNums;//银行卡数量
+    private String activityStatus;//体验金状态
     private int nums;
+
+    public String getActivityStatus() {
+        return activityStatus;
+    }
+
+    public void setActivityStatus(String activityStatus) {
+        this.activityStatus = activityStatus;
+    }
 
     public int getNums() {
         return nums;

@@ -89,7 +89,16 @@ public class SpCacheUtil {
         spCache.put("USER_ID", userInfo.getUid()+"");
         spCache.putInt("FUND_STATE", userInfo.getFundStatus());
         spCache.put("BANK_CARD_COUNT", userInfo.getBankNums());
+        spCache.put("ACTIVITY_STATUS", userInfo.getActivityStatus());
         setUserPwd(userInfo.getPassword());
+    }
+
+    /**
+     * 获取体验金状态
+     *
+     */
+    public String getActivityStatus() {
+        return spCache.get("ACTIVITY_STATUS","");
     }
 
     /**

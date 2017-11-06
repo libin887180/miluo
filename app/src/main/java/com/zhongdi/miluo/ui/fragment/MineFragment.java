@@ -23,10 +23,12 @@ import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.HisAssetAdapter;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
+import com.zhongdi.miluo.ui.activity.market.BuyTiyanjinActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.mine.GiftListActivity;
@@ -350,7 +352,11 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 startActivity(new Intent(mContext, TransactionsActivity.class));
                 break;
             case R.id.ll_tiyanjin:
-                startActivity(new Intent(mContext, TiyanjinTransDetailActivity.class));
+                if(SpCacheUtil.getInstance().getActivityStatus().equals("0")){
+                    startActivity(new Intent(mContext, BuyTiyanjinActivity.class));
+                }else {
+                    startActivity(new Intent(mContext, TiyanjinTransDetailActivity.class));
+                }
                 break;
             case R.id.ll_gift:
                 startActivity(new Intent(mContext, GiftListActivity.class));

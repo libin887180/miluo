@@ -210,8 +210,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 if (etMoney.getText().length() > 0&&Double.parseDouble(etMoney.getText().toString())>=minsubscribeamt) {
                     double amount = Double.parseDouble(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
-                        if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
-                            if (fees.get(i).getDiscount().equals("1")) {
+                        if (amount >= fees.get(i).getAmountdownlimit() * 10000) {
+                            if ( Double.parseDouble(fees.get(i).getDiscount())==1||Double.parseDouble(fees.get(i).getDiscount())==0) {//没有优惠折扣
                                 tvDepRate.setText("");
                                 tvDepSxf.setText("");
                                 if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//达到上限

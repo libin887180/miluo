@@ -108,6 +108,7 @@
         <activity android:name=".ui.activity.mine.ExchangeActivity"/>
         <activity android:name=".ui.activity.login.TiyanjinLoginActivity"/>
         <activity android:name=".ui.activity.mine.TiyanjinTransDetailActivity"/>
+        <activity android:name=".ui.activity.login.TiyanjinInfoActivity"/>
 
         <service android:name=".MyIntentService"></service>
 
