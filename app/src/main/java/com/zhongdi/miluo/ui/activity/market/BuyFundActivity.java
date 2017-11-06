@@ -45,8 +45,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static java.lang.Float.parseFloat;
-
 public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements BuyFundView, View.OnClickListener {
 
     @BindView(R.id.tv_fund_name)
@@ -210,24 +208,24 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void afterTextChanged(Editable editable) {
 
                 if (etMoney.getText().length() > 0&&Double.parseDouble(etMoney.getText().toString())>=minsubscribeamt) {
-                    float amount = parseFloat(etMoney.getText().toString());
+                    double amount = Double.parseDouble(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
                         if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
                             if (fees.get(i).getDiscount().equals("1")) {
                                 tvDepRate.setText("");
                                 tvDepSxf.setText("");
-                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//达到上限
+                                if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//达到上限
                                     tvRate.setText(fees.get(i).getRatevalue() + "元");
                                     tvSxf.setText(fees.get(i).getRatevalue() + "元");
                                 } else {//需要乘以费率
-                                    tvRate.setText(parseFloat(fees.get(i).getRatevalue()) * 100 + "%");
-                                    tvSxf.setText(amount * parseFloat(fees.get(i).getRatevalue()) + "元");
+                                    tvRate.setText(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "%");
+                                    tvSxf.setText(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "元");
                                 }
                                 break;
                             } else {//有优惠折扣
-                                float rate = parseFloat(fees.get(i).getRatevalue());
-                                float discount = parseFloat(fees.get(i).getDiscount());
-                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//  达到上限
+                                double rate = Double.parseDouble(fees.get(i).getRatevalue());
+                                double discount = Double.parseDouble(fees.get(i).getDiscount());
+                                if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//  达到上限
                                     tvDepRate.setText(rate + "元");
                                     tvRate.setText(rate * discount + "元");
                                     tvSxf.setText(rate * discount + "元");

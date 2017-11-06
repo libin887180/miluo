@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.SendCoderesenter;
 import com.zhongdi.miluo.ui.activity.login.ForgetDealPswActivity1;
@@ -60,18 +61,26 @@ public class SendCodeActivity extends BaseActivity<SendCoderesenter> implements 
         if (from == IntentConfig.FROM_MODIFY_PSW) {
             title.setText("登录密码修改");
             sendCodeType = "2";
+            etTel.setText(SpCacheUtil.getInstance().getLoginAccount());
+            etTel.setEnabled(false);
         } else if (from == IntentConfig.FROM_MODIFY_DEAL_PSW) {
             title.setText("交易密码修改");
             sendCodeType = "4";
+            etTel.setText(SpCacheUtil.getInstance().getLoginAccount());
+            etTel.setEnabled(false);
         } else if (from == IntentConfig.FROM_FORGET_PSW) {
             title.setText("忘记登录密码");
             sendCodeType = "3";
         } else if (from == IntentConfig.FROM_FORGET_DEAL_PSW) {
             title.setText("忘记交易密码");
             sendCodeType = "5";
+            etTel.setText(SpCacheUtil.getInstance().getLoginAccount());
+            etTel.setEnabled(false);
         } else if (from == IntentConfig.FROM_SET_LOGIN_PSW) {
             title.setText("设置登录密码");
             sendCodeType = "2";
+            etTel.setText(SpCacheUtil.getInstance().getLoginAccount());
+            etTel.setEnabled(false);
         }
         disableNextBtn();
         etTel.addTextChangedListener(new TextWatcher() {

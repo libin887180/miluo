@@ -294,10 +294,10 @@
                         android:id="@+id/tv_sxf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/tv_rate"
                         android:layout_alignTop="@id/tv_dep_sxf"
                         android:layout_toRightOf="@id/tv_dep_sxf"
                         android:text="0.00元"
+                        android:layout_marginLeft="15dp"
                         android:textColor="@color/red"
                         android:textSize="14sp" />
                 </RelativeLayout>

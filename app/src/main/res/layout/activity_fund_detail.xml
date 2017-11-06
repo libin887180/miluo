@@ -436,7 +436,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:text="资金规模"
+                        android:text="基金规模"
                         android:textSize="16sp" />
 
 
