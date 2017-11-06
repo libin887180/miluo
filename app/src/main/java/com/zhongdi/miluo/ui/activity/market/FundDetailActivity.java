@@ -330,9 +330,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
             float discount = Float.parseFloat(fundDetail.getDiscount());
-            String rate = fundDetail.getRateValue().substring(0,fundDetail.getRateValue().length() - 1);
-            float value = Float.parseFloat(rate);
-            tvCurrentRate.setText(value*discount+"%");
+            if(fundDetail.getRateValue().length()>0) {
+                String rate = fundDetail.getRateValue().substring(0, fundDetail.getRateValue().length() - 1);
+                float value = Float.parseFloat(rate);
+                tvCurrentRate.setText(value*discount+"%");
+            }else{
+                tvCurrentRate.setText("0%");
+            }
+
             tvDepRate.setText(fundDetail.getRateValue());
         } else {
             tvDepRate.setVisibility(View.GONE);

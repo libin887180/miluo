@@ -235,7 +235,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                     tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
                                     tvDepSxf.setText(amount * rate + "元");
                                     tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
-
                                 }
                                 break;
                             }

@@ -139,7 +139,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
                 Intent intent;
-                if ((assetBean.getFundtype() + "").equals(MiluoConfig.HUOBI)) {
+
+                if ((assetBean.getFundtype() + "").equals(MiluoConfig.HUOBI)||(assetBean.getFundtype() + "").equals(MiluoConfig.DUANQI)) {
                     intent = new Intent(mContext, FundCurrencyDetailActivity.class);
                 } else {
                     intent = new Intent(mContext, FundDetailActivity.class);

@@ -185,7 +185,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, OptionalFund searchFund, int position) {
                 Intent intent;
-                if (searchFund.getFundType().equals(MiluoConfig.HUOBI)) {
+                if (searchFund.getFundType().equals(MiluoConfig.HUOBI)||searchFund.getFundType().equals(MiluoConfig.DUANQI)) {
                     intent = new Intent(mContext, FundCurrencyDetailActivity.class);
                 } else {
                     intent = new Intent(mContext, FundDetailActivity.class);

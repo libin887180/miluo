@@ -28,6 +28,7 @@ public class BuyTiyanjinPresenter extends BasePresenter<BuyTiyanjinView> {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("fundCode", fundCode);
+        map.put("type", "1");//1、体验金；2、新手;3、米罗盘；4、pk组
         Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_BUY_BEFORE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<BeforeBuyInfo>>() {
                     @Override
@@ -59,6 +60,7 @@ public class BuyTiyanjinPresenter extends BasePresenter<BuyTiyanjinView> {
         map.put("productid", fundCode);
         map.put("tradepwd", tradepwd);
         map.put("transamount", transamount);
+        map.put("type", "1");//1、体验金；2、新手;3、米罗盘；4、pk组
         Callback.Cancelable post = netRequestUtil.post(URLConfig.BUY_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override

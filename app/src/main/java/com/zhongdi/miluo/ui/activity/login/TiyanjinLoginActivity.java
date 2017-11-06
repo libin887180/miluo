@@ -40,7 +40,7 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
 
         @Override
         public void onTick(long millisUntilFinished) {
-            tvSendCode.setText("验证码("+millisUntilFinished / 1000 + "S)");
+            tvSendCode.setText("验证码(" + millisUntilFinished / 1000 + "S)");
         }
 
         @Override
@@ -54,14 +54,14 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_tiyanjin_quick_login);
-        source = getIntent().getIntExtra(IntentConfig.SOURCE,-1);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
     }
 
-    @OnClick({R.id.btn_login,   R.id.tv_send_code})
+    @OnClick({R.id.btn_login, R.id.tv_send_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                presenter.login(etUsername.getText().toString(), etCode.getText().toString(),source);
+                presenter.login(etUsername.getText().toString(), etCode.getText().toString(), source);
                 break;
             case R.id.tv_send_code:
                 if (!StringUtil.isPhoneNum(etUsername.getText().toString())) {
@@ -77,10 +77,8 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
 
     @Override
     public void loginSuccess(UserInfo userInfo) {
-        if(userInfo.getRegistorLogin().equals("1")){
-            Intent intent = new Intent(mContext, TiyanjinInfoActivity.class);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(mContext, TiyanjinInfoActivity.class);
+        startActivity(intent);
         setResult(RESULT_OK);
         finish();
     }
@@ -96,7 +94,6 @@ public class TiyanjinLoginActivity extends BaseActivity<TiyanjinQuickLoginPresen
         btnLogin.setEnabled(true);
         btnLogin.setTextColor(Color.WHITE);
     }
-
 
 
     @Override

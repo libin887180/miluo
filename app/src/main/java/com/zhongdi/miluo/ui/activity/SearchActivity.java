@@ -106,7 +106,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, SearchFund searchFund, int position) {
                 Intent intent;
-                if(searchFund.getFundtype().equals(MiluoConfig.HUOBI)){
+                if(searchFund.getFundtype().equals(MiluoConfig.HUOBI)||searchFund.getFundtype().equals(MiluoConfig.DUANQI)){
                     intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
                 }else {
                     intent = new Intent(mContext, FundDetailActivity.class);

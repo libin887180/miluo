@@ -37,6 +37,7 @@ import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.view.TransactionDetailView;
@@ -50,8 +51,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.zhongdi.miluo.R.id.tv_increase_percent;
 
 public class TransationsDetailActivity extends BaseActivity<TransactionDetailPresenter> implements TransactionDetailView, View.OnClickListener {
 
@@ -109,6 +108,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     private View popView;
     private PayView mPayView;
     private String selectFenHong;
+    private int fundtype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -358,7 +358,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 break;
             case R.id.rl_fund_info:
                 if (!TextUtils.isEmpty(fundId)) {
-                    Intent detail = new Intent(mContext, FundDetailActivity.class);
+                    Intent detail ;
+                    if ((fundtype + "").equals(MiluoConfig.HUOBI) || (fundtype + "").equals(MiluoConfig.DUANQI)) {
+                        detail = new Intent(mContext, FundCurrencyDetailActivity.class);
+                    } else {
+                       detail = new Intent(mContext, FundDetailActivity.class);
+
+                    }
                     detail.putExtra("fundId", fundId);
                     detail.putExtra("fundcode", fundcode);
                     startActivity(detail);
@@ -486,13 +492,14 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         } else {
             tvSell.setEnabled(false);
         }
-        if ((body.getFundtype() + "").equals(MiluoConfig.HUOBI)) {
+        fundtype = body.getFundtype();
+        if ((body.getFundtype() + "").equals(MiluoConfig.HUOBI) || (body.getFundtype() + "").equals(MiluoConfig.DUANQI)) {
             tvIncreaseType.setText("七日年化");
             tvNetvalueType.setText("万分收益");
             tvNetvalue.setText(body.getTenthouunitincm() + "");
-            if(body.getYearyld().contains("-")){
+            if (body.getYearyld().contains("-")) {
                 tvDayrate.setTextColor(mContext.getResources().getColor(R.color.increase_green));
-            }else{
+            } else {
                 tvDayrate.setTextColor(mContext.getResources().getColor(R.color.red));
             }
             tvDayrate.setText(body.getYearyld() + "%");
@@ -508,7 +515,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         } else if (body.getDividendMethod().equals("1")) {
             listAdapter.setCheck(1);
             tvFenhong.setText("现金分红");
-        } else if (body.getDividendMethod().equals("3")) {
+        } else if (body.getDividendMethod().equals("2")) {
             tvFenhong.setText("红利再投\n确认中");
         } else {
             tvFenhong.setText("现金分红\n确认中");

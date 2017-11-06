@@ -25,6 +25,7 @@ import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.util.StringUtil;
@@ -75,6 +76,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     List<StepsBean> tradeSteps = new ArrayList<>();
     List<TradeRecord.Part3Bean> transInfo = new ArrayList<>();
     private String SOURCE;
+    private int fundType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +104,10 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
     @Override
     public void showPswLocked() {
-        showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
+        showDialog("", "交易密码已被冻结，请联系客服", "联系客服", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + MiluoConfig.TEL));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -142,10 +144,16 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
-                    Intent detail = new Intent(mContext, FundDetailActivity.class);
-                    detail.putExtra("fundId", tradeRecord.getPart1().getFundid()+"");
-                    detail.putExtra("fundcode", tradeRecord.getPart1().getFundcode()+"");
+                if (position == 0) {
+                    Intent detail;
+                    if ((fundType + "").equals(MiluoConfig.DUANQI) || (fundType + "").equals(MiluoConfig.HUOBI)) {
+                        detail = new Intent(mContext, FundCurrencyDetailActivity.class);
+                    } else {
+                        detail = new Intent(mContext, FundDetailActivity.class);
+
+                    }
+                    detail.putExtra("fundId", tradeRecord.getPart1().getFundid() + "");
+                    detail.putExtra("fundcode", tradeRecord.getPart1().getFundcode() + "");
                     startActivity(detail);
                 }
             }
@@ -157,17 +165,17 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     public void OnDataSuccess(TradeRecord body) {
         this.tradeRecord = body;
         tradeSteps.clear();
-
+        fundType = body.getPart1().getFundtype();
         String cancelstatus = body.getPart1().getCancelstatus();
         String currentStep = body.getPart2().getCurrentStep();
         String title = body.getPart1().getTitle();
-            tvTradeName.setText(title);
+        tvTradeName.setText(title);
         tvReqtime.setText(body.getPart1().getReqtime());
 
         if (tradeType.equals("1")) {
-            tvAmount.setText("-" + StringUtil.parseStr2Num(body.getPart1().getAmount()+""));
+            tvAmount.setText("-" + StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));
         } else {
-            tvAmount.setText  (StringUtil.parseStr2Num(body.getPart1().getAmount()+""));
+            tvAmount.setText(StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));
         }
         if (body.getPart2().getSteps() != null && body.getPart2().getSteps().size() > 0) {
             tradeSteps.addAll(body.getPart2().getSteps());

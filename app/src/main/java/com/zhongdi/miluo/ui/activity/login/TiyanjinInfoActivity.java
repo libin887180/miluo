@@ -37,12 +37,12 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     }
 
     private void initView(){
-        String url = "";
+        String url = "http://192.168.64.212:8371/lead/v1/experience/getFeeShow?type=1";
         //String titleName = "";
-        if (getIntent().getExtras() != null){
-            url = getIntent().getStringExtra("url");
-            //titleName = getIntent().getStringExtra("title");
-        }
+//        if (getIntent().getExtras() != null){
+//            url = getIntent().getStringExtra("url");
+//            //titleName = getIntent().getStringExtra("title");
+//        }
         //titleTv.setText(titleName);
 
         webView.addJavascriptInterface(new JavaScriptInterface(), "service");
@@ -63,11 +63,6 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
 
         if (url != null){
             ViseLog.i("// URL=  " + url);
-            if (url.contains("?")){
-                url = url + "&source=app";
-            } else {
-                url = url + "?source=app";
-            }
             webView.loadUrl(url);
         }
     }
