@@ -243,4 +243,16 @@ public class URLConfig {
      * 获取邀请好友个数和收益
      */
     public static final String FRIENDS_NUM = BASE_URL + "/activity/v1/invitingFriends";
+    /**
+     * 基金首页资讯
+     */
+    public static final String AUTO_NEWS = BASE_URL + "/lead/v1/fundAutoNews";
+    /**
+     * 基金首页新手标
+     */
+    public static final String NEW_COMMER = BASE_URL + "/juniorActivity/mainJuniorActivity";
+    /**
+     * 基金首页活动
+     */
+    public static final String HOME_ACTIVE = BASE_URL + "/mainActivity/selActivity";
 }

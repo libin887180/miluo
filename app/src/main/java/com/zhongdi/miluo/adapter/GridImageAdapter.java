@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.model.HomeActiv;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ import butterknife.ButterKnife;
 
 public class GridImageAdapter extends BaseAdapter {
 
-    private List<String> datas;
+    private List<HomeActiv> datas;
     private Context mContext;
 
-    public GridImageAdapter(Context c, List<String> datas) {
+    public GridImageAdapter(Context c, List<HomeActiv> datas) {
         mContext = c;
         Resources resources = c.getResources();
         this.datas = datas;
@@ -54,28 +55,29 @@ public class GridImageAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-       switch (position){
-           case  0:
+        HomeActiv activ = datas.get(position);
+        holder.tvDsc.setText(activ.getTitle());
+        switch (activ.getType()){
+           case  "1":
                holder.ivIcon.setImageResource(R.drawable.voucher);
                holder.tvTitle.setText("体验金");
-               holder.tvDsc.setText("10秒急速体验最高赢20元话费");
                break;
-           case  1:
+           case  "5":
                holder.ivIcon.setImageResource(R.drawable.match);
-               holder.tvTitle.setText("月月盈赛");
-               holder.tvDsc.setText("跟着牛人赚大钱瓜分10万奖池");
+               holder.tvTitle.setText("小白学基");
                break;
-           case  2:
+           case  "3":
                holder.ivIcon.setImageResource(R.drawable.compass);
                holder.tvTitle.setText("米罗盘");
-               holder.tvDsc.setText("疯狂大转盘拿1000元京东卡");
                break;
-           case  3:
+           case  "4":
                holder.ivIcon.setImageResource(R.drawable.sixbuddy);
                holder.tvTitle.setText("六人同行");
-               holder.tvDsc.setText("呼朋唤友赢iphone8");
                break;
+            case  "2":
+                holder.ivIcon.setImageResource(R.drawable.sixbuddy);
+                holder.tvTitle.setText("新手");
+                break;
        }
         return convertView;
     }

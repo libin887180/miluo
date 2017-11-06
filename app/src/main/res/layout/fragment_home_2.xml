@@ -156,6 +156,7 @@
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:id="@+id/tv_profit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:shadowColor="@color/light_red"
@@ -196,6 +197,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/tv_ex_porfit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:shadowColor="@color/light_red"
@@ -288,11 +290,11 @@
                         android:id="@+id/gv_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:horizontalSpacing="0.5dp"
+                        android:horizontalSpacing="1dp"
                         android:numColumns="2"
                         android:overScrollMode="never"
                         android:scrollbars="none"
-                        android:verticalSpacing="0.5dp" />
+                        android:verticalSpacing="1dp" />
                 </LinearLayout>
 
 

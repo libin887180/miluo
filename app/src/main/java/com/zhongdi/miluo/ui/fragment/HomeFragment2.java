@@ -19,9 +19,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.AwardedFundAdapter;
@@ -32,6 +34,12 @@ import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.HomeActiv;
+import com.zhongdi.miluo.model.HomeNews;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.NewComeBean;
+import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
@@ -46,8 +54,12 @@ import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.NoScrollGridView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
 
+import org.xutils.common.Callback;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,13 +94,18 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     RelativeLayout rlLoginState;
     @BindView(R.id.btn_login)
     TextView btnLogin;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.tv_ex_porfit)
+    TextView tvExPorfit;
     @BindView(R.id.btn_news)
     Button btnNews;
     private View rootView;
-    private List<String> scrollMsgs;
+    private List<HomeNews> scrollMsgs = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private MainActivity paraentActivity;
-
+    List<HomeActiv> activitys = new ArrayList<>();
+    GridImageAdapter gridImageAdapter;
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment2 fragment = new HomeFragment2();
@@ -139,7 +156,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private void initView() {
 
         setupRefreshView();
-        setUpMarqueeView();
+
         List<String> datas = new ArrayList<>();
         datas.add("1111111111111");
         datas.add("22222222222");
@@ -185,12 +202,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         head.getBackground().setAlpha(0);
         mScrollView.setOnObservableScrollViewListener(this);
 
-        List<String> activitys = new ArrayList<>();
-        activitys.add("1111111111111");
-        activitys.add("22222222222");
-        activitys.add("3333333333333");
-        activitys.add("4444444444444");
-        GridImageAdapter gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
+
+         gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
         gvActivity.setAdapter(gridImageAdapter);
         gvActivity.setFocusable(false);
 
@@ -199,7 +212,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void showHuodongDialog() {
         final Dialog dialog = new Dialog(getActivity(), R.style.AlertDialogStyle);
-        View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_huodong,null);
+        View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_huodong, null);
         //获得dialog的window窗口
         Window window = dialog.getWindow();
         //设置dialog在屏幕底部
@@ -207,24 +220,24 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         //设置dialog弹出时的动画效果，从屏幕底部向上弹出
         window.getDecorView().setPadding(0, 0, 0, 0);
         //获得window窗口的属性
-        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+        WindowManager.LayoutParams lp = window.getAttributes();
         //设置窗口宽度为充满全屏
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         //设置窗口高度为包裹内容
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-        ImageView  ivClose = (ImageView) dialogView.findViewById(R.id.iv_close);
+        ImageView ivClose = (ImageView) dialogView.findViewById(R.id.iv_close);
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        LinearLayout  ll_open = (LinearLayout) dialogView.findViewById(R.id.ll_open);
+        LinearLayout ll_open = (LinearLayout) dialogView.findViewById(R.id.ll_open);
         ll_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login_tiyan  = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
                 startActivity(login_tiyan);
                 dialog.dismiss();
             }
@@ -255,7 +268,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 }
             });
             //进行对控件赋值
-            tv1.setText(scrollMsgs.get(i).toString());
+            tv1.setText(scrollMsgs.get(i).getArticletitle());
             //添加到循环滚动数组里面去
             views2.add(moreView);
         }
@@ -264,13 +277,99 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     }
 
     private void initData() {
-
-        scrollMsgs = new ArrayList<String>();
-        scrollMsgs.add("股票基金奥斯卡几点来");
-        scrollMsgs.add("奥术大师多");
-        scrollMsgs.add("的范德萨发");
+        getScrollNews();
+        getNewCommer();
+        getActivs();
     }
 
+    private void getScrollNews() {
+        Map<String, String> map = new HashMap<>();
+        map.put("articletag", "08,10,11");
+
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.AUTO_NEWS, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HomeNews>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HomeNews>> response, int requestCode) {
+                        scrollMsgs.clear();
+                        scrollMsgs.addAll(response.getBody());
+                        setUpMarqueeView();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HomeNews>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
+
+    private void getActivs() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type","");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_ACTIVE, map, 104,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HomeActiv>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HomeActiv>> response, int requestCode) {
+                        activitys.clear();
+                        for (int i = 0; i <2 ; i++) {
+                            activitys.add(response.getBody().get(i));
+                        }
+                        gridImageAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HomeActiv>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
+
+    private void getNewCommer() {
+        Map<String, String> map = new HashMap<>();
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.NEW_COMMER, map, 102,
+                new NetRequestUtil.NetResponseListener<MResponse<NewComeBean>>() {
+                    @Override
+                    public void onSuccess(MResponse<NewComeBean> response, int requestCode) {
+                        tvProfit.setText(response.getBody().getYearyld());
+                        tvExPorfit.setText(response.getBody().getExtrayearrate());
+                        btnNews.setText(Double.parseDouble(response.getBody().getMinsubscribeamt()) / 100 + "元起购");
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<NewComeBean> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
 
     private void setupRefreshView() {
         MyRefreshView headerView = new MyRefreshView(getActivity());
@@ -380,7 +479,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //        }
     }
 
-    @OnClick({R.id.btn_login, R.id.img_msg,R.id.et_search,R.id.btn_news})
+    @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
