@@ -8,13 +8,13 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/cb_collect"
+    <ImageView
+        android:id="@+id/iv_collect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:button="@drawable/checkbox_home_collect" />
+        android:src="@drawable/checkbox_home_collect" />
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/cb_collect"
+        android:layout_toRightOf="@id/iv_collect"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
@@ -53,12 +53,10 @@
         android:id="@+id/ll_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
 
         <LinearLayout
             android:id="@+id/ll_info"

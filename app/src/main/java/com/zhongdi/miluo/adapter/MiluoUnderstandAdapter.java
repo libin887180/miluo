@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.model.HomeFund;
 
 import java.util.List;
 
@@ -14,16 +15,21 @@ import java.util.List;
  * @ author：xujun on 2016/10/18 16:42
  * @ email：gdutxiaoxu@163.com
  */
-public class MiluoUnderstandAdapter extends BaseRecyclerAdapter<String> {
+public class MiluoUnderstandAdapter extends BaseRecyclerAdapter<HomeFund> {
 private Context mContext;
-    public MiluoUnderstandAdapter(Context context, List<String> datas) {
+    public MiluoUnderstandAdapter(Context context, List<HomeFund> datas) {
         super(context, R.layout.home_understand_item, datas);
         mContext = context;
     }
 
     @Override
-    public void convert(BaseRecyclerHolder holder, String item, int position) {
+    public void convert(BaseRecyclerHolder holder, HomeFund item, int position) {
         ImageView photo = (ImageView)holder.getView(R.id.iv_photo);
-        Glide.with(mContext).load("http://zxpic.imtt.qq.com/zxpic_imtt/2017/07/24/1900/originalimage/190135_14593482_3_640_427.jpg").into(photo);
+        Glide.with(mContext).load(item.getUrl()).into(photo);
+    holder.setText(R.id.tv_title,item.getTitle());
+    holder.setText(R.id.tv_content,item.getContent());
+    holder.setText(R.id.tv_rate,item.getFoundrate());
+
+
     }
 }

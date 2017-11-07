@@ -36,6 +36,7 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.HomeActiv;
+import com.zhongdi.miluo.model.HomeFund;
 import com.zhongdi.miluo.model.HomeNews;
 import com.zhongdi.miluo.model.HotSpots;
 import com.zhongdi.miluo.model.MResponse;
@@ -107,8 +108,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private MainActivity paraentActivity;
     private List<HomeActiv> activitys = new ArrayList<>();
     private List<HotSpots> hotSpots = new ArrayList<>();
+    private List<HomeFund> dongnifunds = new ArrayList<>();
+    private List<HomeFund> awardfunds = new ArrayList<>();
     private  GridImageAdapter gridImageAdapter;
+    MiluoUnderstandAdapter understandAdapter;
     HotInvestmentAdapter investmentAdapter;
+    AwardedFundAdapter awardedFundAdapter;
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment2 fragment = new HomeFragment2();
@@ -185,7 +190,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         recyclerViewHot.setAdapter(investmentAdapter);
 
         //获奖基金列表
-        AwardedFundAdapter awardedFundAdapter = new AwardedFundAdapter(getActivity(), datas);
+         awardedFundAdapter = new AwardedFundAdapter(getActivity(), awardfunds);
         recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -197,7 +202,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         //米罗懂你列表
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        MiluoUnderstandAdapter understandAdapter = new MiluoUnderstandAdapter(getActivity(), datas);
+         understandAdapter = new MiluoUnderstandAdapter(getActivity(), dongnifunds);
         recyclerViewUnderStand.setLayoutManager(manager);
         recyclerViewUnderStand.setFocusable(false);
         recyclerViewUnderStand.setAdapter(understandAdapter);
@@ -284,6 +289,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         getNewCommer();
         getActivs();
         gethotSpots();
+        getMiluoUnderstand();
+        getAwardFunds();
     }
 
     private void getScrollNews() {
@@ -376,6 +383,64 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 });
     }
 
+
+    private void getMiluoUnderstand() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type","4");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HomeFund>> response, int requestCode) {
+                        dongnifunds.clear();
+                        dongnifunds.addAll(response.getBody());
+                        understandAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HomeFund>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
+
+    private void getAwardFunds() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type","3");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HomeFund>> response, int requestCode) {
+                        awardfunds.clear();
+                        awardfunds.addAll(response.getBody());
+                        awardedFundAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HomeFund>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
     private void getNewCommer() {
         Map<String, String> map = new HashMap<>();
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.NEW_COMMER, map, 102,

@@ -259,4 +259,8 @@ public class URLConfig {
      * 基金投资热点
      */
     public static final String HOT_SPOTS= BASE_URL + "/chooseFund/selHotSpots";
+    /**
+     * 首页 特色基金，获奖基金，米罗懂你
+     */
+    public static final String HOME_FUND= BASE_URL + "/chooseFund/selChooseFundList";
 }
