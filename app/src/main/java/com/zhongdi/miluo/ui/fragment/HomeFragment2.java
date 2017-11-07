@@ -37,6 +37,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.HomeActiv;
 import com.zhongdi.miluo.model.HomeNews;
+import com.zhongdi.miluo.model.HotSpots;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.NewComeBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -104,8 +105,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private List<HomeNews> scrollMsgs = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private MainActivity paraentActivity;
-    List<HomeActiv> activitys = new ArrayList<>();
-    GridImageAdapter gridImageAdapter;
+    private List<HomeActiv> activitys = new ArrayList<>();
+    private List<HotSpots> hotSpots = new ArrayList<>();
+    private  GridImageAdapter gridImageAdapter;
+    HotInvestmentAdapter investmentAdapter;
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment2 fragment = new HomeFragment2();
@@ -170,7 +173,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         HomeSpecialityAdapter bankCardListAdapter = new HomeSpecialityAdapter(getActivity(), datas);
         hor_recyclerView.setAdapter(bankCardListAdapter);
 
-        //热门基金列表
+        //投资热点
         recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -178,7 +181,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             }
         });
         recyclerViewHot.setFocusable(false);
-        HotInvestmentAdapter investmentAdapter = new HotInvestmentAdapter(getActivity(), datas);
+         investmentAdapter = new HotInvestmentAdapter(getActivity(), hotSpots);
         recyclerViewHot.setAdapter(investmentAdapter);
 
         //获奖基金列表
@@ -280,6 +283,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         getScrollNews();
         getNewCommer();
         getActivs();
+        gethotSpots();
     }
 
     private void getScrollNews() {
@@ -328,6 +332,35 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
                     @Override
                     public void onFailed(MResponse<List<HomeActiv>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
+
+    private void gethotSpots() {
+        Map<String, String> map = new HashMap<>();
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOT_SPOTS, map, 105,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HotSpots>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HotSpots>> response, int requestCode) {
+
+                        hotSpots.clear();
+                        hotSpots.addAll(response.getBody());
+                        investmentAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HotSpots>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
                     }

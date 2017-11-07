@@ -255,4 +255,8 @@ public class URLConfig {
      * 基金首页活动
      */
     public static final String HOME_ACTIVE = BASE_URL + "/mainActivity/selActivity";
+    /**
+     * 基金投资热点
+     */
+    public static final String HOT_SPOTS= BASE_URL + "/chooseFund/selHotSpots";
 }

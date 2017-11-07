@@ -18,10 +18,10 @@
         android:padding="5dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/bg_circle_blue"
-        android:text="人工智能"
+        android:text="人工\n智能"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:background="@drawable/bg_dashgap_circle" />
 
     <RelativeLayout
@@ -39,6 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="刷卡机倒骄傲"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/text_222"
             android:textSize="16sp" />
         <TextView
@@ -48,6 +50,8 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginTop="10dp"
             android:text="人工z还能迎风口"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textColor="@color/text_color_normal"
             android:textSize="13sp" />
         <TextView
@@ -60,6 +64,8 @@
             android:layout_marginRight="15dp"
             android:drawablePadding="10dp"
             android:text="新增潜力"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:drawableRight="@drawable/icon_right"
             android:textColor="@color/text_color_normal"
             android:textSize="15sp" />

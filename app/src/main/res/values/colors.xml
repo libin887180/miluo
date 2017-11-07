@@ -30,6 +30,9 @@
     <color name="grey_bg">#F3F5F5</color>
     <color name="grey_light_bg">#F2F4F4</color>
     <color name="tab_text_selected">#FF3F51</color>
+    <color name="dash_circle_blue">#2FA4FA</color>
+    <color name="dash_circle_green">#3399A5</color>
+    <color name="dash_circle_orange">#D76D30</color>
     <color name="bg_circle_blue">#2FA4FA</color>
     <color name="bg_circle_green">#63C76A</color>
     <color name="bg_circle_orange">#FF5500</color>
