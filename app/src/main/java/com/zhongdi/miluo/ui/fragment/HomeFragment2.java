@@ -110,10 +110,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private List<HotSpots> hotSpots = new ArrayList<>();
     private List<HomeFund> dongnifunds = new ArrayList<>();
     private List<HomeFund> awardfunds = new ArrayList<>();
+    private List<HomeFund> specialfunds = new ArrayList<>();
     private  GridImageAdapter gridImageAdapter;
     MiluoUnderstandAdapter understandAdapter;
     HotInvestmentAdapter investmentAdapter;
     AwardedFundAdapter awardedFundAdapter;
+    HomeSpecialityAdapter homeSpecialityAdapter;
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment2 fragment = new HomeFragment2();
@@ -165,18 +167,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
         setupRefreshView();
 
-        List<String> datas = new ArrayList<>();
-        datas.add("1111111111111");
-        datas.add("22222222222");
-        datas.add("3333333333333");
-        datas.add("4444444444444");
         //特色基金列表
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         hor_recyclerView.setFocusable(false);
         hor_recyclerView.setLayoutManager(layoutManager);
-        HomeSpecialityAdapter bankCardListAdapter = new HomeSpecialityAdapter(getActivity(), datas);
-        hor_recyclerView.setAdapter(bankCardListAdapter);
+        homeSpecialityAdapter = new HomeSpecialityAdapter(getActivity(), specialfunds);
+        hor_recyclerView.setAdapter(homeSpecialityAdapter);
 
         //投资热点
         recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()) {
@@ -291,6 +288,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         gethotSpots();
         getMiluoUnderstand();
         getAwardFunds();
+        getSpecialFund();
     }
 
     private void getScrollNews() {
@@ -423,6 +421,35 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         awardfunds.clear();
                         awardfunds.addAll(response.getBody());
                         awardedFundAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<HomeFund>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Toast.makeText(getActivity(), "onError", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFinished() {
+                    }
+                });
+    }
+
+    private void getSpecialFund() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type","2,8,9");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
+                new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<HomeFund>> response, int requestCode) {
+                        specialfunds.clear();
+                        specialfunds.addAll(response.getBody());
+                        homeSpecialityAdapter.notifyDataSetChanged();
                     }
 
                     @Override
