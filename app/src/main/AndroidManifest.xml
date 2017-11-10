@@ -109,6 +109,10 @@
         <activity android:name=".ui.activity.login.TiyanjinLoginActivity"/>
         <activity android:name=".ui.activity.mine.TiyanjinTransDetailActivity"/>
         <activity android:name=".ui.activity.login.TiyanjinInfoActivity"/>
+        <activity android:name=".ui.activity.login.JuniorActivity"/>
+        <activity android:name=".ui.activity.login.FundStudyActivity"/>
+        <activity android:name=".ui.activity.login.MiLuoPanActivity"/>
+        <activity android:name=".ui.activity.market.BuyTiyanjinActivity"/>
 
         <service android:name=".MyIntentService"></service>
 

@@ -28,7 +28,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
-import com.zhongdi.miluo.ui.activity.market.BuyTiyanjinActivity;
+import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.mine.GiftListActivity;
@@ -354,7 +354,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 break;
             case R.id.ll_tiyanjin:
                 if(SpCacheUtil.getInstance().getActivityStatus().equals("0")){
-                    startActivity(new Intent(mContext, BuyTiyanjinActivity.class));
+                    Intent tiyanjin_info = new Intent(mContext, TiyanjinInfoActivity.class);
+                    startActivity(tiyanjin_info);
                 }else {
                     startActivity(new Intent(mContext, TiyanjinTransDetailActivity.class));
                 }

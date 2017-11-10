@@ -198,7 +198,6 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                                     tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
                                     tvDepSxf.setText(amount * rate + "元");
                                     tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
-
                                 }
                                 break;
                             }
@@ -269,6 +268,8 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
 
     @Override
     public void onBuySuccess(BuyResponse body) {
+
+        SpCacheUtil.getInstance().setTiyanjinStatus("1");/** 0,未参加体验金 1,已参加体坛金*/
         Intent intent = new Intent(mContext, TransationsRecordActivity.class);
         intent.putExtra("tradeid", body.getTradeid() + "");
         intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
@@ -348,7 +349,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         });
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account,R.id.tv_risk})
+    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:

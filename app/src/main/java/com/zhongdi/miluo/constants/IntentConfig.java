@@ -15,6 +15,7 @@ public class IntentConfig {
     public static final int DETAIL_COLLECT = 4;//详情页加自选
     public static final int HOME_LOGIN = 5;//首页登录按钮
     public static final int BUY_FUND = 6;//基金详情界面申购按钮
+    public static final int TIYANJIN = 7;//体验金
 
     public static final int FROM_MODIFY_PSW = 0;//登录密码修改
     public static final int FROM_MODIFY_DEAL_PSW = 1;//交易密码修改

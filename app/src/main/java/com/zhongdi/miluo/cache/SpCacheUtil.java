@@ -92,7 +92,15 @@ public class SpCacheUtil {
         spCache.put("ACTIVITY_STATUS", userInfo.getActivityStatus());
         setUserPwd(userInfo.getPassword());
     }
-
+    /**
+     * 设置体验金状态
+     * 0,未参加体验金
+     * 1,已参加体坛金
+     *
+     */
+    public void setTiyanjinStatus(String  status) {
+        spCache.put("ACTIVITY_STATUS",status);
+    }
     /**
      * 获取体验金状态
      *

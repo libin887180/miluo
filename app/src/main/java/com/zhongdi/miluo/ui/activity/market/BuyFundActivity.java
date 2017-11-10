@@ -298,7 +298,49 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
-        tvFundType.setText(buyInfo.getFund().getFundtype());
+        String  fundType ;
+        switch (buyInfo.getFund().getFundtype()){
+            case MiluoConfig.GUPIAO:
+                fundType = "股票型";
+                break;
+            case MiluoConfig.ZHAIQUAN:
+                fundType = "债券型";
+                break;
+            case MiluoConfig.HUNHE:
+                fundType = "混合型";
+                break;
+            case MiluoConfig.HUOBI:
+                fundType = "货币型";
+                break;
+            case MiluoConfig.ZHISHU:
+                fundType = "指数型";
+                break;
+            case MiluoConfig.BAOBEN:
+                fundType = "保本型";
+                break;
+            case MiluoConfig.ETF:
+                fundType = "ETF联接";
+                break;
+            case MiluoConfig.DQII:
+                fundType = "QDII";
+                break;
+            case MiluoConfig.LOF:
+                fundType = "LOF";
+                break;
+            case MiluoConfig.DUANQI:
+                fundType = "短期理财型";
+                break;
+            case MiluoConfig.ALL:
+                fundType = "全部";
+                break;
+            case MiluoConfig.ZUHE:
+                fundType = "组合型";
+                break;
+            default:
+                fundType = "其他";
+                break;
+        }
+        tvFundType.setText(fundType);
         if (buyInfo.getBankInfo() != null) {//没有银行信息，即没开户
             tvBankName.setText(buyInfo.getBankInfo().getBankname());
             tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());

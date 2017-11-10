@@ -44,7 +44,8 @@ public class HtmlActivity extends BaseActivity2 {
             //titleName = getIntent().getStringExtra("title");
         }
         //titleTv.setText(titleName);
-
+        // 设置允许JS弹窗
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.addJavascriptInterface(new JavaScriptInterface(), "service");
         webView.setWebChromeClient(new WebChromeClient(){
             @Override

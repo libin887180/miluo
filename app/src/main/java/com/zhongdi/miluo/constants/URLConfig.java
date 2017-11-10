@@ -267,7 +267,19 @@ public class URLConfig {
     /**
      * 体验金介绍页
      */
-    public static final String TIYANJIN= HTML5 + "/lead/v1/experience/getFeeShow?type=1";
+    public static final String TIYANJIN= HTML5 + "/lead/v1/experience/getFeeShow?type=1&username=";
+    /**
+     * 新手
+     */
+    public static final String JEUNIOR= HTML5 + "/fund/selJuniorActivity";
+    /**
+     * 小白学基
+     */
+    public static final String STUDY= HTML5 + "/fund/fundLearningType";
+    /**
+     * 米罗盘
+     */
+    public static final String MILUO_PAN= HTML5 + "/fund/fundLearningType";
 
 
 }

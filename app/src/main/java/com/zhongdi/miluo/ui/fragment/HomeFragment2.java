@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,12 +45,16 @@ import com.zhongdi.miluo.model.NewComeBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
+import com.zhongdi.miluo.ui.activity.login.FundStudyActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
+import com.zhongdi.miluo.ui.activity.login.JuniorActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
+import com.zhongdi.miluo.ui.activity.login.MiLuoPanActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
+import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -111,11 +116,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     private List<HomeFund> dongnifunds = new ArrayList<>();
     private List<HomeFund> awardfunds = new ArrayList<>();
     private List<HomeFund> specialfunds = new ArrayList<>();
-    private  GridImageAdapter gridImageAdapter;
+    private GridImageAdapter gridImageAdapter;
     MiluoUnderstandAdapter understandAdapter;
     HotInvestmentAdapter investmentAdapter;
     AwardedFundAdapter awardedFundAdapter;
     HomeSpecialityAdapter homeSpecialityAdapter;
+
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
         HomeFragment2 fragment = new HomeFragment2();
@@ -164,9 +170,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     }
 
     private void initView() {
-
         setupRefreshView();
-
         //特色基金列表
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -174,7 +178,6 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         hor_recyclerView.setLayoutManager(layoutManager);
         homeSpecialityAdapter = new HomeSpecialityAdapter(getActivity(), specialfunds);
         hor_recyclerView.setAdapter(homeSpecialityAdapter);
-
         //投资热点
         recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
@@ -183,11 +186,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             }
         });
         recyclerViewHot.setFocusable(false);
-         investmentAdapter = new HotInvestmentAdapter(getActivity(), hotSpots);
+        investmentAdapter = new HotInvestmentAdapter(getActivity(), hotSpots);
         recyclerViewHot.setAdapter(investmentAdapter);
 
         //获奖基金列表
-         awardedFundAdapter = new AwardedFundAdapter(getActivity(), awardfunds);
+        awardedFundAdapter = new AwardedFundAdapter(getActivity(), awardfunds);
         recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -199,7 +202,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         //米罗懂你列表
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-         understandAdapter = new MiluoUnderstandAdapter(getActivity(), dongnifunds);
+        understandAdapter = new MiluoUnderstandAdapter(getActivity(), dongnifunds);
         recyclerViewUnderStand.setLayoutManager(manager);
         recyclerViewUnderStand.setFocusable(false);
         recyclerViewUnderStand.setAdapter(understandAdapter);
@@ -207,11 +210,32 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         head.getBackground().setAlpha(0);
         mScrollView.setOnObservableScrollViewListener(this);
 
-
-         gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
+        gridImageAdapter = new GridImageAdapter(getActivity(), activitys);
         gvActivity.setAdapter(gridImageAdapter);
         gvActivity.setFocusable(false);
+        gvActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (activitys.get(position).getType().equals("1")) {
 
+                    if(!MyApplication.getInstance().isLogined){
+                        Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                        startActivity(login_tiyan);
+                    }else{
+                        Intent buyIntent = new Intent(getActivity(), TiyanjinInfoActivity.class);
+                        startActivity(buyIntent);
+                    }
+
+                } else if (activitys.get(position).getType().equals("5")) {
+                    Intent study = new Intent(getActivity(), FundStudyActivity.class);
+                    startActivity(study);
+                } else if (activitys.get(position).getType().equals("3")) {
+                    Intent miluo_pan = new Intent(getActivity(),MiLuoPanActivity.class);
+                    startActivity(miluo_pan);
+
+                }
+            }
+        });
         showHuodongDialog();
     }
 
@@ -242,8 +266,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         ll_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
-                Intent login_tiyan = new Intent(getActivity(), TiyanjinInfoActivity.class);
+                Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
                 startActivity(login_tiyan);
                 dialog.dismiss();
             }
@@ -324,15 +347,16 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void getActivs() {
         Map<String, String> map = new HashMap<>();
-        map.put("type","");
+        map.put("type", "");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_ACTIVE, map, 104,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeActiv>>>() {
                     @Override
                     public void onSuccess(MResponse<List<HomeActiv>> response, int requestCode) {
                         activitys.clear();
-                        for (int i = 0; i <2 ; i++) {
-                            activitys.add(response.getBody().get(i));
-                        }
+//                        for (int i = 0; i <2 ; i++) {
+//                            activitys.add(response.getBody().get(i));
+//                        }
+                        activitys.addAll(response.getBody());
                         gridImageAdapter.notifyDataSetChanged();
                     }
 
@@ -385,7 +409,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void getMiluoUnderstand() {
         Map<String, String> map = new HashMap<>();
-        map.put("type","4");
+        map.put("type", "4");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
                     @Override
@@ -414,7 +438,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void getAwardFunds() {
         Map<String, String> map = new HashMap<>();
-        map.put("type","3");
+        map.put("type", "3");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
                     @Override
@@ -443,7 +467,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void getSpecialFund() {
         Map<String, String> map = new HashMap<>();
-        map.put("type","2,8,9");
+        map.put("type", "2,8,9");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOME_FUND, map, 105,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeFund>>>() {
                     @Override
@@ -469,6 +493,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     }
                 });
     }
+
     private void getNewCommer() {
         Map<String, String> map = new HashMap<>();
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.NEW_COMMER, map, 102,
@@ -636,11 +661,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.btn_news:
-//               Intent  news =  new Intent(getActivity(), HtmlActivity.class);
-//                news.putExtra("url","http://www.baidu.com");
-//                startActivity(news);
-                Intent intent = new Intent(MyApplication.getInstance(), QuickLoginActivity.class);
-                MyApplication.getInstance().startActivity(intent);
+                Intent intent = new Intent(MyApplication.getInstance(), JuniorActivity.class);
+                startActivity(intent);
                 break;
         }
     }

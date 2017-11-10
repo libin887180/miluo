@@ -11,12 +11,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
-import com.zhongdi.miluo.cache.SpCacheUtil;
-import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
-import com.zhongdi.miluo.ui.activity.market.BuyTiyanjinActivity;
+import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.widget.BaseWebView;
 
 import butterknife.BindView;
@@ -25,7 +27,7 @@ import butterknife.ButterKnife;
 /***
  * bananlar详情页面
  */
-public class TiyanjinInfoActivity extends BaseActivity2 {
+public class JuniorActivity extends BaseActivity2 {
 
     @BindView(R.id.actAgreementPb)
     ProgressBar pbBar;
@@ -33,7 +35,6 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     BaseWebView webView;
     @BindView(R.id.title)
     TextView titleTv;
-    String fundCode;
 
     @SuppressLint("JavascriptInterface")
     @Override
@@ -45,9 +46,9 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     }
 
     private void initView() {
-        String url = URLConfig.TIYANJIN + SpCacheUtil.getInstance().getLoginAccount();
-        webView.getSettings().setJavaScriptEnabled(true);
+        String url = URLConfig.JEUNIOR;
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "service");
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -63,48 +64,50 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
                 }
             }
         });
+        // 只需要将第一种方法的loadUrl()换成下面该方法即可
+//        webView.evaluateJavascript("javascript:;", new ValueCallback<String>() {
+//            @Override
+//            public void onReceiveValue(String value) {
+//                //此处为 js 返回的结果
+//            }
+//        });
+
+
 
         if (url != null) {
             ViseLog.i("// URL=  " + url);
             webView.loadUrl(url);
         }
     }
-
     @JavascriptInterface
-    public void test1(String type, String code) {
-        fundCode = code;
-        switch (type) {
-            case "1"://活动已结束
+    public void test2(String to, String type, String code,String  fundId) {
 
-
-                break;
-            case "2"://已登录 ，未开户 跳转到开户
-                Intent open = new Intent(mContext, OpenAccountActivity.class);
-                open.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
-                startActivityForResult(open, 102);
-                break;
-            case "3"://已登录 已开户 ，进入购买
-                Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
-                intent.putExtra("fundCode", code);
-                startActivity(intent);
-                break;
-            case "4"://已购买
-                break;
-        }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 102:
-                if (requestCode == RESULT_OK) {
-                    Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
-                    intent.putExtra("fundCode", fundCode);
-                    startActivity(intent);
+        switch (to){
+            case "1"://购买方法
+                if (!MyApplication.getInstance().isLogined) {
+                    Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    startActivityForResult(intent, 101);
+                    return;
                 }
+                Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
+                buyIntent.putExtra("fundCode", code);
+                startActivity(buyIntent);
+                break;
+            case "0"://详情方法
+                Intent intent;
+                if(type.equals(MiluoConfig.HUOBI)||type.equals(MiluoConfig.DUANQI)){
+                    intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
+                }else {
+                    intent = new Intent(mContext, FundDetailActivity.class);
+                }
+                intent.putExtra("fundId",fundId);
+                intent.putExtra("fundcode",code);
+                ViseLog.i("fundid-->"+fundId);
+                startActivity(intent);
+
                 break;
         }
+
     }
+
 }

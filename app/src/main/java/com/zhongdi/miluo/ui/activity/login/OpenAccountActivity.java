@@ -210,12 +210,18 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         SpCacheUtil.getInstance().saveUserFundState();
         SpCacheUtil.getInstance().setBankCardCount("1");
         codeAlertDialog.dismiss();//关闭验证码对话框
-        //到开户成功界面
-        Intent intent = new Intent(mContext, OpenAccountSuccessActivity.class);
-        intent.putExtra(IntentConfig.SOURCE, source);
-        startActivity(intent);
-        setResult(RESULT_OK);
-        finish();
+
+        if (source == IntentConfig.TIYANJIN) {
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            //到开户成功界面
+            Intent intent = new Intent(mContext, OpenAccountSuccessActivity.class);
+            intent.putExtra(IntentConfig.SOURCE, source);
+            startActivity(intent);
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 
     @OnClick(R.id.tv_title_left)
