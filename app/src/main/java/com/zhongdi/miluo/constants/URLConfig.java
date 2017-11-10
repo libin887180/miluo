@@ -20,6 +20,7 @@ public class URLConfig {
 //    public static final String BASE_URL = "http://192.168.151.13:8085";
     //外网
     public static final String BASE_URL = "http://218.94.82.38:8085";
+    public static final String HTML5 = "http://192.168.64.212:8371";
 
     /**
      * 测试接口
@@ -263,4 +264,10 @@ public class URLConfig {
      * 首页 特色基金，获奖基金，米罗懂你
      */
     public static final String HOME_FUND= BASE_URL + "/chooseFund/selChooseFundList";
+    /**
+     * 体验金介绍页
+     */
+    public static final String TIYANJIN= HTML5 + "/lead/v1/experience/getFeeShow?type=1";
+
+
 }

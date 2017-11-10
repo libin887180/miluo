@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.widget.BaseWebView;
 
 import butterknife.BindView;
@@ -28,6 +30,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     @BindView(R.id.title)
     TextView titleTv;
 
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,23 +39,18 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         initView();
     }
 
-    private void initView(){
-        String url = "http://192.168.64.212:8371/lead/v1/experience/getFeeShow?type=1";
-        //String titleName = "";
-//        if (getIntent().getExtras() != null){
-//            url = getIntent().getStringExtra("url");
-//            //titleName = getIntent().getStringExtra("title");
-//        }
-        //titleTv.setText(titleName);
+    private void initView() {
+        String url = URLConfig.TIYANJIN;
+        webView.getSettings().setJavaScriptEnabled(true);
 
-        webView.addJavascriptInterface(new JavaScriptInterface(), "service");
-        webView.setWebChromeClient(new WebChromeClient(){
+        webView.addJavascriptInterface(this, "service");
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if (newProgress >= 100) {
                     pbBar.setVisibility(View.GONE);
-                }else {
+                } else {
                     if (pbBar.getVisibility() == View.GONE) {
                         pbBar.setVisibility(View.VISIBLE);
                     }
@@ -61,26 +59,15 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             }
         });
 
-        if (url != null){
+        if (url != null) {
             ViseLog.i("// URL=  " + url);
             webView.loadUrl(url);
         }
     }
+    @JavascriptInterface
+    public void test1(String type, String code) {
 
 
-
-    class JavaScriptInterface {
-        @JavascriptInterface
-        public void openshop(String shopid){
-
-        }
-
-        @JavascriptInterface
-        public void appShare(String title, String content, String imageUrl, String detailUrl){
-        }
-
-        @JavascriptInterface
-        public void openProductDetail(String goodsId){
-        }
     }
+
 }

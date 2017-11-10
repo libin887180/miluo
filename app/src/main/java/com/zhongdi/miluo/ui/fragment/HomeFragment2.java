@@ -49,7 +49,7 @@ import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
-import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
+import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -242,7 +242,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         ll_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
+//                Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                Intent login_tiyan = new Intent(getActivity(), TiyanjinInfoActivity.class);
                 startActivity(login_tiyan);
                 dialog.dismiss();
             }
