@@ -18,12 +18,13 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MiluoNoticeAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.MessageBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
-import com.zhongdi.miluo.ui.activity.HtmlActivity;
+import com.zhongdi.miluo.ui.activity.login.NewsDetailActivity;
 
 import org.xutils.common.Callback;
 
@@ -86,8 +87,9 @@ public class MiLuoNoticeFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<MessageBean>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, MessageBean messageBean, int position) {
-                Intent intent = new Intent(getActivity(), HtmlActivity.class);
-                intent.putExtra("url",messageBean.getUrl());
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("id",messageBean.getId());
+                intent.putExtra(IntentConfig.SOURCE,IntentConfig.FROM_NOTICE);
                 startActivity(intent);
             }
         });

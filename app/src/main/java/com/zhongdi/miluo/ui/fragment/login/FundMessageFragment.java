@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -18,11 +18,13 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MessageAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.MessageBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.login.NewsDetailActivity;
 
 import org.xutils.common.Callback;
 
@@ -165,10 +167,13 @@ public class FundMessageFragment extends Fragment {
         adapter = new MessageAdapter(getActivity(), datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<MessageBean>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
+            public void onClick(View view, RecyclerView.ViewHolder holder, MessageBean messageBean, int position) {
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("id",messageBean.getId());
+                intent.putExtra(IntentConfig.SOURCE,IntentConfig.FROM_MSG);
+                startActivity(intent);
             }
         });
         getMessages(pageNum);

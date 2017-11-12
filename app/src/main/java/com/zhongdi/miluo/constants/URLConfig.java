@@ -285,6 +285,10 @@ public class URLConfig {
      * 特色基金
      */
     public static final String SPECIAL_FUND= HTML5 + "/fund/selCharacteristicList?";
+    /**
+     * 公告和消息详情
+     */
+    public static final String NEWS_DETAIL= HTML5 + "/lead/v1/experience/newsDetail?id=";
 
 
 }
