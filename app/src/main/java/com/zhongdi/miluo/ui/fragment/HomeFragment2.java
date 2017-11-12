@@ -28,6 +28,7 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.AwardedFundAdapter;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.GridImageAdapter;
 import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
@@ -52,6 +53,7 @@ import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
 import com.zhongdi.miluo.ui.activity.login.MiLuoPanActivity;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
+import com.zhongdi.miluo.ui.activity.login.SpecialActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
@@ -178,6 +180,15 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         hor_recyclerView.setLayoutManager(layoutManager);
         homeSpecialityAdapter = new HomeSpecialityAdapter(getActivity(), specialfunds);
         hor_recyclerView.setAdapter(homeSpecialityAdapter);
+        homeSpecialityAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeFund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund item, int position) {
+
+                Intent special = new Intent(getActivity(), SpecialActivity.class);
+                special.putExtra("type",   item.getType());
+                startActivity(special);
+            }
+        });
         //投资热点
         recyclerViewHot.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override

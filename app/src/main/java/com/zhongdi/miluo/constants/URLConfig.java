@@ -20,7 +20,8 @@ public class URLConfig {
 //    public static final String BASE_URL = "http://192.168.151.13:8085";
     //外网
     public static final String BASE_URL = "http://218.94.82.38:8085";
-    public static final String HTML5 = "http://192.168.64.212:8371";
+//    public static final String HTML5 = "http://192.168.64.212:8371";
+    public static final String HTML5 = "http://192.168.151.13:8085";
 
     /**
      * 测试接口
@@ -280,6 +281,10 @@ public class URLConfig {
      * 米罗盘
      */
     public static final String MILUO_PAN= HTML5 + "/fund/fundLearningType";
+    /**
+     * 特色基金
+     */
+    public static final String SPECIAL_FUND= HTML5 + "/fund/selCharacteristicList?";
 
 
 }
