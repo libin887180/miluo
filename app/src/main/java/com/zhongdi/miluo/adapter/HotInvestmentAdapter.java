@@ -23,6 +23,7 @@ private Context mContext;
     public void convert(BaseRecyclerHolder holder, HotSpots item, int position) {
         holder.setText(R.id.tv_title, item.getTitle());
         holder.setText(R.id.tv_dsc, item.getContent());
+        holder.setText(R.id.tv_status, item.getRemark());
         switch (item.getType()){
             case "5":
                 holder.setBackgroundRes(R.id.iv_type,R.drawable.bg_dashgap_circle);

@@ -95,12 +95,12 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
     public void toResultView(RiskTestResult riskTestResult) {
         //保存SP中记录的评测登等级
         SpCacheUtil.getInstance().setUserTestLevel(riskTestResult.getRisklevel());
-        Intent  intent  = new Intent(mContext, TestResultActivity.class);
-        intent.putExtra("result",riskTestResult.getRisklevel());
-        intent.putExtra(IntentConfig.SOURCE,SOURCE);
-        startActivity(intent);
-        setResult(RESULT_OK);
-        finish();
+            Intent intent = new Intent(mContext, TestResultActivity.class);
+            intent.putExtra("result", riskTestResult.getRisklevel());
+            intent.putExtra(IntentConfig.SOURCE, SOURCE);
+            startActivity(intent);
+            setResult(RESULT_OK);
+            finish();
     }
 
     @Override

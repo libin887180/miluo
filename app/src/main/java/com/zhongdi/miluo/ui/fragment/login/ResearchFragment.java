@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.InfomationNote;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.HtmlActivity;
 
 import org.xutils.common.Callback;
 
@@ -86,10 +88,12 @@ public class ResearchFragment extends Fragment {
         adapter = new BeginnerInfoAdapter(getActivity(), notes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<InfomationNote>() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+            public void onClick(View view, RecyclerView.ViewHolder holder, InfomationNote infomationNote, int position) {
+                Intent intent = new Intent(getActivity(), HtmlActivity.class);
+                intent.putExtra("url",infomationNote.getArticleurl());
+                startActivity(intent);
             }
         });
         getFundEssay(ARTICLETAG, pageNumber);

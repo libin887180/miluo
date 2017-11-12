@@ -274,6 +274,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         intent.putExtra("tradeid", body.getTradeid() + "");
         intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
         intent.putExtra(IntentConfig.SOURCE, "buy");
+        intent.putExtra("showriskDialog", true);
         startActivity(intent);
         finish();
 
@@ -372,21 +373,21 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                     showToast("请阅读并同意服务协议");
                     return;
                 }
-                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
-                    showTestDialog();
-                    return;
-                }
-                if (SpCacheUtil.getInstance().getUserTestLevel() == MiluoConfig.BAOSHOU) {//如果是保守型，并且风险等级比R1高 那重新测评
-                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
-                        showReTestDialog();
-                        return;
-                    }
-                } else {//如果不是是保守型，并且风险等级比R1高 那提示风险
-                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
-                        showRiskTipDialog();
-                        return;
-                    }
-                }
+//                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
+//                    showTestDialog();
+//                    return;
+//                }
+//                if (SpCacheUtil.getInstance().getUserTestLevel() == MiluoConfig.BAOSHOU) {//如果是保守型，并且风险等级比R1高 那重新测评
+//                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+//                        showReTestDialog();
+//                        return;
+//                    }
+//                } else {//如果不是是保守型，并且风险等级比R1高 那提示风险
+//                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+//                        showRiskTipDialog();
+//                        return;
+//                    }
+//                }
 //                showTestDialog();
                 showPswPopupWindow();
                 break;

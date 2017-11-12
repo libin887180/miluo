@@ -289,6 +289,14 @@ public class URLConfig {
      * 公告和消息详情
      */
     public static final String NEWS_DETAIL= HTML5 + "/lead/v1/experience/newsDetail?id=";
+    /**
+     * 晨星奖
+     */
+    public static final String CHEN_XING= HTML5 + "/fund/selChooseFundList?";
+    /**
+     * 投资热点详情
+     */
+    public static final String HOT_SPOT_DETAIL= HTML5 + "/fund/selHotSpotsList?";
 
 
 }

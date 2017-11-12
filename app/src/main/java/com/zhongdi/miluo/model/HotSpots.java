@@ -17,6 +17,15 @@ public class HotSpots {
     private String title;
     private String content;
     private String url;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getType() {
         return type;

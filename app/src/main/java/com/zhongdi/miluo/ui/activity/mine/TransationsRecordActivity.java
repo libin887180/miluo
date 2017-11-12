@@ -19,17 +19,20 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.TradeStepAdapter;
 import com.zhongdi.miluo.adapter.mine.TransInfoAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.SellFundActivity;
 import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.TransactionRecordView;
+import com.zhongdi.miluo.widget.AlertDialog;
 import com.zhongdi.miluo.widget.NOScollListView;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
@@ -77,6 +80,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     List<TradeRecord.Part3Bean> transInfo = new ArrayList<>();
     private String SOURCE;
     private int fundType;
+    private boolean showRisk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         tradeid = getIntent().getStringExtra("tradeid");
         tradeType = getIntent().getStringExtra("tradType");
         SOURCE = getIntent().getStringExtra(IntentConfig.SOURCE);
+        showRisk = getIntent().getBooleanExtra("showriskDialog",false);
         binding(R.layout.activity_transaction_record);
     }
 
@@ -224,9 +229,32 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             transInfo.addAll(body.getPart3());
         }
         transAdapter.notifyDataSetChanged();
-
+        if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
+            showTestDialog();
+            return;
+        }
     }
+    public void showTestDialog() {
+        new AlertDialog(mContext).builder().setMsg("您尚未完成风险测评，请完成测评后继续操作")
+                .setNegativeButton("残忍拒绝", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.putExtra("to", "mine");
+                        startActivity(intent);
+                        finish();
 
+                    }
+                }).setPositiveButton("立即测评", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TestActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+                startActivity(intent);
+                finish();
+            }
+        }).show();
+    }
     private void showPswPopupWindow() {
         setupPswPopupWindow();
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);

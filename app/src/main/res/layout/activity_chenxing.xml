@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="详情"
+            android:text="2017晨星获奖基金"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -55,6 +55,7 @@
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
             android:scaleType="centerCrop"
+            android:src="@drawable/ic_share_black"
             android:visibility="gone" />
 
         <TextView
@@ -75,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/divider_list" />
+
     <ProgressBar
         android:id="@+id/actAgreementPb"
         style="@style/ProgressBar_Mini"
@@ -83,7 +85,6 @@
         android:visibility="gone" />
 
     <com.zhongdi.miluo.widget.BaseWebView
-        android:background="@color/white"
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

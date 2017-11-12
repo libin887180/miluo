@@ -11,6 +11,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.ui.activity.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +90,14 @@ public class TestResultActivity extends BaseActivity2 {
                     finish();
 
                 } else {//完成
-                    finish();
+                    if(SOURCE==IntentConfig.TIYANJIN){
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.putExtra("to", "mine");
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        finish();
+                    }
                 }
                 break;
             case R.id.tv_retest:

@@ -46,7 +46,9 @@ import com.zhongdi.miluo.model.NewComeBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
+import com.zhongdi.miluo.ui.activity.login.ChengxingActivity;
 import com.zhongdi.miluo.ui.activity.login.FundStudyActivity;
+import com.zhongdi.miluo.ui.activity.login.HotSpotsDetailActivity;
 import com.zhongdi.miluo.ui.activity.login.InfomationsActivity;
 import com.zhongdi.miluo.ui.activity.login.JuniorActivity;
 import com.zhongdi.miluo.ui.activity.login.MessagesActivity;
@@ -154,7 +156,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             rootView = inflater.inflate(R.layout.fragment_home_2, null);
             paraentActivity = (MainActivity) getActivity();
             unbinder = ButterKnife.bind(this, rootView);
-            initData();
+//            initData();
             initView();
 
         } else {
@@ -199,15 +201,50 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         recyclerViewHot.setFocusable(false);
         investmentAdapter = new HotInvestmentAdapter(getActivity(), hotSpots);
         recyclerViewHot.setAdapter(investmentAdapter);
-
+        investmentAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HotSpots>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, HotSpots hot, int position) {
+                Intent intent = new Intent(getActivity(), HotSpotsDetailActivity.class);
+                intent.putExtra("type",hot.getType());
+                startActivity(intent);
+            }
+        });
         //获奖基金列表
         awardedFundAdapter = new AwardedFundAdapter(getActivity(), awardfunds);
+        awardedFundAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeFund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund fund, int position) {
+                Intent intent = new Intent(getActivity(), ChengxingActivity.class);
+                intent.putExtra("type",fund.getType());
+                intent.putExtra("code",fund.getFundCode());
+                intent.putExtra("id",fund.getId());
+                startActivity(intent);
+            }
+        });
+        awardedFundAdapter.setOnItemChildClickListener(R.id.iv_collect, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.getInstance().isLogined) {
+                    //添加到收藏
+                    HomeFund tag = (HomeFund) v.getTag();
+                    if(tag!=null&&tag.getStatus().equals("0")){
+                        collectFund(tag.getSellFundId());
+                    }
+
+                }else {
+                    Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+                    startActivityForResult(intent, 101);
+                }
+
+            }
+        });
         recyclerViewAwarded.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         });
+
         recyclerViewAwarded.setFocusable(false);
         recyclerViewAwarded.setAdapter(awardedFundAdapter);
         //米罗懂你列表
@@ -249,7 +286,33 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         });
         showHuodongDialog();
     }
+    public void collectFund(String fundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", fundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_COLLECT, map, 103,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                     getAwardFunds();
+                    }
 
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(paraentActivity,response.getMsg()+ "", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
     private void showHuodongDialog() {
         final Dialog dialog = new Dialog(getActivity(), R.style.AlertDialogStyle);
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_huodong, null);
@@ -618,6 +681,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             rlLoginState.setVisibility(View.VISIBLE);
             btnLogin.setText("立即登录");
         }
+        initData();
     }
 
     @Override
