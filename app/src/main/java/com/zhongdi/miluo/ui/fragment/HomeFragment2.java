@@ -235,7 +235,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void initView() {
         setupRefreshView();
-
+        cbVisable.setEnabled(false);
         cbVisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean cheched) {
@@ -453,6 +453,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void initData() {
         if (MyApplication.getInstance().isLogined) {
+            cbVisable.setEnabled(true);
             cbVisable.setChecked(MyApplication.getInstance().assetVisable);
             getProperty();
         }

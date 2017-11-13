@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.FundDetail;
 import com.zhongdi.miluo.model.FundManagerInfo;
@@ -207,6 +208,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
             case R.id.ll_his_value:
                 Intent hisIntent = new Intent(mContext, FundHistoryValueActivity.class);
                 hisIntent.putExtra("fundId", sellFundId);
+                hisIntent.putExtra(IntentConfig.SOURCE, "currency");
                 startActivity(hisIntent);
                 break;
             case R.id.tv_title_right:

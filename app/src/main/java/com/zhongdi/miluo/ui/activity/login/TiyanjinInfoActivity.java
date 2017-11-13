@@ -34,7 +34,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     @BindView(R.id.title)
     TextView titleTv;
     String fundCode;
-
+    String url ;
     @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     }
 
     private void initView() {
-        String url = URLConfig.TIYANJIN + SpCacheUtil.getInstance().getLoginAccount();
+         url = URLConfig.TIYANJIN + SpCacheUtil.getInstance().getLoginAccount();
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.addJavascriptInterface(this, "service");
@@ -76,7 +76,6 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         switch (type) {
             case "1"://活动已结束
 
-
                 break;
             case "2"://已登录 ，未开户 跳转到开户
                 Intent open = new Intent(mContext, OpenAccountActivity.class);
@@ -99,7 +98,8 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 102:
-                if (requestCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
+                    webView.loadUrl(url);
                     Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
                     intent.putExtra("fundCode", fundCode);
                     startActivity(intent);

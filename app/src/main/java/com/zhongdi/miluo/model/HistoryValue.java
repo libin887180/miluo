@@ -19,6 +19,25 @@ public class HistoryValue {
     private String netValue;
     private String sellFundId;
     private String valueDate;
+    private String tenthouunitincm ;
+    private String yearyld ;
+
+
+    public String getTenthouunitincm() {
+        return tenthouunitincm;
+    }
+
+    public void setTenthouunitincm(String tenthouunitincm) {
+        this.tenthouunitincm = tenthouunitincm;
+    }
+
+    public String getYearyld() {
+        return yearyld;
+    }
+
+    public void setYearyld(String yearyld) {
+        this.yearyld = yearyld;
+    }
 
     public String getCumValue() {
         return cumValue;

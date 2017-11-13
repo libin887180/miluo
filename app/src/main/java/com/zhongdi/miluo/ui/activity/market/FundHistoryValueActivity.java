@@ -3,13 +3,18 @@ package com.zhongdi.miluo.ui.activity.market;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.CurrencyHistoryValueAdapter;
 import com.zhongdi.miluo.adapter.HistoryValueAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HistoryValue;
 import com.zhongdi.miluo.presenter.FundHistoryValuePresenter;
@@ -30,13 +35,21 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
     TwinklingRefreshLayout refreshLayout;
 
     HistoryValueAdapter adapter;
+    CurrencyHistoryValueAdapter historyValueAdapter;
     List<HistoryValue> datas = new ArrayList<>();
+    @BindView(R.id.ll_value)
+    LinearLayout llValue;
+    @BindView(R.id.ll_his)
+    LinearLayout llHis;
     private String sellFundId;
     private int pageNum = 1;
+    private String from;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sellFundId = getIntent().getStringExtra("fundId");
+        from = getIntent().getStringExtra(IntentConfig.SOURCE);
         binding(R.layout.activity_fund_history_value);
     }
 
@@ -54,12 +67,12 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 pageNum = 1;
-                presenter.getFundHistoryValue(sellFundId,pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+                presenter.getFundHistoryValue(sellFundId, pageNum, MiluoConfig.DEFAULT_PAGESIZE);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                presenter.getFundHistoryValue(sellFundId,pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+                presenter.getFundHistoryValue(sellFundId, pageNum, MiluoConfig.DEFAULT_PAGESIZE);
             }
         });
         stateLayout.setUseAnimation(true);
@@ -67,8 +80,8 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                pageNum =1;
-                presenter.getFundHistoryValue(sellFundId,pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+                pageNum = 1;
+                presenter.getFundHistoryValue(sellFundId, pageNum, MiluoConfig.DEFAULT_PAGESIZE);
             }
 
             @Override
@@ -76,9 +89,18 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
             }
         });
         adapter = new HistoryValueAdapter(mContext, datas);
+        historyValueAdapter = new CurrencyHistoryValueAdapter(mContext, datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(adapter);
-        presenter.getFundHistoryValue(sellFundId,pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+        if (TextUtils.isEmpty(from)) {
+            llHis.setVisibility(View.GONE);
+            llValue.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(adapter);
+        } else {
+            llHis.setVisibility(View.VISIBLE);
+            llValue.setVisibility(View.GONE);
+            recyclerView.setAdapter(historyValueAdapter);
+        }
+        presenter.getFundHistoryValue(sellFundId, pageNum, MiluoConfig.DEFAULT_PAGESIZE);
     }
 
     @Override
@@ -107,9 +129,9 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefreshing();
         adapter.notifyDataSetChanged();
-        if(datas.size()==0){
+        if (datas.size() == 0) {
             stateLayout.showEmptyView();
-        }else{
+        } else {
             stateLayout.showContentView();
         }
     }
