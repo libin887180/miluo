@@ -43,8 +43,13 @@ public class TradeStepAdapter extends BaseRecyclerAdapter<StepsBean> {
         }
         if (position == 2) {
             if (tradType.contains("申购") && currentStep == 3) {
-                holder.setVisible(R.id.tv_cancel_status, true);
-                holder.setText(R.id.tv_cancel_status, "赎回");
+
+                if (item.getTitle().contains("回款")) {
+                    holder.setVisible(R.id.tv_cancel_status, false);
+                } else {
+                    holder.setVisible(R.id.tv_cancel_status, true);
+                    holder.setText(R.id.tv_cancel_status, "赎回");
+                }
             } else {
                 holder.setVisible(R.id.tv_cancel_status, false);
             }

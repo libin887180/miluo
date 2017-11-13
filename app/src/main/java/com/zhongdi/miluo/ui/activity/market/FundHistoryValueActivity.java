@@ -128,7 +128,13 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
         }
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefreshing();
-        adapter.notifyDataSetChanged();
+
+        if (TextUtils.isEmpty(from)) {
+            adapter.notifyDataSetChanged();
+        } else {
+            historyValueAdapter.notifyDataSetChanged();
+        }
+
         if (datas.size() == 0) {
             stateLayout.showEmptyView();
         } else {

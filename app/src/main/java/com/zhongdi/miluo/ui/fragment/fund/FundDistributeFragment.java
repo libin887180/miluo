@@ -11,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.market.FundDistributeAdapter;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FundDividend;
+import com.zhongdi.miluo.model.FundDividendResponse;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
@@ -43,8 +47,12 @@ public class FundDistributeFragment extends Fragment {
     @BindView(R.id.state_layout)
     StateLayout stateLayout;
     FundDistributeAdapter adapter;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout refreshLayout;
+    Unbinder unbinder1;
     private String sellFundId;
     List<FundDividend> datas = new ArrayList<>();
+    private int pageNum = 1;
 
     public static FundDistributeFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -73,35 +81,48 @@ public class FundDistributeFragment extends Fragment {
             }
             unbinder = ButterKnife.bind(this, rootView);
         }
+        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
-    private void getFundDividend(String sellFundId) {
+    private void getFundDividend(String sellFundId, String page) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", sellFundId);
+        map.put("pageSize ", MiluoConfig.DEFAULT_PAGESIZE + "");
+        map.put("page", page);
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DIVIDEND, map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<List<FundDividend>>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<FundDividendResponse>>() {
                     @Override
-                    public void onSuccess(MResponse<List<FundDividend>> response, int requestCode) {
-                        datas.clear();
-                        datas.addAll(response.getBody());
+                    public void onSuccess(MResponse<FundDividendResponse> response, int requestCode) {
+                        if (pageNum == 1) {
+                            datas.clear();
+                        }
+                        if (response.getBody().getData().size() < MiluoConfig.DEFAULT_PAGESIZE) {
+                            refreshLayout.setEnableLoadmore(false);
+                        } else {
+                            pageNum++;
+                            refreshLayout.setEnableLoadmore(true);
+                        }
+                        datas.addAll(response.getBody().getData());
                         adapter.notifyDataSetChanged();
                         if (datas.size() == 0) {
                             stateLayout.showEmptyView();
-                        }else{
+                        } else {
                             stateLayout.showContentView();
                         }
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<FundDividend>> response, int requestCode) {
+                    public void onFailed(MResponse<FundDividendResponse> response, int requestCode) {
                         ViseLog.e("请求失败");
                         Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ViseLog.e(e);
                     }
 
                     @Override
@@ -117,16 +138,29 @@ public class FundDistributeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
-        getFundDividend(sellFundId);
+        getFundDividend(sellFundId, pageNum + "");
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                getFundDividend(sellFundId);
+                getFundDividend(sellFundId, pageNum + "");
             }
 
             @Override
             public void loginClick() {
 
+            }
+        });
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                pageNum = 1;
+                getFundDividend(sellFundId, pageNum + "");
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                getFundDividend(sellFundId, pageNum + "");
             }
         });
     }
@@ -137,6 +171,7 @@ public class FundDistributeFragment extends Fragment {
             unbinder.unbind();
         }
         super.onDestroyView();
+        unbinder1.unbind();
 
     }
 }

@@ -235,7 +235,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         }
     }
     public void showTestDialog() {
-        new AlertDialog(mContext).builder().setMsg("您尚未完成风险测评，请完成测评后继续操作")
+        new AlertDialog(mContext).builder().setTitle("风险测评邀请").setMsg("国家证监会发《130号文》邀请您参与基金投资者风险评测，完成后可以参与更多优惠活动哦！")
                 .setNegativeButton("残忍拒绝", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -442,6 +442,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 //                showCardPopupWindow();
                 break;
             case R.id.tv_ld_protocol:
+                Intent proyocol = new Intent(mContext, ProtocolActivity.class);
+                startActivity(proyocol);
                 break;
             case R.id.tv_open_account:
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);

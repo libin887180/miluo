@@ -64,11 +64,12 @@ public class BuyPremiumAdapter extends BaseAdapter {
 //        holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
         holder.tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
 
-        if(TextUtils.isEmpty(dataList.get(position).getDiscount())){//没有折扣
+        if(TextUtils.isEmpty(dataList.get(position).getDiscount())||Double.parseDouble(dataList.get(position).getDiscount())==0||Double.parseDouble(dataList.get(position).getDiscount())==1){//没有折扣
             holder.tvDepRate.setText("");
             holder.tvRate.setText(dataList.get(position).getRateValue());
         }else{
-            holder.tvRate.setText(dataList.get(position).getDiscount());
+           String rate =  dataList.get(position).getRateValue().substring(0,dataList.get(position).getRateValue().length()-1);
+            holder.tvRate.setText(Double.parseDouble(rate)* Double.parseDouble(dataList.get(position).getDiscount())+"%");
             holder.tvDepRate.setText(dataList.get(position).getRateValue());
         }
 

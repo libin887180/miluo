@@ -81,6 +81,8 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
     CheckBox cbRisk;
     @BindView(R.id.tv_risk)
     TextView tvRisk;
+    @BindView(R.id.tv_fund_knowledge)
+    TextView tv_fund_knowledge;
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
@@ -253,7 +255,51 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
-        tvFundType.setText(buyInfo.getFund().getFundtype());
+        String  fundType ;
+        switch (buyInfo.getFund().getFundtype()){
+            case MiluoConfig.GUPIAO:
+                fundType = "股票型";
+                break;
+            case MiluoConfig.ZHAIQUAN:
+                fundType = "债券型";
+                break;
+            case MiluoConfig.HUNHE:
+                fundType = "混合型";
+                break;
+            case MiluoConfig.HUOBI:
+                fundType = "货币型";
+                break;
+            case MiluoConfig.ZHISHU:
+                fundType = "指数型";
+                break;
+            case MiluoConfig.BAOBEN:
+                fundType = "保本型";
+                break;
+            case MiluoConfig.ETF:
+                fundType = "ETF联接";
+                break;
+            case MiluoConfig.DQII:
+                fundType = "QDII";
+                break;
+            case MiluoConfig.LOF:
+                fundType = "LOF";
+                break;
+            case MiluoConfig.DUANQI:
+                fundType = "短期理财型";
+                break;
+            case MiluoConfig.ALL:
+                fundType = "全部";
+                break;
+            case MiluoConfig.ZUHE:
+                fundType = "组合型";
+                break;
+            default:
+                fundType = "其他";
+                break;
+        }
+        tvFundType.setText(fundType);
+
+//        tvFundType.setText(buyInfo.getFund().getFundtype());
         if (buyInfo.getBankInfo() != null) {//没有银行信息，即没开户
             tvBankName.setText(buyInfo.getBankInfo().getBankname());
             tvDesc.setText(buyInfo.getBankInfo().getAmtdesc());
@@ -350,13 +396,19 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         });
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk})
+    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk,R.id.tv_fund_knowledge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
 //                showCardPopupWindow();
                 break;
+            case R.id.tv_fund_knowledge:
+                Intent knowledge = new Intent(mContext, HtmlKnowledgeActivity.class);
+                startActivity(knowledge);
+                break;
             case R.id.tv_ld_protocol:
+                Intent proyocol = new Intent(mContext, ProtocolActivity.class);
+                startActivity(proyocol);
                 break;
             case R.id.tv_risk:
                 Intent intent_risk = new Intent(mContext, TestActivity.class);

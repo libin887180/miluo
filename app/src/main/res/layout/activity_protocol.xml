@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="体验金"
+            android:text="服务协议"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -54,9 +54,8 @@
             android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
-            android:src="@drawable/ic_share_black"
             android:scaleType="centerCrop"
-            />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_title_right"
@@ -84,6 +83,7 @@
         android:visibility="gone" />
 
     <com.zhongdi.miluo.widget.BaseWebView
+        android:background="@color/white"
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

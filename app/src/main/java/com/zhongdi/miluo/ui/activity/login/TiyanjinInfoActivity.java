@@ -39,7 +39,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_junor_info);
+        setContentView(R.layout.activity_tiyanjin_info);
         ButterKnife.bind(this);
         initView();
     }

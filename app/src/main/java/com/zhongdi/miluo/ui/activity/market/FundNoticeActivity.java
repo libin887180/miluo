@@ -1,13 +1,16 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.FundNoticeAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.MiluoConfig;
@@ -77,6 +80,15 @@ public class FundNoticeActivity extends BaseActivity<FundNoticePresenter> implem
         noticeAdapter = new FundNoticeAdapter(mContext, notices);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(noticeAdapter);
+        noticeAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<FundNotice>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, FundNotice notice, int position) {
+                Intent intent
+                         = new Intent(mContext,FundNoticeDetailActivity.class);
+                intent.putExtra("url",notice.getAttachment());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

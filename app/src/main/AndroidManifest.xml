@@ -48,7 +48,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.MainActivity"
@@ -117,6 +116,9 @@
         <activity android:name=".ui.activity.login.ChengxingActivity"/>
         <activity android:name=".ui.activity.login.HotSpotsDetailActivity"/>
         <activity android:name=".ui.activity.market.BuyTiyanjinActivity"/>
+        <activity android:name=".ui.activity.market.ProtocolActivity"/>
+        <activity android:name=".ui.activity.market.HtmlKnowledgeActivity"/>
+        <activity android:name=".ui.activity.market.FundNoticeDetailActivity"/>
 
         <service android:name=".MyIntentService"></service>
 

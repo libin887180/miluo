@@ -20,8 +20,8 @@ public class URLConfig {
 //    public static final String BASE_URL = "http://192.168.151.13:8085";
     //外网
     public static final String BASE_URL = "http://218.94.82.38:8085";
-//    public static final String HTML5 = "http://192.168.64.212:8371";
-    public static final String HTML5 = "http://192.168.151.13:8371";
+    public static final String HTML5 = "http://192.168.64.212:8371";
+//    public static final String HTML5 = "http://192.168.151.13:8371";
 
     /**
      * 测试接口
@@ -297,6 +297,14 @@ public class URLConfig {
      * 投资热点详情
      */
     public static final String HOT_SPOT_DETAIL= HTML5 + "/fund/selHotSpotsList?";
+    /**
+     * 协议
+     */
+    public static final String PROTOCOL= HTML5 + "/protocol";
+    /**
+     * 体验金小知识
+     */
+    public static final String KNOWLEDGE= HTML5 + "/experience_knowledge";
 
 
 }

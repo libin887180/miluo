@@ -17,11 +17,15 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.model.FriendsInfo;
 import com.zhongdi.miluo.model.TiyanjinDetail;
 import com.zhongdi.miluo.presenter.TiyanjinTransDetailPresenter;
+import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.TiyanjinTransDetailView;
+import com.zhongdi.miluo.widget.AlertDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,12 +93,31 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
 
             }
         });
-
+        if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
+            showTestDialog();
+            return;
+        }
         Glide.with(mContext).asGif().load(R.drawable.invite_friends).into(ivInviteFriends);
         presenter.getTiYanjinDetail();
         presenter.getFriendsNum();
     }
+    public void showTestDialog() {
+        new AlertDialog(mContext).builder().setTitle("风险测评邀请").setMsg("国家证监会发《130号文》邀请您参与基金投资者风险评测，完成后可以参与更多优惠活动哦！")
+                .setNegativeButton("残忍拒绝", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                }).setPositiveButton("立即测评", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TestActivity.class);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+                startActivity(intent);
+                finish();
+            }
+        }).show();
+    }
     // 显示弹窗
     public void setupSharePopupWindow() {
         // 初始化弹窗

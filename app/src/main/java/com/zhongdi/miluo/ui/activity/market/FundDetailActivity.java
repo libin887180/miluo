@@ -328,8 +328,8 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         switchFundType(fundDetail.getFundType());
         switchRiskLevel(Integer.parseInt(fundDetail.getRiskLevel()));
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
-        if (!TextUtils.isEmpty(fundDetail.getDiscount())) {
-            float discount = Float.parseFloat(fundDetail.getDiscount());
+        if (!TextUtils.isEmpty(fundDetail.getDiscount())&&Double.parseDouble(fundDetail.getDiscount())>0&&Double.parseDouble(fundDetail.getDiscount())<1) {
+            double discount = Double.parseDouble(fundDetail.getDiscount());
             if(fundDetail.getRateValue().length()>0) {
                 String rate = fundDetail.getRateValue().substring(0, fundDetail.getRateValue().length() - 1);
                 float value = Float.parseFloat(rate);
@@ -337,7 +337,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             }else{
                 tvCurrentRate.setText("0%");
             }
-
             tvDepRate.setText(fundDetail.getRateValue());
         } else {
             tvDepRate.setVisibility(View.GONE);
