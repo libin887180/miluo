@@ -41,7 +41,7 @@ public class SpecialActivity extends BaseActivity2 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_junor_info);
+        setContentView(R.layout.activity_special_detail);
         type = getIntent().getStringExtra("type");
         ButterKnife.bind(this);
         initView();

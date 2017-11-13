@@ -42,6 +42,7 @@ public class HotSpotsDetailActivity extends BaseActivity2 {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hot_spot_detail);
+        type = getIntent().getStringExtra("type");
         ButterKnife.bind(this);
         initView();
     }

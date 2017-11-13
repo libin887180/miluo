@@ -15,6 +15,7 @@ import cn.jpush.android.api.JPushInterface;
 public class MyApplication extends Application {
     private static MyApplication mInstance = null;
     public boolean isLogined;
+    public boolean assetVisable = true;
     public boolean hasNewMsg;
     public boolean netState = true;
 

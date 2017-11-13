@@ -33,7 +33,7 @@ public class TestResultActivity extends BaseActivity2 {
         setContentView(R.layout.activity_test_result);
         ButterKnife.bind(this);
         riskTestResult = getIntent().getIntExtra("result", 0);
-        SOURCE = getIntent().getIntExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+        SOURCE = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
         initView();
     }
 

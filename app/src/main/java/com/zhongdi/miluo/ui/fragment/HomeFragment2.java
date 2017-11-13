@@ -16,6 +16,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,6 +44,7 @@ import com.zhongdi.miluo.model.HomeFund;
 import com.zhongdi.miluo.model.HomeNews;
 import com.zhongdi.miluo.model.HotSpots;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.model.NewComeBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.MainActivity;
@@ -64,6 +67,7 @@ import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.NoScrollGridView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
+import com.zhongdi.miluo.widget.RiseNumberTextView;
 
 import org.xutils.common.Callback;
 
@@ -111,6 +115,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     TextView tvExPorfit;
     @BindView(R.id.btn_news)
     Button btnNews;
+    @BindView(R.id.tvTotalAsset)
+    RiseNumberTextView tvTotalAsset;
+    @BindView(R.id.tv_yesteday_profits)
+    RiseNumberTextView tvYestedayProfits;
+    @BindView(R.id.cb_visable)
+    CheckBox cbVisable;
+    Unbinder unbinder1;
     private View rootView;
     private List<HomeNews> scrollMsgs = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
@@ -170,11 +181,70 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         }
 
 
+        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+
+    public void getProperty() {
+        Map<String, String> map = new HashMap<>();
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PROPERTY, map, 108,
+                new NetRequestUtil.NetResponseListener<MResponse<MyProperty>>() {
+                    @Override
+                    public void onSuccess(MResponse<MyProperty> response, int requestCode) {
+                        if(MyApplication.getInstance().assetVisable){
+                            tvTotalAsset.withNumber(Double.parseDouble(response.getBody().getTotalasset()));
+                            // 设置动画播放时间
+                            tvTotalAsset.setDuration(1000);
+                            // 开始播放动画
+                            tvTotalAsset.start();
+
+                            tvYestedayProfits.withNumber(Double.parseDouble(response.getBody().getDayincome()));
+                            tvYestedayProfits.setDuration(1000);
+                            // 开始播放动画
+                            tvYestedayProfits.start();
+                        }else{
+                            cbVisable.setChecked(false);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<MyProperty> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    private void setAssetVisable(boolean visable) {
+        tvTotalAsset.setNumVisable(visable);
+        tvYestedayProfits.setNumVisable(visable);
     }
 
     private void initView() {
         setupRefreshView();
+
+        cbVisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean cheched) {
+                MyApplication.getInstance().assetVisable = cheched;
+                setAssetVisable(cheched);
+            }
+        });
+
+
         //特色基金列表
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -187,7 +257,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund item, int position) {
 
                 Intent special = new Intent(getActivity(), SpecialActivity.class);
-                special.putExtra("type",   item.getType());
+                special.putExtra("type", item.getType());
                 startActivity(special);
             }
         });
@@ -205,7 +275,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, HotSpots hot, int position) {
                 Intent intent = new Intent(getActivity(), HotSpotsDetailActivity.class);
-                intent.putExtra("type",hot.getType());
+                intent.putExtra("type", hot.getType());
                 startActivity(intent);
             }
         });
@@ -215,9 +285,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund fund, int position) {
                 Intent intent = new Intent(getActivity(), ChengxingActivity.class);
-                intent.putExtra("type",fund.getType());
-                intent.putExtra("code",fund.getFundCode());
-                intent.putExtra("id",fund.getId());
+                intent.putExtra("type", fund.getType());
+                intent.putExtra("code", fund.getFundCode());
+                intent.putExtra("id", fund.getId());
                 startActivity(intent);
             }
         });
@@ -227,11 +297,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 if (MyApplication.getInstance().isLogined) {
                     //添加到收藏
                     HomeFund tag = (HomeFund) v.getTag();
-                    if(tag!=null&&tag.getStatus().equals("0")){
+                    if (tag != null && tag.getStatus().equals("0")) {
                         collectFund(tag.getSellFundId());
                     }
 
-                }else {
+                } else {
                     Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
                     startActivityForResult(intent, 101);
                 }
@@ -266,10 +336,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (activitys.get(position).getType().equals("1")) {
 
-                    if(!MyApplication.getInstance().isLogined){
+                    if (!MyApplication.getInstance().isLogined) {
                         Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
                         startActivity(login_tiyan);
-                    }else{
+                    } else {
                         Intent buyIntent = new Intent(getActivity(), TiyanjinInfoActivity.class);
                         startActivity(buyIntent);
                     }
@@ -278,7 +348,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     Intent study = new Intent(getActivity(), FundStudyActivity.class);
                     startActivity(study);
                 } else if (activitys.get(position).getType().equals("3")) {
-                    Intent miluo_pan = new Intent(getActivity(),MiLuoPanActivity.class);
+                    Intent miluo_pan = new Intent(getActivity(), MiLuoPanActivity.class);
                     startActivity(miluo_pan);
 
                 }
@@ -286,6 +356,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         });
         showHuodongDialog();
     }
+
     public void collectFund(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
@@ -293,13 +364,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
-                     getAwardFunds();
+                        getAwardFunds();
                     }
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        Toast.makeText(paraentActivity,response.getMsg()+ "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -313,6 +384,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     }
                 });
     }
+
     private void showHuodongDialog() {
         final Dialog dialog = new Dialog(getActivity(), R.style.AlertDialogStyle);
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_huodong, null);
@@ -380,6 +452,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     }
 
     private void initData() {
+        if (MyApplication.getInstance().isLogined) {
+            cbVisable.setChecked(MyApplication.getInstance().assetVisable);
+            getProperty();
+        }
         getScrollNews();
         getNewCommer();
         getActivs();
@@ -641,6 +717,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
+        unbinder1.unbind();
     }
 
 
@@ -682,6 +759,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             btnLogin.setText("立即登录");
         }
         initData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+       initData();
     }
 
     @Override

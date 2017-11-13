@@ -43,6 +43,9 @@ public class ChengxingActivity extends BaseActivity2 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        type = getIntent().getStringExtra("type");
+        fundCode = getIntent().getStringExtra("code");
+        id = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_chenxing);
         ButterKnife.bind(this);
         initView();

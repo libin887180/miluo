@@ -188,6 +188,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         } else {
             rlBankCard.setVisibility(View.VISIBLE);
             llOpenAccount.setVisibility(View.GONE);
+            etMoney.setEnabled(true);
         }
         tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);

@@ -105,9 +105,11 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     @Override
     protected void initView(View view) {
 //        setupViewPager(viewpage);
+
         cbVisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean cheched) {
+                MyApplication.getInstance().assetVisable = cheched;
                 setAssetVisable(cheched);
             }
         });
@@ -271,22 +273,27 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void onDataSuccess(MyProperty property) {
-        // 设置数据
-        tvTotalAsset.withNumber(Double.parseDouble(property.getTotalasset()));
-        // 设置动画播放时间
-        tvTotalAsset.setDuration(1000);
-        // 开始播放动画
-        tvTotalAsset.start();
+        cbVisable.setChecked(MyApplication.getInstance().assetVisable);
+        if(MyApplication.getInstance().assetVisable){
+            // 设置数据
+            tvTotalAsset.withNumber(Double.parseDouble(property.getTotalasset()));
+            // 设置动画播放时间
+            tvTotalAsset.setDuration(1000);
+            // 开始播放动画
+            tvTotalAsset.start();
 
-        tvYestodayIncome.withNumber(Double.parseDouble(property.getDayincome()));
-        tvYestodayIncome.setDuration(1000);
-        // 开始播放动画
-        tvYestodayIncome.start();
+            tvYestodayIncome.withNumber(Double.parseDouble(property.getDayincome()));
+            tvYestodayIncome.setDuration(1000);
+            // 开始播放动画
+            tvYestodayIncome.start();
 
-        tvTotalIncome.withNumber(Double.parseDouble(property.getAccumulatedincome()));
-        tvTotalIncome.setDuration(1000);
-        // 开始播放动画
-        tvTotalIncome.start();
+            tvTotalIncome.withNumber(Double.parseDouble(property.getAccumulatedincome()));
+            tvTotalIncome.setDuration(1000);
+            // 开始播放动画
+            tvTotalIncome.start();
+        }else {
+            setAssetVisable(MyApplication.getInstance().assetVisable);
+        }
     }
 
 
