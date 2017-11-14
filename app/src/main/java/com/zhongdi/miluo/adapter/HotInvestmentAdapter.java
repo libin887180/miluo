@@ -24,21 +24,21 @@ private Context mContext;
         holder.setText(R.id.tv_title, item.getTitle());
         holder.setText(R.id.tv_dsc, item.getContent());
         holder.setText(R.id.tv_status, item.getRemark());
-        switch (item.getType()){
-            case "5":
+        switch (position){
+            case 0:
                 holder.setBackgroundRes(R.id.iv_type,R.drawable.bg_dashgap_circle);
-                holder.setText(R.id.iv_type,"人工\n智能");
+                holder.setText(R.id.iv_type,"一带\n一路");
                 holder.setTextColor(R.id.iv_type,mContext.getResources().getColor(R.color.dash_circle_blue));
                 break;
-            case "6":
+            case 1:
                 holder.setBackgroundRes(R.id.iv_type,R.drawable.bg_dashgap_circle_green);
                 holder.setTextColor(R.id.iv_type,mContext.getResources().getColor(R.color.dash_circle_green));
-                holder.setText(R.id.iv_type,"医药\n行业");
+                holder.setText(R.id.iv_type,"共享\n经济");
                 break;
-            case "7":
+            case 2:
                 holder.setBackgroundRes(R.id.iv_type,R.drawable.bg_dashgap_circle_orange);
                 holder.setTextColor(R.id.iv_type,mContext.getResources().getColor(R.color.dash_circle_orange));
-                holder.setText(R.id.iv_type,"银行\n板块");
+                holder.setText(R.id.iv_type,"全球\n资产");
                 break;
 
         }

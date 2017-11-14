@@ -2,7 +2,6 @@ package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -11,12 +10,13 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.zhongdi.miluo.R;
+import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.ui.activity.MainActivity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.zhongdi.miluo.ui.fragment.login.Guide1Fragment;
+import com.zhongdi.miluo.ui.fragment.login.Guide2Fragment;
+import com.zhongdi.miluo.ui.fragment.login.Guide3Fragment;
 
 
 /**
@@ -29,8 +29,6 @@ public class GuideActivity extends BaseActivity2 implements
         ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
-    private List<View> views;
 
 //    public GestureDetector mGestureDetector;
 
@@ -56,20 +54,16 @@ public class GuideActivity extends BaseActivity2 implements
     private void initViewPager() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        views = new ArrayList<View>();
-
-        View guide_one = inflater.inflate(R.layout.guide_one, null);
-        View guide_two = inflater.inflate(R.layout.guide_two, null);
-        View guide_three = inflater.inflate(R.layout.guide_three, null);
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(Guide1Fragment.newInstance());
+        adapter.addFragment(Guide2Fragment.newInstance());
+        adapter.addFragment(Guide3Fragment.newInstance());
+        viewPager.setAdapter(adapter);
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(this);
-        views.add(guide_one);
-        views.add(guide_two);
-        views.add(guide_three);
 
-        viewPagerAdapter = new ViewPagerAdapter();
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(adapter);
 
         viewPager.setOnPageChangeListener(this);
     }
@@ -105,29 +99,6 @@ public class GuideActivity extends BaseActivity2 implements
         System.out.println("------" + currentItem);
     }
 
-    public class ViewPagerAdapter extends PagerAdapter {
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewPager) container).removeView(views.get(position));
-        }
-
-        @Override
-        public Object instantiateItem(View container, int position) {
-            ((ViewPager) container).addView(views.get(position));
-            return views.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return views.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-    }
 
     private void slipToMain() {
 //        mGestureDetector = new GestureDetector(this,

@@ -70,7 +70,7 @@
             android:singleLine="true"
             android:drawableRight="@drawable/icon_right"
             android:textColor="@color/red"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <View
