@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.login.AdActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,6 +57,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.login.GuideActivity" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.login.LoginActivity" />
         <activity android:name=".ui.activity.login.RegisterActivity" />
         <activity android:name=".ui.activity.login.ForgetPswActivity" />

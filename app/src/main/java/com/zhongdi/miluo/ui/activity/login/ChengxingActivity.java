@@ -52,7 +52,7 @@ public class ChengxingActivity extends BaseActivity2 {
     }
 
     private void initView() {
-        String url = URLConfig.CHEN_XING+"type="+type+"fundCode="+fundCode+"id="+id;
+        String url = URLConfig.CHEN_XING+"type="+type+"&fundCode="+fundCode+"&id="+id;
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "service");

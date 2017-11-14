@@ -95,7 +95,6 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         });
         if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
             showTestDialog();
-            return;
         }
         Glide.with(mContext).asGif().load(R.drawable.invite_friends).into(ivInviteFriends);
         presenter.getTiYanjinDetail();
