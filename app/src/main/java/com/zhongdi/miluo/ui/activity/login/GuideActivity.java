@@ -7,7 +7,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
@@ -34,7 +33,7 @@ public class GuideActivity extends BaseActivity2 implements
 
     private int currentItem = 0;
     private int flaggingWidth;
-    private Button button;
+//    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,7 @@ public class GuideActivity extends BaseActivity2 implements
     }
 
     private void initViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         LayoutInflater inflater = LayoutInflater.from(this);
 
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
@@ -59,8 +59,8 @@ public class GuideActivity extends BaseActivity2 implements
         adapter.addFragment(Guide2Fragment.newInstance());
         adapter.addFragment(Guide3Fragment.newInstance());
         viewPager.setAdapter(adapter);
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
+//        button = (Button) findViewById(R.id.button);
+//        button.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -91,11 +91,11 @@ public class GuideActivity extends BaseActivity2 implements
     @Override
     public void onPageSelected(int position) {
         currentItem = position;
-        if (currentItem == 2) {
-            button.setVisibility(View.VISIBLE);
-        } else {
-            button.setVisibility(View.GONE);
-        }
+//        if (currentItem == 2) {
+//            button.setVisibility(View.VISIBLE);
+//        } else {
+//            button.setVisibility(View.GONE);
+//        }
         System.out.println("------" + currentItem);
     }
 

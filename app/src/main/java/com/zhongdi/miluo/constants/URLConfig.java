@@ -305,6 +305,10 @@ public class URLConfig {
      * 体验金小知识
      */
     public static final String KNOWLEDGE= HTML5 + "/experience_knowledge";
+    /**
+     *H5登录
+     */
+    public static final String H5_REGISTER= HTML5 + "lead/v1/register/useRegister";
 
 
 }

@@ -41,9 +41,8 @@ public class MyApplication extends Application {
         UMConfigure.setLogEnabled(true);
         UMConfigure.setEncryptEnabled (false);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        PlatformConfig.setWeixin("111111", "11111");
-        PlatformConfig.setQQZone("3333333", "333333333");
-        PlatformConfig.setSinaWeibo("22222", "2222222", "");
+        PlatformConfig.setWeixin("wx1e262f3b61a0b995", "718b3f56251326fcdc03fe44d31a380d");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "https://sns.whalecloud.com/sina2/callback");
     }
 
 

@@ -314,7 +314,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         }
 
         tvDayRate.setText(fundDetail.getDayRate()+"%");
-        tvNetValueDate.setText("单位净值(" + TimeUtil.changeToDate(fundDetail.getValueDate()) + ")");
+        tvNetValueDate.setText("单位净值(" + fundDetail.getValueDate() + ")");
         if (fundDetail.getStatus().equals("1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
             tvTitleRight.setTag(1);
