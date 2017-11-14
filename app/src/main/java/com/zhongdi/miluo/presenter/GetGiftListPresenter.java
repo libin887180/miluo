@@ -24,9 +24,11 @@ public class GetGiftListPresenter extends BasePresenter<GiftListView> {
     }
 
 
-    public void getGiftList() {
+    public void getGiftList(int pageNumber,int pageSize) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
+        map.put("pageNumber",pageNumber+"");
+        map.put("pageSize",pageSize+"");
         Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PRIZE, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Prize>>>() {
                     @Override

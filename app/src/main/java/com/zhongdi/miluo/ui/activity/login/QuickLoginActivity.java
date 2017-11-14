@@ -18,6 +18,7 @@ import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.presenter.QuickLoginPresenter;
 import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
+import com.zhongdi.miluo.widget.ClearEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  */
 public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implements QuickLoginView {
     @BindView(R.id.et_username)
-    EditText etUsername;
+    ClearEditText etUsername;
     @BindView(R.id.et_code)
     EditText etCode;
     @BindView(R.id.btn_login)

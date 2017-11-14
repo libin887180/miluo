@@ -2,16 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:background="@color/white"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/head"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/white"
         android:layout_alignParentTop="true"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
@@ -19,9 +19,9 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_img_margin"
             android:onClick="back"
             android:scaleType="centerInside"
-            android:layout_marginLeft="@dimen/title_img_margin"
             android:src="@drawable/nav_icon_back" />
 
         <TextView
@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_text_margin"
             android:clickable="true"
             android:text=""
-            android:layout_marginLeft="@dimen/title_text_margin"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -51,9 +51,9 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/title_img_margin"
             android:layout_toLeftOf="@+id/tv_title_right"
             android:clickable="true"
-            android:layout_marginRight="@dimen/title_img_margin"
             android:scaleType="centerCrop"
             android:visibility="gone" />
 
@@ -65,10 +65,10 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/title_text_margin"
             android:clickable="true"
-            android:visibility="gone"
             android:text="注册"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
@@ -112,18 +112,19 @@
                 android:background="@null"
                 android:hint="输入手机号"
                 android:imeOptions="actionNext"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:maxLength="11"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/et_password"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:phoneNumber="true"
+                android:textColorHint="@color/text_color_light_grey"
                 android:textSize="16sp" />
 
             <View
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginTop="10dp"
                 android:background="@color/divider_list" />
         </android.support.design.widget.TextInputLayout>
 
@@ -144,24 +145,23 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_username"
                 android:layout_marginTop="10dp"
-                android:drawablePadding="10dp"
                 android:background="@null"
-                android:maxLength="12"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:drawablePadding="10dp"
                 android:hint="输入密码"
                 android:inputType="textPassword"
-                android:imeActionId="@+id/login"
+                android:maxLength="12"
                 android:maxLines="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/text_color_light_grey"
                 android:textSize="16sp" />
 
             <View
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginTop="10dp"
                 android:background="@color/divider_list" />
         </android.support.design.widget.TextInputLayout>
-
 
 
         <TextView
@@ -185,12 +185,13 @@
             android:text="登录"
             android:textColor="@color/btn_text_color"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/tv_quick_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/btn_login"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="快速登录"
             android:textColor="@color/text_blue" />

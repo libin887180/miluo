@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
 
@@ -48,7 +48,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity"
+        <activity
+            android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,78 +57,70 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.login.LoginActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.activity.login.RegisterActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.activity.login.ForgetPswActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.activity.login.QuickLoginActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".ui.activity.mine.SettingActivity"/>
-        <activity android:name=".ui.activity.login.RegistSuccessActivity"/>
-        <activity android:name=".ui.activity.login.OpenAccountActivity"/>
-        <activity android:name=".ui.activity.mine.SafeCenterActivity"/>
-        <activity android:name=".ui.activity.mine.SendCodeActivity"/>
-        <activity android:name=".ui.activity.mine.ModifyLoginPswActivity"/>
-        <activity android:name=".ui.activity.mine.ModifyDealPswActivity"/>
-        <activity android:name=".ui.activity.mine.CheckDealPswActivity"/>
-        <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity"/>
-        <activity android:name=".ui.activity.mine.BankCardListActivity"/>
-        <activity android:name=".ui.activity.mine.AddBankCardActivity"/>
-        <activity android:name=".ui.activity.market.FundDetailActivity"/>
-        <activity android:name=".ui.activity.market.FundCurrencyDetailActivity"/>
-        <activity android:name=".ui.activity.market.FundNoticeActivity"/>
-        <activity android:name=".ui.activity.market.ManagerDetailActivity"/>
-        <activity android:name=".ui.activity.market.PremiumActivity"/>
-        <activity android:name=".ui.activity.market.FundAchivesActivity"/>
-        <activity android:name=".ui.activity.market.FundHistoryValueActivity"/>
-        <activity android:name=".ui.activity.market.BuyFundActivity"/>
-        <activity android:name=".ui.activity.market.SellFundActivity"/>
-        <activity android:name=".ui.activity.mine.TransactionsActivity"/>
-        <activity android:name=".ui.activity.login.TestActivity"/>
-        <activity android:name=".ui.activity.login.ForgetDealPswActivity1"/>
-        <activity android:name=".ui.activity.login.ForgetDealPswActivity2"/>
-        <activity android:name=".ui.activity.login.ChooseBankActivity"/>
-        <activity android:name=".ui.activity.login.InfomationsActivity"/>
-        <activity android:name=".ui.activity.login.MessagesActivity"/>
-        <activity android:name=".ui.activity.mine.GiftListActivity"/>
-        <activity android:name=".ui.activity.login.TestResultActivity"/>
-        <activity android:name=".ui.activity.HtmlActivity"/>
-        <activity android:name=".ui.activity.login.OpenAccountSuccessActivity"/>
-        <activity android:name=".ui.activity.mine.TransationsRecordActivity"/>
-        <activity android:name=".ui.activity.mine.TransationsDetailActivity"/>
-        <activity android:name=".ui.activity.SearchActivity"/>
-        <activity android:name=".ui.activity.mine.ExchangeActivity"/>
-        <activity android:name=".ui.activity.login.TiyanjinLoginActivity"/>
-        <activity android:name=".ui.activity.mine.TiyanjinTransDetailActivity"/>
-        <activity android:name=".ui.activity.login.TiyanjinInfoActivity"/>
-        <activity android:name=".ui.activity.login.JuniorActivity"/>
-        <activity android:name=".ui.activity.login.FundStudyActivity"/>
-        <activity android:name=".ui.activity.login.MiLuoPanActivity"/>
-        <activity android:name=".ui.activity.login.SpecialActivity"/>
-        <activity android:name=".ui.activity.login.NewsDetailActivity"/>
-        <activity android:name=".ui.activity.login.ChengxingActivity"/>
-        <activity android:name=".ui.activity.login.HotSpotsDetailActivity"/>
-        <activity android:name=".ui.activity.market.BuyTiyanjinActivity"/>
-        <activity android:name=".ui.activity.market.ProtocolActivity"/>
-        <activity android:name=".ui.activity.market.HtmlKnowledgeActivity"/>
-        <activity android:name=".ui.activity.market.FundNoticeDetailActivity"/>
+        <activity android:name=".ui.activity.login.LoginActivity" />
+        <activity android:name=".ui.activity.login.RegisterActivity" />
+        <activity android:name=".ui.activity.login.ForgetPswActivity" />
+        <activity android:name=".ui.activity.login.QuickLoginActivity" />
+        <activity android:name=".ui.activity.mine.SettingActivity" />
+        <activity android:name=".ui.activity.login.RegistSuccessActivity" />
+        <activity android:name=".ui.activity.login.OpenAccountActivity" />
+        <activity android:name=".ui.activity.mine.SafeCenterActivity" />
+        <activity android:name=".ui.activity.mine.SendCodeActivity" />
+        <activity android:name=".ui.activity.mine.ModifyLoginPswActivity" />
+        <activity android:name=".ui.activity.mine.ModifyDealPswActivity" />
+        <activity android:name=".ui.activity.mine.CheckDealPswActivity" />
+        <activity android:name=".ui.activity.mine.ModifyPhoneNumActivity" />
+        <activity android:name=".ui.activity.mine.BankCardListActivity" />
+        <activity android:name=".ui.activity.mine.AddBankCardActivity" />
+        <activity android:name=".ui.activity.market.FundDetailActivity" />
+        <activity android:name=".ui.activity.market.FundCurrencyDetailActivity" />
+        <activity android:name=".ui.activity.market.FundNoticeActivity" />
+        <activity android:name=".ui.activity.market.ManagerDetailActivity" />
+        <activity android:name=".ui.activity.market.PremiumActivity" />
+        <activity android:name=".ui.activity.market.FundAchivesActivity" />
+        <activity android:name=".ui.activity.market.FundHistoryValueActivity" />
+        <activity android:name=".ui.activity.market.BuyFundActivity" />
+        <activity android:name=".ui.activity.market.SellFundActivity" />
+        <activity android:name=".ui.activity.mine.TransactionsActivity" />
+        <activity android:name=".ui.activity.login.TestActivity" />
+        <activity android:name=".ui.activity.login.ForgetDealPswActivity1" />
+        <activity android:name=".ui.activity.login.ForgetDealPswActivity2" />
+        <activity android:name=".ui.activity.login.ChooseBankActivity" />
+        <activity android:name=".ui.activity.login.InfomationsActivity" />
+        <activity android:name=".ui.activity.login.MessagesActivity" />
+        <activity android:name=".ui.activity.mine.GiftListActivity" />
+        <activity android:name=".ui.activity.login.TestResultActivity" />
+        <activity android:name=".ui.activity.HtmlActivity" />
+        <activity android:name=".ui.activity.login.OpenAccountSuccessActivity" />
+        <activity android:name=".ui.activity.mine.TransationsRecordActivity" />
+        <activity android:name=".ui.activity.mine.TransationsDetailActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.mine.ExchangeActivity" />
+        <activity android:name=".ui.activity.login.TiyanjinLoginActivity" />
+        <activity android:name=".ui.activity.mine.TiyanjinTransDetailActivity" />
+        <activity android:name=".ui.activity.login.TiyanjinInfoActivity" />
+        <activity android:name=".ui.activity.login.JuniorActivity" />
+        <activity android:name=".ui.activity.login.FundStudyActivity" />
+        <activity android:name=".ui.activity.login.MiLuoPanActivity" />
+        <activity android:name=".ui.activity.login.SpecialActivity" />
+        <activity android:name=".ui.activity.login.NewsDetailActivity" />
+        <activity android:name=".ui.activity.login.ChengxingActivity" />
+        <activity android:name=".ui.activity.login.HotSpotsDetailActivity" />
+        <activity android:name=".ui.activity.market.BuyTiyanjinActivity" />
+        <activity android:name=".ui.activity.market.ProtocolActivity" />
+        <activity android:name=".ui.activity.market.HtmlKnowledgeActivity" />
+        <activity android:name=".ui.activity.market.FundNoticeDetailActivity" />
 
         <service android:name=".MyIntentService"></service>
 
 
-
-
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59f17c31a40fa3309500005b" >
-        </meta-data>
-        <meta-data android:value="umeng" android:name="UMENG_CHANNEL"/>
+            android:value="59f17c31a40fa3309500005b"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="umeng" />
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -137,7 +130,7 @@
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -149,21 +142,20 @@
         </activity>
         <activity
             android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"
-            />
+            android:theme="@style/Theme.UMDefault" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTER" />
                 <action android:name="cn.jpush.android.intent.REPORT" />
@@ -174,10 +166,9 @@
 
         <!-- since 3.0.9 Required SDK 核心功能-->
         <provider
-            android:authorities="com.zhongdi.miluo.DataProvider"
             android:name="cn.jpush.android.service.DataProvider"
-            android:exported="true"
-            />
+            android:authorities="com.zhongdi.miluo.DataProvider"
+            android:exported="true" />
 
         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
@@ -185,19 +176,19 @@
             android:name="cn.jpush.android.service.DaemonService"
             android:enabled="true"
             android:exported="true">
-            <intent-filter >
+            <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="com.zhongdi.miluo"/>
+                <category android:name="com.zhongdi.miluo" />
             </intent-filter>
         </service>
 
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <category android:name="com.zhongdi.miluo"/>
+                <category android:name="com.zhongdi.miluo" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -207,6 +198,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -215,10 +207,11 @@
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:exported="false" >
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.zhongdi.miluo" />
             </intent-filter>
@@ -239,8 +232,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false" >
-        </service>
+            android:exported="false"></service>
 
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
@@ -250,7 +242,7 @@
         <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
         <receiver
             android:name=".JpushReceiver"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
                 <category android:name="com.zhongdi.miluo" />
@@ -262,9 +254,13 @@
         <!-- 发到 Google Play 的APK可以设置为 google-play; -->
         <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
         <!-- 目前这个渠道统计功能的报表还未开放。-->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="de8e8bf9c897b6c92773f831"/>
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="de8e8bf9c897b6c92773f831" />
 
     </application>
 

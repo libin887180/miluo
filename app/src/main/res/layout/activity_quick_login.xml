@@ -102,7 +102,7 @@
             android:layout_marginTop="20dp"
             app:hintEnabled="false">
 
-            <EditText
+            <com.zhongdi.miluo.widget.ClearEditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +112,7 @@
                 android:imeOptions="actionNext"
                 android:maxLength="11"
                 android:maxLines="1"
+                android:textColorHint="@color/text_color_light_grey"
                 android:nextFocusForward="@+id/et_password"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
@@ -151,7 +152,7 @@
                     android:background="@null"
                     android:drawablePadding="10dp"
                     android:hint="输入验证码"
-                    android:imeActionId="@+id/login"
+                    android:textColorHint="@color/text_color_light_grey"
                     android:maxLength="6"
                     android:maxLines="1"
                     android:paddingBottom="10dp"

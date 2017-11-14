@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fingdo.statelayout.StateLayout;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.GiftListAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.Prize;
 import com.zhongdi.miluo.presenter.GetGiftListPresenter;
 import com.zhongdi.miluo.view.GiftListView;
@@ -35,6 +37,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     StateLayout stateLayout;
     private GiftListAdapter listAdapter;
     List<Prize> cardList = new ArrayList<>();
+    private int pageNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
         listAdapter = new GiftListAdapter(mContext, cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
-        presenter.getGiftList();
+        presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Prize>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Prize prize, int position) {
@@ -75,27 +78,18 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     public void setupRefreshView() {
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadmore(false);
-//        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-//            @Override
-//            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshLayout.finishRefreshing();
-//                    }
-//                }, 2000);
-//            }
-//
-//            @Override
-//            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshLayout.finishLoadmore();
-//                    }
-//                }, 2000);
-//            }
-//        });
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                pageNum = 1;
+                presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+            }
+
+            @Override
+            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
+                presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+            }
+        });
     }
 
     @Override
@@ -115,7 +109,8 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
         stateLayout.setRefreshListener(new StateLayout.OnViewRefreshListener() {
             @Override
             public void refreshClick() {
-                ViseLog.i("11", "刷新");
+                pageNum = 1;
+                presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
             }
 
             @Override
@@ -134,8 +129,26 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     @Override
     public void onDataSuccess(List<Prize> body) {
 
-        cardList.clear();
+        if (pageNum == 1) {
+            cardList.clear();
+        }
+        if (body.size() < MiluoConfig.DEFAULT_PAGESIZE) {
+            refreshLayout.setEnableLoadmore(false);
+        } else {
+            pageNum++;
+            refreshLayout.setEnableLoadmore(true);
+        }
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+        refreshLayout.setEnableRefresh(true);
         cardList.addAll(body);
         listAdapter.notifyDataSetChanged();
+        if (cardList.size() == 0) {
+            stateLayout.showEmptyView();
+        } else {
+            stateLayout.showContentView();
+        }
+
+
     }
 }
