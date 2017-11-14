@@ -103,14 +103,14 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN_CIRCLE);
+                ShareWeb(R.drawable.ic_error,SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
         sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN);
+                ShareWeb(R.drawable.ic_error,SHARE_MEDIA.WEIXIN);
             }
         });
         sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {

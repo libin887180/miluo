@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -17,12 +25,20 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    signingConfigs {
+//        debug {
+//            minifyEnabled false
+//            signingConfig signingConfigs.debug
+//            proguardFiles 'proguard-rules.pro'
+//        }
         debug {
-            storeFile file('gzzsgj.keystore')
+            signingConfig signingConfigs.debug
         }
     }
+//    signingConfigs {
+//        debug {
+//            storeFile file('gzzsgj.keystore')
+//        }
+//    }
 }
 
 dependencies {
