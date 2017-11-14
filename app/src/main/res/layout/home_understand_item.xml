@@ -10,8 +10,6 @@
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="5dp"
@@ -24,7 +22,7 @@
 
             <FrameLayout
                 android:layout_width="150dp"
-                android:layout_height="100dp">
+                android:layout_height="90dp">
 
                 <ImageView
                     android:id="@+id/iv_photo"
@@ -35,7 +33,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/search_bg"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -75,7 +72,7 @@
                 android:singleLine="true"
                 android:text="今年我最赚"
                 android:textColor="@color/text_222"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -84,12 +81,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="近一年收益"
                 android:textColor="@color/text_color_normal"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
 
         </LinearLayout>

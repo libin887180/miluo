@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/iv_icon"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sixbuddy" />
@@ -43,7 +44,7 @@
             android:layout_below="@+id/tv_title"
             android:ellipsize="end"
             android:minLines="2"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:maxLines="2"
             android:text="苏打水大所大所水所大所"
             android:textColor="@color/text_color_normal"

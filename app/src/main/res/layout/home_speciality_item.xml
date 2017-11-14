@@ -10,15 +10,14 @@
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="5dp">
+        card_view:cardMaxElevation="5dp"
+        card_view:cardElevation="3dp">
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -38,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="今年我最赚"
                     android:textColor="@color/text_222"
                     android:textSize="16sp" />
 
@@ -64,22 +62,20 @@
                     android:gravity="center"
                     android:maxWidth="120dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="近一年收益"
                     android:textColor="@color/text_color_normal"
-                    android:textSize="16sp" />
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="25.97"
-
+                        android:text="-.-"
                         android:textColor="@color/tab_text_selected"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -91,24 +87,34 @@
                         android:textColor="@color/tab_text_selected"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                </LinearLayout>
 
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxWidth="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/text_color_normal"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_min_amount"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
                 android:background="@drawable/btn_with_grey_border"
                 android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:text="10元起购"
+                android:paddingLeft="8dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+                android:text="1000元起购"
                 android:textColor="@color/text_555" />
 
         </LinearLayout>

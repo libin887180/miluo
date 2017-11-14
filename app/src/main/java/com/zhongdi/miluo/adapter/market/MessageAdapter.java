@@ -1,7 +1,6 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ public class MessageAdapter extends BaseRecyclerAdapter<MessageBean> {
         title.setText(item.getTitle());
         date.setText(item.getAdd_time());
         dsc.setText(item.getContent());
-        status.setVisibility(View.INVISIBLE);
+//        status.setVisibility(View.INVISIBLE);
 //        if (item.getStatus().equals("0")) {
 //            status.setVisibility(View.VISIBLE);
 //        } else {

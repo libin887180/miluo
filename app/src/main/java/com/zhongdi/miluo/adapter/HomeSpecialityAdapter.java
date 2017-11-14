@@ -21,8 +21,9 @@ public class HomeSpecialityAdapter extends BaseRecyclerAdapter<HomeFund> {
     @Override
     public void convert(BaseRecyclerHolder holder, HomeFund item, int position) {
         holder.setText(R.id.tv_title,item.getTitle());
-        holder.setText(R.id.tv_content,item.getContent());
+        holder.setText(R.id.tv_content,item.getFundName());
         holder.setText(R.id.tv_rate,item.getYearrate());
-        holder.setText(R.id.tv_min_amount,Double.parseDouble(item.getMinsubscribeamt())/100+"元起购");
+        holder.setText(R.id.tv_desc,item.getContent());
+        holder.setText(R.id.tv_min_amount,Double.parseDouble(item.getMinsubscribeamt())+"元起购");
     }
 }

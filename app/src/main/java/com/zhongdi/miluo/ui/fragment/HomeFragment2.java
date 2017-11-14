@@ -653,7 +653,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     public void onSuccess(MResponse<NewComeBean> response, int requestCode) {
                         tvProfit.setText(response.getBody().getYearyld());
                         tvExPorfit.setText(response.getBody().getExtrayearrate());
-                        btnNews.setText(Double.parseDouble(response.getBody().getMinsubscribeamt()) / 100 + "元起购");
+//                        btnNews.setText(Double.parseDouble(response.getBody().getMinsubscribeamt()) / 100 + "元起购");
                     }
 
                     @Override

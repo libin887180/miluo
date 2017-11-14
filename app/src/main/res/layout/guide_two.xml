@@ -8,18 +8,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:src="@drawable/splash_img1"
+        android:src="@drawable/splash_img2"
         android:layout_gravity="center_horizontal"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:src="@drawable/splash_text1"
+        android:src="@drawable/splash_text2"
         android:layout_gravity="center_horizontal"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:src="@drawable/splash_dot1"
+        android:src="@drawable/splash_dot2"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

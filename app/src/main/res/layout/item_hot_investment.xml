@@ -11,17 +11,17 @@
 
     <TextView
         android:id="@+id/iv_type"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:padding="5dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/bg_circle_blue"
         android:text="人工\n智能"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:background="@drawable/bg_dashgap_circle" />
 
     <RelativeLayout
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="10dp">
+        android:paddingLeft="15dp">
 
 
         <TextView
@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="刷卡机倒骄傲"
+            android:maxLength="8"
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/text_222"
@@ -48,8 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="人工z还能迎风口"
+            android:maxLength="11"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/text_color_normal"
@@ -67,7 +69,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:drawableRight="@drawable/icon_right"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/red"
             android:textSize="15sp" />
     </RelativeLayout>
 
@@ -75,6 +77,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="70dp"
-        android:background="@color/divider_list" />
+        android:layout_marginLeft="85dp"
+        android:background="@color/divier_eee" />
 </RelativeLayout>
