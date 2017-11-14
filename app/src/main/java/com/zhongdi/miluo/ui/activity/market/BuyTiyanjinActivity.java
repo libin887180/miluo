@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -172,7 +173,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()) {
                     float amount = parseFloat(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
                         if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
@@ -205,6 +206,17 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                             }
                         }
                     }
+                    enableSubmitBtn();
+                } else {
+                    disableSubmitBtn();
+                }
+            }
+        });
+
+        cbRisk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()) {
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -423,6 +435,10 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
             case R.id.btn_submit:
                 if (!cbAgreement.isChecked()) {
                     showToast("请阅读并同意服务协议");
+                    return;
+                }
+                if (!cbRisk.isChecked()) {
+                    showToast("请阅读基金小知识或进行风险评测");
                     return;
                 }
 //                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评

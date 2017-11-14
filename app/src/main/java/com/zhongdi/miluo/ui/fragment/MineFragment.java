@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CurAssetAdapter;
@@ -207,8 +206,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
         });
 
-        Glide.with(getActivity()).asGif().load(R.drawable.gift).into(ivGift);
-        Glide.with(getActivity()).asGif().load(R.drawable.tiyanjin).into(ivTiyanjin);
+//        Glide.with(getActivity()).asGif().load(R.drawable.gift).into(ivGift);
+//        Glide.with(getActivity()).asGif().load(R.drawable.tiyanjin).into(ivTiyanjin);
 
 
     }

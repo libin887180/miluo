@@ -155,7 +155,7 @@
                                 android:id="@+id/iv_tiyanjin"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/tiyanjin" />
+                                android:src="@drawable/tiyanjin_s" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                                 android:id="@+id/iv_gift"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/gift" />
+                                android:src="@drawable/gift_s" />
 
                             <TextView
                                 android:layout_width="wrap_content"

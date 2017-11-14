@@ -789,7 +789,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //        }
     }
 
-    @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news})
+    @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news,R.id.ll_junior})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -822,6 +822,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             case R.id.btn_news:
                 Intent intent = new Intent(MyApplication.getInstance(), JuniorActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_junior:
+                Intent junior = new Intent(MyApplication.getInstance(), JuniorActivity.class);
+                startActivity(junior);
                 break;
         }
     }

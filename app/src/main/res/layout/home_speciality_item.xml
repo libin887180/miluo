@@ -18,7 +18,7 @@
         card_view:cardElevation="5dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/line"/>
+                    android:src="@drawable/line" />
             </LinearLayout>
 
 
@@ -61,6 +61,9 @@
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxWidth="120dp"
+                    android:layout_gravity="center_horizontal"
                     android:text="近一年收益"
                     android:textColor="@color/text_color_normal"
                     android:textSize="16sp" />
@@ -95,11 +98,10 @@
 
             <TextView
                 android:id="@+id/tv_min_amount"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_with_grey_border"
                 android:paddingBottom="10dp"

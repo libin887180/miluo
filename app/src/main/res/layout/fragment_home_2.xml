@@ -114,6 +114,7 @@
                         card_view:cardElevation="3dp">
 
                         <LinearLayout
+                            android:id="@+id/ll_junior"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
