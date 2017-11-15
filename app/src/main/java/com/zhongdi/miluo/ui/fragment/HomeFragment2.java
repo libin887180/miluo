@@ -332,7 +332,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 }else {
                     intent = new Intent(getActivity(), FundDetailActivity.class);
                 }
-                intent.putExtra("fundId",fund.getSellFundId());
+                intent.putExtra("fundId",fund.getSellFundId() );
                 intent.putExtra("fundcode",fund.getFundCode());
                 startActivity(intent);
             }
