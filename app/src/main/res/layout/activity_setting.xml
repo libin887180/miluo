@@ -175,6 +175,14 @@
             android:text="安全中心"
             android:textColor="@color/black" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/icon_right"
+            android:textColor="@color/text_color_normal" />
+
     </RelativeLayout>
 
     <RelativeLayout

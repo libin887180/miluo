@@ -27,5 +27,5 @@ public class IntentConfig {
     public static final int FROM_NOTICE = 13;//米罗公告
     public static final int FROM_MSG = 14;//基金消息
 
-    public static final int SETTING = 1;//设置界面
+    public static final int SETTING = 15;//设置界面
 }

@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity2 {
     private String TO;
     ViewPagerAdapter adapter;
     private int versionCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,16 +79,23 @@ public class MainActivity extends BaseActivity2 {
     private void requestPermission() {
 
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS,Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.WRITE_APN_SETTINGS};
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS,
+                    Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.WRITE_APN_SETTINGS};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
 
     }
+
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
@@ -199,10 +207,12 @@ public class MainActivity extends BaseActivity2 {
                         navigation.getMenu().getItem(2).setChecked(true);
                         viewPager.setCurrentItem(2);
                         ((CollectionFragment) adapter.getItem(2)).fetchData();
+                        toTab = -1;
                     } else if (toTab == 3) {
                         navigation.getMenu().getItem(3).setChecked(true);
                         viewPager.setCurrentItem(3);
                         ((MineFragment) adapter.getItem(3)).fetchData();
+                        toTab = -1;
                     }
                 }
                 break;
@@ -210,12 +220,15 @@ public class MainActivity extends BaseActivity2 {
                 navigation.getMenu().getItem(0).setChecked(true);
                 viewPager.setCurrentItem(0);
                 break;
+            default:
+                toTab = -1;
+                break;
         }
     }
 
     public void cheUpdate() {
         Map<String, String> map = new HashMap<>();
-        map.put("type","3");
+        map.put("type", "3");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.UPDATE, map, 103,
                 new NetRequestUtil.NetResponseListener<MResponse<Update>>() {
                     @Override

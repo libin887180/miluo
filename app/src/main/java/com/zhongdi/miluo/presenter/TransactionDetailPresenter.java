@@ -74,6 +74,8 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
                             view.showToast(response.getMsg());
                         }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
                             view.showPswLocked();
+                        }else{
+                            view.showToast(response.getMsg());
                         }
                         view.modifyBonusFailed();
                     }

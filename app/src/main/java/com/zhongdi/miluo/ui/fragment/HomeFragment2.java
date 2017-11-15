@@ -64,7 +64,6 @@ import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
-import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.NoScrollGridView;
@@ -821,7 +820,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
                     startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去测评")) {
-                    ActivityUtil.startForwardActivity(getActivity(), TestActivity.class);
+                    Intent intent = new Intent(getActivity(), TestActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    startActivityForResult(intent, 102);
                 }
 
                 break;

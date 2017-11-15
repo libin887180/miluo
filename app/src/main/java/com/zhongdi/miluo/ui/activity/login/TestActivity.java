@@ -28,7 +28,7 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
     NoScrollViewPager viewPager;
 
     public ArrayList<String> result;
-    private int SOURCE;
+    private int SOURCE ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
