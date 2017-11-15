@@ -62,6 +62,8 @@ import com.zhongdi.miluo.ui.activity.login.SpecialActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinLoginActivity;
+import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
+import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.util.view.ActivityUtil;
 import com.zhongdi.miluo.widget.MarqueeView;
 import com.zhongdi.miluo.widget.MyRefreshView;
@@ -321,6 +323,20 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         understandAdapter = new MiluoUnderstandAdapter(getActivity(), dongnifunds);
+        understandAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeFund>() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund fund, int position) {
+                Intent intent;
+                if(fund.getFundType().equals(MiluoConfig.HUOBI)||fund.getFundType().equals(MiluoConfig.DUANQI)){
+                    intent  = new Intent(getActivity(), FundCurrencyDetailActivity.class);
+                }else {
+                    intent = new Intent(getActivity(), FundDetailActivity.class);
+                }
+                intent.putExtra("fundId",fund.getSellFundId());
+                intent.putExtra("fundcode",fund.getFundCode());
+                startActivity(intent);
+            }
+        });
         recyclerViewUnderStand.setLayoutManager(manager);
         recyclerViewUnderStand.setFocusable(false);
         recyclerViewUnderStand.setAdapter(understandAdapter);
@@ -692,6 +708,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+              initData();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

@@ -39,7 +39,7 @@ private Context mContext;
 
     holder.setText(R.id.tv_title,item.getTitle());
     holder.setText(R.id.tv_content,item.getContent());
-    holder.setText(R.id.tv_rate,item.getFoundrate());
+    holder.setText(R.id.tv_rate,item.getYearrate());
 
 
     }
