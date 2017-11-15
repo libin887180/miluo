@@ -192,7 +192,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 new NetRequestUtil.NetResponseListener<MResponse<MyProperty>>() {
                     @Override
                     public void onSuccess(MResponse<MyProperty> response, int requestCode) {
-                        if(MyApplication.getInstance().assetVisable){
+                        if (MyApplication.getInstance().assetVisable) {
                             tvTotalAsset.withNumber(Double.parseDouble(response.getBody().getTotalasset()));
                             // 设置动画播放时间
                             tvTotalAsset.setDuration(1000);
@@ -203,7 +203,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                             tvYestedayProfits.setDuration(1000);
                             // 开始播放动画
                             tvYestedayProfits.start();
-                        }else{
+                        } else {
                             cbVisable.setChecked(false);
                         }
 
@@ -765,7 +765,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-       initData();
+        if (isVisibleToUser) {
+            initData();
+        }
     }
 
     @Override
@@ -789,7 +791,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //        }
     }
 
-    @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news,R.id.ll_junior})
+    @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news, R.id.ll_junior})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:

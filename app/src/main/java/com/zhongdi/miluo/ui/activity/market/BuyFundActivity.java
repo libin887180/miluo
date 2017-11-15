@@ -88,11 +88,13 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private List<BeforeBuyInfo.FeesBean> fees;
     private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
+    private String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
+        from = getIntent().getStringExtra("from");
         binding(R.layout.activity_buy);
     }
 
@@ -208,11 +210,11 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (etMoney.getText().length() > 0&&Double.parseDouble(etMoney.getText().toString())>=minsubscribeamt) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
                     double amount = Double.parseDouble(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
                         if (amount >= fees.get(i).getAmountdownlimit() * 10000) {
-                            if ( Double.parseDouble(fees.get(i).getDiscount())==1||Double.parseDouble(fees.get(i).getDiscount())==0) {//没有优惠折扣
+                            if (Double.parseDouble(fees.get(i).getDiscount()) == 1 || Double.parseDouble(fees.get(i).getDiscount()) == 0) {//没有优惠折扣
                                 tvDepRate.setText("");
                                 tvDepSxf.setText("");
                                 if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//达到上限
@@ -246,7 +248,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                     tvDepRate.setText("");
                     tvDepSxf.setText("");
                     tvRate.setText("0.00%");
-                    tvSxf.setText( "0.00元");
+                    tvSxf.setText("0.00元");
                     disableSubmitBtn();
                 }
             }
@@ -290,17 +292,17 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 //        minsubscribeamt = Float.parseFloat();
         this.beforeBuyInfo = buyInfo;
         String minbuy = buyInfo.getFund().getMinsubscribeamt().substring(0, buyInfo.getFund().getMinsubscribeamt().length() - 2);
-        try{
-            minsubscribeamt =  Double.parseDouble(minbuy);
-        }catch (Exception e){
+        try {
+            minsubscribeamt = Double.parseDouble(minbuy);
+        } catch (Exception e) {
             minsubscribeamt = 0;
         }
 
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
-        String  fundType ;
-        switch (buyInfo.getFund().getFundtype()){
+        String fundType;
+        switch (buyInfo.getFund().getFundtype()) {
             case MiluoConfig.GUPIAO:
                 fundType = "股票型";
                 break;
@@ -359,7 +361,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         Intent intent = new Intent(mContext, TransationsRecordActivity.class);
         intent.putExtra("tradeid", body.getTradeid() + "");
         intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
-        intent.putExtra(IntentConfig.SOURCE,"buy");
+        intent.putExtra(IntentConfig.SOURCE, "buy");
         startActivity(intent);
         finish();
 
@@ -382,6 +384,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             }
         }).show();
     }
+
 
     @Override
     public void showReTestDialog() {
@@ -420,19 +423,19 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
     @Override
     public void showPswLocked() {
-            showDialog("", "交易密码已被冻结，请联系客服","联系客服", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ MiluoConfig.TEL));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }, "取消", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        showDialog("", "交易密码已被冻结，请联系客服", "联系客服", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + MiluoConfig.TEL));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }, "取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                }
-            });
+            }
+        });
     }
 
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account})
@@ -454,6 +457,43 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 if (!cbAgreement.isChecked()) {
                     showToast("请阅读并同意服务协议");
                     return;
+                }
+
+                if (from.equals("newer")) {
+                    for (int i = beforeBuyInfo.getNewLevels().size()-1; i >-1 ; i--) {
+                        if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) < Double.parseDouble(beforeBuyInfo.getNewLevels().get(i).getLevel()) ) {
+                                new AlertDialog(mContext).builder().setMsg(beforeBuyInfo.getNewLevels().get(i).getItem())
+                                        .setNegativeButton("残忍拒绝", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
+                                                    showTestDialog();
+                                                    return;
+                                                }
+                                                if (SpCacheUtil.getInstance().getUserTestLevel() == MiluoConfig.BAOSHOU) {//如果是保守型，并且风险等级比R1高 那重新测评
+                                                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+                                                        showReTestDialog();
+                                                        return;
+                                                    }
+                                                } else {//如果不是是保守型，并且风险等级比R1高 那提示风险
+                                                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
+                                                        showRiskTipDialog();
+                                                        return;
+                                                    }
+                                                }
+//                showTestDialog();
+                                                showPswPopupWindow();
+                                            }
+                                        }).setPositiveButton("追加投资", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                    }
+                                }).show();
+                               return;
+                        }
+
+                    }
                 }
                 if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
                     showTestDialog();
@@ -487,11 +527,11 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
 
         if (requestCode == 101) {
             if (resultCode == RESULT_OK) {
-              btnSubmit.performClick();
+                btnSubmit.performClick();
             }
         }
 
-        if(requestCode ==102){//开户返回
+        if (requestCode == 102) {//开户返回
             if (resultCode == RESULT_OK) {
                 //刷新数据
                 initialize();

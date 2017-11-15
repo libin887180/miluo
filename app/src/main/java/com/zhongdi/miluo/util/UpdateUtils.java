@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -289,7 +290,8 @@ public class UpdateUtils {
         @Override
         public void run() {
             try {
-                String temp = (curVersionCode + 1) + "";
+//                String temp = (curVersionCode + 1) + "";
+                String temp = SystemClock.currentThreadTimeMillis()+ "";
                 String apkName = "miluo_" + temp + ".apk";
                 String tmpApk = "miluo_" + temp + ".tmp";
                 //判断是否挂载了SD卡

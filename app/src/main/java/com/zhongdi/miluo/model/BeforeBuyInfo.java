@@ -18,9 +18,18 @@ public class BeforeBuyInfo {
     private BankInfoBean bankInfo;
     private FundBean fund;
     private List<FeesBean> fees;
+    private List<NewLevelBean> newLevels;
 
     public BankInfoBean getBankInfo() {
         return bankInfo;
+    }
+
+    public List<NewLevelBean> getNewLevels() {
+        return newLevels;
+    }
+
+    public void setNewLevels(List<NewLevelBean> newLevels) {
+        this.newLevels = newLevels;
     }
 
     public void setBankInfo(BankInfoBean bankInfo) {
@@ -167,6 +176,27 @@ public class BeforeBuyInfo {
 
         public void setAmountdownlimit(double amountdownlimit) {
             this.amountdownlimit = amountdownlimit;
+        }
+    }
+    public static class NewLevelBean {
+
+        private String item;
+        private String level;
+
+        public String getItem() {
+            return item;
+        }
+
+        public void setItem(String item) {
+            this.item = item;
+        }
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
         }
     }
 }

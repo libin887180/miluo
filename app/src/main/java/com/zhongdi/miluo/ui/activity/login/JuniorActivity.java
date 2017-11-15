@@ -91,6 +91,7 @@ public class JuniorActivity extends BaseActivity2 {
                 }
                 Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                 buyIntent.putExtra("fundCode", code);
+                buyIntent.putExtra("from", "newer");
                 startActivity(buyIntent);
                 break;
             case "0"://详情方法
