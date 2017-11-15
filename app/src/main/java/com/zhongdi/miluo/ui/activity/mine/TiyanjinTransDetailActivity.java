@@ -3,6 +3,7 @@ package com.zhongdi.miluo.ui.activity.mine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,10 +16,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FriendsInfo;
 import com.zhongdi.miluo.model.TiyanjinDetail;
 import com.zhongdi.miluo.presenter.TiyanjinTransDetailPresenter;
@@ -58,7 +65,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
     TextView tvFriendsAmount;
     @BindView(R.id.tv_invite)
     TextView tvInvite;
-
+    TiyanjinDetail tiyanjinDetail;
     private String fundcode = "";
     private String fundId = "";
     private View sharePopView;
@@ -129,11 +136,66 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
                 mCardPopupWindow.dismiss();
             }
         });
+
+        sharePopView.findViewById(R.id.tv_circle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN_CIRCLE);
+            }
+        });
+        sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN);
+            }
+        });
+        sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.SINA);
+            }
+        });
         // 设置动画
         mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
         // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
         mCardPopupWindow.setOutsideTouchable(true);
     }
+    private void ShareWeb(int thumb_img,SHARE_MEDIA platform) {
+        UMImage thumb = new UMImage(mContext, thumb_img);
+        UMWeb web = new UMWeb(URLConfig.H5_REGISTER);
+        web.setThumb(thumb);
+        web.setDescription("好友在米罗基金为您准备了一份大礼，赶紧看看吧");
+        web.setTitle("18888元赚钱计划");
+        new ShareAction(TiyanjinTransDetailActivity.this).withMedia(web).setPlatform(platform).setCallback(umShareListener).share();
+    }
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            //分享开始的回调
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Log.d("plat", "platform" + platform);
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享失败", Toast.LENGTH_SHORT).show();
+//            if (t != null) {
+//                Log.d("throw", "throw:" + t.getMessage());
+//            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private void showpSharePopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -150,6 +212,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
 
     @Override
     public void OnDataSuccess(TiyanjinDetail body) {
+        tiyanjinDetail = body;
         tvFundName.setText(body.getFundname() + "(" + body.getFundcode() + ")");
         tvAmount.setText(body.getAmount());
         tvProfit.setText(body.getProfit());
@@ -210,7 +273,10 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         switch (view.getId()) {
             case R.id.btn_exchange:
                 if (btnExchange.getText().equals("兑换话费")) {
-                    showToast("兑换话费");
+                    Intent intent = new Intent(mContext, ExchangeActivity.class);
+                    intent.putExtra("prizeType","1");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
+                    intent.putExtra("prizeId", tiyanjinDetail.getWinprize_id());
+                    startActivity(intent);
                 } else if (btnExchange.getText().equals("邀请好友")) {
                     showpSharePopupWindow();
 //                    showToast("邀请好友");
@@ -222,6 +288,8 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
                     showpSharePopupWindow();
                 } else if (tvInvite.getText().equals("兑换")) {
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
+                    intent.putExtra("prizeType","1");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
+                    intent.putExtra("prizeId", tiyanjinDetail.getWinprize_id());
                     startActivity(intent);
                 }
                 break;

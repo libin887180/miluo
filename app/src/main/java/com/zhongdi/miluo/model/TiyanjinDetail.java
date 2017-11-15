@@ -25,6 +25,15 @@ public class TiyanjinDetail {
     private String profit;
     private String profits;
     private String status;
+    private String winprize_id;
+
+    public String getWinprize_id() {
+        return winprize_id;
+    }
+
+    public void setWinprize_id(String winprize_id) {
+        this.winprize_id = winprize_id;
+    }
 
     public String getActivity_status() {
         return activity_status;

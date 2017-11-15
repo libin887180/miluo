@@ -2,6 +2,8 @@ package com.zhongdi.miluo.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,18 +14,29 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.BackHandlerHelper;
 import com.zhongdi.miluo.BottomNavigationViewHelper;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.Update;
+import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.fragment.CollectionFragment;
 import com.zhongdi.miluo.ui.fragment.HomeFragment2;
 import com.zhongdi.miluo.ui.fragment.MarketFragment;
 import com.zhongdi.miluo.ui.fragment.MineFragment;
+import com.zhongdi.miluo.util.UpdateUtils;
 import com.zhongdi.miluo.widget.NoScrollViewPager;
+
+import org.xutils.common.Callback;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,14 +51,22 @@ public class MainActivity extends BaseActivity2 {
     private int toTab = -1;
     private String TO;
     ViewPagerAdapter adapter;
-
+    private int versionCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        PackageInfo info = null;
+        try {
+            info = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+            versionCode = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         requestPermission();
+        cheUpdate();
         initView();
         setupViewPager(viewPager);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -191,4 +212,41 @@ public class MainActivity extends BaseActivity2 {
                 break;
         }
     }
+
+    public void cheUpdate() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type","3");
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.UPDATE, map, 103,
+                new NetRequestUtil.NetResponseListener<MResponse<Update>>() {
+                    @Override
+                    public void onSuccess(MResponse<Update> response, int requestCode) {
+                        if (response.getBody().getVersion_code() > versionCode) {
+                            UpdateUtils.getUpdateUtils().checkAppUpdate(mContext, true, response.getBody());
+                        } else {
+//                        showToast("已经是最新版本");
+//                        if (CommonUtils.isApplicationExpire("20170630")){  //判断是否已到期6月30号
+//                            if (versionCode < 150){
+//                                showDiage();
+//                            }
+//                        }
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Update> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
 }

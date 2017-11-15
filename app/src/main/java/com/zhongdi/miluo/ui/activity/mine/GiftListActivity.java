@@ -63,9 +63,10 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Prize prize, int position) {
 
-                if (prize.getType().equals("1")) {
+                if (prize.getStatus().equals("1")) {
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
-                    intent.putExtra("prize", prize);
+                    intent.putExtra("prizeType", prize.getType());
+                    intent.putExtra("prizeId", prize.getWinprize_id());
                     startActivity(intent);
                 }
             }

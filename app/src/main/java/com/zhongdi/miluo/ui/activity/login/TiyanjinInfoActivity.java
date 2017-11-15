@@ -14,9 +14,9 @@ import android.webkit.WebView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
@@ -103,14 +103,14 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.ic_error,SHARE_MEDIA.WEIXIN_CIRCLE);
+                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
         sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.ic_error,SHARE_MEDIA.WEIXIN);
+                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN);
             }
         });
         sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {
@@ -143,20 +143,20 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         @Override
         public void onResult(SHARE_MEDIA platform) {
             Log.d("plat", "platform" + platform);
-            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享失败", Toast.LENGTH_SHORT).show();
-            if (t != null) {
-                Log.d("throw", "throw:" + t.getMessage());
-            }
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享失败", Toast.LENGTH_SHORT).show();
+//            if (t != null) {
+//                Log.d("throw", "throw:" + t.getMessage());
+//            }
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
         }
     };
     private void showpSharePopupWindow() {
@@ -187,7 +187,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     }
 
     @JavascriptInterface
-    public void test4(String type) {
+    public void test4() {
         Intent intent = new Intent(mContext, MainActivity.class);
         startActivity(intent);
         finish();
@@ -207,6 +207,8 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
                 }
                 break;
         }
+
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick(R.id.img_title_right)

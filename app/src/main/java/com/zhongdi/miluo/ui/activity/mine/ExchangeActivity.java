@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.model.Prize;
 import com.zhongdi.miluo.presenter.ExchangePresenter;
 import com.zhongdi.miluo.view.ExchangeView;
 import com.zhongdi.miluo.widget.ClearEditText;
@@ -23,13 +22,15 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     ClearEditText etPhone;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
-    private Prize prize;
+    private String prizeId;
+    private String prizeType;
     ExchangeAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prize = (Prize) getIntent().getSerializableExtra("prize");
+        prizeId = getIntent().getStringExtra("prizeId");
+        prizeType = getIntent().getStringExtra("prizeType");
         binding(R.layout.activity_exchange);
     }
 
@@ -88,6 +89,6 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
-        presenter.exchange(prize.getAmount(), prize.getId(), prize.getType(), etPhone.getText().toString());
+        presenter.exchange(prizeId, prizeId, etPhone.getText().toString());
     }
 }

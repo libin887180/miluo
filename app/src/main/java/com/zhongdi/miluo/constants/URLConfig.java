@@ -20,8 +20,8 @@ public class URLConfig {
 //    public static final String BASE_URL = "http://192.168.151.13:8085";
     //外网
     public static final String BASE_URL = "http://218.94.82.38:8085";
-//    public static final String HTML5 = "http://192.168.64.212:8371";
-    public static final String HTML5 = "http://192.168.151.13:8371";
+    public static final String HTML5 = "http://192.168.64.212:8371";
+//    public static final String HTML5 = "http://192.168.151.13:8371";
 
     /**
      * 测试接口
@@ -308,7 +308,11 @@ public class URLConfig {
     /**
      *H5登录
      */
-    public static final String H5_REGISTER= HTML5 + "lead/v1/register/useRegister";
+    public static final String H5_REGISTER= HTML5 + "/lead/v1/register/useRegister";
+    /**
+     *  检测升级
+     */
+    public static final String UPDATE= BASE_URL + "/lead/v1/sysUpgrade";
 
 
 }

@@ -1,7 +1,5 @@
 package com.zhongdi.miluo.presenter;
 
-import android.text.TextUtils;
-
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -24,15 +22,12 @@ public class ExchangePresenter extends BasePresenter<ExchangeView> {
     }
 
 
-    public void exchange( String  cardnum ,String  id ,String  type ,String  username ) {
+    public void exchange(String id, String type, String username) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        map.put("cardnum",cardnum);
-        if(!TextUtils.isEmpty(id)){
-            map.put("id",id);
-        }
-        map.put("type",type);
-        map.put("username",username);
+        map.put("id", id);
+        map.put("type", type);
+        map.put("username", username);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.EX_CHANGE, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
