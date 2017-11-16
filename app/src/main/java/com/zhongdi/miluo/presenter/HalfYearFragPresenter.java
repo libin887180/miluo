@@ -24,7 +24,8 @@ public class HalfYearFragPresenter extends BasePresenter<HalfYearFragmentView> {
     public void getFundVal(String fundcode) {
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_VAL, map, 101,
+        map.put("flag ", "5");//（3月、4季、5半年、6一年）
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_VALUATION, map, 109,
                 new NetRequestUtil.NetResponseListener<MResponse<RiskTestResult>>() {
                     @Override
                     public void onSuccess(MResponse<RiskTestResult> response, int requestCode) {

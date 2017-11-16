@@ -83,7 +83,7 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
     @Override
     public void fetchData() {
         fundcode  = getArguments().getString("fundcode");
-        presenter.getFundVal(fundcode);
+//        presenter.getFundVal(fundcode);
     }
 
 

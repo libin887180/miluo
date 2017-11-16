@@ -32,12 +32,12 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
 
     @BindView(R.id.line_chart)
     MyLineChart mChart;
-    String fundcode;
+    String sellFundId;
 
-    public static MonthLineFragment newInstance(String fundcode) {
+    public static MonthLineFragment newInstance(String sellFundId) {
         Bundle args = new Bundle();
         MonthLineFragment fragment = new MonthLineFragment();
-        args.putString("fundcode", fundcode);
+        args.putString("sellFundId", sellFundId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,8 +82,8 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
 
     @Override
     public void fetchData() {
-        fundcode  = getArguments().getString("fundcode");
-        presenter.getFundVal(fundcode);
+        sellFundId  = getArguments().getString("sellFundId");
+        presenter.getFundVal(sellFundId);
     }
 
 

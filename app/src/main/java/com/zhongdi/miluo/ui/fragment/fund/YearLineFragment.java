@@ -83,7 +83,7 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
     @Override
     public void fetchData() {
         fundcode  = getArguments().getString("fundcode");
-        presenter.getFundVal(fundcode);
+//        presenter.getFundVal(fundcode);
     }
 
 

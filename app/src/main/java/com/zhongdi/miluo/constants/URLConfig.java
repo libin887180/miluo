@@ -230,6 +230,11 @@ public class URLConfig {
      */
     public static final String FUND_VAL = BASE_URL + "/fund/fundVal";
     /**
+     *
+     收益曲线
+     */
+    public static final String FUND_VALUATION = BASE_URL + "/fund/fundValuation";
+    /**
      * 我的奖品
      */
     public static final String MY_PRIZE = BASE_URL + "/activity/v1/findMyWinprize";

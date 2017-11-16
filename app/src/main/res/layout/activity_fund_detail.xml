@@ -313,7 +313,7 @@
                         app:horizonGap="10dip"
                         app:normalTextColor="@color/text_222"
                         app:selectedTextColor="@color/red"
-                        app:texts="估值|一个月|一季度|半年|一年"
+                        app:texts="一个月|一季度|半年|一年"
                         app:verticalGap="8dip" />
                 </LinearLayout>
 
