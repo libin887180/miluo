@@ -34,6 +34,7 @@ import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
+import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.BuyFundView;
 import com.zhongdi.miluo.widget.AlertDialog;
 import com.zhongdi.miluo.widget.ClearEditText;
@@ -221,8 +222,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                     tvRate.setText(fees.get(i).getRatevalue() + "元");
                                     tvSxf.setText(fees.get(i).getRatevalue() + "元");
                                 } else {//需要乘以费率
-                                    tvRate.setText(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "%");
-                                    tvSxf.setText(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "元");
+                                    tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100+"") + "%");
+                                    tvSxf.setText( StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue())+"")    + "元");
                                 }
                                 break;
                             } else {//有优惠折扣
@@ -235,9 +236,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                     tvDepSxf.setText(rate + "元");
                                 } else {
                                     tvDepRate.setText(rate * 100 + "%");
-                                    tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
-                                    tvDepSxf.setText(amount * rate + "元");
-                                    tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
+                                    tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100+"")  + "%");//费率*折扣转成%
+                                    tvDepSxf.setText(StringUtil.parseStr2Num( amount * rate+"") + "元");
+                                    tvSxf.setText(StringUtil.parseStr2Num( amount * rate * discount+"") + "元");//金额 *费率*折扣
                                 }
                                 break;
                             }

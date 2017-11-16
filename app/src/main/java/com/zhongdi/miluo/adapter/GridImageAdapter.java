@@ -56,7 +56,8 @@ public class GridImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         HomeActiv activ = datas.get(position);
-        holder.tvDsc.setText(activ.getTitle());
+        String desc = activ.getTitle().replace("\\n", "\n");
+        holder.tvDsc.setText(desc);
         switch (activ.getType()){
            case  "1":
                holder.ivIcon.setImageResource(R.drawable.voucher);

@@ -18,7 +18,17 @@ public class UserInfo {
     private String registorLogin;//登录或者注册（0：登录 1注册）
     private String bankNums;//银行卡数量
     private String activityStatus;//体验金状态
+    private String referral_code;//推荐码
     private int nums;
+
+
+    public String getReferral_code() {
+        return referral_code;
+    }
+
+    public void setReferral_code(String referral_code) {
+        this.referral_code = referral_code;
+    }
 
     public String getActivityStatus() {
         return activityStatus;

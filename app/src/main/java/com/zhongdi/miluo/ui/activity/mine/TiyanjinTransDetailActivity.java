@@ -165,7 +165,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
     }
     private void ShareWeb(int thumb_img,SHARE_MEDIA platform) {
         UMImage thumb = new UMImage(mContext, thumb_img);
-        UMWeb web = new UMWeb(URLConfig.H5_REGISTER);
+        UMWeb web = new UMWeb(URLConfig.H5_REGISTER+"?referral_code="+SpCacheUtil.getInstance().getReferralCode());
         web.setThumb(thumb);
         web.setDescription("好友在米罗基金为您准备了一份大礼，赶紧看看吧");
         web.setTitle("18888元赚钱计划");

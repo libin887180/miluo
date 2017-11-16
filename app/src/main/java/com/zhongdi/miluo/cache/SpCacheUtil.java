@@ -90,7 +90,16 @@ public class SpCacheUtil {
         spCache.putInt("FUND_STATE", userInfo.getFundStatus());
         spCache.put("BANK_CARD_COUNT", userInfo.getBankNums());
         spCache.put("ACTIVITY_STATUS", userInfo.getActivityStatus());
+        spCache.put("REFERRAL_CODE", userInfo.getReferral_code());
         setUserPwd(userInfo.getPassword());
+    }
+
+    /**
+     * 获取推荐码
+     *
+     */
+    public String getReferralCode() {
+        return spCache.get("REFERRAL_CODE","");
     }
     /**
      * 设置体验金状态
