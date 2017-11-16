@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
-import com.zhongdi.miluo.model.InfomationNote;
 import com.zhongdi.miluo.presenter.InfomationssPresenter;
 import com.zhongdi.miluo.ui.fragment.login.BeginnerFragment;
 import com.zhongdi.miluo.ui.fragment.login.ImportantInfoFragment;
@@ -47,9 +46,9 @@ public class InfomationsActivity extends BaseActivity<InfomationssPresenter> imp
     @Override
     public void initTabLayout() {
         List<String> tabs = new ArrayList<>();
-        tabs.add("小白学基");
-        tabs.add("基金要闻");
-        tabs.add("投资研究");
+        tabs.add("基金研报");
+        tabs.add("基金导读");
+        tabs.add("基金观点");
         tablayout.removeAllTabs();
         for (int i = 0; i < tabs.size(); i++) {
             String itemName = tabs.get(i);
@@ -60,9 +59,9 @@ public class InfomationsActivity extends BaseActivity<InfomationssPresenter> imp
             }
         }
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), tabs);
-        adapter.addFragment(BeginnerFragment.newInstance("小白学基"));
-        adapter.addFragment(ImportantInfoFragment.newInstance("基金要闻"));
-        adapter.addFragment(ResearchFragment.newInstance("投资研究"));
+        adapter.addFragment(BeginnerFragment.newInstance("基金研报"));
+        adapter.addFragment(ImportantInfoFragment.newInstance("基金导读"));
+        adapter.addFragment(ResearchFragment.newInstance("基金观点"));
         viewPager.setAdapter(adapter);
 
         tablayout.setupWithViewPager(viewPager);

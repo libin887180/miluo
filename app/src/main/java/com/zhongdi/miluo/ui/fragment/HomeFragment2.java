@@ -483,7 +483,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
     private void getScrollNews() {
         Map<String, String> map = new HashMap<>();
-        map.put("articletag", "08,10,11");
+        map.put("articletag", "04,05,06");
 
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.AUTO_NEWS, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeNews>>>() {

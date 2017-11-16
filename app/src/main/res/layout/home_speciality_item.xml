@@ -58,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxWidth="120dp"
+                    android:singleLine="true"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/text_color_normal"
                     android:textSize="13sp" />
@@ -106,13 +107,13 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:background="@drawable/btn_with_grey_border"
+                android:background="@drawable/btn_login"
                 android:paddingBottom="10dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="10dp"
                 android:paddingTop="8dp"
                 android:text="1000元起购"
-                android:textColor="@color/text_555" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
     <!--</android.support.v7.widget.CardView>-->

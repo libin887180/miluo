@@ -52,7 +52,7 @@ public class BeginnerFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
-    private String ARTICLETAG = "08";// 08新手秘籍
+    private String ARTICLETAG = "04";//04基金研报 05基金导读 06基金观点
     public static BeginnerFragment newInstance(String info) {
         Bundle args = new Bundle();
         BeginnerFragment fragment = new BeginnerFragment();

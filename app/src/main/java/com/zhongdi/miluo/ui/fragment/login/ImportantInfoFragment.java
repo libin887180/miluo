@@ -52,7 +52,7 @@ public class ImportantInfoFragment extends Fragment {
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
     List<InfomationNote> notes = new ArrayList<>();
-    private String ARTICLETAG = "10";//10要问(推荐,资讯,基金导读,理财热点)
+    private String ARTICLETAG = "05";//04基金研报 05基金导读 06基金观点
     public static ImportantInfoFragment newInstance(String info) {
         Bundle args = new Bundle();
         ImportantInfoFragment fragment = new ImportantInfoFragment();
