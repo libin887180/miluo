@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/tv_time"
                         android:layout_below="@id/tv_time"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="10dp"
                         android:paddingBottom="5dp"
                         android:text="任期回报率："
                         android:textColor="@color/white_70"
@@ -169,6 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:textSize="16sp"
                 android:textColor="@color/text_555" />
         </LinearLayout>
     </ScrollView>

@@ -267,15 +267,15 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="15dp"
                         android:background="@drawable/btn_with_border"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="8dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="6dp"
                         android:text="立即登录"
                         android:textColor="@color/red"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -550,7 +550,6 @@
             android:scaleType="centerCrop"
             app:dot_marginTop="1px"
             app:dot_size="10dp"
-            app:dot_visible="true"
             app:icon="@drawable/ic_message" />
 
         <TextView

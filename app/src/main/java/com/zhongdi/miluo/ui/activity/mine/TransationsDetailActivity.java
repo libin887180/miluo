@@ -353,16 +353,20 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 if (tvFenhong.getText().toString().contains("确认中")) {
                     return;
                 } else {
-                    showFenHongPopupWindow();
+                    if ((fundtype + "").equals(MiluoConfig.HUOBI) || (fundtype + "").equals(MiluoConfig.DUANQI)) {
+                        return;
+                    } else {
+                        showFenHongPopupWindow();
+                    }
                 }
                 break;
             case R.id.rl_fund_info:
                 if (!TextUtils.isEmpty(fundId)) {
-                    Intent detail ;
+                    Intent detail;
                     if ((fundtype + "").equals(MiluoConfig.HUOBI) || (fundtype + "").equals(MiluoConfig.DUANQI)) {
                         detail = new Intent(mContext, FundCurrencyDetailActivity.class);
                     } else {
-                       detail = new Intent(mContext, FundDetailActivity.class);
+                        detail = new Intent(mContext, FundDetailActivity.class);
 
                     }
                     detail.putExtra("fundId", fundId);

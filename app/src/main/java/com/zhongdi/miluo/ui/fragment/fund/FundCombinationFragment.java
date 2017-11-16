@@ -165,6 +165,7 @@ public class FundCombinationFragment extends Fragment {
         mChart.setCenterText(generateCenterSpannableText(allocation.getNetAsset()));
         mChart.setCenterTextSize(10f);
         mChart.getDescription().setEnabled(false);
+        mChart.setExtraOffsets(10f, 10f, 10f, 10f);
         // radius of the center hole in percent of maximum radius
         mChart.setHoleRadius(45f);
         mChart.setTransparentCircleRadius(50f);

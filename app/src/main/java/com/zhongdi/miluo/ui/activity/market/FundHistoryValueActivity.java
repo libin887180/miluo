@@ -19,6 +19,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HistoryValue;
 import com.zhongdi.miluo.presenter.FundHistoryValuePresenter;
 import com.zhongdi.miluo.view.FundHistoryValueView;
+import com.zhongdi.miluo.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +92,7 @@ public class FundHistoryValueActivity extends BaseActivity<FundHistoryValuePrese
         adapter = new HistoryValueAdapter(mContext, datas);
         historyValueAdapter = new CurrencyHistoryValueAdapter(mContext, datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         if (TextUtils.isEmpty(from)) {
             llHis.setVisibility(View.GONE);
             llValue.setVisibility(View.VISIBLE);

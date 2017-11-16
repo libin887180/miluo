@@ -58,7 +58,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
         listAdapter = new GiftListAdapter(mContext, cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(listAdapter);
-        presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+
         listAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Prize>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Prize prize, int position) {
@@ -66,7 +66,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
                 if (prize.getStatus().equals("1")) {
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
                     intent.putExtra("prizeType", prize.getType());
-                    intent.putExtra("prizeId", prize.getWinprize_id());
+                    intent.putExtra("prizeId", prize.getId());
                     startActivity(intent);
                 }
             }
@@ -74,6 +74,11 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+    }
 
     @Override
     public void setupRefreshView() {

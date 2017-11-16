@@ -89,6 +89,6 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
-        presenter.exchange(prizeId, prizeId, etPhone.getText().toString());
+        presenter.exchange(prizeId, prizeType, etPhone.getText().toString());
     }
 }

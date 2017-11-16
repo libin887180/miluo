@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter.mine;
 
 import android.content.Context;
+import android.view.View;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BaseRecyclerAdapter;
@@ -31,6 +32,10 @@ public class TransAdapter extends BaseRecyclerAdapter<DealRecord> {
             holder.setImageResource(R.id.iv_status,R.drawable.ic_fail);
         }else{
             holder.setImageResource(R.id.iv_status,R.drawable.ic_finshed);
+        }
+
+        if(item.getTypeitem().contains("分红")){
+            holder.getView(R.id.tv_next).setVisibility(View.INVISIBLE);
         }
     }
 }

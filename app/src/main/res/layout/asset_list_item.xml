@@ -81,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="23.53"
+                android:gravity="right"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/red" />
@@ -89,7 +90,7 @@
                 android:id="@+id/tv_profits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="持仓收益（元）"
+                android:text="持仓收益(元)"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/text_color_light_grey" />
 

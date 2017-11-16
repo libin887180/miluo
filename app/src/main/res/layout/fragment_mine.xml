@@ -147,9 +147,9 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingLeft="20dp"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingLeft="20dp">
 
                             <ImageView
                                 android:id="@+id/iv_tiyanjin"
@@ -170,9 +170,9 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:paddingLeft="20dp"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingLeft="20dp">
 
                             <ImageView
                                 android:id="@+id/iv_gift"
@@ -269,31 +269,42 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tablayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabBackground="@color/white"
-                app:tabIndicatorColor="@color/tab_text_selected"
-                app:tabIndicatorHeight="2dp"
-                app:tabMode="fixed"
-                app:tabPaddingEnd="0dp"
-                app:tabPaddingStart="0dp"
-                app:tabSelectedTextColor="@color/tab_text_selected"
-                app:tabTextColor="@color/text_color_normal">
+                android:orientation="vertical">
 
-                <android.support.design.widget.TabItem
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tablayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="当前资产" />
+                    android:layout_height="wrap_content"
+                    app:tabBackground="@color/white"
+                    app:tabIndicatorColor="@color/tab_text_selected"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="fixed"
+                    app:tabPaddingEnd="0dp"
+                    app:tabPaddingStart="0dp"
+                    app:tabSelectedTextColor="@color/tab_text_selected"
+                    app:tabTextColor="@color/text_color_normal">
 
-                <android.support.design.widget.TabItem
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="当前资产" />
+
+                    <android.support.design.widget.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="历史资产" />
+                </android.support.design.widget.TabLayout>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="历史资产" />
-            </android.support.design.widget.TabLayout>
+                    android:layout_height="1px"
+                    android:background="@color/divider_list" />
+            </LinearLayout>
         </android.support.design.widget.AppBarLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

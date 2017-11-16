@@ -69,6 +69,7 @@ import com.zhongdi.miluo.widget.MyRefreshView;
 import com.zhongdi.miluo.widget.NoScrollGridView;
 import com.zhongdi.miluo.widget.ObservableScrollView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
+import com.zhongdi.miluo.widget.reddot.IconDotTextView;
 
 import org.xutils.common.Callback;
 
@@ -122,6 +123,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     RiseNumberTextView tvYestedayProfits;
     @BindView(R.id.cb_visable)
     CheckBox cbVisable;
+    @BindView(R.id.img_msg)
+    IconDotTextView imgMsg;
     private View rootView;
     private List<HomeNews> scrollMsgs = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
@@ -772,6 +775,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             rlLoginState.setVisibility(View.VISIBLE);
             btnLogin.setText("立即登录");
         }
+//        if(SpCacheUtil.getInstance().get)
+        imgMsg.setDotVisibility(false);
         initData();
     }
 
