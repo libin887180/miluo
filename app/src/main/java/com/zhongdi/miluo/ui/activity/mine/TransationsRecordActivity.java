@@ -239,10 +239,10 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
                 .setNegativeButton("残忍拒绝", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(mContext, MainActivity.class);
-                        intent.putExtra("to", "mine");
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(mContext, MainActivity.class);
+//                        intent.putExtra("to", "mine");
+//                        startActivity(intent);
+//                        finish();
 
                     }
                 }).setPositiveButton("立即测评", new View.OnClickListener() {

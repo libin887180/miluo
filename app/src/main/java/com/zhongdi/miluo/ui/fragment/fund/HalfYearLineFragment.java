@@ -2,21 +2,30 @@ package com.zhongdi.miluo.ui.fragment.fund;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseFragment;
+import com.zhongdi.miluo.model.FundValuationResponse;
 import com.zhongdi.miluo.presenter.HalfYearFragPresenter;
 import com.zhongdi.miluo.view.HalfYearFragmentView;
-import com.zhongdi.miluo.widget.mpchart.MyLineChart;
+import com.zhongdi.miluo.widget.mpchart.DataParser;
+import com.zhongdi.miluo.widget.mpchart.MiLuoLineChart;
+import com.zhongdi.miluo.widget.mpchart.MyMarkerView;
+import com.zhongdi.miluo.widget.mpchart.MyXAxis;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -29,15 +38,19 @@ import butterknife.ButterKnife;
 
 public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> implements HalfYearFragmentView {
 
-
     @BindView(R.id.line_chart)
-    MyLineChart mChart;
-    String fundcode;
+    MiLuoLineChart lineChart;
+    String sellFundId;
+    private YAxis axisLeft;
+    private DataParser mData1;
+    private LineDataSet d1;
+    private LineDataSet d2;
+    MyXAxis xAxisLine;
 
-    public static HalfYearLineFragment newInstance(String fundcode) {
+    public static HalfYearLineFragment newInstance(String sellFundId) {
         Bundle args = new Bundle();
         HalfYearLineFragment fragment = new HalfYearLineFragment();
-        args.putString("fundcode", fundcode);
+        args.putString("sellFundId", sellFundId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,28 +64,57 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
 
     @Override
     protected void initView(View view) {
-        mChart.getDescription().setEnabled(false);//描述不可见
-//        mChart.setTouchEnabled(false);//不可触摸
-        mChart.setDragEnabled(true);//不可拖拽，高亮线
-        mChart.setScaleEnabled(false);//不可伸缩
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setTextSize(11f);
-        xAxis.setDrawGridLines(false);
-        xAxis.setAxisMaximum(45);
-        xAxis.setDrawAxisLine(false);
+        initChart();
+    }
 
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setDrawGridLines(true);
-        leftAxis.setXOffset(10f);
-        leftAxis.setGranularityEnabled(true);
-        leftAxis.setGranularity(50);
-        leftAxis.setDrawZeroLine(false);
-        leftAxis.setDrawAxisLine(false);
+    private void initChart() {
 
-        mChart.getAxisRight().setEnabled(false);
-        setData();
-        mChart.animateX(1000);
+        lineChart.setScaleEnabled(false);
+        lineChart.setDrawBorders(false);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);//描述不可见
+        Legend lineChartLegend = lineChart.getLegend();
+        lineChartLegend.setEnabled(false);
+        //x轴
+        xAxisLine = lineChart.getXAxis();
+        xAxisLine.setDrawLabels(true);
+        xAxisLine.setDrawGridLines(false);
+        xAxisLine.setLabelCount(2);
+        xAxisLine.setPosition(XAxis.XAxisPosition.BOTTOM);
+        //x轴
+//        xAxis = lineChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setLabelsToSkip(59);
+
+
+        //左边y
+        axisLeft = lineChart.getAxisLeft();
+        axisLeft.setLabelCount(5, true);
+        axisLeft.setDrawLabels(true);
+        axisLeft.setDrawGridLines(true);
+
+//        axisLeft.setXOffset(10f);
+        axisLeft.setGranularityEnabled(true);
+        axisLeft.setDrawZeroLine(false);
+        axisLeft.setDrawAxisLine(false);
+        //y轴样式
+        this.axisLeft.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                DecimalFormat mFormat = new DecimalFormat("#0.00");
+                return mFormat.format(value) + "%";
+            }
+
+        });
+
+        //背景线
+        this.xAxisLine.setGridColor(getResources().getColor(R.color.divider_list));
+        this.xAxisLine.setGridLineWidth(1);
+        this.xAxisLine.setAxisLineColor(getResources().getColor(R.color.divider_list));
+        this.xAxisLine.setAxisLineWidth(1);
+//        this.axisLeft.setGridColor(getResources().getColor(R.color.minute_zhoutv));
+//        this.axisRight.setAxisLineColor(getResources().getColor(R.color.minute_zhoutv));
+
     }
 
     @Override
@@ -82,8 +124,8 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
 
     @Override
     public void fetchData() {
-        fundcode  = getArguments().getString("fundcode");
-//        presenter.getFundVal(fundcode);
+        sellFundId = getArguments().getString("sellFundId");
+        presenter.getFundVal(sellFundId);
     }
 
 
@@ -106,58 +148,99 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
     }
 
 
-    @Override
-    public void setData() {
-        ArrayList<Entry> values = new ArrayList<Entry>();
-        ArrayList<Entry> values2 = new ArrayList<Entry>();
-
-        for (int i = 0; i < 40; i++) {
-
-            float val = (float) (Math.random() * 100) + 3;
-            values.add(new Entry(i, val));
-            values2.add(new Entry(i, val + 30));
-        }
-
-        LineDataSet set1;
-        LineDataSet set2;
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
-            set1.setValues(values);
-            set2.setValues(values2);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
-            set1 = new LineDataSet(values, "DataSet 1");
-            set1.setColor(Color.parseColor("#6BAEE9"));
-            set1.setLineWidth(2f);
-            set1.setHighlightEnabled(true);
-            set1.setHighLightColor(Color.parseColor("#FBE1B9"));
-            set1.setDrawCircleHole(false);
-            set1.setDrawIcons(false);
-            set1.setDrawCircles(false);
-            set1.setDrawValues(false);
-            //set1.setFillFormatter(new MyFillFormatter(0f));
-            //set1.setDrawHorizontalHighlightIndicator(false);
-            //set1.setVisible(false);
-            //set1.setCircleHoleColor(Color.WHITE);
-
-            // create a dataset and give it a type
-            set2 = new LineDataSet(values2, "DataSet 2");
-            set2.setColor(Color.parseColor("#FF2C40"));
-            set2.setLineWidth(2f);
-            set2.setHighlightEnabled(true);
-            set2.setDrawCircleHole(false);
-            set2.setDrawCircles(false);
-            set2.setDrawValues(false);
-            set2.setHighLightColor(Color.parseColor("#FBE1B9"));
-            //set2.setFillFormatter(new MyFillFormatter(900f));
-            LineData data = new LineData(set1, set2);
-
-            // set data
-            mChart.setData(data);
-        }
+    public void setShowLabels(SparseArray<String> labels) {
+        xAxisLine.setXLabels(labels);
     }
 
+    private SparseArray<String> setXLabels(DataParser mData) {
+        int size = mData.getDatas().getMarketYieldData().size();
+        SparseArray<String> xLabels = new SparseArray<>();
+        xLabels.put(0, mData.getDatas().getMarketYieldData().get(0).getValuedate());
+        xLabels.put(size - 1, mData.getDatas().getMarketYieldData().get(size - 1).getValuedate());
+        return xLabels;
+    }
+
+    public void setData(DataParser mData) {
+        if (mData.getDatas().getMarketYieldData().size() == 0 && mData.getDatas().getFundValuation().size() == 0) {
+            lineChart.setNoDataText("暂无数据");
+            return;
+        }
+
+        setShowLabels(setXLabels(mData));
+        //设置y左右两轴最大最小值
+//        axisLeft.setAxisMinValue(mData.getMin() * 1.2f);
+//        axisLeft.setAxisMaxValue(mData.getMax() * 1.2f);
+//        axisRight.setAxisMinValue(mData.getPercentMin());
+//        axisRight.setAxisMaxValue(mData.getPercentMax());
+
+
+        ArrayList<Entry> HS300 = new ArrayList<Entry>();
+        ArrayList<String> hsMarketViews = new ArrayList<String>();
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        ArrayList<Entry> fundData = new ArrayList<Entry>();
+        ArrayList<String> fundMarkViews = new ArrayList<String>();
+
+        if (mData.getDatas().getMarketYieldData().size() > 0) {
+            for (int i = 0; i < mData.getDatas().getMarketYieldData().size(); i++) {
+                HS300.add(new Entry(i, (float) mData.getDatas().getMarketYieldData().get(i).getTotalyield()));
+                hsMarketViews.add(mData.getDatas().getMarketYieldData().get(i).getValuedate());
+            }
+        }
+        d1 = new LineDataSet(HS300, "沪深300");
+
+        d1.setColor(Color.parseColor("#6BAEE9"));
+        d1.setLineWidth(2f);
+        d1.setHighlightEnabled(true);
+        d1.setHighLightColor(Color.parseColor("#FBE1B9"));
+        d1.setDrawCircleHole(false);
+        d1.setDrawCircles(false);
+        d1.setDrawValues(false);
+        //谁为基准
+        d1.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        if (mData.getDatas().getFundValuation().size() > 0) {
+            for (int i = 0; i < mData.getDatas().getFundValuation().size(); i++) {
+                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getDayrate())));
+                fundMarkViews.add(mData.getDatas().getFundValuation().get(i).getValuedate());
+            }
+        }
+
+        d2 = new LineDataSet(fundData, "本基金");
+        d2.setColor(Color.parseColor("#FF2C40"));
+        d2.setLineWidth(2f);
+        d2.setHighlightEnabled(true);
+        d2.setDrawCircleHole(false);
+        d2.setDrawCircles(false);
+        d2.setDrawValues(false);
+        d2.setHighLightColor(Color.parseColor("#FBE1B9"));
+        //谁为基准
+        d2.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        LineData cd = new LineData(d1, d2);
+//        setMarkerView(dateList);
+
+        lineChart.setData(cd);
+        lineChart.setDrawMarkers(true);
+        lineChart.invalidate();//刷新图
+    }
+
+    public String[] getMinutesCount(DataParser mData) {
+        return new String[mData.getDatas().getMarketYieldData().size()];
+    }
+
+    private void setMarkerView(ArrayList<String> dateList) {
+        MyMarkerView myMarkerView = new MyMarkerView(getActivity(), R.layout.mymarkerview, dateList);
+        lineChart.setMarkerView(myMarkerView);
+        lineChart.setMarker(myMarkerView);
+    }
+
+    @Override
+    public void onDataSuccess(FundValuationResponse response) {
+        mData1 = new DataParser();
+        mData1.setDatas(response);
+        mData1.parseData();
+        setData(mData1);
+        lineChart.animateX(1000);
+    }
 }

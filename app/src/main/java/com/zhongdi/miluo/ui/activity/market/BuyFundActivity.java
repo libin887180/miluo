@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -89,7 +90,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private List<BeforeBuyInfo.FeesBean> fees;
     private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
-    private String from;
+    private String from  = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -460,7 +461,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                     return;
                 }
 
-                if (from.equals("newer")) {
+                if (TextUtils.equals(from,"newer")) {
                     for (int i = beforeBuyInfo.getNewLevels().size()-1; i >-1 ; i--) {
                         if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) < Double.parseDouble(beforeBuyInfo.getNewLevels().get(i).getLevel()) ) {
                                 new AlertDialog(mContext).builder().setMsg(beforeBuyInfo.getNewLevels().get(i).getItem())

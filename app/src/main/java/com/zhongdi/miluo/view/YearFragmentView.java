@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
+import com.zhongdi.miluo.model.FundValuationResponse;
 
 
 /**
@@ -8,6 +9,5 @@ import com.zhongdi.miluo.base.BaseView;
  */
 
 public interface YearFragmentView extends BaseView {
-    void setData();
-
+    void onDataSuccess(FundValuationResponse response);
 }
