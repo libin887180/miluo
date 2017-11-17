@@ -114,6 +114,7 @@
         <activity android:name=".ui.activity.market.ProtocolActivity" />
         <activity android:name=".ui.activity.market.HtmlKnowledgeActivity" />
         <activity android:name=".ui.activity.market.FundNoticeDetailActivity" />
+        <activity android:name=".ui.activity.mine.AboutUsActivity" />
 
         <service android:name=".MyIntentService"></service>
         <activity

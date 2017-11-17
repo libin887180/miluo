@@ -173,7 +173,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
                     float amount = parseFloat(etMoney.getText().toString());
                     for (int i = 0; i < fees.size(); i++) {
                         if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
@@ -206,7 +206,11 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                             }
                         }
                     }
-                    enableSubmitBtn();
+                    if(cbAgreement.isChecked()&&cbRisk.isChecked()){
+                        enableSubmitBtn();
+                    }else{
+                        disableSubmitBtn();
+                    }
                 } else {
                     disableSubmitBtn();
                 }
@@ -216,7 +220,17 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         cbRisk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()&&cbAgreement.isChecked()) {
+                    enableSubmitBtn();
+                } else {
+                    disableSubmitBtn();
+                }
+            }
+        });
+        cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()&&cbAgreement.isChecked()) {
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -334,6 +348,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         intent.putExtra(IntentConfig.SOURCE, "buy");
         intent.putExtra("showriskDialog", true);
         startActivity(intent);
+        setResult(RESULT_OK);
         finish();
 
     }

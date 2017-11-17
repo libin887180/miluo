@@ -79,7 +79,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
         reFresh();
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center, R.id.ll_test})
+    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center, R.id.ll_test,R.id.rl_about_us})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
@@ -95,6 +95,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
             case R.id.rl_safe_center:
                 Intent intent = new Intent(mContext, SafeCenterActivity.class);
                 startActivityForResult(intent, 101);
+                break;
+            case R.id.rl_about_us:
+                Intent us = new Intent(mContext, AboutUsActivity.class);
+                startActivity(us);
                 break;
             case R.id.ll_test:
                 int level = SpCacheUtil.getInstance().getUserTestLevel();

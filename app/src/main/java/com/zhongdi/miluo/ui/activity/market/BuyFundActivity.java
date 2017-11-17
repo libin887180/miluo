@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -245,12 +246,26 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                             }
                         }
                     }
-                    enableSubmitBtn();
+                    if(cbAgreement.isChecked()){
+                        enableSubmitBtn();
+                    }else{
+                        disableSubmitBtn();
+                    }
                 } else {
                     tvDepRate.setText("");
                     tvDepSxf.setText("");
                     tvRate.setText("0.00%");
                     tvSxf.setText("0.00元");
+                    disableSubmitBtn();
+                }
+            }
+        });
+        cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked&&etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt){
+                    enableSubmitBtn();
+                }else{
                     disableSubmitBtn();
                 }
             }

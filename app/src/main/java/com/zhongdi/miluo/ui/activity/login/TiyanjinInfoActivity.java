@@ -103,21 +103,21 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN_CIRCLE);
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
         sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.WEIXIN);
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN);
             }
         });
         sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCardPopupWindow.dismiss();
-                ShareWeb(R.drawable.share_tyj,SHARE_MEDIA.SINA);
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.SINA);
             }
         });
         // 设置动画
@@ -126,14 +126,15 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         mCardPopupWindow.setOutsideTouchable(true);
     }
 
-    private void ShareWeb(int thumb_img,SHARE_MEDIA platform) {
+    private void ShareWeb(int thumb_img, SHARE_MEDIA platform) {
         UMImage thumb = new UMImage(mContext, thumb_img);
-        UMWeb web = new UMWeb(URLConfig.H5_REGISTER+"?referral_code="+SpCacheUtil.getInstance().getReferralCode());
+        UMWeb web = new UMWeb(URLConfig.H5_REGISTER + "?referral_code=" + SpCacheUtil.getInstance().getReferralCode());
         web.setThumb(thumb);
         web.setDescription("好友在米罗基金为您准备了一份大礼，赶紧看看吧");
         web.setTitle("18888元赚钱计划");
         new ShareAction(TiyanjinInfoActivity.this).withMedia(web).setPlatform(platform).setCallback(umShareListener).share();
     }
+
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA platform) {
@@ -159,6 +160,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
 //            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
         }
     };
+
     private void showpSharePopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
@@ -178,7 +180,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             case "3"://已登录 已开户 ，进入购买
                 Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
                 intent.putExtra("fundCode", code);
-                startActivity(intent);
+                startActivityForResult(intent, 101);
                 break;
             case "4"://已购买
                 break;
@@ -197,15 +199,11 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 102:
-                if (resultCode == RESULT_OK) {
-                    webView.loadUrl(url);
-                    Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
-                    intent.putExtra("fundCode", fundCode);
-                    startActivity(intent);
-                }
-                break;
+        if (resultCode == RESULT_OK) {
+            webView.reload();
+            Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
+            intent.putExtra("fundCode", fundCode);
+            startActivity(intent);
         }
 
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);

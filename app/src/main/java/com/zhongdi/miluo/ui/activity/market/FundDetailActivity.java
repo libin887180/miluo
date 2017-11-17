@@ -346,8 +346,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         }
 
         if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
+            tvBuy.setText("暂不开放 敬请期待");
             tvBuy.setEnabled(false);
         } else {
+            tvBuy.setText("立即购买");
             tvBuy.setEnabled(true);
         }
     }

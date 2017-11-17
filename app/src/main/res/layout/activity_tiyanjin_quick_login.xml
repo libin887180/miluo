@@ -75,16 +75,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:background="@drawable/bg_tiyanjin">
+        android:background="@drawable/bg_tiyanjin"
+        android:gravity="center_horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:background="@drawable/ic_18888" />
+            android:background="@drawable/ic_18888"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
-
 
 
     <RelativeLayout
@@ -125,9 +125,9 @@
                 android:maxLines="1"
                 android:nextFocusForward="@+id/et_password"
                 android:paddingBottom="10dp"
-                android:textColor="@color/text_color_normal"
                 android:paddingTop="10dp"
                 android:phoneNumber="true"
+                android:textColor="@color/text_color_normal"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -141,29 +141,34 @@
             android:orientation="horizontal">
 
 
-                <EditText
-                    android:id="@+id/et_code"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:layout_below="@+id/et_username"
-                    android:background="@null"
-                    android:hint="输入验证码"
-                    android:textColor="@color/text_color_normal"
-                    android:layout_gravity="center_vertical"
-                    android:maxLength="6"
-                    android:maxLines="1"
-                    android:textSize="16sp" />
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_username"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:background="@null"
+                android:hint="输入验证码"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:textColor="@color/text_color_normal"
+                android:textSize="16sp" />
 
+            <View
+                android:layout_width="1px"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/divider_list" />
 
             <TextView
                 android:id="@+id/tv_send_code"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="获取验证码"
-                android:layout_gravity="center_vertical"
                 android:textColor="@color/send_msg_text_color" />
         </LinearLayout>
 
