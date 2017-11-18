@@ -77,10 +77,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_safe"
         android:drawablePadding="5dp"
-        android:text="和在银行买基金一样安全"
-        android:textColor=""
+        android:text="银行级防护架构保证信息安全"
+        android:textColor="#2ab6f6"
         android:textSize="13sp" />
 </LinearLayout>
