@@ -494,7 +494,7 @@
                     android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/ic_safe"
                     android:drawablePadding="5dp"
-                    android:text="由浦发银行托管，资金更安全"
+                    android:text="和在银行买基金一样安全"
                     android:textColor="#777"
                     android:textSize="13sp" />
 
@@ -522,7 +522,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="2dp"
-                    android:text="基金有风险，投资需谨慎"
+                    android:text="基金有风险 投资需谨慎"
                     android:textColor="@color/text_color_normal"
                     android:textSize="12sp" />
             </LinearLayout>

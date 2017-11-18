@@ -72,4 +72,15 @@
         android:text="下一步"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_safe"
+        android:drawablePadding="5dp"
+        android:text="和在银行买基金一样安全"
+        android:textColor=""
+        android:textSize="13sp" />
 </LinearLayout>
