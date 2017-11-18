@@ -53,12 +53,13 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                 });
     }
 
-    public void buyFund(String fundCode, String tradepwd, String transamount) {
+    public void buyFund(String fundCode, String tradepwd, String transamount,String buyType) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("productid", fundCode);
         map.put("tradepwd", tradepwd);
         map.put("transamount", transamount);
+        map.put("type", buyType);
         Callback.Cancelable post = netRequestUtil.post(URLConfig.BUY_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override

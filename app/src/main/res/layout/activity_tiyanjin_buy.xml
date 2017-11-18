@@ -380,7 +380,7 @@
                     android:id="@+id/tv_ld_protocol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="《利德基金用户服务协议》"
+                    android:text="《利得基金用户服务协议》"
                     android:textColor="@color/red"
                     android:textSize="12sp" />
             </LinearLayout>

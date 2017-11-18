@@ -92,12 +92,16 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
     private String from  = "";
+    private  String  buyType = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
         from = getIntent().getStringExtra("from");
+        if (TextUtils.equals(from,"newer")) {
+            buyType = getIntent().getStringExtra("buyType");
+        }
         binding(R.layout.activity_buy);
     }
 
@@ -122,7 +126,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
+                if(TextUtils.isEmpty(buyType)){
+                    buyType = "0";
+                }
+                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(),buyType);
                 dismissPswPopWindow();
             }
         });

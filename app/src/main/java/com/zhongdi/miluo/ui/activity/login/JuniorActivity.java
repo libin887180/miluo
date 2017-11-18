@@ -73,16 +73,16 @@ public class JuniorActivity extends BaseActivity2 {
 //        });
 
 
-
         if (url != null) {
             ViseLog.i("// URL=  " + url);
             webView.loadUrl(url);
         }
     }
-    @JavascriptInterface
-    public void test2(String to, String type, String code,String  fundId) {
 
-        switch (to){
+    @JavascriptInterface
+    public void test2(String to, String type, String code, String fundId) {
+
+        switch (to) {
             case "1"://购买方法
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
@@ -96,14 +96,14 @@ public class JuniorActivity extends BaseActivity2 {
                 break;
             case "0"://详情方法
                 Intent intent;
-                if(type.equals(MiluoConfig.HUOBI)||type.equals(MiluoConfig.DUANQI)){
-                    intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
-                }else {
+                if (type.equals(MiluoConfig.HUOBI) || type.equals(MiluoConfig.DUANQI)) {
+                    intent = new Intent(mContext, FundCurrencyDetailActivity.class);
+                } else {
                     intent = new Intent(mContext, FundDetailActivity.class);
                 }
-                intent.putExtra("fundId",fundId);
-                intent.putExtra("fundcode",code);
-                ViseLog.i("fundid-->"+fundId);
+                intent.putExtra("fundId", fundId);
+                intent.putExtra("fundcode", code);
+                ViseLog.i("fundid-->" + fundId);
                 startActivity(intent);
 
                 break;
@@ -111,4 +111,19 @@ public class JuniorActivity extends BaseActivity2 {
 
     }
 
+    @JavascriptInterface
+    public void test5(String to, String type, String code, String fundId, String buyType) {
+
+        if (!MyApplication.getInstance().isLogined) {
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivityForResult(intent, 101);
+            return;
+        }
+        Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
+        buyIntent.putExtra("fundCode", code);
+        buyIntent.putExtra("from", "newer");
+        buyIntent.putExtra("buyType", buyType);
+        startActivity(buyIntent);
+
+    }
 }
