@@ -17,6 +17,9 @@ public class RateResponse {
 
     private String custodyRate;
     private String manageRate;
+    private String preredeemacctdate;
+    private String preprofitdate;
+    private String preconfirmdate;
     private List<RateTypeDetail> list;
 
     public String getCustodyRate() {
@@ -43,5 +46,27 @@ public class RateResponse {
         this.list = list;
     }
 
+    public String getPreredeemacctdate() {
+        return preredeemacctdate;
+    }
 
+    public void setPreredeemacctdate(String preredeemacctdate) {
+        this.preredeemacctdate = preredeemacctdate;
+    }
+
+    public String getPreprofitdate() {
+        return preprofitdate;
+    }
+
+    public void setPreprofitdate(String preprofitdate) {
+        this.preprofitdate = preprofitdate;
+    }
+
+    public String getPreconfirmdate() {
+        return preconfirmdate;
+    }
+
+    public void setPreconfirmdate(String preconfirmdate) {
+        this.preconfirmdate = preconfirmdate;
+    }
 }

@@ -30,6 +30,14 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
     TextView tvTuoguanDepRate;
     @BindView(R.id.tv_tuoguan_rate)
     TextView tvTuoguanRate;
+    @BindView(R.id.tv_buy_t1_day)
+    TextView tvBuyT1Day;
+    @BindView(R.id.tv_buy_check_day)
+    TextView tvBuyCheckDay;
+    @BindView(R.id.tv_sell_t1_day)
+    TextView tvSellT1Day;
+    @BindView(R.id.tv_sell_check_day)
+    TextView tvSellCheckDay;
     private String sellFundId;
 
     @BindView(R.id.lv_apply)
@@ -82,22 +90,27 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
 
     @Override
     public void onDateSuccess(RateResponse body) {
-        if(!TextUtils.isEmpty(body.getManageRate())){
-            tvManageRate .setText(body.getManageRate());
+        if (!TextUtils.isEmpty(body.getManageRate())) {
+            tvManageRate.setText(body.getManageRate());
         }
-        if(!TextUtils.isEmpty(body.getCustodyRate())){
-            tvTuoguanRate .setText(body.getCustodyRate());
+        if (!TextUtils.isEmpty(body.getCustodyRate())) {
+            tvTuoguanRate.setText(body.getCustodyRate());
         }
         List<RateTypeDetail> rateTypes = body.getList();
         for (int i = 0; i < rateTypes.size(); i++) {
-            if(rateTypes.get(i).getRateType().equals("02")) {//前端申购
+            if (rateTypes.get(i).getRateType().equals("02")) {//前端申购
                 applyRates.addAll(rateTypes.get(i).getData());
             }
-            if(rateTypes.get(i).getRateType().equals("04")) {//前端申购
+            if (rateTypes.get(i).getRateType().equals("04")) {//前端申购
                 sellRedems.addAll(rateTypes.get(i).getData());
             }
         }
         applyAdapter.notifyDataSetChanged();
         sellPremiumAdapter.notifyDataSetChanged();
+
+        tvBuyT1Day.setText(body.getPreconfirmdate());
+        tvSellT1Day.setText(body.getPreconfirmdate());
+        tvBuyCheckDay.setText(body.getPreprofitdate());
+        tvSellCheckDay.setText(body.getPreredeemacctdate());
     }
 }

@@ -493,6 +493,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         scrollMsgs.clear();
                         scrollMsgs.addAll(response.getBody());
                         setUpMarqueeView();
+                        if(scrollMsgs.size()==0){
+                            upview1.setVisibility(View.GONE);
+                        }else{
+                            upview1.setVisibility(View.VISIBLE);
+                        }
+
                     }
 
                     @Override

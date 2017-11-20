@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/ic_safe"
+        android:drawableLeft="@drawable/ic_bank"
         android:drawablePadding="5dp"
         android:text="交易资金全程由浦发银行监管"
         android:textColor="#2ab6f6"

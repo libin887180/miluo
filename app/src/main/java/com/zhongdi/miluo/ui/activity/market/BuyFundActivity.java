@@ -92,16 +92,14 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
     private String from  = "";
-    private  String  buyType = "0";
+    private  String  buyType = "-1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
         from = getIntent().getStringExtra("from");
-        if (TextUtils.equals(from,"newer")) {
             buyType = getIntent().getStringExtra("buyType");
-        }
         binding(R.layout.activity_buy);
     }
 
@@ -127,7 +125,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             @Override
             public void inputFinish() {
                 if(TextUtils.isEmpty(buyType)){
-                    buyType = "0";
+                    buyType = "-1";
                 }
                 presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(),buyType);
                 dismissPswPopWindow();
@@ -204,7 +202,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         }
         tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        presenter.beforeBuyInit(fundCode);
+        if(TextUtils.isEmpty(buyType)){
+            buyType = "-1";
+        }
+        presenter.beforeBuyInit(fundCode,buyType);
 
         etMoney.addTextChangedListener(new TextWatcher() {
             @Override
