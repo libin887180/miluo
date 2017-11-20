@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.ForgetPswPresenter;
 import com.zhongdi.miluo.view.ForgetPswView;
@@ -44,6 +45,7 @@ public class ForgetPswActivity extends BaseActivity<ForgetPswPresenter> implemen
     @Override
     public void onSuccess() {
         showToast("密码设置成功");
+        SpCacheUtil.getInstance().setUserPwd(etNewPassword.getText().toString());
         finish();
     }
 
