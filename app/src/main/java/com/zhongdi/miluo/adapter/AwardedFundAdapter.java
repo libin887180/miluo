@@ -72,7 +72,6 @@ public class AwardedFundAdapter extends BaseRecyclerAdapter<HomeFund> {
         holder.setText(R.id.tv_info, item.getYearrate());
         if (item.getStatus().equals("1")) {
             holder.setImageResource(R.id.iv_collect, R.drawable.home_collected);
-
         } else {
             holder.setImageResource(R.id.iv_collect, R.drawable.home_collect);
         }

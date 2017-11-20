@@ -104,11 +104,15 @@ public class FundNoticeActivity extends BaseActivity<FundNoticePresenter> implem
             refreshLayout.setEnableLoadmore(true);
             pageNum++;
         }
-        refreshLayout.finishLoadmore();
-        refreshLayout.finishRefreshing();
         noticeAdapter.notifyDataSetChanged();
         if(notices.size()==0){
             stateLayout.showEmptyView();
         }
+    }
+
+    @Override
+    public void onRequestFinish() {
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
     }
 }

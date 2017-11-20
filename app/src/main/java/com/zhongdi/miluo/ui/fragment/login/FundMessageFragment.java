@@ -115,7 +115,8 @@ public class FundMessageFragment extends Fragment {
 
                     @Override
                     public void onFinished() {
-
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
                     }
                 });
     }

@@ -71,7 +71,7 @@ public class SearchPresenter extends BasePresenter<SearchView> {
 
                     @Override
                     public void onFinished() {
-
+view.onRequestFinish();
                     }
 
                 });

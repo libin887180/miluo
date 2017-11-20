@@ -15,4 +15,6 @@ public interface SearchView extends BaseView {
     void setListener();
 
     void onhotSearchSuccess(List<SearchFund> body);
+
+    void onRequestFinish();
 }

@@ -106,14 +106,14 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, SearchFund searchFund, int position) {
                 Intent intent;
-                if(searchFund.getFundtype().equals(MiluoConfig.HUOBI)||searchFund.getFundtype().equals(MiluoConfig.DUANQI)){
-                    intent  = new Intent(mContext, FundCurrencyDetailActivity.class);
-                }else {
+                if (searchFund.getFundtype().equals(MiluoConfig.HUOBI) || searchFund.getFundtype().equals(MiluoConfig.DUANQI)) {
+                    intent = new Intent(mContext, FundCurrencyDetailActivity.class);
+                } else {
                     intent = new Intent(mContext, FundDetailActivity.class);
                 }
-                intent.putExtra("fundId",searchFund.getId());
-                intent.putExtra("fundcode",searchFund.getFundcode());
-                ViseLog.i("fundid-->"+searchFund.getId());
+                intent.putExtra("fundId", searchFund.getId());
+                intent.putExtra("fundcode", searchFund.getFundcode());
+                ViseLog.i("fundid-->" + searchFund.getId());
                 startActivity(intent);
             }
         });
@@ -128,8 +128,14 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
+    public void onRequestFinish() {
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+    }
+
+    @Override
     public void onSearchSuccess(List<SearchFund> body) {
-        if(pageNum==1){
+        if (pageNum == 1) {
             datas.clear();
         }
         if (body.size() < MiluoConfig.DEFAULT_PAGESIZE) {
@@ -144,9 +150,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         refreshLayout.setEnableRefresh(true);
         datas.addAll(body);
         adapter.notifyDataSetChanged();
-        if(datas.size()==0){
+        if (datas.size() == 0) {
             stateLayout.showEmptyView();
-        }else{
+        } else {
             stateLayout.showContentView();
         }
     }

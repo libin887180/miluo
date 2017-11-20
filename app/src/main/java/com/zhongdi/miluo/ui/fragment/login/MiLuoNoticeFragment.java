@@ -170,6 +170,8 @@ public class MiLuoNoticeFragment extends Fragment {
             pageNum++;
             refreshLayout.setEnableLoadmore(true);
         }
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
         datas.addAll(list);
         adapter.notifyDataSetChanged();
         if(datas.size()==0){

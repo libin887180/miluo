@@ -141,8 +141,6 @@ public class FundFragment extends Fragment {
                             refreshLayout.setEnableLoadmore(true);
                             pageNum++;
                         }
-                        refreshLayout.finishLoadmore();
-                        refreshLayout.finishRefreshing();
                         fundAdapter.notifyDataSetChanged();
                         if(funds.size()==0){
                             stateLayout.showNoNetworkView();
@@ -164,7 +162,6 @@ public class FundFragment extends Fragment {
                     public void onFinished() {
                         refreshLayout.finishLoadmore();
                         refreshLayout.finishRefreshing();
-                        fundAdapter.notifyDataSetChanged();
 //                        Toast.makeText(getActivity(), "onFinished", Toast.LENGTH_SHORT).show();
                     }
                 });

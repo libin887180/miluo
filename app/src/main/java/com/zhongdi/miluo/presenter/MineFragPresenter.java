@@ -50,6 +50,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     }
                 });
     }
+
     public void getPropertyList(int pageIndex, int pageSize) {
         Map<String, String> map = new HashMap<>();
         map.put("pageIndex", pageIndex + "");
@@ -75,10 +76,11 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.onRequestFinished();
                     }
                 });
     }
+
     public void getHisPropertyList(int pageIndex, int pageSize) {
         Map<String, String> map = new HashMap<>();
         map.put("pageIndex", pageIndex + "");
@@ -104,7 +106,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
 
                     @Override
                     public void onFinished() {
-
+                        view.onRequestFinished();
                     }
                 });
     }

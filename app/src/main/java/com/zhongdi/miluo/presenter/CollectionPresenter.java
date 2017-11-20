@@ -47,7 +47,7 @@ public class CollectionPresenter extends BasePresenter<CollectionView> {
 
                     @Override
                     public void onFinished() {
-
+view.onRequestFinished();
                     }
                 });
     }

@@ -328,6 +328,10 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     }
 
     @Override
+    public void onRequestFinished() {
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         if (rootView == null) {

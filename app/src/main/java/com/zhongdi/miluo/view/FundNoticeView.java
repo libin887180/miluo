@@ -13,4 +13,5 @@ import java.util.List;
 public interface FundNoticeView extends BaseView {
     void OnFundNoticeSuccess(List<FundNotice> body);
 
+    void onRequestFinish();
 }

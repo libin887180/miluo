@@ -140,8 +140,6 @@ public class FinishedTransFragment extends Fragment {
                             pageIndex++;
                         }
                         dealRecords.addAll(response.getBody());
-                        refreshLayout.finishLoadmore();
-                        refreshLayout.finishRefreshing();
                         adapter.notifyDataSetChanged();
                         if (dealRecords.size() == 0) {
                             stateLayout.showEmptyView();
@@ -163,7 +161,8 @@ public class FinishedTransFragment extends Fragment {
 
                     @Override
                     public void onFinished() {
-
+                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefreshing();
                     }
                 });
     }

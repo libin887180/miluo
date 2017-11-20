@@ -305,6 +305,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     HomeFund tag = (HomeFund) v.getTag();
                     if (tag != null && tag.getStatus().equals("0")) {
                         collectFund(tag.getSellFundId());
+                    } else if (tag != null && tag.getStatus().equals("1")) {
+                        collectFund(tag.getSellFundId());
                     }
 
                 } else {
@@ -375,6 +377,34 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             }
         });
         showHuodongDialog();
+    }
+
+    public void discollectFund(String fundId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("sellFundId", fundId);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DIS_COLLECT, map, 104,
+                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                    @Override
+                    public void onSuccess(MResponse<Object> response, int requestCode) {
+                        getAwardFunds();
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<Object> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 
     public void collectFund(String fundId) {
@@ -680,13 +710,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         tvProfit.setText(response.getBody().getYearyld());
                         double exrate = Double.parseDouble(response.getBody().getExtrayearrate());
 
-                        tvExPorfit.setText((int)exrate+"");
-                        tvNewerLargess.setText((int) exrate+"%");
-                       double  min =  Double.parseDouble(response.getBody().getMinsubscribeamt());
-                        if(min<1){
-                            btnNews.setText((int)(min*100)+"分起购");
-                        }else{
-                            btnNews.setText((int)min +"元起购");
+                        tvExPorfit.setText((int) exrate + "");
+                        tvNewerLargess.setText((int) exrate + "%");
+                        double min = Double.parseDouble(response.getBody().getMinsubscribeamt());
+                        if (min < 1) {
+                            btnNews.setText((int) (min * 100) + "分起购");
+                        } else {
+                            btnNews.setText((int) min + "元起购");
                         }
 
                     }

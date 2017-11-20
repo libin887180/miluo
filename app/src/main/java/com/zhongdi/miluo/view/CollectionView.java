@@ -16,4 +16,6 @@ public interface CollectionView extends BaseView {
     void initInCreasePop();
     void initEmptyView();
     void initAnimation();
+
+    void onRequestFinished();
 }

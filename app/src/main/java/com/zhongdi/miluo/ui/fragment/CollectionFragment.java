@@ -273,6 +273,12 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         downAnimation.setFillAfter(true);
     }
 
+    @Override
+    public void onRequestFinished() {
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefreshing();
+    }
+
     public void scrollToFirst(boolean isSmooth) {
         if (recyclerView == null) {
             return;
@@ -300,8 +306,6 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             refreshLayout.setEnableLoadmore(true);
             pageNum++;
         }
-        refreshLayout.finishLoadmore();
-        refreshLayout.finishRefreshing();
         fundAdapter.notifyDataSetChanged();
         if (optionalFunds.size() == 0) {
             stateLayout.showCustomView(emptyView);
