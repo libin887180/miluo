@@ -828,8 +828,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             btnLogin.setText("立即登录");
             setAssetVisable(false);
         }
-//        if(SpCacheUtil.getInstance().get)
-        imgMsg.setDotVisibility(false);
+        if(MyApplication.getInstance().hasNewMsg){
+            imgMsg.setDotVisibility(true);
+        }else {
+            imgMsg.setDotVisibility(false);
+        }
         initData();
     }
 
