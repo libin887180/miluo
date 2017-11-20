@@ -212,6 +212,7 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
         d1.setDrawCircleHole(false);
         d1.setDrawCircles(false);
         d1.setDrawValues(false);
+
         //谁为基准
         d1.setAxisDependency(YAxis.AxisDependency.LEFT);
 

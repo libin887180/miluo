@@ -34,6 +34,8 @@ import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.TiyanjinTransDetailView;
 import com.zhongdi.miluo.widget.AlertDialog;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -215,8 +217,10 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         tiyanjinDetail = body;
         tvFundName.setText(body.getFundname() + "(" + body.getFundcode() + ")");
         tvAmount.setText(body.getAmount());
-        tvProfit.setText(body.getProfit());
-        tvValue.setText(body.getProfits());
+
+        DecimalFormat mFormat = new DecimalFormat("#0.00");
+        tvProfit.setText(mFormat.format(Double.parseDouble(body.getProfit())));
+        tvValue.setText(mFormat.format(Double.parseDouble(body.getProfits())));
         fundId=body.getId();
         fundcode = body.getFundcode();
         switch (body.getStatus()) {

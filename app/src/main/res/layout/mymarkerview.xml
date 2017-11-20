@@ -8,6 +8,6 @@
     android:layout_height="wrap_content"
     android:textColor="@android:color/white"
     android:padding="3dp"
-    android:background="@color/Orange"/>
+    android:background="@drawable/mark_view_bg"/>
 
 </LinearLayout>
