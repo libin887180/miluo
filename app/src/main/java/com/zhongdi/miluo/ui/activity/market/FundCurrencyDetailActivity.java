@@ -255,7 +255,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         }
         tvIncrease.setText(fundDetail.getYearyld());
         tvProfit.setText(fundDetail.getTenthouunitincm());
-        title.setText(fundDetail.getFundName() + "(" + fundDetail.getFundCode() + ")");
+        title.setText(fundDetail.getFundName() + "\n" + fundDetail.getFundCode() );
         if (fundDetail.getStatus().equals("1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
             tvTitleRight.setTag(1);

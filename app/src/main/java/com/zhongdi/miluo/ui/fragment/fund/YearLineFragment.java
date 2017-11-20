@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -15,6 +16,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.model.FundValuationResponse;
@@ -22,7 +25,7 @@ import com.zhongdi.miluo.presenter.YearFragPresenter;
 import com.zhongdi.miluo.view.YearFragmentView;
 import com.zhongdi.miluo.widget.mpchart.DataParser;
 import com.zhongdi.miluo.widget.mpchart.MiLuoLineChart;
-import com.zhongdi.miluo.widget.mpchart.MyMarkerView;
+import com.zhongdi.miluo.widget.mpchart.MiMarkerView;
 import com.zhongdi.miluo.widget.mpchart.MyXAxis;
 
 import java.text.DecimalFormat;
@@ -46,7 +49,11 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
     private LineDataSet d1;
     private LineDataSet d2;
     MyXAxis xAxisLine;
-
+    @BindView(R.id.tv_fund_value)
+    TextView tvFundValue;
+    @BindView(R.id.tv_hs300_value)
+    TextView tvHs300Value;
+    private float mIndex;
     public static YearLineFragment newInstance(String sellFundId) {
         Bundle args = new Bundle();
         YearLineFragment fragment = new YearLineFragment();
@@ -81,6 +88,9 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
         xAxisLine.setDrawGridLines(false);
         xAxisLine.setLabelCount(2);
         xAxisLine.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxisLine.setTextSize(15);
+        xAxisLine.setTextColor(getResources().getColor(R.color.text_color_normal));
+        xAxisLine.setYOffset(10);
         //x轴
 //        xAxis = lineChart.getXAxis();
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -92,7 +102,8 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
         axisLeft.setLabelCount(5, true);
         axisLeft.setDrawLabels(true);
         axisLeft.setDrawGridLines(true);
-
+        axisLeft.setTextSize(15);
+        axisLeft.setTextColor(getResources().getColor(R.color.text_color_normal));
 //        axisLeft.setXOffset(10f);
         axisLeft.setGranularityEnabled(true);
         axisLeft.setDrawZeroLine(false);
@@ -174,11 +185,11 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
 //        axisRight.setAxisMaxValue(mData.getPercentMax());
 
 
-        ArrayList<Entry> HS300 = new ArrayList<Entry>();
+      final   ArrayList<Entry> HS300 = new ArrayList<Entry>();
         ArrayList<String> hsMarketViews = new ArrayList<String>();
         ArrayList<String> xVals = new ArrayList<String>();
 
-        ArrayList<Entry> fundData = new ArrayList<Entry>();
+        final  ArrayList<Entry> fundData = new ArrayList<Entry>();
         ArrayList<String> fundMarkViews = new ArrayList<String>();
 
         if (mData.getDatas().getMarketYieldData().size() > 0) {
@@ -223,10 +234,34 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
         LineData cd = new LineData(d1, d2);
 //        setMarkerView(dateList);
 
+        setMarkerView(hsMarketViews);
+        lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                float index = e.getX();
+                mIndex = index;
+                if (fundData.size()-1>=(int)index&&fundData.get((int) index) != null) {
+                    tvFundValue.setText(fundData.get((int)index).getY() + "%");
+                } else {
+                    tvFundValue.setText("--");
+                }
+                if(HS300.size()-1>=(int)index&&HS300.get((int) index)!=null) {
+                    tvHs300Value.setText(HS300.get((int) index).getY() + "%");
+                }else{
+                    tvHs300Value.setText("--");
+                }
+            }
+            @Override
+            public void onNothingSelected() {
+                // 再次点击时调用这个, 要不非高亮
+//                lineChart.highlightValue(mIndex, 0);
 
+            }
+        });
         lineChart.setData(cd);
         lineChart.setDrawMarkers(true);
         lineChart.invalidate();//刷新图
+
     }
 
     public String[] getMinutesCount(DataParser mData) {
@@ -234,11 +269,11 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
     }
 
     private void setMarkerView(ArrayList<String> dateList) {
-        MyMarkerView myMarkerView = new MyMarkerView(getActivity(), R.layout.mymarkerview, dateList);
-        lineChart.setMarkerView(myMarkerView);
+        MiMarkerView myMarkerView = new MiMarkerView(getActivity(), R.layout.mymarkerview, dateList);
+//        lineChart.setMarkerView(myMarkerView);
+        myMarkerView.setOffset(30,-200);
         lineChart.setMarker(myMarkerView);
     }
-
     @Override
     public void onDataSuccess(FundValuationResponse response) {
         mData1 = new DataParser();

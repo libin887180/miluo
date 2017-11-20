@@ -11,4 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:layout_below="@+id/line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:drawableLeft="@drawable/dot_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本基金:"
+            android:drawablePadding="5dp"
+            android:textColor="@color/text_222"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/tv_fund_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:drawableLeft="@drawable/dot_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="沪深300:"
+            android:drawablePadding="5dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/text_222"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/tv_hs300_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#6BAEE9"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
 </RelativeLayout>

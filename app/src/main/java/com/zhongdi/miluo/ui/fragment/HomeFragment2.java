@@ -306,7 +306,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     if (tag != null && tag.getStatus().equals("0")) {
                         collectFund(tag.getSellFundId());
                     } else if (tag != null && tag.getStatus().equals("1")) {
-                        collectFund(tag.getSellFundId());
+                        discollectFund(tag.getSellFundId());
                     }
 
                 } else {

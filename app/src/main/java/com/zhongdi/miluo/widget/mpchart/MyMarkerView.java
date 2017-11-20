@@ -26,13 +26,23 @@ public class MyMarkerView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        markerTv.setText(e.getY()+"asdasdasdasdasdas");
-//        markerTv.setText("111");
+        markerTv.setText(dateList.get((int)e.getX())+"");
     }
 
+//    @Override
+//    public MPPointF getOffsetForDrawingAtPoint(float posX, float posY) {
+//        return new MPPointF(30,-200);
+//    }
+
+//    @Override
+//    public MPPointF getOffset() {
+//        MPPointF mpPointF = new MPPointF(30,-200);
+//        return mpPointF;
+//    }
     @Override
     public MPPointF getOffset() {
-        MPPointF mpPointF = new MPPointF(30,-100);
-        return mpPointF;
+//        tvContent.setBackgroundResource(R.drawable.chart_popu);
+        return new MPPointF(getWidth(), -getHeight());
     }
+
 }
