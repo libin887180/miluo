@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -79,7 +80,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
         reFresh();
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center, R.id.ll_test,R.id.rl_about_us})
+    @OnClick({R.id.rl_bank_card, R.id.rl_safe_center, R.id.ll_test,R.id.rl_about_us,R.id.rl_tel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
@@ -99,6 +100,11 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
             case R.id.rl_about_us:
                 Intent us = new Intent(mContext, AboutUsActivity.class);
                 startActivity(us);
+                break;
+            case R.id.rl_tel:
+                Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + MiluoConfig.TEL));
+                tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(tel);
                 break;
             case R.id.ll_test:
                 int level = SpCacheUtil.getInstance().getUserTestLevel();

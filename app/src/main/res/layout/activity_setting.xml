@@ -225,6 +225,7 @@
         android:background="@color/divider_list" />
 
     <RelativeLayout
+        android:id="@+id/rl_tel"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="@dimen/commen_item_height"
@@ -252,7 +253,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingRight="10dp"
-            android:text="400-8888-8888"
+            android:text="4006050008"
             android:textColor="@color/text_color_normal" />
     </RelativeLayout>
 </LinearLayout>
