@@ -115,6 +115,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     TextView tvProfit;
     @BindView(R.id.tv_ex_porfit)
     TextView tvExPorfit;
+    @BindView(R.id.tv_newer_largess)
+    TextView tvNewerLargess;
     @BindView(R.id.btn_news)
     Button btnNews;
     @BindView(R.id.tvTotalAsset)
@@ -125,6 +127,8 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     CheckBox cbVisable;
     @BindView(R.id.img_msg)
     IconDotTextView imgMsg;
+    @BindView(R.id.rl_scroll_news)
+    RelativeLayout rlScrollNews;
     private View rootView;
     private List<HomeNews> scrollMsgs = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
@@ -327,13 +331,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, HomeFund fund, int position) {
                 Intent intent;
-                if(fund.getFundType().equals(MiluoConfig.HUOBI)||fund.getFundType().equals(MiluoConfig.DUANQI)){
-                    intent  = new Intent(getActivity(), FundCurrencyDetailActivity.class);
-                }else {
+                if (fund.getFundType().equals(MiluoConfig.HUOBI) || fund.getFundType().equals(MiluoConfig.DUANQI)) {
+                    intent = new Intent(getActivity(), FundCurrencyDetailActivity.class);
+                } else {
                     intent = new Intent(getActivity(), FundDetailActivity.class);
                 }
-                intent.putExtra("fundId",fund.getSellFundId() );
-                intent.putExtra("fundcode",fund.getFundCode());
+                intent.putExtra("fundId", fund.getSellFundId());
+                intent.putExtra("fundcode", fund.getFundCode());
                 startActivity(intent);
             }
         });
@@ -493,10 +497,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         scrollMsgs.clear();
                         scrollMsgs.addAll(response.getBody());
                         setUpMarqueeView();
-                        if(scrollMsgs.size()==0){
-                            upview1.setVisibility(View.GONE);
-                        }else{
-                            upview1.setVisibility(View.VISIBLE);
+                        if (scrollMsgs.size() == 0) {
+                            rlScrollNews.setVisibility(View.GONE);
+                        } else {
+                            rlScrollNews.setVisibility(View.VISIBLE);
                         }
 
                     }
@@ -674,8 +678,17 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     @Override
                     public void onSuccess(MResponse<NewComeBean> response, int requestCode) {
                         tvProfit.setText(response.getBody().getYearyld());
-                        tvExPorfit.setText(response.getBody().getExtrayearrate());
-//                        btnNews.setText(Double.parseDouble(response.getBody().getMinsubscribeamt()) / 100 + "元起购");
+                        double exrate = Double.parseDouble(response.getBody().getExtrayearrate());
+
+                        tvExPorfit.setText((int)exrate+"");
+                        tvNewerLargess.setText((int) exrate+"%");
+                       double  min =  Double.parseDouble(response.getBody().getMinsubscribeamt());
+                        if(min<1){
+                            btnNews.setText((int)(min*100)+"分起购");
+                        }else{
+                            btnNews.setText((int)min +"元起购");
+                        }
+
                     }
 
                     @Override
@@ -714,7 +727,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-              initData();
+                initData();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

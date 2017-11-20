@@ -38,7 +38,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     StepView stepView;
     @BindView(R.id.viewPager)
     NoScrollViewPager viewPager;
-    List<String> steps = Arrays.asList(new String[]{"个人信息", "设置密码", "注册成功"});
+    List<String> steps = Arrays.asList(new String[]{"个人信息", "交易密码", "绑定银行卡"});
     @BindView(R.id.btn_back)
     ImageView btnBack;
     @BindView(R.id.tv_title_left)
