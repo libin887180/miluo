@@ -63,14 +63,17 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
                 startActivity(intent);
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.btn_main:
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.tv_tyj:
                 Intent tyj = new Intent(mContext, TiyanjinInfoActivity.class);
                 startActivity(tyj);
+                setResult(RESULT_OK);
                 finish();
                 break;
         }

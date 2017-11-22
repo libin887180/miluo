@@ -71,7 +71,7 @@ public class FundMessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.layout_refresh_list, null);
+            rootView = inflater.inflate(R.layout.layout_refresh_list_wihte, null);
             unbinder = ButterKnife.bind(this, rootView);
             initialize();
         } else {

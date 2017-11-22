@@ -261,6 +261,9 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     public void refreshData() {
         if (MyApplication.getInstance().isLogined) {//登录了,查询数据
+            if(presenter==null){
+                presenter = initPresenter();
+            }
             presenter.getProperty();
             pageIndex = 1;
             hisPageIndex = 1;
@@ -275,21 +278,24 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     @Override
     public void onDataSuccess(MyProperty property) {
         cbVisable.setChecked(MyApplication.getInstance().assetVisable);
+        tvTotalAsset.withNumber(Double.parseDouble(property.getTotalasset()));
+        tvYestodayIncome.withNumber(Double.parseDouble(property.getDayincome()));
+        tvTotalIncome.withNumber(Double.parseDouble(property.getAccumulatedincome()));
+        tvTotalIncome.setDuration(1000);
         if(MyApplication.getInstance().assetVisable){
             // 设置数据
-            tvTotalAsset.withNumber(Double.parseDouble(property.getTotalasset()));
+
             // 设置动画播放时间
             tvTotalAsset.setDuration(1000);
             // 开始播放动画
             tvTotalAsset.start();
 
-            tvYestodayIncome.withNumber(Double.parseDouble(property.getDayincome()));
+
             tvYestodayIncome.setDuration(1000);
             // 开始播放动画
             tvYestodayIncome.start();
 
-            tvTotalIncome.withNumber(Double.parseDouble(property.getAccumulatedincome()));
-            tvTotalIncome.setDuration(1000);
+
             // 开始播放动画
             tvTotalIncome.start();
         }else {

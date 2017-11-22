@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -199,14 +200,16 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 new NetRequestUtil.NetResponseListener<MResponse<MyProperty>>() {
                     @Override
                     public void onSuccess(MResponse<MyProperty> response, int requestCode) {
+                        tvTotalAsset.withNumber(Double.parseDouble(response.getBody().getTotalasset()));
+                        tvYestedayProfits.withNumber(Double.parseDouble(response.getBody().getDayincome()));
                         if (MyApplication.getInstance().assetVisable) {
-                            tvTotalAsset.withNumber(Double.parseDouble(response.getBody().getTotalasset()));
+
                             // 设置动画播放时间
                             tvTotalAsset.setDuration(1000);
                             // 开始播放动画
                             tvTotalAsset.start();
 
-                            tvYestedayProfits.withNumber(Double.parseDouble(response.getBody().getDayincome()));
+
                             tvYestedayProfits.setDuration(1000);
                             // 开始播放动画
                             tvYestedayProfits.start();
@@ -882,12 +885,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //                btnLogin.setText("立即登录");
 //            }
 //        }
-//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-//            if (MyApplication.getInstance().isLogined) {
-//                getProperty();
-//            }
-//            getAwardFunds();
-//        }
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            if (MyApplication.getInstance().isLogined) {
+                getProperty();
+            }
+            getAwardFunds();
+        }
 
     }
 

@@ -26,6 +26,7 @@
             android:textSize="17sp"
             android:maxWidth="150dp"
             android:ellipsize="end"
+            android:singleLine="true"
             android:text="华夏盛世股票" />
 
         <TextView

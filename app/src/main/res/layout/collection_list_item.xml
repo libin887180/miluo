@@ -20,6 +20,9 @@
 
         <TextView
             android:id="@+id/tv_fund_name"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxWidth="150dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_222"

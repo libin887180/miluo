@@ -56,17 +56,24 @@
             android:textSize="12sp" />
         <TextView
             android:id="@+id/tv_status"
+            android:layout_toLeftOf="@+id/iv_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:drawablePadding="10dp"
+            android:layout_marginRight="10dp"
             android:text="交易成功"
-            android:drawableRight="@drawable/icon_right"
             android:textColor="@color/text_222"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_right"
+            android:layout_marginRight="15dp"/>
+
     </RelativeLayout>
 
 

@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
+import android.view.View;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BaseRecyclerAdapter;
@@ -29,6 +30,7 @@ public class FinishedTransAdapter extends BaseRecyclerAdapter<DealRecord> {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_green);
         } else if (item.getTypeitem().equals("分红")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_orange);
+            holder.getView(R.id.iv_next).setVisibility(View.INVISIBLE);
         }
         holder.setText(R.id.tv_title, item.getFundname());
         holder.setText(R.id.tv_dsc, item.getItem());

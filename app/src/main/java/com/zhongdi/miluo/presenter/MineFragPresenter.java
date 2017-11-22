@@ -91,7 +91,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
         map.put("type", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY_LIST, map, 102,
+        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY_LIST, map, 103,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeAssetBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<HomeAssetBean>> response, int requestCode) {

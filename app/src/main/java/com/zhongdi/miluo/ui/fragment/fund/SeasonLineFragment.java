@@ -81,6 +81,7 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
         lineChart.setDrawBorders(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getDescription().setEnabled(false);//描述不可见
+        lineChart.setNoDataText("数据处理中");
         Legend lineChartLegend = lineChart.getLegend();
         lineChartLegend.setEnabled(false);
         //x轴
