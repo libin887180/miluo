@@ -18,4 +18,6 @@ public interface CollectionView extends BaseView {
     void initAnimation();
 
     void onRequestFinished();
+
+    void reLogin();
 }

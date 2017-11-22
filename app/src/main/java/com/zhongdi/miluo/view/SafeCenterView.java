@@ -12,4 +12,6 @@ public interface SafeCenterView extends BaseView {
     void showQuitDialog();
 
     void onSuccess();
+
+    void reLogin();
 }

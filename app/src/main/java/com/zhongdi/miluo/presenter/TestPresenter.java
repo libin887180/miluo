@@ -2,6 +2,7 @@ package com.zhongdi.miluo.presenter;
 
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.RiskTestResult;
@@ -36,7 +37,11 @@ public class TestPresenter extends BasePresenter<TestView> {
 
                     @Override
                     public void onFailed(MResponse<List<TestQuestion>> response, int requestCode) {
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin(0);
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
@@ -65,7 +70,11 @@ public class TestPresenter extends BasePresenter<TestView> {
 
                     @Override
                     public void onFailed(MResponse<RiskTestResult> response, int requestCode) {
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin(1);
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override

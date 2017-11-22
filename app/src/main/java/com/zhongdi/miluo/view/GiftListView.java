@@ -23,4 +23,5 @@ public interface GiftListView extends BaseView {
 
     void showLoadingDialog();
 
+    void reLogin();
 }

@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -27,6 +28,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TiyanjinInfoActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
@@ -332,6 +334,12 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     }
 
     @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         if (rootView == null) {
@@ -381,6 +389,10 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==101&&resultCode==1001){
             refreshData();
+        }
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+            presenter.getHisPropertyList(hisPageIndex, MiluoConfig.DEFAULT_PAGESIZE);
         }
     }
 

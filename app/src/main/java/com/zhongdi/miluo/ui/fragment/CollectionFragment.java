@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.OptionalFund;
 import com.zhongdi.miluo.presenter.CollectionPresenter;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.CollectionView;
@@ -277,6 +279,22 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void onRequestFinished() {
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefreshing();
+    }
+
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getOptionalFund(rateType, pageNum);
+        }
     }
 
     public void scrollToFirst(boolean isSmooth) {

@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.presenter.BuyTiyanjinPresenter;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
@@ -423,6 +425,11 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         });
     }
 
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk,R.id.tv_fund_knowledge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -497,6 +504,10 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                 //刷新数据
                 initialize();
             }
+        }
+
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.beforeBuyInit(fundCode);
         }
     }
 

@@ -26,6 +26,7 @@ import com.zhongdi.miluo.model.TradeRecord;
 import com.zhongdi.miluo.model.TradeRecord.Part2Bean.StepsBean;
 import com.zhongdi.miluo.presenter.TransactionRecordPresenter;
 import com.zhongdi.miluo.ui.activity.MainActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
@@ -122,6 +123,18 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
             }
         });
+    }
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        presenter.getTransRecord(tradeid, tradeType);
     }
 
     @Override

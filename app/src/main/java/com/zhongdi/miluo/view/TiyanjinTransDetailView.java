@@ -21,4 +21,6 @@ public interface TiyanjinTransDetailView extends BaseView {
     void OnDataSuccess(TiyanjinDetail body);
 
     void OnFriendsSuccess(FriendsInfo friendsInfo);
+
+    void reLogin();
 }

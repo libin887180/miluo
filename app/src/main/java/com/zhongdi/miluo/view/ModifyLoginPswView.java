@@ -12,4 +12,6 @@ public interface ModifyLoginPswView extends BaseView {
 
     void onError(String message);
     void enableSubmitBtn(boolean enable);
+
+    void reLogin();
 }

@@ -21,4 +21,6 @@ public interface TransactionRecordView extends BaseView {
 
 
     void showPswLocked();
+
+    void reLogin();
 }

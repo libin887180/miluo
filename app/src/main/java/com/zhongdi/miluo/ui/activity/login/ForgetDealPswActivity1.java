@@ -99,4 +99,10 @@ public class ForgetDealPswActivity1 extends BaseActivity<ForgetDealPsw1Presenter
         finish();
     }
 
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
 }

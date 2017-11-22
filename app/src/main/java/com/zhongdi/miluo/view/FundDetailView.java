@@ -22,4 +22,6 @@ public interface FundDetailView extends BaseView {
     void dismissLoadingDialog();
 
     void showLoadingDialog();
+
+    void reLogin();
 }

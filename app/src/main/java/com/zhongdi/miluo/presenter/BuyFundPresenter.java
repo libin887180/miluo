@@ -39,7 +39,12 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                     @Override
                     public void onFailed(MResponse<BeforeBuyInfo> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        view.showToast(response.getMsg());
+
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin();
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
@@ -74,6 +79,8 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                             view.showToast(response.getMsg());
                         }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
                             view.showPswLocked();
+                        }else  if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin();
                         }else{
                             view.showToast(response.getMsg());
                         }

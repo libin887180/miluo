@@ -38,7 +38,11 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFailed(MResponse<TradeRecord> response, int requestCode) {
-                        view.showToast(response.getMsg());
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            view.reLogin();
+                        } else {
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
@@ -70,10 +74,14 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
-                        if(response.getCode().equals(ErrorCode.ERRORTRADEPWD)){
+                        if (response.getCode().equals(ErrorCode.ERRORTRADEPWD)) {
                             view.showToast(response.getMsg());
-                        }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
+                        } else if (response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)) {
                             view.showPswLocked();
+                        } else if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            view.reLogin();
+                        } else {
+                            view.showToast(response.getMsg());
                         }
                     }
 

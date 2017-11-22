@@ -15,4 +15,5 @@ public interface ExchangeView extends BaseView {
 
     void showLoadingDialog();
 
+    void reLogin();
 }

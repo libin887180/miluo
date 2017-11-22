@@ -9,6 +9,11 @@ android {
             storePassword 'android'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -61,4 +66,6 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    //    compile 'com.lidong.pdf:android_pdf:1.0.1'
+    compile project(':android-pdf')
 }

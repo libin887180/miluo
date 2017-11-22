@@ -13,4 +13,6 @@ public interface ModifyDealPswView extends BaseView {
 
     void onError(String message);
     void enableSubmitBtn(boolean enable);
+
+    void reLogin();
 }

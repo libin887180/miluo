@@ -1,1 +1,1 @@
-include ':app', ':state_library', ':MPChartLib'
+include ':app', ':state_library', ':MPChartLib', ':android-pdf'

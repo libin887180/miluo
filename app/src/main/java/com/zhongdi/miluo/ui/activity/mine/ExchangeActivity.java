@@ -1,5 +1,7 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.ExchangePresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.ExchangeView;
 import com.zhongdi.miluo.widget.ClearEditText;
 import com.zhongdi.miluo.widget.ExchangeAlertDialog;
@@ -85,6 +88,20 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     @Override
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
+    }
+
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+        }
     }
 
     @OnClick(R.id.btn_submit)

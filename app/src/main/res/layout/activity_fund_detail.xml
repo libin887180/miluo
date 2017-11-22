@@ -855,7 +855,7 @@
                     android:background="@drawable/btn_buy_fund"
                     android:gravity="center"
                     android:enabled="false"
-                    android:text="立即购买"
+                    android:text="暂不开放 敬请期待"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>

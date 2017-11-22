@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +30,7 @@ import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FriendsInfo;
 import com.zhongdi.miluo.model.TiyanjinDetail;
 import com.zhongdi.miluo.presenter.TiyanjinTransDetailPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.TiyanjinTransDetailView;
@@ -271,6 +273,21 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         }
     }
 
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getTiYanjinDetail();
+            presenter.getFriendsNum();
+        }
+    }
 
     @OnClick({R.id.tv_invite, R.id.rl_fund_info,R.id.btn_exchange,R.id.img_title_right,R.id.iv_invite_friends})
     public void onViewClicked(View view) {

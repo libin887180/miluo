@@ -8,6 +8,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.BaseRecyclerAdapter;
 import com.zhongdi.miluo.adapter.BaseRecyclerHolder;
 import com.zhongdi.miluo.model.MessageBean;
+import com.zhongdi.miluo.util.TimeUtil;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MessageAdapter extends BaseRecyclerAdapter<MessageBean> {
         ImageView status = holder.getView(R.id.iv_status);
 
         title.setText(item.getTitle());
-        date.setText(item.getAdd_time());
+        date.setText(TimeUtil.changeToDate(item.getAdd_time()));
         dsc.setText(item.getContent());
 //        status.setVisibility(View.INVISIBLE);
 //        if (item.getStatus().equals("0")) {

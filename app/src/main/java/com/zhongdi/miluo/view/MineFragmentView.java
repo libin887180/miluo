@@ -20,4 +20,6 @@ public interface MineFragmentView extends BaseView {
     void onHisPropertyList(List<HomeAssetBean> body);
 
     void onRequestFinished();
+
+    void reLogin();
 }

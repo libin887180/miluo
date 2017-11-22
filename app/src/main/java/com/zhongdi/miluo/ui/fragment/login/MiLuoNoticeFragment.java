@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MiluoNoticeAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -25,6 +27,7 @@ import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.MessageBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.login.NewsDetailActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 
 import org.xutils.common.Callback;
 
@@ -146,6 +149,9 @@ public class MiLuoNoticeFragment extends Fragment {
                     @Override
                     public void onFailed(MResponse<List<MessageBean>> response, int requestCode) {
                         ViseLog.e("请求失败");
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                          reLogin();
+                        }
                     }
 
                     @Override
@@ -158,6 +164,19 @@ public class MiLuoNoticeFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void reLogin() {
+        Intent intent  = new Intent(getActivity(), QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            getMessages(pageNum);
+        }
+
     }
 
     private void OnDataSuccess(List<MessageBean> list) {

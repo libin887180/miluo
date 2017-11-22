@@ -12,4 +12,6 @@ public interface ForgetDealPsw1View extends BaseView {
 
 
     void toNext();
+
+    void reLogin();
 }

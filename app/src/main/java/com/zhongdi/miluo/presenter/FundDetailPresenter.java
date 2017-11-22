@@ -2,6 +2,7 @@ package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.base.BasePresenter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.FundDetail;
 import com.zhongdi.miluo.model.FundManagerInfo;
@@ -94,7 +95,11 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin();
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
@@ -122,7 +127,12 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-//                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin();
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
+
                     }
 
                     @Override

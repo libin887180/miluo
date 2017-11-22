@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -61,6 +62,18 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
         viewPager.setOffscreenPageLimit(3);
     }
 
+    @Override
+    public void reLogin(int code) {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        if(code==0){
+            startActivityForResult(intent, 301);
+        }else{
+            startActivityForResult(intent, 302);
+        }
+
+    }
+
+
     public void getPre() {
         int currentItem = viewPager.getCurrentItem();
         if (currentItem > 0) {
@@ -72,6 +85,14 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
         int currentItem = viewPager.getCurrentItem();
         if (currentItem < 11) {
             viewPager.setCurrentItem(currentItem + 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getQuestions();
         }
     }
 

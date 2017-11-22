@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.presenter.ModifyDealPswPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.ModifyDealPswView;
 
 import butterknife.BindView;
@@ -121,6 +123,12 @@ public class ModifyDealPswActivity extends BaseActivity<ModifyDealPswPresenter> 
     @Override
     public void enableSubmitBtn(boolean enable) {
         btnSubmit.setEnabled(enable);
+    }
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
     }
 
     @OnClick(R.id.btn_submit)

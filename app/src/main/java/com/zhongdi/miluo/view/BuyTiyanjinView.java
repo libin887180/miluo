@@ -28,4 +28,6 @@ public interface BuyTiyanjinView extends BaseView {
     void showRiskTipDialog();
 
     void showPswLocked();
+
+    void reLogin();
 }

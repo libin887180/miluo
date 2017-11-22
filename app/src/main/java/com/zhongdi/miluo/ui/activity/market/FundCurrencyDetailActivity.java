@@ -110,6 +110,18 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
     }
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     public void OnFundManagerSuccess(FundManagerInfo managerInfo) {
         this.managerInfo = managerInfo;

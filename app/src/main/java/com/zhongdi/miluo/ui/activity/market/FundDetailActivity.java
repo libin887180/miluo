@@ -138,6 +138,23 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
     }
+
+
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        presenter.getFundDetail(sellFundId);
+//        presenter.getFundManagerInfo(sellFundId);
+//        presenter.getFundNotice(sellFundId);
+    }
+
     @Override
     public void setListener() {
 

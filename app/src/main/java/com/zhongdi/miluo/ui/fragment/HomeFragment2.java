@@ -36,6 +36,7 @@ import com.zhongdi.miluo.adapter.HomeSpecialityAdapter;
 import com.zhongdi.miluo.adapter.HotInvestmentAdapter;
 import com.zhongdi.miluo.adapter.MiluoUnderstandAdapter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -219,7 +220,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     @Override
                     public void onFailed(MResponse<MyProperty> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            reLogin();
+                        } else {
+                            Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -392,7 +397,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            reLogin();
+                        } else {
+                            Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -420,7 +429,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            reLogin();
+                        } else {
+                            Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
@@ -433,6 +447,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
                     }
                 });
+    }
+
+    private void reLogin() {
+        Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
     }
 
     private void showHuodongDialog() {
@@ -828,9 +847,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             btnLogin.setText("立即登录");
             setAssetVisable(false);
         }
-        if(MyApplication.getInstance().hasNewMsg){
+        if (MyApplication.getInstance().hasNewMsg) {
             imgMsg.setDotVisibility(true);
-        }else {
+        } else {
             imgMsg.setDotVisibility(false);
         }
         initData();
@@ -863,6 +882,13 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //                btnLogin.setText("立即登录");
 //            }
 //        }
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            if (MyApplication.getInstance().isLogined) {
+//                getProperty();
+//            }
+//            getAwardFunds();
+//        }
+
     }
 
     @OnClick({R.id.btn_login, R.id.img_msg, R.id.et_search, R.id.btn_news, R.id.ll_junior})

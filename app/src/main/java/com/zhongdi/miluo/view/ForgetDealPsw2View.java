@@ -12,4 +12,5 @@ public interface ForgetDealPsw2View extends BaseView {
 
     void onSuccess();
 
+    void reLogin();
 }

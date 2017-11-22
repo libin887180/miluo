@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -36,6 +37,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
 import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
@@ -196,6 +198,22 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         });
     }
 
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getPropertyDetail(fundcode);
+            presenter.getLines(fundcode);
+            presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
+        }
+
+    }
 
     @Override
     protected void initialize() {

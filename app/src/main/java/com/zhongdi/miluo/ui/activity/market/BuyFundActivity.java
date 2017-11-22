@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import com.zhongdi.miluo.model.BeforeBuyInfo;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.presenter.BuyFundPresenter;
 import com.zhongdi.miluo.ui.activity.login.OpenAccountActivity;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.login.TestActivity;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
@@ -91,15 +93,15 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private List<BeforeBuyInfo.FeesBean> fees;
     private double minsubscribeamt;
     private BeforeBuyInfo beforeBuyInfo;
-    private String from  = "";
-    private  String  buyType = "-1";
+//    private String from = "";
+    private String buyType = "-1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
-        from = getIntent().getStringExtra("from");
-            buyType = getIntent().getStringExtra("buyType");
+//        from = getIntent().getStringExtra("from");
+        buyType = getIntent().getStringExtra("buyType");
         binding(R.layout.activity_buy);
     }
 
@@ -124,10 +126,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                if(TextUtils.isEmpty(buyType)){
+                if (TextUtils.isEmpty(buyType)) {
                     buyType = "-1";
                 }
-                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(),buyType);
+                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(), buyType);
                 dismissPswPopWindow();
             }
         });
@@ -202,10 +204,10 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         }
         tvDepSxf.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        if(TextUtils.isEmpty(buyType)){
+        if (TextUtils.isEmpty(buyType)) {
             buyType = "-1";
         }
-        presenter.beforeBuyInit(fundCode,buyType);
+        presenter.beforeBuyInit(fundCode, buyType);
 
         etMoney.addTextChangedListener(new TextWatcher() {
             @Override
@@ -232,8 +234,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                     tvRate.setText(fees.get(i).getRatevalue() + "元");
                                     tvSxf.setText(fees.get(i).getRatevalue() + "元");
                                 } else {//需要乘以费率
-                                    tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100+"") + "%");
-                                    tvSxf.setText( StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue())+"")    + "元");
+                                    tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "") + "%");
+                                    tvSxf.setText(StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "") + "元");
                                 }
                                 break;
                             } else {//有优惠折扣
@@ -246,17 +248,17 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                                     tvDepSxf.setText(rate + "元");
                                 } else {
                                     tvDepRate.setText(rate * 100 + "%");
-                                    tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100+"")  + "%");//费率*折扣转成%
-                                    tvDepSxf.setText(StringUtil.parseStr2Num( amount * rate+"") + "元");
-                                    tvSxf.setText(StringUtil.parseStr2Num( amount * rate * discount+"") + "元");//金额 *费率*折扣
+                                    tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100 + "") + "%");//费率*折扣转成%
+                                    tvDepSxf.setText(StringUtil.parseStr2Num(amount * rate + "") + "元");
+                                    tvSxf.setText(StringUtil.parseStr2Num(amount * rate * discount + "") + "元");//金额 *费率*折扣
                                 }
                                 break;
                             }
                         }
                     }
-                    if(cbAgreement.isChecked()){
+                    if (cbAgreement.isChecked()) {
                         enableSubmitBtn();
-                    }else{
+                    } else {
                         disableSubmitBtn();
                     }
                 } else {
@@ -271,9 +273,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked&&etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt){
+                if (isChecked && etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
                     enableSubmitBtn();
-                }else{
+                } else {
                     disableSubmitBtn();
                 }
             }
@@ -463,6 +465,12 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
         });
     }
 
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
     @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -484,42 +492,6 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                     return;
                 }
 
-                if (TextUtils.equals(from,"newer")) {
-                    for (int i = beforeBuyInfo.getNewLevels().size()-1; i >-1 ; i--) {
-                        if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) < Double.parseDouble(beforeBuyInfo.getNewLevels().get(i).getLevel()) ) {
-                                new AlertDialog(mContext).builder().setMsg(beforeBuyInfo.getNewLevels().get(i).getItem())
-                                        .setNegativeButton("残忍拒绝", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
-                                                    showTestDialog();
-                                                    return;
-                                                }
-                                                if (SpCacheUtil.getInstance().getUserTestLevel() == MiluoConfig.BAOSHOU) {//如果是保守型，并且风险等级比R1高 那重新测评
-                                                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
-                                                        showReTestDialog();
-                                                        return;
-                                                    }
-                                                } else {//如果不是是保守型，并且风险等级比R1高 那提示风险
-                                                    if (SpCacheUtil.getInstance().getUserTestLevel() < beforeBuyInfo.getFund().getRisklevel()) {
-                                                        showRiskTipDialog();
-                                                        return;
-                                                    }
-                                                }
-//                showTestDialog();
-                                                showPswPopupWindow();
-                                            }
-                                        }).setPositiveButton("追加投资", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                    }
-                                }).show();
-                               return;
-                        }
-
-                    }
-                }
                 if (SpCacheUtil.getInstance().getUserTestLevel() == -1) {//没有测评
                     showTestDialog();
                     return;
@@ -561,6 +533,9 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 //刷新数据
                 initialize();
             }
+        }
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.beforeBuyInit(fundCode, buyType);
         }
     }
 

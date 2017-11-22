@@ -1,17 +1,15 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
-import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import com.lidong.pdf.PDFView;
+import com.lidong.pdf.listener.OnDrawListener;
+import com.lidong.pdf.listener.OnLoadCompleteListener;
+import com.lidong.pdf.listener.OnPageChangeListener;
 import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
-import com.zhongdi.miluo.widget.BaseWebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,74 +17,71 @@ import butterknife.ButterKnife;
 /***
  * bananlar详情页面
  */
-public class FundNoticeDetailActivity extends BaseActivity2 {
+public class FundNoticeDetailActivity extends BaseActivity2 implements OnPageChangeListener
+        , OnLoadCompleteListener, OnDrawListener {
 
-    @BindView(R.id.actAgreementPb)
-    ProgressBar pbBar;
-    @BindView(R.id.webView)
-    BaseWebView webView;
-    @BindView(R.id.title)
-    TextView titleTv;
+    @BindView(R.id.pdfView)
+    PDFView pdfView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_html);
+        setContentView(R.layout.activity_notice_detail);
         ButterKnife.bind(this);
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         String url = "";
         //String titleName = "";
-        if (getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             url = getIntent().getStringExtra("url");
+            ViseLog.d(url);
             //titleName = getIntent().getStringExtra("title");
         }
-        //titleTv.setText(titleName);
-        // 设置允许JS弹窗
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.addJavascriptInterface(new JavaScriptInterface(), "service");
-        webView.setWebChromeClient(new WebChromeClient(){
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (newProgress >= 100) {
-                    pbBar.setVisibility(View.GONE);
-                }else {
-                    if (pbBar.getVisibility() == View.GONE) {
-                        pbBar.setVisibility(View.VISIBLE);
-                    }
-                    pbBar.setProgress(newProgress);
-                }
-            }
-        });
-
-        if (url != null){
-            ViseLog.i("// URL=  " + url);
-            if (url.contains("?")){
-                url = url + "&source=app";
-            } else {
-                url = url + "?source=app";
-            }
-            webView.loadUrl(url);
-        }
+        displayFromFile1(url, url.substring(url.lastIndexOf("=",url.length()-1))+".pdf");
     }
 
-
-
-    class JavaScriptInterface {
-        @JavascriptInterface
-        public void openshop(String shopid){
-
+    /**
+     * 获取打开网络的pdf文件
+     *
+     * @param fileUrl
+     * @param fileName
+     */
+    private void displayFromFile1(String fileUrl, String fileName) {
+        try{
+            pdfView.fileFromLocalStorage(this, this, this, fileUrl, fileName);   //设置pdf文件地址
+        }catch (Exception e){
+            showToast("文件格式错误");
         }
 
-        @JavascriptInterface
-        public void appShare(String title, String content, String imageUrl, String detailUrl){
-        }
+    }
 
-        @JavascriptInterface
-        public void openProductDetail(String goodsId){
-        }
+    /**
+     * 翻页回调
+     *
+     * @param page
+     * @param pageCount
+     */
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+//        Toast.makeText(mContext, "page= " + page +
+//                " pageCount= " + pageCount, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 加载完成回调
+     *
+     * @param nbPages 总共的页数
+     */
+    @Override
+    public void loadComplete(int nbPages) {
+//        Toast.makeText(MainActivity.this, "加载完成" + nbPages, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
+        // Toast.makeText( MainActivity.this ,  "pageWidth= " + pageWidth + "
+        // pageHeight= " + pageHeight + " displayedPage="  + displayedPage , Toast.LENGTH_SHORT).show();
     }
 }

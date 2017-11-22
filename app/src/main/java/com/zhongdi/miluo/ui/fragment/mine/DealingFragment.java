@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.fragment.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,11 +19,13 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.DealingAdapter;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
@@ -164,7 +167,11 @@ public class DealingFragment extends Fragment {
                     @Override
                     public void onFailed(MResponse<List<DealRecord>> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                        reLogin();
+                        } else {
+                            Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -180,4 +187,16 @@ public class DealingFragment extends Fragment {
                 });
     }
 
+    private void reLogin() {
+        Intent intent  = new Intent(getActivity(), QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+        }
+    }
 }

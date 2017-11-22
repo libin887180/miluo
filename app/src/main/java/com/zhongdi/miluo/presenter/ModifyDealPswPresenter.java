@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -54,7 +55,11 @@ public class ModifyDealPswPresenter extends BasePresenter<ModifyDealPswView> {
 
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
-                        view.showToast(response.getMsg());
+                        if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            view.reLogin();
+                        }else{
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override

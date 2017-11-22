@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.Prize;
 import com.zhongdi.miluo.presenter.GetGiftListPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.GiftListView;
 
 import java.util.ArrayList;
@@ -106,6 +108,21 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     @Override
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
+    }
+
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+        }
     }
 
     @Override

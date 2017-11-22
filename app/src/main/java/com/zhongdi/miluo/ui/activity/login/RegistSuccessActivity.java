@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
@@ -19,12 +20,14 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
 
     @BindView(R.id.as_status)
     CustomStatusView asStatus;
+    @BindView(R.id.tv_tyj)
+    TextView tvTyj;
     private int source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        source = getIntent().getIntExtra(IntentConfig.SOURCE,-1);
+        source = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
         binding(R.layout.activity_regist_success);
     }
 
@@ -53,16 +56,21 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
 
     }
 
-    @OnClick({R.id.btn_open, R.id.btn_main})
+    @OnClick({R.id.btn_open, R.id.btn_main,R.id.tv_tyj})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_open:
-                Intent   intent =  new Intent(mContext, OpenAccountActivity.class);
+                Intent intent = new Intent(mContext, OpenAccountActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.btn_main:
+                finish();
+                break;
+            case R.id.tv_tyj:
+                Intent tyj = new Intent(mContext, TiyanjinInfoActivity.class);
+                startActivity(tyj);
                 finish();
                 break;
         }

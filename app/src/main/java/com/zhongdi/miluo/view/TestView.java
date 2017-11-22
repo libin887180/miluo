@@ -18,4 +18,6 @@ public interface TestView extends BaseView {
     void toResultView(RiskTestResult riskTestResult);
     void getQuestionSuccess(List<TestQuestion> body);
     void setupViewPager(NoScrollViewPager viewPager, List<TestQuestion> questions);
+
+    void reLogin(int  code);
 }

@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -92,6 +93,12 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetDealPsw2Presenter
         setResult(RESULT_OK);
         finish();
 
+    }
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
     }
 
     @OnClick(R.id.btn_submit)

@@ -79,7 +79,7 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -95,22 +95,27 @@
             android:layout_gravity="center"
             android:padding="3dp"
             app:progress_color="#25BB28"
+            android:layout_centerHorizontal="true"
             app:progress_radius="60dp"
             app:progress_width="4dp" />
 
         <TextView
+            android:id="@+id/tv_success"
+            android:layout_below="@+id/as_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册成功"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:textSize="20sp" />
 
         <Button
+
             android:id="@+id/btn_open"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_btn_height"
-            android:layout_below="@+id/pwd_layout"
+            android:layout_below="@+id/tv_success"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_login"
             android:gravity="center"
@@ -122,7 +127,7 @@
             android:id="@+id/btn_main"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_btn_height"
-            android:layout_below="@+id/pwd_layout"
+            android:layout_below="@+id/btn_open"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_wihte"
             android:gravity="center"
@@ -130,5 +135,18 @@
             android:textColor="@color/text_color_normal"
             android:textSize="16sp" />
 
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_tyj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/red"
+            android:text="立即领取18888元体验金"
+            android:layout_marginBottom="30dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_tyj_hb"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
 </LinearLayout>

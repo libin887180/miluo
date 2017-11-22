@@ -25,4 +25,5 @@ public interface SellFundView extends BaseView {
 
     void showPswLocked();
 
+    void reLogin();
 }

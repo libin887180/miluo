@@ -12,6 +12,7 @@ import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.presenter.SafeCenterPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.SafeCenterView;
 import com.zhongdi.miluo.widget.AlertDialog;
 
@@ -90,5 +91,11 @@ public class SafeCenterActivity extends BaseActivity<SafeCenterPresenter> implem
         setResult(1001);
         finish();
 
+    }
+
+    @Override
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
     }
 }

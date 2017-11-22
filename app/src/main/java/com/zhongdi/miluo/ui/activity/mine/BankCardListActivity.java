@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.zhongdi.miluo.adapter.BankCardListAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.model.BankInfo;
 import com.zhongdi.miluo.presenter.BankCardListPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.BankCardListView;
 
 import java.util.ArrayList;
@@ -98,6 +100,20 @@ public class BankCardListActivity extends BaseActivity<BankCardListPresenter> im
     public void showLoadingDialog() {
         getLoadingProgressDialog().show();
     }
+
+    public void reLogin() {
+        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        startActivityForResult(intent, 301);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getMyBankCards();
+        }
+    }
+
     @Override
     public void setupStatusView() {
         stateLayout.setUseAnimation(true);

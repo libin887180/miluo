@@ -23,4 +23,5 @@ public interface BankCardListView extends BaseView {
 
     void showLoadingDialog();
 
+    void reLogin();
 }
