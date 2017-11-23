@@ -26,7 +26,7 @@ public class FundHistoryValuePresenter extends BasePresenter<FundHistoryValueVie
         map.put("sellFundId",fundId);
         map.put("page", page + "");
         map.put("pageSize", pageSize + "");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_HISTORY_VALUE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_HISTORY_VALUE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<FundHistoryValueResponse>>() {
                     @Override
                     public void onSuccess(MResponse<FundHistoryValueResponse> response, int requestCode) {

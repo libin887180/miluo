@@ -299,6 +299,19 @@
                         android:text="还剩4天体验金收益"
                         android:textColor="@color/btn_text_color"
                         android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tv_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请在基金份额确认次日后查看收益"
+                        android:drawableLeft="@drawable/ic_ts"
+                        android:layout_marginTop="15dp"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        android:textColor="@color/text_color_normal"
+                        android:layout_gravity="center_horizontal"
+                        android:drawablePadding="5dp"/>
+
                 </LinearLayout>
             </com.zhongdi.miluo.widget.ObservableScrollView>
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

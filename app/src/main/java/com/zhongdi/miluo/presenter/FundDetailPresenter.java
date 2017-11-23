@@ -29,7 +29,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DETAIL, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DETAIL, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<FundDetail>>() {
                     @Override
                     public void onSuccess(MResponse<FundDetail> response, int requestCode) {
@@ -57,7 +57,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     public void getFundManagerInfo(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_MANAGER, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_MANAGER, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<FundManagerInfo>>() {
                     @Override
                     public void onSuccess(MResponse<FundManagerInfo> response, int requestCode) {
@@ -85,7 +85,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     public void collectFund(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_COLLECT, map, 103,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_COLLECT, map, 103,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -117,7 +117,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     public void discollectFund(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DIS_COLLECT, map, 104,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DIS_COLLECT, map, 104,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -150,7 +150,7 @@ public class FundDetailPresenter extends BasePresenter<FundDetailView> {
     public void getFundNotice(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_DETAIL_NOTICE, map, 105,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_DETAIL_NOTICE, map, 105,
                 new NetRequestUtil.NetResponseListener<MResponse<FundNotice>>() {
                     @Override
                     public void onSuccess(MResponse<FundNotice> response, int requestCode) {

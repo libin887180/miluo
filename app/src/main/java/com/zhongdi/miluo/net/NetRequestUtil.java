@@ -211,7 +211,7 @@ public class NetRequestUtil {
         }
         RequestParams params = new RequestParams(url);
         params.setConnectTimeout(60*1000);//设置连接超时时间
-        params.setReadTimeout(10*1000);//设置读取超时时间
+        params.setReadTimeout(20*1000);//设置读取超时时间
 //        params.addHeader("Content-Type", "application/json");
 //        params.setAsJsonContent(true);
         params.setHeader("plam", "andorid");//平台

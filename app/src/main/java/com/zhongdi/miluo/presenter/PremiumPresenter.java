@@ -25,7 +25,7 @@ public class PremiumPresenter extends BasePresenter<PremiumView> {
     public void getFundRate(String fundId) {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundId);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_RATE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_RATE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<RateResponse>>() {
                     @Override
                     public void onSuccess(MResponse<RateResponse> response, int requestCode) {

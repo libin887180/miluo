@@ -1,18 +1,14 @@
 package com.zhongdi.miluo.ui.activity.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
-import com.zhongdi.miluo.cache.SpCacheUtil;
-import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.fragment.login.Guide1Fragment;
 import com.zhongdi.miluo.ui.fragment.login.Guide2Fragment;
 import com.zhongdi.miluo.ui.fragment.login.Guide3Fragment;
@@ -25,7 +21,7 @@ import com.zhongdi.miluo.ui.fragment.login.Guide3Fragment;
  * @date 2017-2-9 下午05:03:52
  */
 public class GuideActivity extends BaseActivity2 implements
-        ViewPager.OnPageChangeListener, View.OnClickListener {
+        ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
 
@@ -68,13 +64,13 @@ public class GuideActivity extends BaseActivity2 implements
         viewPager.setOnPageChangeListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        SpCacheUtil.getInstance().setIsFirstUse(false);
-        Intent intent = new Intent(mContext, MainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
+//    @Override
+//    public void onClick(View v) {
+//        SpCacheUtil.getInstance().setIsFirstUse(false);
+//        Intent intent = new Intent(mContext, MainActivity.class);
+//        startActivity(intent);
+//        this.finish();
+//    }
 
     @Override
     public void onPageScrollStateChanged(int arg0) {

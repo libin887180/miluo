@@ -60,7 +60,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         map.put("channel", "0");
         map.put("source", source + "");
         map.put("type", "0");//登陆方式 0：正常登陆，1 快速登录
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.LOGIN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {

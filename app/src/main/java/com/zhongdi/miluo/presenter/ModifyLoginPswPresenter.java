@@ -47,7 +47,7 @@ public class ModifyLoginPswPresenter extends BasePresenter<ModifyLoginPswView> {
         map.put("password", new_psw1);
         map.put("type", "2");//2：修改登录密码 3：重置登录密码 4：修改交易密码 5：重置交易密码
         map.put("username", SpCacheUtil.getInstance().getLoginAccount());
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_LOGIN_PSW, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MODIFY_LOGIN_PSW, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

@@ -24,7 +24,7 @@ public class SafeCenterPresenter extends BasePresenter<SafeCenterView> {
     public void loginOut() {
 
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN_OUT, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.LOGIN_OUT, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

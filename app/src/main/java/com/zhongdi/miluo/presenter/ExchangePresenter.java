@@ -29,7 +29,7 @@ public class ExchangePresenter extends BasePresenter<ExchangeView> {
         map.put("id", id);
         map.put("type", type);
         map.put("username", username);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.EX_CHANGE, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.EX_CHANGE, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

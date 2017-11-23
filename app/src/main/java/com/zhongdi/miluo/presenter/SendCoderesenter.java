@@ -38,7 +38,7 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         } else {
             url = URLConfig.SEND_MSG;
         }
-        Callback.Cancelable post = netRequestUtil.post(url, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(url, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -82,7 +82,7 @@ public class SendCoderesenter extends BasePresenter<SendCodeView> {
         } else {
             url = URLConfig.SEND_MSG_CHECK;
         }
-        Callback.Cancelable post = netRequestUtil.post(url, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(url, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

@@ -31,7 +31,7 @@ public class TiyanjinQuickLoginPresenter extends BasePresenter<TiyanjinQuickLogi
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("type", "1");//验证码渠道
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.SEND_MSG, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
@@ -83,7 +83,7 @@ public class TiyanjinQuickLoginPresenter extends BasePresenter<TiyanjinQuickLogi
         map.put("validateseq", code);
         map.put("source", source + "");
         map.put("type", "1");//登陆方式 0：正常登陆，1 快速登录
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.LOGIN, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.LOGIN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(MResponse<UserInfo> response, int requestCode) {

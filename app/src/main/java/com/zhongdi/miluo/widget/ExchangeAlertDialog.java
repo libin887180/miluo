@@ -3,7 +3,6 @@ package com.zhongdi.miluo.widget;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Handler;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class ExchangeAlertDialog {
     private LinearLayout lLayout_bg;
     private TextView txt_title;
     private TextView txt_msg;
-    private CustomStatusView cs_view;
+//    private CustomStatusView cs_view;
 
     private Button btn_neg;
     private Button btn_pos;
@@ -54,7 +53,7 @@ public class ExchangeAlertDialog {
         txt_title.setVisibility(View.GONE);
         txt_msg = (TextView) view.findViewById(R.id.txt_msg);
         txt_msg.setVisibility(View.GONE);
-        cs_view = (CustomStatusView) view.findViewById(R.id.cs_status);
+//        cs_view = (CustomStatusView) view.findViewById(R.id.cs_status);
 
         btn_neg = (Button) view.findViewById(R.id.btn_neg);
         btn_neg.setVisibility(View.GONE);
@@ -202,14 +201,14 @@ public class ExchangeAlertDialog {
 
     public void show() {
         setLayout();
-        cs_view.loadLoading();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                cs_view.loadSuccess();
-            }
-        }, 1 * 1000);
+//        cs_view.loadLoading();
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                cs_view.loadSuccess();
+//            }
+//        }, 1 * 1000);
         dialog.show();
     }
 }

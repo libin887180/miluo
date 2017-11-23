@@ -1,6 +1,8 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -62,7 +64,13 @@ public class Guide3Fragment extends Fragment {
 
     @OnClick(R.id.iv_tomain)
     public void onViewClicked() {
-        SpCacheUtil.getInstance().setIsFirstUse(false);
+        PackageInfo info = null;
+        try {
+            info = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            SpCacheUtil.getInstance().setIsFirstUse(SpCacheUtil.IS_FIRST_USE+info.versionCode,false);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(getActivity(),MainActivity.class);
         startActivity(intent);
         getActivity().finish();

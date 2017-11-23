@@ -40,7 +40,7 @@ public class ForgetDealPsw2Presenter extends BasePresenter<ForgetDealPsw2View> {
         map.put("password", psw1);
         map.put("type", "5");//2：修改登录密码 3：重置登录密码 4：修改交易密码 5：重置交易密码
         map.put("username", username);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_DEAL_PSW, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MODIFY_DEAL_PSW, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

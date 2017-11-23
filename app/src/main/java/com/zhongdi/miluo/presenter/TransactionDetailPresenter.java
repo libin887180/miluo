@@ -29,7 +29,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_DETAIL, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TRADE_DETAIL, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<PropertyDetail>>() {
                     @Override
                     public void onSuccess(MResponse<PropertyDetail> response, int requestCode) {
@@ -65,7 +65,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         map.put("bonusmethod", bonusmethod);//红利再投1现金分红
         map.put("productid", productid);
         map.put("tradepwd", tradepwd);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MODIFY_BONUS, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MODIFY_BONUS, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -109,7 +109,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
         map.put("fundcode", fundcode);//基金代码
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.TRADE_RECORD_LIST, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TRADE_RECORD_LIST, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<DealRecord>>>() {
                     @Override
                     public void onSuccess(MResponse<List<DealRecord>> response, int requestCode) {
@@ -145,7 +145,7 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
     public void getLines(String fundcode) {
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);//基金代码
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.NET_VALUE_LINE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.NET_VALUE_LINE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

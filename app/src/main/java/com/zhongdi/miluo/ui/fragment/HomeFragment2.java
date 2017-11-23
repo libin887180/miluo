@@ -3,6 +3,8 @@ package com.zhongdi.miluo.ui.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -145,6 +147,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     HotInvestmentAdapter investmentAdapter;
     AwardedFundAdapter awardedFundAdapter;
     HomeSpecialityAdapter homeSpecialityAdapter;
+    PackageInfo info = null;
 
     public static HomeFragment2 newInstance(String info) {
         Bundle args = new Bundle();
@@ -160,6 +163,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = bundle.get("info").toString();
+        }
+
+        try {
+            info = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -384,7 +393,9 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 }
             }
         });
-        showHuodongDialog();
+        if (info == null || !SpCacheUtil.getInstance().isHongbaoShow(SpCacheUtil.HONGBAO + info.versionCode)) {
+            showHuodongDialog();
+        }
     }
 
     public void discollectFund(String fundId) {
@@ -477,6 +488,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
             }
         });
@@ -493,7 +505,11 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         window.setAttributes(lp);
         //将自定义布局加载到dialog上
         dialog.setContentView(dialogView);
+
         dialog.show();
+        if (info != null) {
+            SpCacheUtil.getInstance().setIsHongbaoShow(SpCacheUtil.HONGBAO + info.versionCode, true);
+        }
     }
 
     private void setUpMarqueeView() {

@@ -88,26 +88,33 @@
         android:paddingLeft="35dp"
         android:paddingRight="35dp">
 
-        <com.zhongdi.miluo.widget.CustomStatusView
+        <!--<com.zhongdi.miluo.widget.CustomStatusView-->
+        <!--android:id="@+id/as_status"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:padding="3dp"-->
+        <!--app:progress_color="#25BB28"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--app:progress_radius="60dp"-->
+        <!--app:progress_width="4dp" />-->
+
+        <ImageView
             android:id="@+id/as_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="3dp"
-            app:progress_color="#25BB28"
             android:layout_centerHorizontal="true"
-            app:progress_radius="60dp"
-            app:progress_width="4dp" />
+            android:src="@drawable/icon_success" />
 
         <TextView
             android:id="@+id/tv_success"
-            android:layout_below="@+id/as_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册成功"
+            android:layout_below="@+id/as_status"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="注册成功"
             android:textSize="20sp" />
 
         <Button
@@ -140,13 +147,13 @@
             android:id="@+id/tv_tyj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/red"
-            android:text="立即领取18888元体验金"
             android:layout_marginBottom="30dp"
-            android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_tyj_hb"
-            android:layout_alignParentBottom="true"/>
+            android:drawablePadding="10dp"
+            android:text="立即领取18888元体验金"
+            android:textColor="@color/red" />
 
     </RelativeLayout>
 </LinearLayout>

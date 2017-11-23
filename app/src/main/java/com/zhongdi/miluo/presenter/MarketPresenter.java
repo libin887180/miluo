@@ -25,7 +25,7 @@ public class MarketPresenter extends BasePresenter<MarketView> {
 
     public void getFundType() {
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_TYPE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_TYPE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<FundType>>>() {
                     @Override
                     public void onSuccess(MResponse<List<FundType>> response, int requestCode) {

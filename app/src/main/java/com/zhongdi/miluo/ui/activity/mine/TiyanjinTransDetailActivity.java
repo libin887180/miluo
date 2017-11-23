@@ -69,6 +69,8 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
     TextView tvFriendsAmount;
     @BindView(R.id.tv_invite)
     TextView tvInvite;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
     TiyanjinDetail tiyanjinDetail;
     private String fundcode = "";
     private String fundId = "";
@@ -246,16 +248,20 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
             if (body.getActivity_status().equals("101")) {
                 btnExchange.setText("份额确认中");
                 btnExchange.setEnabled(false);
+                tvTips.setVisibility(View.VISIBLE);
             } else if (body.getActivity_status().equals("103")) {
                 btnExchange.setText("兑换话费");
                 btnExchange.setEnabled(true);
+                tvTips.setVisibility(View.GONE);
             } else if (body.getActivity_status().equals("104")) {
                 btnExchange.setText("邀请好友");
+                tvTips.setVisibility(View.GONE);
                 btnExchange.setEnabled(true);
             }
         } else {
             btnExchange.setText("还剩" + body.getActivity_status() + "天收益");
             btnExchange.setEnabled(false);
+            tvTips.setVisibility(View.GONE);
         }
 
     }

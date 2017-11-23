@@ -28,7 +28,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
         Map<String, String> map = new HashMap<>();
         map.put("tradeid", tradeid);
         map.put("type", tradeType);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.TRANS_RECORD, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TRANS_RECORD, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<TradeRecord>>() {
                     @Override
                     public void onSuccess(MResponse<TradeRecord> response, int requestCode) {
@@ -64,7 +64,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
         map.put("tradeid", tradeid);
         map.put("tradepwd", tradepwd);
         map.put("type", type);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_CHEDAN, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_CHEDAN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

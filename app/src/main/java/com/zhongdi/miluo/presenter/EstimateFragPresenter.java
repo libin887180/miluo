@@ -24,7 +24,7 @@ public class EstimateFragPresenter extends BasePresenter<EstimateFragmentView> {
     public void getFundVal(String fundcode) {
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_VAL, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_VAL, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<RiskTestResult>>() {
                     @Override
                     public void onSuccess(MResponse<RiskTestResult> response, int requestCode) {

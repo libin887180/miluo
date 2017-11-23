@@ -27,7 +27,7 @@ public class TiyanjinTransDetailPresenter extends BasePresenter<TiyanjinTransDet
     public void getTiYanjinDetail() {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.TIYANJIN_TRANS_DETAIL, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TIYANJIN_TRANS_DETAIL, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<TiyanjinDetail>>() {
                     @Override
                     public void onSuccess(MResponse<TiyanjinDetail> response, int requestCode) {
@@ -60,7 +60,7 @@ public class TiyanjinTransDetailPresenter extends BasePresenter<TiyanjinTransDet
     public void getFriendsNum() {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FRIENDS_NUM, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FRIENDS_NUM, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<FriendsInfo>>() {
                     @Override
                     public void onSuccess(MResponse<FriendsInfo> response, int requestCode) {

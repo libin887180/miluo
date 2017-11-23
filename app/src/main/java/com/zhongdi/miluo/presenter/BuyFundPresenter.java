@@ -29,7 +29,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
         Map<String, String> map = new HashMap<>();
         map.put("fundCode", fundCode);
         map.put("type", type);//-1普通 0体验金 1 新手日日赚 2新手周周赚 3新手月月赚
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_BUY_BEFORE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_BUY_BEFORE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<BeforeBuyInfo>>() {
                     @Override
                     public void onSuccess(MResponse<BeforeBuyInfo> response, int requestCode) {
@@ -66,7 +66,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
         map.put("tradepwd", tradepwd);
         map.put("transamount", transamount);
         map.put("type", buyType);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.BUY_FUND, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.BUY_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override
                     public void onSuccess(MResponse<BuyResponse> response, int requestCode) {

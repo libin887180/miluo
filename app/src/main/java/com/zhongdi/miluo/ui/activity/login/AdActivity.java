@@ -1,6 +1,8 @@
 package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -75,8 +77,13 @@ public class AdActivity extends BaseActivity2 {
         public void onFinish() {
             // TODO Auto-generated method stub
 //            jumps.setText("0s跳过");
-
-            if(SpCacheUtil.getInstance().isFirstUse()){
+            PackageInfo info = null;
+            try {
+                info = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(info==null||SpCacheUtil.getInstance().isFirstUse(SpCacheUtil.IS_FIRST_USE+info.versionCode)){
                 Intent intent = new Intent(AdActivity.this, GuideActivity.class);
                 startActivity(intent);
             }else{

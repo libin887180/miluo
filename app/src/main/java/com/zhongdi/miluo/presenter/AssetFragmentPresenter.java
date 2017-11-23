@@ -28,7 +28,7 @@ public class AssetFragmentPresenter extends BasePresenter<AssetFragmentView> {
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
         map.put("type", type + "");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY_LIST, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PROPERTY_LIST, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeAssetBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<HomeAssetBean>> response, int requestCode) {

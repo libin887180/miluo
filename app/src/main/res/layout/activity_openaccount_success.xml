@@ -88,15 +88,22 @@
         android:paddingLeft="35dp"
         android:paddingRight="35dp">
 
-        <com.zhongdi.miluo.widget.CustomStatusView
+        <!--<com.zhongdi.miluo.widget.CustomStatusView-->
+            <!--android:id="@+id/as_status"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:padding="3dp"-->
+            <!--app:progress_color="#25BB28"-->
+            <!--app:progress_radius="60dp"-->
+            <!--app:progress_width="4dp" />-->
+
+        <ImageView
             android:id="@+id/as_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="3dp"
-            app:progress_color="#25BB28"
-            app:progress_radius="60dp"
-            app:progress_width="4dp" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_success" />
 
         <TextView
             android:layout_width="wrap_content"

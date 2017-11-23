@@ -25,7 +25,7 @@ public class YearFragPresenter extends BasePresenter<YearFragmentView> {
         Map<String, String> map = new HashMap<>();
         map.put("sellFundId", fundcode);
         map.put("flag", "6");//（3月、4季、5半年、6一年）
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.FUND_VALUATION, map, 110,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_VALUATION, map, 110,
                 new NetRequestUtil.NetResponseListener<MResponse<FundValuationResponse>>() {
                     @Override
                     public void onSuccess(MResponse<FundValuationResponse> response, int requestCode) {

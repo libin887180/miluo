@@ -28,7 +28,7 @@ public class TestPresenter extends BasePresenter<TestView> {
     public void getQuestions() {
         Map<String, String> map = new HashMap<>();
         view.showLoadingDialog();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.RISK_TEST_QUESTION, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.RISK_TEST_QUESTION, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<TestQuestion>>>() {
                     @Override
                     public void onSuccess(MResponse<List<TestQuestion>> response, int requestCode) {
@@ -61,7 +61,7 @@ public class TestPresenter extends BasePresenter<TestView> {
         map.put("username", SpCacheUtil.getInstance().getLoginAccount());
         map.put("riskanswer", resultStr);
         view.showLoadingDialog();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.RISK_SUBMIT, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.RISK_SUBMIT, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<RiskTestResult>>() {
                     @Override
                     public void onSuccess(MResponse<RiskTestResult> response, int requestCode) {

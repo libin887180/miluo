@@ -12,6 +12,8 @@ import com.zhongdi.miluo.model.UserInfo;
  */
 public class SpCacheUtil {
     private static SpCacheUtil instance;
+    public static String HONGBAO= "HONGBAO";
+    public static String IS_FIRST_USE= "IS_FIRST_USE";
     private SpCache spCache;
 
     public SpCacheUtil(Context context) {
@@ -31,8 +33,8 @@ public class SpCacheUtil {
      * @param isFirstUse
      *            true-第一次使用
      */
-    public void setIsFirstUse(boolean isFirstUse) {
-        spCache.put("IS_FIRST_USE", isFirstUse);
+    public void setIsFirstUse(String  key ,boolean isFirstUse) {
+        spCache.put(key, isFirstUse);
     }
 
     /**
@@ -40,11 +42,27 @@ public class SpCacheUtil {
      *
      * @return true-第一次使用
      */
-    public boolean isFirstUse() {
-        return spCache.get("IS_FIRST_USE", true);
+    public boolean isFirstUse(String  key ) {
+        return spCache.get(key, true);
+    }
+    /**
+     * 保存是否显示过红包
+     *
+     * @param isFirstUse
+     *            true-显示过
+     */
+    public void setIsHongbaoShow(String  key ,boolean isFirstUse) {
+        spCache.put(key, isFirstUse);
     }
 
-
+    /**
+     * 获取是否显示过红包
+     *
+     * @return true-显示过
+     */
+    public boolean isHongbaoShow(String  key ) {
+        return spCache.get(key, false);
+    }
     /**
      * 保存登录账号(用户名)
      *

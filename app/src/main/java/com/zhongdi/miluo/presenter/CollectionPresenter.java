@@ -27,7 +27,7 @@ public class CollectionPresenter extends BasePresenter<CollectionView> {
         Map<String, String> map = new HashMap<>();
         map.put("page", page+"");
         map.put("rate", rate);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPTIONAL_FUND, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.OPTIONAL_FUND, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<OptionalFundResponse>>() {
                     @Override
                     public void onSuccess(MResponse<OptionalFundResponse> response, int requestCode) {

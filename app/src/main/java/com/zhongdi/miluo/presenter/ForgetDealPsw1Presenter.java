@@ -25,7 +25,7 @@ public class ForgetDealPsw1Presenter extends BasePresenter<ForgetDealPsw1View> {
         Map<String, String> map = new HashMap<>();
         map.put("idno", idno);
         map.put("name", name);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.CHECK_ID_NO, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.CHECK_ID_NO, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {

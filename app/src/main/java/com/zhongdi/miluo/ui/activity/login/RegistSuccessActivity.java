@@ -2,8 +2,8 @@ package com.zhongdi.miluo.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhongdi.miluo.R;
@@ -11,15 +11,16 @@ import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.presenter.RegistSuccessPresenter;
 import com.zhongdi.miluo.view.RegistSuccessView;
-import com.zhongdi.miluo.widget.CustomStatusView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> implements RegistSuccessView {
 
+    //    @BindView(R.id.as_status)
+//    CustomStatusView asStatus;
     @BindView(R.id.as_status)
-    CustomStatusView asStatus;
+    ImageView asStatus;
     @BindView(R.id.tv_tyj)
     TextView tvTyj;
     private int source;
@@ -39,14 +40,14 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
     @Override
     protected void onResume() {
         super.onResume();
-        asStatus.loadLoading();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                asStatus.loadSuccess();
-            }
-        }, 1 * 1000);
+//        asStatus.loadLoading();
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                asStatus.loadSuccess();
+//            }
+//        }, 1 * 1000);
 
     }
 
@@ -56,7 +57,7 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
 
     }
 
-    @OnClick({R.id.btn_open, R.id.btn_main,R.id.tv_tyj})
+    @OnClick({R.id.btn_open, R.id.btn_main, R.id.tv_tyj})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_open:

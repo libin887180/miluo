@@ -26,7 +26,7 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         map.put("password", password);
         map.put("validateseq", validateseq);
         map.put("registrationchannels", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.REGISTER, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.REGISTER, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -55,7 +55,7 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         Map<String, String> map = new HashMap<>();
         map.put("username", userName);
         map.put("type", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEND_MSG, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.SEND_MSG, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {

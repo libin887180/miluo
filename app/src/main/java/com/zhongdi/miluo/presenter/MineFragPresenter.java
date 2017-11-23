@@ -27,7 +27,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
 
     public void getProperty() {
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PROPERTY, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<MyProperty>>() {
                     @Override
                     public void onSuccess(MResponse<MyProperty> response, int requestCode) {
@@ -57,7 +57,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
         map.put("type", "0");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY_LIST, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PROPERTY_LIST, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeAssetBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<HomeAssetBean>> response, int requestCode) {
@@ -91,7 +91,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
         map.put("pageIndex", pageIndex + "");
         map.put("pageSize", pageSize + "");
         map.put("type", "1");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PROPERTY_LIST, map, 103,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PROPERTY_LIST, map, 103,
                 new NetRequestUtil.NetResponseListener<MResponse<List<HomeAssetBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<HomeAssetBean>> response, int requestCode) {

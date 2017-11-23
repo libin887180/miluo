@@ -22,7 +22,7 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
 
     public void openAccount(Map<String, String> requestMap) {
         view.showLoadingDialog();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT, requestMap, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.OPNE_ACCOUNT, requestMap, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {
@@ -53,7 +53,7 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("smscode", smscode);
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_CONFIRM, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.OPNE_ACCOUNT_CONFIRM, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
@@ -90,7 +90,7 @@ public class OpenAccoutPresenter extends BasePresenter<OpenAccountView> {
     public void resendMessage(String phoneNum) {
 
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.OPNE_ACCOUNT_SENDCODE, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.OPNE_ACCOUNT_SENDCODE, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<String>>() {
                     @Override
                     public void onSuccess(MResponse<String> response, int requestCode) {

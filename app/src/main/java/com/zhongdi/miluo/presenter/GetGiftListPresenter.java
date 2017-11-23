@@ -30,7 +30,7 @@ public class GetGiftListPresenter extends BasePresenter<GiftListView> {
         Map<String, String> map = new HashMap<>();
         map.put("pageNumber",pageNumber+"");
         map.put("pageSize",pageSize+"");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.MY_PRIZE, map, 102,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.MY_PRIZE, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<List<Prize>>>() {
                     @Override
                     public void onSuccess(MResponse<List<Prize>> response, int requestCode) {

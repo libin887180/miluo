@@ -24,7 +24,7 @@ public class SearchPresenter extends BasePresenter<SearchView> {
 
     public void getHotFund() {
         Map<String, String> map = new HashMap<>();
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.HOT_SEARCH, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.HOT_SEARCH, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<SearchFund>>>() {
                     @Override
                     public void onSuccess(MResponse<List<SearchFund>> response, int requestCode) {
@@ -52,7 +52,7 @@ public class SearchPresenter extends BasePresenter<SearchView> {
         Map<String, String> map = new HashMap<>();
         map.put("fundName", searchStr);
         map.put("pageNumber", pageNum+"");
-        Callback.Cancelable post = netRequestUtil.post(URLConfig.SEARCH_FUND, map, 101,
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.SEARCH_FUND, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<SearchFund>>>() {
                     @Override
                     public void onSuccess(MResponse<List<SearchFund>> response, int requestCode) {
