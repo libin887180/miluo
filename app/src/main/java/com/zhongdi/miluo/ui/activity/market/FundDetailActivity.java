@@ -17,6 +17,7 @@ import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.FundDetail;
 import com.zhongdi.miluo.model.FundManagerInfo;
@@ -266,12 +267,14 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             case R.id.tv_buy:
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Fund_Apply_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }
                 if (!TextUtils.isEmpty(fundCode)) {
                     Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                     buyIntent.putExtra("fundCode", fundCode);
+                    buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Fund_Details_Apply);
                     startActivity(buyIntent);
                 } else {
                     showToast("暂未获取到基金代码");
@@ -284,6 +287,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             case R.id.tv_title_right:
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Fund_Optional_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }

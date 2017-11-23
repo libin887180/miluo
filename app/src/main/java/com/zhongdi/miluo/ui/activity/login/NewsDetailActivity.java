@@ -89,9 +89,9 @@ public class NewsDetailActivity extends BaseActivity2 {
 
                 break;
             case "2"://已登录 ，未开户 跳转到开户
-                Intent open = new Intent(mContext, OpenAccountActivity.class);
-                open.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
-                startActivityForResult(open, 102);
+//                Intent open = new Intent(mContext, OpenAccountActivity.class);
+//                open.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+//                startActivityForResult(open, 102);
                 break;
             case "3"://已登录 已开户 ，进入购买
                 Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);

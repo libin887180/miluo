@@ -53,6 +53,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     public String tradepwd;
     CodeAlertDialog codeAlertDialog;
     private int source;
+    private int  maidian ;
     CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
         @Override
@@ -71,6 +72,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         source = getIntent().getIntExtra(IntentConfig.SOURCE, -1);
+        maidian = getIntent().getIntExtra(IntentConfig.MAIDIAN, -1);
         binding(R.layout.activity_open_account);
     }
 
@@ -243,7 +245,7 @@ public class OpenAccountActivity extends BaseActivity<OpenAccoutPresenter> imple
         requestMap.put("phone", phone);
 //        requestMap.put("registryid",registryid);
         requestMap.put("tradepwd", tradepwd);
-        requestMap.put("source", source + "");
+        requestMap.put("source", maidian + "");
         presenter.openAccount(requestMap);
 
     }

@@ -447,11 +447,13 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
             case R.id.tv_risk:
                 Intent intent_risk = new Intent(mContext, TestActivity.class);
                 intent_risk.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                intent_risk.putExtra(IntentConfig.MAIDIAN, IntentConfig.EX_Gold_Enter_Risk);
                 startActivityForResult(intent_risk, 103);
                 break;
             case R.id.tv_open_account:
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.EX_Gold_Account);
                 startActivityForResult(intent, 102);
                 break;
             case R.id.btn_submit:

@@ -125,6 +125,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Mine_EX_Gold_Risk);
                 startActivity(intent);
                 finish();
             }
@@ -293,6 +294,10 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
             presenter.getTiYanjinDetail();
             presenter.getFriendsNum();
         }
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            presenter.getTiYanjinDetail();
+            presenter.getFriendsNum();
+        }
     }
 
     @OnClick({R.id.tv_invite, R.id.rl_fund_info,R.id.btn_exchange,R.id.img_title_right,R.id.iv_invite_friends})
@@ -317,7 +322,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
                     intent.putExtra("prizeType","1");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
                     intent.putExtra("prizeId", tiyanjinDetail.getWinprize_id());
-                    startActivity(intent);
+                    startActivityForResult(intent,101);
                 }
                 break;
             case R.id.rl_fund_info:

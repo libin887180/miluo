@@ -27,14 +27,15 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
 
     @BindView(R.id.viewPager)
     NoScrollViewPager viewPager;
-
     public ArrayList<String> result;
     private int SOURCE ;
+    private int MAIDIAN ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SOURCE = getIntent().getIntExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+        MAIDIAN = getIntent().getIntExtra(IntentConfig.MAIDIAN, -1);
         binding(R.layout.activity_test);
     }
 
@@ -99,7 +100,7 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
     public void sendSelections() {
         String resultStr = StringUtil.join(result, ",");
         ViseLog.e(resultStr);
-        presenter.sendSelections(resultStr);
+        presenter.sendSelections(resultStr,MAIDIAN+"");
     }
 
     @Override

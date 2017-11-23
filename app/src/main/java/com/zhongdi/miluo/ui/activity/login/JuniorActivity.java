@@ -14,6 +14,7 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
@@ -86,6 +87,7 @@ public class JuniorActivity extends BaseActivity2 {
             case "1"://购买方法
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Novice_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }
@@ -116,13 +118,31 @@ public class JuniorActivity extends BaseActivity2 {
 
         if (!MyApplication.getInstance().isLogined) {
             Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            intent.putExtra(IntentConfig.SOURCE, IntentConfig.Novice_Register);
             startActivityForResult(intent, 101);
             return;
         }
         Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
         buyIntent.putExtra("fundCode", code);
         buyIntent.putExtra("from", "newer");
-        buyIntent.putExtra("buyType", buyType);
+        buyIntent.putExtra("buyType", buyType);//类型-1 普通 0 体验金 1 新手日日赚 2新手周周赚 3新手月月赚
+
+        switch (buyType) {
+            case "1":
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Novice_DD_Apply);
+                break;
+            case "2":
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Novice_WW_Apply);
+                break;
+            case "3":
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Novice_MM_Apply);
+                break;
+            default:
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Fund_Details_Apply);
+                break;
+        }
+
+
         startActivity(buyIntent);
 
     }

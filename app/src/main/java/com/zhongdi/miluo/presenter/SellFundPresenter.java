@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -39,6 +40,7 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
                     public void onFailed(MResponse<SellResponse> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());
@@ -57,7 +59,7 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
                 });
     }
 
-    public void sellFund(String fundCode, String tradepwd, String transshare) {
+    public void sellFund(String fundCode, String tradepwd, String transshare,String maidian) {
 
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
@@ -65,6 +67,7 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
         map.put("tradepwd", tradepwd);
         map.put("transshare", transshare);
         map.put("redeembizcode", "024"); //赎回方式024-普通赎回098-快速赎回n
+        map.put("source",maidian); //赎回方式024-普通赎回098-快速赎回n
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.SELL_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override
@@ -80,6 +83,7 @@ public class SellFundPresenter extends BasePresenter<SellFundView> {
                         }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
                             view.showPswLocked();
                         }else if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());

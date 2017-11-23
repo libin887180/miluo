@@ -296,7 +296,6 @@
                         android:background="@drawable/btn_login"
                         android:enabled="false"
                         android:gravity="center"
-                        android:text="还剩4天体验金收益"
                         android:textColor="@color/btn_text_color"
                         android:textSize="16sp" />
                     <TextView

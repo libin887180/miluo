@@ -62,11 +62,12 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     private PayView mPayView;
     private String fundCode;
     private SellResponse.Fund fundinfo;
-
+    private int  MAIDIAN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
+        MAIDIAN = getIntent().getIntExtra(IntentConfig.MAIDIAN, -1);
         binding(R.layout.activity_sell);
     }
 
@@ -85,7 +86,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
         mPayView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override
             public void inputFinish() {
-                presenter.sellFund(fundCode, mPayView.getPassword(), etMoney.getText().toString());
+                presenter.sellFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(),MAIDIAN+"");
                 dismissPswPopWindow();
             }
         });

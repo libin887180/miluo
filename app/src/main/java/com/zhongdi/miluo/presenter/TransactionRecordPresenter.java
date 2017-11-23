@@ -1,8 +1,10 @@
 package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.ErrorCode;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.TradeRecord;
@@ -39,6 +41,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
                     @Override
                     public void onFailed(MResponse<TradeRecord> response, int requestCode) {
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         } else {
                             view.showToast(response.getMsg());
@@ -64,6 +67,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
         map.put("tradeid", tradeid);
         map.put("tradepwd", tradepwd);
         map.put("type", type);
+        map.put("source", IntentConfig.Trade_Record_Cancel+"");
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_CHEDAN, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
                     @Override
@@ -79,6 +83,7 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
                         } else if (response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)) {
                             view.showPswLocked();
                         } else if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         } else {
                             view.showToast(response.getMsg());

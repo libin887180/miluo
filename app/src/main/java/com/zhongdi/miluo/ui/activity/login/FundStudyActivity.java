@@ -14,6 +14,7 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
@@ -79,6 +80,7 @@ public class FundStudyActivity extends BaseActivity2 {
             case "1"://购买方法
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE,IntentConfig.Learn_EX_Gold_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }
@@ -110,8 +112,14 @@ public class FundStudyActivity extends BaseActivity2 {
                 startActivity(intent);
                 break;
             case "0"://跳转新手
-                Intent buyIntent = new Intent(mContext, TiyanjinInfoActivity.class);
-                startActivity(buyIntent);
+                if (!MyApplication.getInstance().isLogined) {
+                    Intent login_tiyan = new Intent(mContext, TiyanjinLoginActivity.class);
+                    login_tiyan.putExtra(IntentConfig.SOURCE,IntentConfig.EX_Gold_Probie_Register);
+                    startActivity(login_tiyan);
+                } else {
+                    Intent buyIntent = new Intent(mContext, TiyanjinInfoActivity.class);
+                    startActivity(buyIntent);
+                }
                 break;
         }
 

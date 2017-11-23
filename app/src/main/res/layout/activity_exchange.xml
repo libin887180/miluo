@@ -131,7 +131,7 @@
         android:layout_marginLeft="35dp"
         android:background="@drawable/btn_login"
         android:gravity="center"
-        android:text="兑换"
+        android:text="充值"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 </LinearLayout>

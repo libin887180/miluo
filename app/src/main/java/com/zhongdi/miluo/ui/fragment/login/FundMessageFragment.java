@@ -15,6 +15,7 @@ import com.fingdo.statelayout.StateLayout;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.MessageAdapter;
@@ -110,6 +111,7 @@ public class FundMessageFragment extends Fragment {
                     public void onFailed(MResponse<List<MessageBean>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                            reLogin();
                         }
                     }

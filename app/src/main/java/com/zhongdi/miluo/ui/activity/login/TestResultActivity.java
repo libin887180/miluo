@@ -82,6 +82,7 @@ public class TestResultActivity extends BaseActivity2 {
                 if (btnSubmit.getText().equals("重新测评")) {
                     Intent intent_test = new Intent(mContext, TestActivity.class);
                     intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+                    intent_test.putExtra(IntentConfig.MAIDIAN, IntentConfig.More_Page_Risk_Again);
                     startActivity(intent_test);
                     finish();
                 } else if (btnSubmit.getText().equals("马上申购")) {
@@ -103,6 +104,7 @@ public class TestResultActivity extends BaseActivity2 {
             case R.id.tv_retest:
                 Intent intent_test = new Intent(mContext, TestActivity.class);
                 intent_test.putExtra(IntentConfig.SOURCE, SOURCE);
+                intent_test.putExtra(IntentConfig.MAIDIAN, IntentConfig.Risk_Again);
                 startActivity(intent_test);
                 finish();
                 break;

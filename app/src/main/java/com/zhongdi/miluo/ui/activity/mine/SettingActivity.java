@@ -88,6 +88,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 if (SpCacheUtil.getInstance().getUserFundState() == MiluoConfig.UN_OPEN_ACCOUNT) {
                     Intent intent = new Intent(mContext, OpenAccountActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.More_Bank_Account);
                     startActivityForResult(intent, 102);
                 } else {
                     startActivity(new Intent(mContext, BankCardListActivity.class));
@@ -120,6 +121,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                     } else {
                         Intent intent_test = new Intent(mContext, TestActivity.class);
                         intent_test.putExtra(IntentConfig.SOURCE, IntentConfig.SETTING);
+                        intent_test.putExtra(IntentConfig.MAIDIAN, IntentConfig.More_Page_Risk);
                         startActivity(intent_test);
                     }
                 }

@@ -230,6 +230,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
                 if (((TextView) v).getText().toString().equals("赎回")) {
                     Intent intent = new Intent(mContext, SellFundActivity.class);
                     intent.putExtra("fundCode", tradeRecord.getPart1().getFundcode());
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Trade_Record_Redeem);
                     startActivity(intent);
                 } else {
                     showPswPopupWindow();
@@ -263,6 +264,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.EX_Gold_Complete_Risk);
                 startActivity(intent);
                 finish();
             }

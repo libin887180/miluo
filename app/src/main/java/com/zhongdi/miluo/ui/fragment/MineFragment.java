@@ -397,8 +397,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             refreshData();
         }
         if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            presenter.getPropertyList(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
-            presenter.getHisPropertyList(hisPageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+            refreshData();
         }
     }
 

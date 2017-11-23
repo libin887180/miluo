@@ -233,6 +233,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     public void onFailed(MResponse<MyProperty> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
                             reLogin();
                         } else {
                             Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
@@ -328,6 +329,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
                 } else {
                     Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Star_Register);
                     startActivityForResult(intent, 101);
                 }
 
@@ -377,6 +379,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 
                     if (!MyApplication.getInstance().isLogined) {
                         Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                        login_tiyan.putExtra(IntentConfig.SOURCE,IntentConfig.EX_Gold_Home_Register);
                         startActivity(login_tiyan);
                     } else {
                         Intent buyIntent = new Intent(getActivity(), TiyanjinInfoActivity.class);
@@ -412,6 +415,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
                             reLogin();
                         } else {
                             Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
@@ -444,6 +448,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
                             reLogin();
                         } else {
                             Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
@@ -497,6 +502,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             @Override
             public void onClick(View v) {
                 Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
+                login_tiyan.putExtra(IntentConfig.SOURCE,IntentConfig.EX_Gold_Red_Register);
                 startActivity(login_tiyan);
                 dialog.dismiss();
             }
@@ -916,15 +922,17 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             case R.id.btn_login:
                 if (btnLogin.getText().equals("立即登录")) {
                     Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
-                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Home_Tip_Login_Register);
                     startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去开户")) {
                     Intent intent = new Intent(getActivity(), OpenAccountActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Home_Tip_Account);
                     startActivityForResult(intent, 102);
                 } else if (btnLogin.getText().equals("去测评")) {
                     Intent intent = new Intent(getActivity(), TestActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                    intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Home_Tipe_Risk);
                     startActivityForResult(intent, 102);
                 }
 
@@ -935,6 +943,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                     startActivity(new Intent(getActivity(), MessagesActivity.class));
                 } else {
                     Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Home_Message_Register);
                     startActivityForResult(intent, 101);
                 }
 

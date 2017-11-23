@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -68,6 +69,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     public void onFailed(MResponse<List<HomeAssetBean>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());
@@ -102,6 +104,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     public void onFailed(MResponse<List<HomeAssetBean>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());

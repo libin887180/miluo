@@ -69,17 +69,18 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
                     intent.putExtra("prizeType", prize.getType());
                     intent.putExtra("prizeId", prize.getId());
-                    startActivity(intent);
+                    startActivityForResult(intent,101);
                 }
             }
         });
+        presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+
     }
 
     @Override
@@ -121,6 +122,10 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
+        }
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            pageNum = 1;
             presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
         }
     }

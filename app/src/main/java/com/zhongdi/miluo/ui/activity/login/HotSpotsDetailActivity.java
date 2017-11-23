@@ -14,6 +14,7 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.ui.activity.market.BuyFundActivity;
@@ -81,11 +82,13 @@ public class HotSpotsDetailActivity extends BaseActivity2 {
             case "1"://购买方法
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Hotspots_H5_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }
                 Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                 buyIntent.putExtra("fundCode", code);
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Hotspots_Apply);
                 startActivity(buyIntent);
                 break;
             case "0"://详情方法

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
@@ -60,6 +61,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
         super.onCreate(savedInstanceState);
         binding(R.layout.activity_quick_login);
         source = getIntent().getIntExtra(IntentConfig.SOURCE,-1);
+        ViseLog.e(source);
     }
 
     @OnClick({R.id.btn_login, R.id.tv_title_right,  R.id.tv_send_code,R.id.tv_username_login})

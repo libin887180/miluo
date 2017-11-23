@@ -360,11 +360,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             case R.id.tv_buy:
                 Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                 buyIntent.putExtra("fundCode", fundcode);
+                buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Trade_Details_Apply);
                 startActivity(buyIntent);
                 break;
             case R.id.tv_sell:
                 Intent intent = new Intent(mContext, SellFundActivity.class);
                 intent.putExtra("fundCode", fundcode);
+                intent.putExtra(IntentConfig.SOURCE, IntentConfig.Trade_Details_Redeem);
                 startActivity(intent);
                 break;
             case R.id.ll_fenhong:

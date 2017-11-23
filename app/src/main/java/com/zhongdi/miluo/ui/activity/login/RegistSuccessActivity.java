@@ -63,6 +63,7 @@ public class RegistSuccessActivity extends BaseActivity<RegistSuccessPresenter> 
             case R.id.btn_open:
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.HOME_LOGIN);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Register_Page_Account);
                 startActivity(intent);
                 setResult(RESULT_OK);
                 finish();

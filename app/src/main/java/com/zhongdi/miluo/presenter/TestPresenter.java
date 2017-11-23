@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.presenter;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.ErrorCode;
@@ -38,6 +39,7 @@ public class TestPresenter extends BasePresenter<TestView> {
                     @Override
                     public void onFailed(MResponse<List<TestQuestion>> response, int requestCode) {
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin(0);
                         }else{
                             view.showToast(response.getMsg());
@@ -56,10 +58,11 @@ public class TestPresenter extends BasePresenter<TestView> {
                 });
     }
 
-    public void sendSelections(String resultStr) {
+    public void sendSelections(String resultStr,String maidian) {
         Map<String, String> map = new HashMap<>();
         map.put("username", SpCacheUtil.getInstance().getLoginAccount());
         map.put("riskanswer", resultStr);
+        map.put("source", maidian);
         view.showLoadingDialog();
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.RISK_SUBMIT, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<RiskTestResult>>() {
@@ -71,6 +74,7 @@ public class TestPresenter extends BasePresenter<TestView> {
                     @Override
                     public void onFailed(MResponse<RiskTestResult> response, int requestCode) {
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin(1);
                         }else{
                             view.showToast(response.getMsg());

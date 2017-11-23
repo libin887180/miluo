@@ -175,6 +175,7 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
             case "2"://已登录 ，未开户 跳转到开户
                 Intent open = new Intent(mContext, OpenAccountActivity.class);
                 open.putExtra(IntentConfig.SOURCE, IntentConfig.TIYANJIN);
+                open.putExtra(IntentConfig.MAIDIAN, IntentConfig.EX_Gold_Account);
                 startActivityForResult(open, 102);
                 break;
             case "3"://已登录 已开户 ，进入购买

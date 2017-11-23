@@ -2,6 +2,7 @@ package com.zhongdi.miluo.presenter;
 
 import android.text.TextUtils;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.ErrorCode;
@@ -57,6 +58,7 @@ public class ModifyLoginPswPresenter extends BasePresenter<ModifyLoginPswView> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());

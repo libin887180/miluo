@@ -202,12 +202,14 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
             case R.id.tv_buy:
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Fund_Apply_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }
                 if (!TextUtils.isEmpty(fundCode)) {
                     Intent buyIntent = new Intent(mContext, BuyFundActivity.class);
                     buyIntent.putExtra("fundCode", fundCode);
+                    buyIntent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Fund_Details_Apply);
                     startActivity(buyIntent);
                 } else {
                     showToast("暂未获取到基金代码");
@@ -226,6 +228,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
             case R.id.tv_title_right:
                 if (!MyApplication.getInstance().isLogined) {
                     Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                    intent.putExtra(IntentConfig.SOURCE, IntentConfig.Fund_Optional_Register);
                     startActivityForResult(intent, 101);
                     return;
                 }

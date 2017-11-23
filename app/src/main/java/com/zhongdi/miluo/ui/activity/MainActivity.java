@@ -21,6 +21,7 @@ import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.ViewPagerAdapter;
 import com.zhongdi.miluo.base.BaseActivity2;
+import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.Update;
@@ -150,6 +151,9 @@ public class MainActivity extends BaseActivity2 {
                 navigation.getMenu().getItem(3).setChecked(true);
                 viewPager.setCurrentItem(3);
                 ((MineFragment) adapter.getItem(3)).fetchData();
+            } else if (intent.getStringExtra("to").equals("home")) {
+                navigation.getMenu().getItem(0).setChecked(true);
+                viewPager.setCurrentItem(0);
             }
         }
     }
@@ -175,6 +179,7 @@ public class MainActivity extends BaseActivity2 {
                         return true;
                     } else {
                         Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                        intent.putExtra(IntentConfig.SOURCE, IntentConfig.Optional_Register);
                         startActivityForResult(intent, 101);
                         toTab = 2;
                         return false;
@@ -187,6 +192,7 @@ public class MainActivity extends BaseActivity2 {
                         return true;
                     } else {
                         Intent intent = new Intent(mContext, QuickLoginActivity.class);
+                        intent.putExtra(IntentConfig.SOURCE, IntentConfig.Mine_Register);
                         startActivityForResult(intent, 101);
                         toTab = 3;
                         return false;

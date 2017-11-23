@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.presenter;
 
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -35,6 +36,7 @@ public class ForgetDealPsw1Presenter extends BasePresenter<ForgetDealPsw1View> {
                     @Override
                     public void onFailed(MResponse<Object> response, int requestCode) {
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());

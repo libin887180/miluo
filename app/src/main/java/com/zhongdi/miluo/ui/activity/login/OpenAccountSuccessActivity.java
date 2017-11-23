@@ -78,6 +78,7 @@ ImageView asStatus;
                 if (btnTest.getText().equals("风险评测")) {
                     Intent intent = new Intent(mContext, TestActivity.class);
                     intent.putExtra(IntentConfig.SOURCE, source);
+                    intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Account_Risk);
                     startActivity(intent);
                     finish();
                 }else{

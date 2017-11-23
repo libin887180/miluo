@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.presenter;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.base.BasePresenter;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
@@ -41,6 +42,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                         ViseLog.e("请求失败");
 
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());
@@ -59,13 +61,14 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                 });
     }
 
-    public void buyFund(String fundCode, String tradepwd, String transamount,String buyType) {
+    public void buyFund(String fundCode, String tradepwd, String transamount,String buyType,String maidian) {
         view.showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("productid", fundCode);
         map.put("tradepwd", tradepwd);
         map.put("transamount", transamount);
-        map.put("type", buyType);
+        map.put("type", buyType);//类型-1 普通 0 体验金 1 新手日日赚 2新手周周赚 3新手月月赚
+        map.put("source", maidian);
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.BUY_FUND, map, 102,
                 new NetRequestUtil.NetResponseListener<MResponse<BuyResponse>>() {
                     @Override
@@ -80,6 +83,7 @@ public class BuyFundPresenter extends BasePresenter<BuyFundView> {
                         }else if(response.getCode().equals(ErrorCode.LOCKEDTRADEPWD)){
                             view.showPswLocked();
                         }else  if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
+                            MyApplication.getInstance().isLogined =false;
                             view.reLogin();
                         }else{
                             view.showToast(response.getMsg());

@@ -95,13 +95,14 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
     private BeforeBuyInfo beforeBuyInfo;
 //    private String from = "";
     private String buyType = "-1";
-
+private int  MAIDIAN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundCode = getIntent().getStringExtra("fundCode");
 //        from = getIntent().getStringExtra("from");
         buyType = getIntent().getStringExtra("buyType");
+        MAIDIAN = getIntent().getIntExtra(IntentConfig.MAIDIAN, -1);
         binding(R.layout.activity_buy);
     }
 
@@ -129,7 +130,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
                 if (TextUtils.isEmpty(buyType)) {
                     buyType = "-1";
                 }
-                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(), buyType);
+                presenter.buyFund(fundCode, mPayView.getPassword(), etMoney.getText().toString(), buyType,MAIDIAN+"");
                 dismissPswPopWindow();
             }
         });
@@ -407,6 +408,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Apply_Pagee_Risk);
                 startActivityForResult(intent, 101);
             }
         }).show();
@@ -426,6 +428,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Apply_Pagee_Risk);
                 startActivityForResult(intent, 103);
             }
         }).show();
@@ -484,6 +487,7 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             case R.id.tv_open_account:
                 Intent intent = new Intent(mContext, OpenAccountActivity.class);
                 intent.putExtra(IntentConfig.SOURCE, IntentConfig.BUY_FUND);
+                intent.putExtra(IntentConfig.MAIDIAN, IntentConfig.Apply_Page_Account);
                 startActivityForResult(intent, 102);
                 break;
             case R.id.btn_submit:
@@ -535,7 +539,8 @@ public class BuyFundActivity extends BaseActivity<BuyFundPresenter> implements B
             }
         }
         if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            presenter.beforeBuyInit(fundCode, buyType);
+            //刷新数据
+            initialize();
         }
     }
 

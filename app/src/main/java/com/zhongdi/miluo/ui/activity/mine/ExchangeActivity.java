@@ -5,12 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
+import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.presenter.ExchangePresenter;
+import com.zhongdi.miluo.ui.activity.MainActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.view.ExchangeView;
 import com.zhongdi.miluo.widget.ClearEditText;
@@ -28,7 +39,8 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     private String prizeId;
     private String prizeType;
     ExchangeAlertDialog dialog;
-
+    private View sharePopView;
+    private PopupWindow mCardPopupWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +56,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 
     @Override
     protected void initialize() {
+        setupSharePopupWindow();
         btnSubmit.setEnabled(false);
         etPhone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,18 +79,102 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
             }
         });
     }
+    // 显示弹窗
+    public void setupSharePopupWindow() {
+        // 初始化弹窗
+        sharePopView = View.inflate(this, R.layout.exchange_share_view, null);
+        mCardPopupWindow = new PopupWindow(sharePopView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        sharePopView.findViewById(R.id.tv_cancle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_OK);
+                finish();
+                mCardPopupWindow.dismiss();
+            }
+        });
+        sharePopView.findViewById(R.id.tv_circle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN_CIRCLE);
+            }
+        });
+        sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN);
+            }
+        });
+        sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCardPopupWindow.dismiss();
+                ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.SINA);
+            }
+        });
+        // 设置动画
+        mCardPopupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+        // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
+        mCardPopupWindow.setOutsideTouchable(true);
+    }
+    private void ShareWeb(int thumb_img, SHARE_MEDIA platform) {
+        UMImage thumb = new UMImage(mContext, thumb_img);
+        UMWeb web = new UMWeb(URLConfig.H5_REGISTER + "?referral_code=" + SpCacheUtil.getInstance().getReferralCode());
+        web.setThumb(thumb);
+        web.setDescription("好友在米罗基金为您准备了一份大礼，赶紧看看吧");
+        web.setTitle("18888元赚钱计划");
+        new ShareAction(ExchangeActivity.this).withMedia(web).setPlatform(platform).setCallback(umShareListener).share();
+    }
 
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            //分享开始的回调
+        }
 
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Log.d("plat", "platform" + platform);
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享失败", Toast.LENGTH_SHORT).show();
+//            if (t != null) {
+//                Log.d("throw", "throw:" + t.getMessage());
+//            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+//            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
+        }
+    };
     @Override
     public void onDataSuccess() {
-        dialog = new ExchangeAlertDialog(mContext).builder().setMsg("话费兑换成功")
-                .setPositiveButton("更多好基", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-        dialog.show();
+        if (prizeType.equals("1")) {
+
+        } else if (prizeType.equals("2")) {
+            dialog = new ExchangeAlertDialog(mContext).builder().setMsg("话费兑换成功")
+                    .setPositiveButton("更多好基", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            intent.putExtra("to", "home");
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+            dialog.show();
+        } else {
+            finish();
+            setResult(RESULT_OK);
+        }
+
     }
 
     @Override
@@ -93,7 +190,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 
     @Override
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        Intent intent = new Intent(mContext, QuickLoginActivity.class);
         startActivityForResult(intent, 301);
     }
 

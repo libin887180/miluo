@@ -20,7 +20,7 @@ public class GiftListAdapter extends BaseRecyclerAdapter<Prize> {
     @Override
     public void convert(BaseRecyclerHolder holder, Prize item, int position) {
         holder.setText(R.id.tv_title, item.getTitle());
-        holder.setText(R.id.tv_time, "有效期"+item.getAdd_time()+"-"+item.getInvalid_time());
+        holder.setText(R.id.tv_time, "有效期"+item.getAdd_time()+"--"+item.getInvalid_time());
         holder.setText(R.id.tv_amount, item.getAmount());
 
 //        类型1、体验金；2、新手;3、米罗盘；4、pk组团；5、推荐
