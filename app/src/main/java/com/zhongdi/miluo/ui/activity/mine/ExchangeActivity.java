@@ -43,6 +43,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     ExchangeAlertDialog dialog;
     private View sharePopView;
     private PopupWindow mCardPopupWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,9 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
                 }
             }
         });
+        etPhone.setText(SpCacheUtil.getInstance().getLoginAccount());
     }
+
     // 显示弹窗
     public void setupSharePopupWindow() {
         // 初始化弹窗
@@ -121,6 +124,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
         // mPopupWindow.showAsDropDown(findViewById(R.id.head), 0, 0);
         mCardPopupWindow.setOutsideTouchable(true);
     }
+
     private void ShareWeb(int thumb_img, SHARE_MEDIA platform) {
         UMImage thumb = new UMImage(mContext, thumb_img);
         UMWeb web = new UMWeb(URLConfig.H5_REGISTER + "?referral_code=" + SpCacheUtil.getInstance().getReferralCode());
@@ -155,6 +159,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 //            Toast.makeText(TiyanjinInfoActivity.this, platform + " 分享取消", Toast.LENGTH_SHORT).show();
         }
     };
+
     @Override
     public void onDataSuccess() {
         if (prizeType.equals("1")) {
@@ -172,12 +177,15 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
                         }
                     });
             dialog.show();
+        } else if (prizeType.equals("-2")) {
+            showpSharePopupWindow();
         } else {
             finish();
             setResult(RESULT_OK);
         }
 
     }
+
     private void showpSharePopupWindow() {
         mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
@@ -210,6 +218,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     public void onViewClicked() {
         presenter.exchange(prizeId, prizeType, etPhone.getText().toString());
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
