@@ -122,6 +122,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+            pageNum =1;
             presenter.getGiftList(pageNum, MiluoConfig.DEFAULT_PAGESIZE);
         }
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {

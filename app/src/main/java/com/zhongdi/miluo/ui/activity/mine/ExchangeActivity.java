@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -156,7 +158,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     @Override
     public void onDataSuccess() {
         if (prizeType.equals("1")) {
-
+            showpSharePopupWindow();
         } else if (prizeType.equals("2")) {
             dialog = new ExchangeAlertDialog(mContext).builder().setMsg("话费兑换成功")
                     .setPositiveButton("更多好基", new View.OnClickListener() {
@@ -175,6 +177,9 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
             setResult(RESULT_OK);
         }
 
+    }
+    private void showpSharePopupWindow() {
+        mCardPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     @Override
@@ -204,5 +209,17 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
         presenter.exchange(prizeId, prizeType, etPhone.getText().toString());
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mCardPopupWindow != null && mCardPopupWindow.isShowing()) {
+                mCardPopupWindow.dismiss();
+                setResult(RESULT_OK);
+                finish();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

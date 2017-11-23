@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -96,6 +97,7 @@
             android:hint="输入手机号"
             android:imeOptions="actionNext"
             android:maxLength="11"
+            android:textColorHint="@color/text_color_normal"
             android:maxLines="1"
             android:nextFocusForward="@+id/et_password"
             android:paddingBottom="10dp"

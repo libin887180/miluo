@@ -320,7 +320,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
                     showpSharePopupWindow();
                 } else if (tvInvite.getText().equals("兑换")) {
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
-                    intent.putExtra("prizeType","1");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
+                    intent.putExtra("prizeType","-2");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
                     intent.putExtra("prizeId", tiyanjinDetail.getWinprize_id());
                     startActivityForResult(intent,101);
                 }

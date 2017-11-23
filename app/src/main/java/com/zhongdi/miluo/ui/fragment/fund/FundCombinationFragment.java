@@ -162,6 +162,7 @@ public class FundCombinationFragment extends Fragment {
 
     private void initPieChart(AssetAllocation allocation) {
         mChart.getDescription().setEnabled(false);
+        mChart.setNoDataText("数据处理中");
         mChart.setCenterText(generateCenterSpannableText(allocation.getNetAsset()));
         mChart.setCenterTextSize(10f);
         mChart.getDescription().setEnabled(false);

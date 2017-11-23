@@ -19,7 +19,8 @@ public class GiftListAdapter extends BaseRecyclerAdapter<Prize> {
 
     @Override
     public void convert(BaseRecyclerHolder holder, Prize item, int position) {
-        holder.setText(R.id.tv_title, item.getTitle());
+        String title = item.getTitle().replace("\\n", "\n");
+        holder.setText(R.id.tv_title, title);
         holder.setText(R.id.tv_time, "有效期"+item.getAdd_time()+"--"+item.getInvalid_time());
         holder.setText(R.id.tv_amount, item.getAmount());
 

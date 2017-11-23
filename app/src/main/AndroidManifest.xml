@@ -64,7 +64,8 @@
         <activity android:name=".ui.activity.login.LoginActivity" />
         <activity android:name=".ui.activity.login.RegisterActivity" />
         <activity android:name=".ui.activity.login.ForgetPswActivity" />
-        <activity android:name=".ui.activity.login.QuickLoginActivity" />
+        <activity android:name=".ui.activity.login.QuickLoginActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".ui.activity.mine.SettingActivity" />
         <activity android:name=".ui.activity.login.RegistSuccessActivity" />
         <activity android:name=".ui.activity.login.OpenAccountActivity" />
