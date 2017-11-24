@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="赎回"
         android:textColor="@color/text_222"
         android:textSize="16sp" />
 
@@ -28,7 +27,6 @@
         android:layout_toLeftOf="@+id/tv_next"
         android:layout_alignTop="@id/tv_title"
         android:layout_marginRight="10dp"
-        android:text="10.00份"
         android:textColor="@color/text_555"
         android:textSize="15sp" />
 
@@ -39,7 +37,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_title"
         android:layout_marginTop="10dp"
-        android:text="2017-08-09 10:56"
         android:textColor="@color/text_color_normal"
         android:textSize="12sp" />
 
@@ -61,7 +58,6 @@
         android:layout_alignBottom="@+id/tv_date"
         android:layout_toLeftOf="@+id/tv_next"
         android:layout_marginTop="10dp"
-        android:text="交易成功"
         android:layout_marginRight="10dp"
         android:textColor="@color/text_color_normal"
         android:textSize="14sp" />

@@ -35,7 +35,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/iv_bank_icon"
-        android:text="华夏盛世股票（002121）"
         android:textColor="@color/text_222"
         android:textSize="16sp" />
 
