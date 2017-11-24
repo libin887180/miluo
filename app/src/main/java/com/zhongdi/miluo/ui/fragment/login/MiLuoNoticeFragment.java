@@ -91,6 +91,8 @@ public class MiLuoNoticeFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<MessageBean>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, MessageBean messageBean, int position) {
+                datas.get(position).setStatus("1");
+                adapter.notifyDataSetChanged();
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("id",messageBean.getId());
                 intent.putExtra(IntentConfig.SOURCE,IntentConfig.FROM_NOTICE);

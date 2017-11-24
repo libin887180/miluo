@@ -101,21 +101,21 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
         sharePopView.findViewById(R.id.tv_circle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCardPopupWindow.dismiss();
+//                mCardPopupWindow.dismiss();
                 ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN_CIRCLE);
             }
         });
         sharePopView.findViewById(R.id.tv_wechat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCardPopupWindow.dismiss();
+//                mCardPopupWindow.dismiss();
                 ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.WEIXIN);
             }
         });
         sharePopView.findViewById(R.id.tv_weibo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCardPopupWindow.dismiss();
+//                mCardPopupWindow.dismiss();
                 ShareWeb(R.drawable.share_tyj, SHARE_MEDIA.SINA);
             }
         });

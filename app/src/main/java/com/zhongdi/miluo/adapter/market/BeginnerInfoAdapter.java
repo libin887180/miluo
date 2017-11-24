@@ -25,6 +25,12 @@ public class BeginnerInfoAdapter extends BaseRecyclerAdapter<InfomationNote> {
     @Override
     public void convert(BaseRecyclerHolder holder, InfomationNote item, int position) {
 
+
+//        if (item.getStatus().equals("0")) {
+//            holder.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.text_222));
+//        } else {
+//            holder.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.text_color_normal));
+//        }
         holder.setText(R.id.tv_title,item.getArticletitle());
         holder.setText(R.id.tv_date, TimeUtil.changeToDate(item.getReleasetime()));
        ImageView imageView = (ImageView) holder.getView(R.id.img_icon);

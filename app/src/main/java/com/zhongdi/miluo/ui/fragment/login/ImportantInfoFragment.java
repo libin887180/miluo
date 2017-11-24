@@ -89,6 +89,9 @@ public class ImportantInfoFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<InfomationNote>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, InfomationNote infomationNote, int position) {
+//                setReadStutas(infomationNote.getId()+"");
+//                notes.get(position).setStatus("1");
+//                adapter.notifyDataSetChanged();
                 Intent intent = new Intent(getActivity(), HtmlActivity.class);
                 intent.putExtra("url",infomationNote.getArticleurl());
                 startActivity(intent);
@@ -120,7 +123,37 @@ public class ImportantInfoFragment extends Fragment {
             }
         });
     }
+    /**
+     * @param id 资讯id
+     */
+    public void setReadStutas(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.UPSTATUS, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<InfomationNote>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<InfomationNote>> response, int requestCode) {
 
+//                        onDataSuccess(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<InfomationNote>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
     @Override
     public void onDestroyView() {
         if (unbinder != null && unbinder != Unbinder.EMPTY) {

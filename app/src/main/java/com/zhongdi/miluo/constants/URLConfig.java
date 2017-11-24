@@ -202,6 +202,10 @@ public class URLConfig {
      */
     public static final String FUND_ESSAY = BASE_URL + "/lead/v1/fundEssay";
     /**
+     * 基金资讯阅读状态
+     */
+    public static final String UPSTATUS = BASE_URL + "/lead/v1/upToStatus";
+    /**
      * 赎回初始化
      */
     public static final String FUND_SELL_BEFORE = BASE_URL + "/lead/v1/user/beforeRedeem";

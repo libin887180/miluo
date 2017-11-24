@@ -308,7 +308,7 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
                     intent.putExtra("prizeType","1");//充值类别(-2、推荐(不需要传id) 1、我的奖品体验金；2、我的奖品新手;3、我的奖品米罗盘；4、我的奖品pk组团；
                     intent.putExtra("prizeId", tiyanjinDetail.getWinprize_id());
-                    startActivity(intent);
+                    startActivityForResult(intent,101);
                 } else if (btnExchange.getText().equals("邀请好友")) {
                     showpSharePopupWindow();
 //                    showToast("邀请好友");

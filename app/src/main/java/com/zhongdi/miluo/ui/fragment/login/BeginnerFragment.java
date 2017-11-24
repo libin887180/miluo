@@ -89,6 +89,9 @@ public class BeginnerFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<InfomationNote>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, InfomationNote infomationNote, int position) {
+//                setReadStutas(infomationNote.getId()+"");
+//                notes.get(position).setStatus("1");
+//                adapter.notifyDataSetChanged();
                 Intent intent = new Intent(getActivity(), HtmlActivity.class);
                 intent.putExtra("url",infomationNote.getArticleurl());
                 startActivity(intent);
@@ -131,6 +134,37 @@ public class BeginnerFragment extends Fragment {
     }
 
     /**
+     * @param id 资讯id
+     */
+    public void setReadStutas(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.UPSTATUS, map, 101,
+                new NetRequestUtil.NetResponseListener<MResponse<List<InfomationNote>>>() {
+                    @Override
+                    public void onSuccess(MResponse<List<InfomationNote>> response, int requestCode) {
+
+//                        onDataSuccess(response.getBody());
+                    }
+
+                    @Override
+                    public void onFailed(MResponse<List<InfomationNote>> response, int requestCode) {
+                        ViseLog.e("请求失败");
+                        Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+    /**
      * @param articletag 01首页推荐 02利得原创 03基金资讯 04基金研报 05基金导读 06基金观点 07理财热点 08新手秘籍
      *                   09其他 10要问(推荐,资讯,基金导读,理财热点) 11投研(原创,研报,基金观点)
      * @param pageNumber 页码
@@ -165,7 +199,6 @@ public class BeginnerFragment extends Fragment {
                     }
                 });
     }
-
     private void onDataSuccess(List<InfomationNote> body) {
 
         if (pageNumber == 1) {

@@ -33,6 +33,15 @@ public class MessageAdapter extends BaseRecyclerAdapter<MessageBean> {
         title.setText(item.getTitle());
         date.setText(TimeUtil.changeToDate(item.getAdd_time()));
         dsc.setText(item.getContent());
+
+        if (item.getStatus().equals("0")) {
+//            status.setVisibility(View.VISIBLE);
+            title.setTextColor(mContext.getResources().getColor(R.color.text_222));
+
+        } else {
+//            status.setVisibility(View.INVISIBLE);
+            title.setTextColor(mContext.getResources().getColor(R.color.text_color_normal));
+        }
 //        status.setVisibility(View.INVISIBLE);
 //        if (item.getStatus().equals("0")) {
 //            status.setVisibility(View.VISIBLE);
