@@ -104,6 +104,15 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_mine;
+    }
+
+    @Override
+    public void fetchData() {
+        refreshData();
+    }
+    @Override
     protected void initView(View view) {
 //        setupViewPager(viewpage);
 
@@ -242,15 +251,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
     }
 
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_mine;
-    }
-
-    @Override
-    public void fetchData() {
-        refreshData();
-    }
 
 
     @Override
