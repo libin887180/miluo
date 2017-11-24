@@ -113,7 +113,7 @@
                 android:textSize="12sp"
                 android:paddingRight="4dp"
                 android:paddingTop="8dp"
-                android:text="1000元起购"
+                android:text="--元起购"
                 android:textColor="@color/white" />
 
         </LinearLayout>

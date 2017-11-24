@@ -32,7 +32,6 @@
             android:layout_toLeftOf="@id/tv_date"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="体验金"
             android:textColor="@color/text_222"
             android:textSize="17sp" />
 
@@ -46,7 +45,6 @@
             android:minLines="2"
             android:layout_marginTop="5dp"
             android:maxLines="2"
-            android:text="苏打水大所大所水所大所"
             android:textColor="@color/text_color_normal"
             android:textSize="14sp" />
 

@@ -89,7 +89,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="15dp"
-                        android:text="2017-06-02 11:56"
                         android:textColor="@color/text_color_normal"
                         android:textSize="12sp" />
 

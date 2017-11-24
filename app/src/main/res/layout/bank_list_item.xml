@@ -22,7 +22,6 @@
         android:layout_alignTop="@id/iv_bank_icon"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/iv_bank_icon"
-        android:text="中国银行"
         android:textColor="@color/text_222"
         android:textSize="16sp" />
 
@@ -33,7 +32,6 @@
         android:layout_alignBottom="@id/iv_bank_icon"
         android:layout_alignLeft="@id/tv_bank_name"
         android:layout_toRightOf="@id/iv_bank_icon"
-        android:text="单笔限额30万/单日累计限额50万"
         android:textColor="@color/text_color_normal"
         android:textSize="14sp" />
 

@@ -15,7 +15,6 @@
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/white"
-        android:text="申购"
         android:gravity="center"
         android:textSize="18sp"
         android:background="@drawable/bg_text_circle_blue" />
@@ -32,7 +31,6 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="刷卡机倒骄傲"
             android:textColor="@color/text_222"
             android:textSize="16sp" />
 
@@ -42,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:layout_marginTop="10dp"
-            android:text="10.00元"
             android:textColor="@color/text_222"
             android:textSize="14sp" />
         <TextView
@@ -51,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_dsc"
             android:layout_marginTop="10dp"
-            android:text="2017-06-05 14:32"
             android:textColor="@color/text_color_normal"
             android:textSize="12sp" />
         <TextView
@@ -62,7 +58,6 @@
             android:layout_marginTop="10dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="交易成功"
             android:textColor="@color/text_222"
             android:textSize="16sp" />
         <ImageView

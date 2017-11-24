@@ -202,9 +202,11 @@ public class TiyanjinInfoActivity extends BaseActivity2 {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             webView.reload();
-            Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
-            intent.putExtra("fundCode", fundCode);
-            startActivity(intent);
+            if (requestCode == 102) {
+                Intent intent = new Intent(mContext, BuyTiyanjinActivity.class);
+                intent.putExtra("fundCode", fundCode);
+                startActivity(intent);
+            }
         }
 
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);

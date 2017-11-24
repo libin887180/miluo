@@ -33,7 +33,6 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:text="华夏盛世股票"
             android:textColor="@color/text_222"
             android:textSize="18sp" />
 
@@ -43,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="000061"
             android:textColor="@color/text_color_normal"
             android:textSize="13sp" />
     </LinearLayout>
@@ -71,7 +69,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:text="25.97"
                 android:textColor="@color/tab_text_selected"
                 android:textSize="25sp"
                 android:textStyle="bold" />

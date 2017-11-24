@@ -68,7 +68,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="25岁"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -91,7 +90,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="25岁"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -114,7 +112,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="25岁"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -143,7 +140,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="25岁"
                     android:textColor="@color/text_555"
                     android:textSize="16sp" />
             </RelativeLayout>

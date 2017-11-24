@@ -100,7 +100,6 @@
                     android:id="@+id/tv_fund_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="融通中国风1号前收(004253)"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -110,7 +109,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_fund_name"
                     android:layout_marginTop="15dp"
-                    android:text="004253"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -121,7 +119,6 @@
                     android:layout_alignBottom="@id/tv_num"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_num"
-                    android:text="指数型"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 

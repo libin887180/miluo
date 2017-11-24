@@ -14,7 +14,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:text="2017-07-23"
         android:textColor="@color/text_222"
         android:textSize="14sp" />
 
@@ -23,7 +22,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="0.8819"
         android:textColor="@color/text_222"
         android:textSize="14sp" />
 
@@ -32,7 +30,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="0.8819"
         android:textColor="@color/text_222"
         android:gravity="right"
         android:textSize="14sp" />
@@ -44,6 +41,5 @@
         android:layout_weight="2"
         android:textColor="@color/red"
         android:gravity="right"
-        android:text="2.63%"
         android:textSize="14sp" />
 </LinearLayout>

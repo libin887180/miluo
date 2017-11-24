@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="博时宝泰保本A" />
+            />
 
         <TextView
             android:id="@+id/tv_fund_code"
@@ -57,7 +57,6 @@
                 android:id="@+id/tv_asset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1000000"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
@@ -81,7 +80,6 @@
                 android:id="@+id/tv_profit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="23.53"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/red" />

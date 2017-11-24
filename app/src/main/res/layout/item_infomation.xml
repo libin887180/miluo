@@ -31,7 +31,6 @@
             android:layout_toRightOf="@+id/img_icon"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="刷卡机倒垃圾大路口圾大路口的骄圾大路口的骄的骄傲"
             android:textColor="@color/text_222"
             android:textSize="17sp" />
 
@@ -44,7 +43,6 @@
             android:layout_marginRight="10dp"
             android:drawableLeft="@drawable/btn_time_small"
             android:drawablePadding="5dp"
-            android:text="08-06"
             android:textColor="@color/text_color_normal"
             android:textSize="14sp" />
     </RelativeLayout>
