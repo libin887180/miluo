@@ -55,7 +55,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/24.
  */
 
-public class MineFragment extends BaseFragment<MineFragPresenter> implements MineFragmentView {
+public class MineFragment2 extends BaseFragment<MineFragPresenter> implements MineFragmentView {
 
     List<HomeAssetBean> mDatas = new ArrayList<>();
     List<HomeAssetBean> hismDatas = new ArrayList<>();
@@ -146,20 +146,11 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 if (tab.getPosition() == 0) {
                     listView.setAdapter(mAdapter);
                     listView.setOnItemClickListener(currentOnclickListener);
-                    if (mDatas.size() == 0) {
-                        if (listView.getHeaderViewsCount() == 0) {
-                            listView.addHeaderView(emptyView);
-                        }
-                    } else {
-                        listView.removeHeaderView(emptyView);
-                    }
                 } else {
                     listView.setAdapter(hisAdapter);
                     listView.setOnItemClickListener(hisOnclickListener);
                     if (hismDatas.size() == 0) {
-                        if (listView.getHeaderViewsCount() == 0) {
-                            listView.addHeaderView(emptyView);
-                        }
+                        listView.addHeaderView(emptyView);
                     } else {
                         listView.removeHeaderView(emptyView);
                     }
@@ -181,8 +172,8 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             @Override
             public void onScrollStateChanged(AbsListView absListView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int lastVisibleItem = listView.getLastVisiblePosition() ;
-                    int totalItemCount = listView.getCount();
+                    int lastVisibleItem = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    int totalItemCount = layoutManager.getItemCount();
                     if ((lastVisibleItem == (totalItemCount - 1))) {
 //
                         if (tablayout.getSelectedTabPosition() == 0) {
@@ -204,28 +195,28 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
 
         });
+
+
     }
 
     AdapterView.OnItemClickListener currentOnclickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (mDatas.size() > 0) {
-                HomeAssetBean assetBean = mDatas.get(position);
+            HomeAssetBean assetBean = mDatas.get(position);
 
-                if (assetBean.getStatus().equals("收益中")) {
-                    Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
-                    intent.putExtra("fundcode", assetBean.getFundcode());
-                    startActivityForResult(intent, 101);
+            if (assetBean.getStatus().equals("收益中")) {
+                Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
+                intent.putExtra("fundcode", assetBean.getFundcode());
+                startActivityForResult(intent, 101);
+            } else {
+                Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
+                intent.putExtra("tradeid", assetBean.getTradeid());
+                if (assetBean.getStatus().contains("申购")) {
+                    intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
                 } else {
-                    Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
-                    intent.putExtra("tradeid", assetBean.getTradeid());
-                    if (assetBean.getStatus().contains("申购")) {
-                        intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
-                    } else {
-                        intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
-                    }
-                    startActivityForResult(intent, 101);
+                    intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
                 }
+                startActivityForResult(intent, 101);
             }
         }
     };
@@ -320,17 +311,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         }
         mDatas.addAll(assetList);
         mAdapter.notifyDataSetChanged();
-        if (tablayout.getSelectedTabPosition() == 0) {
-
-            if (mDatas.size() == 0) {
-                if (listView.getHeaderViewsCount() == 0) {
-                    listView.addHeaderView(emptyView);
-                }
-            } else {
-                listView.removeHeaderView(emptyView);
-            }
-        }
-
     }
 
     @Override
@@ -346,15 +326,6 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         }
         hismDatas.addAll(hisassetList);
         hisAdapter.notifyDataSetChanged();
-        if (tablayout.getSelectedTabPosition() == 1) {
-            if (hismDatas.size() == 0) {
-                if (listView.getHeaderViewsCount() == 0) {
-                    listView.addHeaderView(emptyView);
-                }
-            } else {
-                listView.removeHeaderView(emptyView);
-            }
-        }
     }
 
     @Override

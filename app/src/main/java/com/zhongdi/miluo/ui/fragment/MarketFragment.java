@@ -74,7 +74,8 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     MyFragmentPagerAdapter adapter;
     private NetBroadcastReceiver receiver;
     List<String> titles;
-    private static  MarketFragment marketFragment;
+    private static MarketFragment marketFragment;
+
     public static MarketFragment newInstance(String info) {
         Bundle args = new Bundle();
         MarketFragment fragment = new MarketFragment();
@@ -83,6 +84,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         marketFragment = fragment;
         return fragment;
     }
+
     public static MarketFragment getInstance() {
         return marketFragment;
     }
@@ -157,7 +159,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3||position==9) {
+                if (position == 3 || position == 9) {
                     rlHuobi.setVisibility(View.VISIBLE);
                     rlOrther.setVisibility(View.GONE);
                 } else {
@@ -188,7 +190,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
 
                 if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
-                    FundFragment currentFragment = (FundFragment)     adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
+                    FundFragment currentFragment = (FundFragment) adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
                     currentFragment.initData();
                 }
                 sortAdapter.setCheck(i);
@@ -233,7 +235,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
                 if (adapter != null && adapter.getItem(tablayout.getSelectedTabPosition()) != null) {
 
-                    FundFragment currentFragment = (FundFragment)     adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
+                    FundFragment currentFragment = (FundFragment) adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
 //                    FundFragment currentFragment = (FundFragment) adapter.getItem(tablayout.getSelectedTabPosition());
                     currentFragment.initData();
                 }
@@ -244,7 +246,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     protected void initView(View view) {
-        getFundType();
+
         initSortPop();
         initInCreasePop();
         initAnimation();
@@ -262,6 +264,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
 
     @Override
     public void fetchData() {
+        getFundType();
     }
 
     @Override

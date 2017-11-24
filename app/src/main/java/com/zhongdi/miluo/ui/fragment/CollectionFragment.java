@@ -257,6 +257,9 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void fetchData() {
         if (MyApplication.getInstance().isLogined) {//登录了,查询数据
             pageNum = 1;
+            if(presenter==null){
+                presenter = initPresenter();
+            }
             presenter.getOptionalFund(rateType, pageNum);
         }
     }

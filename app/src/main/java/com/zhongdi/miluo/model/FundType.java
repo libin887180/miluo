@@ -38,7 +38,7 @@ public class FundType  implements Serializable{
     }
 
     public String getDicno() {
-        return dicno;
+         return dicno;
     }
 
     public void setDicno(String dicno) {
