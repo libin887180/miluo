@@ -11,15 +11,17 @@ public class URLConfig {
      * 主接口-正式地址
      */
 //    赵炎
-//public static final String BASE_URL = "http://192.168.64.120:8085";
+//    public static final String BASE_URL = "http://192.168.64.120:8085";
     //翟万鹏
 //    public static final String BASE_URL = "http://192.168.64.154:8085";
     //秦松
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     //测试环境
 //    public static final String BASE_URL = "http://192.168.151.13:8085";
-    //外网
-    public static final String BASE_URL = "http://218.94.82.38:8085";
+    //外网测试
+//    public static final String BASE_URL = "http://218.94.82.38:8085";
+    //正式测试
+    public static final String BASE_URL = "http://47.96.177.50:8085";
 //    public static final String HTML5 = "http://192.168.64.212:8371";
     public static final String HTML5 = "http://192.168.151.13:8371";
 
@@ -234,8 +236,7 @@ public class URLConfig {
      */
     public static final String FUND_VAL = BASE_URL + "/fund/fundVal";
     /**
-     *
-     收益曲线
+     * 收益曲线
      */
     public static final String FUND_VALUATION = BASE_URL + "/fund/fundValuation";
     /**
@@ -269,59 +270,59 @@ public class URLConfig {
     /**
      * 基金投资热点
      */
-    public static final String HOT_SPOTS= BASE_URL + "/chooseFund/selHotSpots";
+    public static final String HOT_SPOTS = BASE_URL + "/chooseFund/selHotSpots";
     /**
      * 首页 特色基金，获奖基金，米罗懂你
      */
-    public static final String HOME_FUND= BASE_URL + "/chooseFund/selChooseFundList";
+    public static final String HOME_FUND = BASE_URL + "/chooseFund/selChooseFundList";
     /**
      * 体验金介绍页
      */
-    public static final String TIYANJIN= HTML5 + "/lead/v1/experience/getFeeShow?type=1&username=";
+    public static final String TIYANJIN = HTML5 + "/lead/v1/experience/getFeeShow?type=1&username=";
     /**
      * 新手
      */
-    public static final String JEUNIOR= HTML5 + "/fund/selJuniorActivity";
+    public static final String JEUNIOR = HTML5 + "/fund/selJuniorActivity";
     /**
      * 小白学基
      */
-    public static final String STUDY= HTML5 + "/fund/fundLearningType";
+    public static final String STUDY = HTML5 + "/fund/fundLearningType";
     /**
      * 米罗盘
      */
-    public static final String MILUO_PAN= HTML5 + "/fund/fundLearningType";
+    public static final String MILUO_PAN = HTML5 + "/fund/fundLearningType";
     /**
      * 特色基金
      */
-    public static final String SPECIAL_FUND= HTML5 + "/fund/selCharacteristicList?";
+    public static final String SPECIAL_FUND = HTML5 + "/fund/selCharacteristicList?";
     /**
      * 公告和消息详情
      */
-    public static final String NEWS_DETAIL= HTML5 + "/lead/v1/experience/newsDetail?id=";
+    public static final String NEWS_DETAIL = HTML5 + "/lead/v1/experience/newsDetail?id=";
     /**
      * 晨星奖
      */
-    public static final String CHEN_XING= HTML5 + "/fund/selChooseFundList?";
+    public static final String CHEN_XING = HTML5 + "/fund/selChooseFundList?";
     /**
      * 投资热点详情
      */
-    public static final String HOT_SPOT_DETAIL= HTML5 + "/fund/selHotSpotsList?";
+    public static final String HOT_SPOT_DETAIL = HTML5 + "/fund/selHotSpotsList?";
     /**
      * 协议
      */
-    public static final String PROTOCOL= HTML5 + "/protocol";
+    public static final String PROTOCOL = HTML5 + "/protocol";
     /**
      * 体验金小知识
      */
-    public static final String KNOWLEDGE= HTML5 + "/experience_knowledge";
+    public static final String KNOWLEDGE = HTML5 + "/experience_knowledge";
     /**
-     *H5登录
+     * H5登录
      */
-    public static final String H5_REGISTER= HTML5 + "/lead/v1/register/useRegister";
+    public static final String H5_REGISTER = HTML5 + "/lead/v1/register/useRegister";
     /**
-     *  检测升级
+     * 检测升级
      */
-    public static final String UPDATE= BASE_URL + "/lead/v1/sysUpgrade";
+    public static final String UPDATE = BASE_URL + "/lead/v1/sysUpgrade";
 
 
 }

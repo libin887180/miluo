@@ -226,34 +226,36 @@ private int  MAIDIAN;
 
                 if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
                     double amount = Double.parseDouble(etMoney.getText().toString());
-                    for (int i = 0; i < fees.size(); i++) {
-                        if (amount >= fees.get(i).getAmountdownlimit() * 10000) {
-                            if (Double.parseDouble(fees.get(i).getDiscount()) == 1 || Double.parseDouble(fees.get(i).getDiscount()) == 0) {//没有优惠折扣
-                                tvDepRate.setText("");
-                                tvDepSxf.setText("");
-                                if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//达到上限
-                                    tvRate.setText(fees.get(i).getRatevalue() + "元");
-                                    tvSxf.setText(fees.get(i).getRatevalue() + "元");
-                                } else {//需要乘以费率
-                                    tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "") + "%");
-                                    tvSxf.setText(StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "") + "元");
+                    if(fees!=null&&fees.size()>0) {
+                        for (int i = 0; i < fees.size(); i++) {
+                            if (amount >= fees.get(i).getAmountdownlimit() * 10000) {
+                                if (Double.parseDouble(fees.get(i).getDiscount()) == 1 || Double.parseDouble(fees.get(i).getDiscount()) == 0) {//没有优惠折扣
+                                    tvDepRate.setText("");
+                                    tvDepSxf.setText("");
+                                    if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//达到上限
+                                        tvRate.setText(fees.get(i).getRatevalue() + "元");
+                                        tvSxf.setText(fees.get(i).getRatevalue() + "元");
+                                    } else {//需要乘以费率
+                                        tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "") + "%");
+                                        tvSxf.setText(StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "") + "元");
+                                    }
+                                    break;
+                                } else {//有优惠折扣
+                                    double rate = Double.parseDouble(fees.get(i).getRatevalue());
+                                    double discount = Double.parseDouble(fees.get(i).getDiscount());
+                                    if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//  达到上限
+                                        tvDepRate.setText(rate + "元");
+                                        tvRate.setText(rate * discount + "元");
+                                        tvSxf.setText(rate * discount + "元");
+                                        tvDepSxf.setText(rate + "元");
+                                    } else {
+                                        tvDepRate.setText(rate * 100 + "%");
+                                        tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100 + "") + "%");//费率*折扣转成%
+                                        tvDepSxf.setText(StringUtil.parseStr2Num(amount * rate + "") + "元");
+                                        tvSxf.setText(StringUtil.parseStr2Num(amount * rate * discount + "") + "元");//金额 *费率*折扣
+                                    }
+                                    break;
                                 }
-                                break;
-                            } else {//有优惠折扣
-                                double rate = Double.parseDouble(fees.get(i).getRatevalue());
-                                double discount = Double.parseDouble(fees.get(i).getDiscount());
-                                if (Double.parseDouble(fees.get(i).getRatevalue()) > 1) {//  达到上限
-                                    tvDepRate.setText(rate + "元");
-                                    tvRate.setText(rate * discount + "元");
-                                    tvSxf.setText(rate * discount + "元");
-                                    tvDepSxf.setText(rate + "元");
-                                } else {
-                                    tvDepRate.setText(rate * 100 + "%");
-                                    tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100 + "") + "%");//费率*折扣转成%
-                                    tvDepSxf.setText(StringUtil.parseStr2Num(amount * rate + "") + "元");
-                                    tvSxf.setText(StringUtil.parseStr2Num(amount * rate * discount + "") + "元");//金额 *费率*折扣
-                                }
-                                break;
                             }
                         }
                     }
@@ -538,9 +540,15 @@ private int  MAIDIAN;
                 initialize();
             }
         }
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            //刷新数据
-            initialize();
+
+        if (requestCode == 301) {
+            if (resultCode == Activity.RESULT_OK) {
+                initialize();
+            } else {
+                if(beforeBuyInfo==null) {
+                    finish();
+                }
+            }
         }
     }
 

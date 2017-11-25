@@ -229,11 +229,11 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshData();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        refreshData();
+//    }
 
     private void refreshData() {
         if (MyApplication.getInstance().isLogined) {

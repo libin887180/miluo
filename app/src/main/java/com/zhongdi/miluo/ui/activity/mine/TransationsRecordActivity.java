@@ -134,7 +134,9 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.getTransRecord(tradeid, tradeType);
+        if(requestCode==301&&resultCode==RESULT_OK) {
+            presenter.getTransRecord(tradeid, tradeType);
+        }
     }
 
     @Override

@@ -177,40 +177,42 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
 
                 if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt) {
                     float amount = parseFloat(etMoney.getText().toString());
-                    for (int i = 0; i < fees.size(); i++) {
-                        if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
-                            if (fees.get(i).getDiscount().equals("1")) {
-                                tvDepRate.setText("");
-                                tvDepSxf.setText("");
-                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//达到上限
-                                    tvRate.setText(fees.get(i).getRatevalue() + "元");
-                                    tvSxf.setText(fees.get(i).getRatevalue() + "元");
-                                } else {//需要乘以费率
-                                    tvRate.setText(parseFloat(fees.get(i).getRatevalue()) * 100 + "%");
-                                    tvSxf.setText(amount * parseFloat(fees.get(i).getRatevalue()) + "元");
+                    if (fees != null && fees.size() > 0) {
+                        for (int i = 0; i < fees.size(); i++) {
+                            if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
+                                if (fees.get(i).getDiscount().equals("1")) {
+                                    tvDepRate.setText("");
+                                    tvDepSxf.setText("");
+                                    if (parseFloat(fees.get(i).getRatevalue()) > 1) {//达到上限
+                                        tvRate.setText(fees.get(i).getRatevalue() + "元");
+                                        tvSxf.setText(fees.get(i).getRatevalue() + "元");
+                                    } else {//需要乘以费率
+                                        tvRate.setText(parseFloat(fees.get(i).getRatevalue()) * 100 + "%");
+                                        tvSxf.setText(amount * parseFloat(fees.get(i).getRatevalue()) + "元");
+                                    }
+                                    break;
+                                } else {//有优惠折扣
+                                    float rate = parseFloat(fees.get(i).getRatevalue());
+                                    float discount = parseFloat(fees.get(i).getDiscount());
+                                    if (parseFloat(fees.get(i).getRatevalue()) > 1) {//  达到上限
+                                        tvDepRate.setText(rate + "元");
+                                        tvRate.setText(rate * discount + "元");
+                                        tvSxf.setText(rate * discount + "元");
+                                        tvDepSxf.setText(rate + "元");
+                                    } else {
+                                        tvDepRate.setText(rate * 100 + "%");
+                                        tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
+                                        tvDepSxf.setText(amount * rate + "元");
+                                        tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
+                                    }
+                                    break;
                                 }
-                                break;
-                            } else {//有优惠折扣
-                                float rate = parseFloat(fees.get(i).getRatevalue());
-                                float discount = parseFloat(fees.get(i).getDiscount());
-                                if (parseFloat(fees.get(i).getRatevalue()) > 1) {//  达到上限
-                                    tvDepRate.setText(rate + "元");
-                                    tvRate.setText(rate * discount + "元");
-                                    tvSxf.setText(rate * discount + "元");
-                                    tvDepSxf.setText(rate + "元");
-                                } else {
-                                    tvDepRate.setText(rate * 100 + "%");
-                                    tvRate.setText(rate * discount * 100 + "%");//费率*折扣转成%
-                                    tvDepSxf.setText(amount * rate + "元");
-                                    tvSxf.setText(amount * rate * discount + "元");//金额 *费率*折扣
-                                }
-                                break;
                             }
                         }
                     }
-                    if(cbAgreement.isChecked()&&cbRisk.isChecked()){
+                    if (cbAgreement.isChecked() && cbRisk.isChecked()) {
                         enableSubmitBtn();
-                    }else{
+                    } else {
                         disableSubmitBtn();
                     }
                 } else {
@@ -222,7 +224,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         cbRisk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()&&cbAgreement.isChecked()) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt && cbRisk.isChecked() && cbAgreement.isChecked()) {
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -232,7 +234,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt&&cbRisk.isChecked()&&cbAgreement.isChecked()) {
+                if (etMoney.getText().length() > 0 && Double.parseDouble(etMoney.getText().toString()) >= minsubscribeamt && cbRisk.isChecked() && cbAgreement.isChecked()) {
                     enableSubmitBtn();
                 } else {
                     disableSubmitBtn();
@@ -283,8 +285,8 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
         etMoney.setHint(buyInfo.getFund().getMinsubscribeamt());
         tvFundName.setText(buyInfo.getFund().getFundname());
         tvNum.setText(buyInfo.getFund().getFundcode());
-        String  fundType ;
-        switch (buyInfo.getFund().getFundtype()){
+        String fundType;
+        switch (buyInfo.getFund().getFundtype()) {
             case MiluoConfig.GUPIAO:
                 fundType = "股票型";
                 break;
@@ -426,11 +428,11 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
     }
 
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        Intent intent = new Intent(mContext, QuickLoginActivity.class);
         startActivityForResult(intent, 301);
     }
 
-    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk,R.id.tv_fund_knowledge})
+    @OnClick({R.id.rl_bank_card, R.id.tv_ld_protocol, R.id.btn_submit, R.id.tv_open_account, R.id.tv_risk, R.id.tv_fund_knowledge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_bank_card:
@@ -508,8 +510,14 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
             }
         }
 
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            presenter.beforeBuyInit(fundCode);
+        if (requestCode == 301) {
+            if (resultCode == Activity.RESULT_OK) {
+                presenter.beforeBuyInit(fundCode);
+            } else {
+                if(beforeBuyInfo==null) {
+                    finish();
+                }
+            }
         }
     }
 
