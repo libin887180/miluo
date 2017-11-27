@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.model.RateDetail;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,8 @@ public class SellPremiumAdapter extends BaseAdapter {
             holder.tvRate.setText(dataList.get(position).getRateValue());
         }else{
             String rate =  dataList.get(position).getRateValue().substring(0,dataList.get(position).getRateValue().length()-1);
-            holder.tvRate.setText(Double.parseDouble(rate)* Double.parseDouble(dataList.get(position).getDiscount())+"%");
+            DecimalFormat mFormat = new DecimalFormat("#0.00");
+            holder.tvRate.setText(mFormat.format(Double.parseDouble(rate)* Double.parseDouble(dataList.get(position).getDiscount()))+"%");
             holder.tvDepRate.setText(dataList.get(position).getRateValue());
         }
 

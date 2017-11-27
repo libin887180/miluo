@@ -34,6 +34,8 @@ import com.zhongdi.miluo.view.FundDetailView;
 import com.zhongdi.miluo.widget.NoScrollViewPager;
 import com.zhongdi.miluo.widget.SegmentControl;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -355,8 +357,12 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             double discount = Double.parseDouble(fundDetail.getDiscount());
             if(!TextUtils.isEmpty(fundDetail.getRateValue())&&fundDetail.getRateValue().length()>0) {
                 String rate = fundDetail.getRateValue().substring(0, fundDetail.getRateValue().length() - 1);
-                float value = Float.parseFloat(rate);
-                tvCurrentRate.setText(value*discount+"%");
+                double value = Double.parseDouble(rate);
+                DecimalFormat mFormat = new DecimalFormat("#0.00");
+
+
+                tvCurrentRate.setText(mFormat.format(value*discount)+"%");
+//                tvCurrentRate.setText(CommonUtils.mul(value,discount)+"%");
             }else{
                 tvCurrentRate.setText("0%");
             }

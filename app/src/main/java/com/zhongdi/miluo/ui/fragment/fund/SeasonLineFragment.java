@@ -67,6 +67,7 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
     public void setUserVisibleHint(boolean isVisibleToUser) {
         this.isVisibleToUser = isVisibleToUser;
         if(lineChart==null||lineChart.isEmpty()){
+            presenter = initPresenter();
             prepareFetchData(true);
         }
     }

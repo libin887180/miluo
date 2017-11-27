@@ -65,6 +65,7 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
     public void setUserVisibleHint(boolean isVisibleToUser) {
         this.isVisibleToUser = isVisibleToUser;
         if(lineChart==null||lineChart.isEmpty()){
+            presenter = initPresenter();
             prepareFetchData(true);
         }
 
