@@ -533,13 +533,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             tvNetvalue.setText(body.getNetvalue() + "");
             tvDayrate.setText(body.getDayrate() + "%");
         }
-        if (body.getDividendMethod().equals("0")) {
+        if (TextUtils.equals(body.getDividendMethod(),"0")) {
             listAdapter.setCheck(0);
             tvFenhong.setText("红利再投");
-        } else if (body.getDividendMethod().equals("1")) {
+        } else if (TextUtils.equals(body.getDividendMethod(),"1")) {
             listAdapter.setCheck(1);
             tvFenhong.setText("现金分红");
-        } else if (body.getDividendMethod().equals("2")) {
+        } else if (TextUtils.equals(body.getDividendMethod(),"2")) {
             tvFenhong.setText("红利再投\n确认中");
         } else {
             tvFenhong.setText("现金分红\n确认中");

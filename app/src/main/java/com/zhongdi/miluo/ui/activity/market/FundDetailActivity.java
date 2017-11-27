@@ -353,7 +353,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
         tvDepRate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         if (!TextUtils.isEmpty(fundDetail.getDiscount())&&Double.parseDouble(fundDetail.getDiscount())>0&&Double.parseDouble(fundDetail.getDiscount())<1) {
             double discount = Double.parseDouble(fundDetail.getDiscount());
-            if(fundDetail.getRateValue().length()>0) {
+            if(!TextUtils.isEmpty(fundDetail.getRateValue())&&fundDetail.getRateValue().length()>0) {
                 String rate = fundDetail.getRateValue().substring(0, fundDetail.getRateValue().length() - 1);
                 float value = Float.parseFloat(rate);
                 tvCurrentRate.setText(value*discount+"%");
@@ -366,7 +366,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             tvCurrentRate.setText(fundDetail.getRateValue());
         }
 
-        if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
+        if (TextUtils.equals(fundDetail.getBuyStatus(),"0")) {//（0-不能购买，1-可以购买）
             tvBuy.setText("暂不开放 敬请期待");
             tvBuy.setEnabled(false);
         } else {

@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -180,7 +181,7 @@ public class BuyTiyanjinActivity extends BaseActivity<BuyTiyanjinPresenter> impl
                     if (fees != null && fees.size() > 0) {
                         for (int i = 0; i < fees.size(); i++) {
                             if (amount >= fees.get(i).getAmountdownlimit() * 10000) {//没有优惠折扣
-                                if (fees.get(i).getDiscount().equals("1")) {
+                                if (TextUtils.equals(fees.get(i).getDiscount(),"1")) {
                                     tvDepRate.setText("");
                                     tvDepSxf.setText("");
                                     if (parseFloat(fees.get(i).getRatevalue()) > 1) {//达到上限

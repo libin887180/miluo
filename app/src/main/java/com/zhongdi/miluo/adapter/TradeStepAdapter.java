@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zhongdi.miluo.R;
@@ -34,7 +35,7 @@ public class TradeStepAdapter extends BaseRecyclerAdapter<StepsBean> {
         holder.setText(R.id.step_time, item.getTime());
         holder.setVisible(R.id.tv_cancel_status, false);
         if (position == 0) {
-            if (cancelstatus.equals("0") && currentStep == 1) {//cancelstatus 1 是不可撤回 0 是可撤回
+            if (TextUtils.equals(cancelstatus,"0") && currentStep == 1) {//cancelstatus 1 是不可撤回 0 是可撤回
                 holder.setVisible(R.id.tv_cancel_status, true);
                 holder.setText(R.id.tv_cancel_status, "下单撤回");
             } else {

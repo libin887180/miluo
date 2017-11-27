@@ -97,12 +97,14 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
             tvTuoguanRate.setText(body.getCustodyRate());
         }
         List<RateTypeDetail> rateTypes = body.getList();
-        for (int i = 0; i < rateTypes.size(); i++) {
-            if (rateTypes.get(i).getRateType().equals("02")) {//前端申购
-                applyRates.addAll(rateTypes.get(i).getData());
-            }
-            if (rateTypes.get(i).getRateType().equals("04")) {//前端申购
-                sellRedems.addAll(rateTypes.get(i).getData());
+        if(rateTypes!=null&&rateTypes.size()>0) {
+            for (int i = 0; i < rateTypes.size(); i++) {
+                if (TextUtils.equals(rateTypes.get(i).getRateType(),"02")) {//前端申购
+                    applyRates.addAll(rateTypes.get(i).getData());
+                }
+                if (TextUtils.equals(rateTypes.get(i).getRateType(),"04")) {//前端申购
+                    sellRedems.addAll(rateTypes.get(i).getData());
+                }
             }
         }
         applyAdapter.notifyDataSetChanged();

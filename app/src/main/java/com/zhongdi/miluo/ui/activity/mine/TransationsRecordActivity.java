@@ -145,7 +145,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             btn_back.setVisibility(View.VISIBLE);
             tvTitleRight.setVisibility(View.GONE);
         } else {
-            if (SOURCE.equals("sell") || SOURCE.equals("buy")) {
+            if (TextUtils.equals(SOURCE,"sell") ||TextUtils.equals(SOURCE,"buy")) {
                 btn_back.setVisibility(View.GONE);
                 tvTitleRight.setVisibility(View.VISIBLE);
             } else {
@@ -192,7 +192,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         tvTradeName.setText(title);
         tvReqtime.setText(body.getPart1().getReqtime());
 
-        if (tradeType.equals("1")) {
+        if (TextUtils.equals(tradeType,"1")) {
             tvAmount.setText("-" + StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));
         } else {
             tvAmount.setText(StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));

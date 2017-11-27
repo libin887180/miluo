@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class MiluoNoticeAdapter extends BaseRecyclerAdapter<MessageBean> {
         title.setText(item.getTitle());
         date.setText(TimeUtil.changeToDate(item.getAdd_time()));
         dsc.setText(item.getContent());
-        if (item.getStatus().equals("0")) {
+        if (TextUtils.equals(item.getStatus(),"0")) {
 //            status.setVisibility(View.VISIBLE);
             title.setTextColor(mContext.getResources().getColor(R.color.text_222));
 

@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.constants.MiluoConfig;
@@ -66,7 +67,7 @@ public class HistoryAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
         holder.setText(R.id.tv_fund_name, item.getFundname());
         holder.setText(R.id.tv_asset, item.getMarketval() + "");
         holder.setText(R.id.tv_profit, item.getTotalshareincome() + "");
-        if(item.getStatus().equals("申购中")){
+        if(TextUtils.equals(item.getStatus(),"申购中")){
             holder.setImageResource(R.id.iv_status,R.drawable.bg_buying);
         }else {
             holder.setImageResource(R.id.iv_status,R.drawable.bg_income);

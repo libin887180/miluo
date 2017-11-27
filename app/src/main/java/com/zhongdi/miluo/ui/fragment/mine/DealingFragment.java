@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,10 +96,10 @@ public class DealingFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
-                if (dealRecord.getTypeitem().equals("申购") || dealRecord.getTypeitem().equals("赎回")) {
+                if (TextUtils.equals(dealRecord.getTypeitem(),"申购") || TextUtils.equals(dealRecord.getTypeitem(),"赎回")) {
                     Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
                     intent.putExtra("tradeid", dealRecord.getTradeid() + "");
-                    if (dealRecord.getTypeitem().equals("申购")) {
+                    if (TextUtils.equals(dealRecord.getTypeitem(),"申购")) {
                         intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
                     } else {
                         intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回

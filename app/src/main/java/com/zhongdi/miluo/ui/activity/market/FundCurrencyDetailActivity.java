@@ -271,7 +271,7 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         tvIncrease.setText(fundDetail.getYearyld());
         tvProfit.setText(fundDetail.getTenthouunitincm());
         title.setText(fundDetail.getFundName() + "\n" + fundDetail.getFundCode() );
-        if (fundDetail.getStatus().equals("1")) {
+        if (TextUtils.equals(fundDetail.getStatus(),"1")) {
             tvTitleRight.setBackgroundResource(R.drawable.ic_collected);
             tvTitleRight.setTag(1);
         } else {
@@ -284,12 +284,12 @@ public class FundCurrencyDetailActivity extends BaseActivity<FundDetailPresenter
         switchFundType(fundDetail.getFundType());
         switchRiskLevel(Integer.parseInt(fundDetail.getRiskLevel()));
 
-        if (fundDetail.getBuyStatus().equals("0")) {//（0-不能购买，1-可以购买）
-            tvBuy.setText("暂不开放 敬请期待");
-            tvBuy.setEnabled(false);
-        } else {
+        if (TextUtils.equals(fundDetail.getBuyStatus(),"1")) {//（0-不能购买，1-可以购买）
             tvBuy.setText("立即购买");
             tvBuy.setEnabled(true);
+        } else {
+            tvBuy.setText("暂不开放 敬请期待");
+            tvBuy.setEnabled(false);
         }
     }
 

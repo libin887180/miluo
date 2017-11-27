@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zhongdi.miluo.R;
@@ -24,7 +25,7 @@ public class CollectionAdapter extends BaseRecyclerAdapter<OptionalFund> {
     public void convert(BaseRecyclerHolder holder, OptionalFund item, int position) {
         holder.setText(R.id.tv_fund_name, item.getFundName());
         holder.setText(R.id.tv_fund_code, item.getFundCode());
-        if (item.getFundType().equals(MiluoConfig.HUOBI)) {
+        if (TextUtils.equals(item.getFundType(),MiluoConfig.HUOBI)) {
             holder.getView(R.id.tv_wfsy).setVisibility(View.VISIBLE);
             holder.getView(R.id.tv_qrnh).setVisibility(View.VISIBLE);
         } else {

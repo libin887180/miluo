@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,7 @@ public class CurAssetFragment extends BaseFragment<AssetFragmentPresenter> imple
             mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<HomeAssetBean>() {
                 @Override
                 public void onClick(View view, RecyclerView.ViewHolder holder, HomeAssetBean assetBean, int position) {
-                    if(assetBean.getStatus().equals("收益中")) {
+                    if(TextUtils.equals(assetBean.getStatus(),"收益中")) {
                         Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
                         intent.putExtra("fundcode", assetBean.getFundcode());
                         startActivity(intent);

@@ -33,7 +33,7 @@ public class URLConfig {
      * 登录
      */
     public static final String LOGIN = BASE_URL + "/lead/v1/login";
-//    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
+//    public static final St                                                                                       ring LOGIN = BASE_URL + "/lead/v1/user/login";
     /**
      * 验证码(0：单独注册 1:免注册登录 3：重置登录密码 5：重置交易密码)
      */

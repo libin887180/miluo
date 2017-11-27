@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,7 +71,7 @@ public class AwardedFundAdapter extends BaseRecyclerAdapter<HomeFund> {
         }
 
         holder.setText(R.id.tv_info, item.getYearrate());
-        if (item.getStatus().equals("1")) {
+        if (TextUtils.equals(item.getStatus(),"1")) {
             holder.setImageResource(R.id.iv_collect, R.drawable.home_collected);
         } else {
             holder.setImageResource(R.id.iv_collect, R.drawable.home_collect);

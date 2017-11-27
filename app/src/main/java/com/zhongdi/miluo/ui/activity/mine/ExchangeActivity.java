@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -162,9 +163,9 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
 
     @Override
     public void onDataSuccess() {
-        if (prizeType.equals("1")) {
+        if (TextUtils.equals(prizeType,"1")) {
             showpSharePopupWindow();
-        } else if (prizeType.equals("2")) {
+        } else if (TextUtils.equals(prizeType,"2")) {
             dialog = new ExchangeAlertDialog(mContext).builder().setMsg("话费兑换成功")
                     .setPositiveButton("更多好基", new View.OnClickListener() {
                         @Override
@@ -177,7 +178,7 @@ public class ExchangeActivity extends BaseActivity<ExchangePresenter> implements
                         }
                     });
             dialog.show();
-        } else if (prizeType.equals("-2")) {
+        } else if (TextUtils.equals(prizeType,"-2")) {
             showpSharePopupWindow();
         } else {
             finish();

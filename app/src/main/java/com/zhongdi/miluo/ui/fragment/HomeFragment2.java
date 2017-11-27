@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -375,7 +376,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
         gvActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (activitys.get(position).getType().equals("1")) {
+                if (TextUtils.equals(activitys.get(position).getType(),"1")) {
 
                     if (!MyApplication.getInstance().isLogined) {
                         Intent login_tiyan = new Intent(getActivity(), TiyanjinLoginActivity.class);
@@ -386,10 +387,10 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         startActivity(buyIntent);
                     }
 
-                } else if (activitys.get(position).getType().equals("5")) {
+                } else if (TextUtils.equals(activitys.get(position).getType(),"5")) {
                     Intent study = new Intent(getActivity(), FundStudyActivity.class);
                     startActivity(study);
-                } else if (activitys.get(position).getType().equals("3")) {
+                } else if (TextUtils.equals(activitys.get(position).getType(),"3")) {
                     Intent miluo_pan = new Intent(getActivity(), MiLuoPanActivity.class);
                     startActivity(miluo_pan);
 

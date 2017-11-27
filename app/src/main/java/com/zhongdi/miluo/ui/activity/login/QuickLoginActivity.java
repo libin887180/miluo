@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -100,7 +101,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     }
     @Override
     public void loginSuccess(UserInfo userInfo) {
-        if(userInfo.getRegistorLogin().equals("1")){//如果是新用户注册
+        if(TextUtils.equals(userInfo.getRegistorLogin(),"1")){//如果是新用户注册
             Intent intent = new Intent(mContext, RegistSuccessActivity.class);
             intent.putExtra(IntentConfig.SOURCE, source);
             startActivity(intent);

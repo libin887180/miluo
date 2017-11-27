@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +116,7 @@ ViewHolder holder;
             holder.tvProfit.setText("****");
             holder.tvProfit.setTextColor( mContext.getResources().getColor(R.color.red));
         }
-        if (item.getStatus().equals("申购中")) {
+        if (TextUtils.equals(item.getStatus(),"申购中")) {
             holder.ivStatus.setImageResource( R.drawable.bg_buying);
         } else {
             holder.ivStatus.setImageResource(  R.drawable.bg_income);

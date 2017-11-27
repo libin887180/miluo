@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -65,7 +66,7 @@ public class GiftListActivity extends BaseActivity<GetGiftListPresenter> impleme
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, Prize prize, int position) {
 
-                if (prize.getStatus().equals("1")) {
+                if (TextUtils.equals(prize.getStatus(),"1")) {
                     Intent intent = new Intent(mContext, ExchangeActivity.class);
                     intent.putExtra("prizeType", prize.getType());
                     intent.putExtra("prizeId", prize.getId());

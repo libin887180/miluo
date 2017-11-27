@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,7 +213,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
             if (mDatas.size() > 0) {
                 HomeAssetBean assetBean = mDatas.get(position);
 
-                if (assetBean.getStatus().equals("收益中")) {
+                if (TextUtils.equals(assetBean.getStatus(),"收益中")) {
                     Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
                     intent.putExtra("fundcode", assetBean.getFundcode());
                     startActivityForResult(intent, 101);
@@ -399,7 +400,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 startActivity(new Intent(mContext, TransactionsActivity.class));
                 break;
             case R.id.ll_tiyanjin:
-                if (SpCacheUtil.getInstance().getActivityStatus().equals("0")) {
+                if (TextUtils.equals(SpCacheUtil.getInstance().getActivityStatus(),"0")) {
                     Intent tiyanjin_info = new Intent(mContext, TiyanjinInfoActivity.class);
                     startActivity(tiyanjin_info);
                 } else {

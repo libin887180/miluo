@@ -71,7 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
                     @Override
                     public void onFailed(MResponse<UserInfo> response, int requestCode) {
-                        if (response.getCode().equals(ErrorCode.ERRORPWDE)) {//你嘛错误
+                        if (response.getCode().equals(ErrorCode.ERRORPWDE)) {//密码错误
                             view.showErrorPswDialog(response.getBody().getFailTimes());
                         }else if (response.getCode().equals(ErrorCode.USERLOCKED)){
                             view.showLockedDialog();

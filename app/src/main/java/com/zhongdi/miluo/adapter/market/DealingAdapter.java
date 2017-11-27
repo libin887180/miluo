@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zhongdi.miluo.R;
@@ -24,11 +25,11 @@ public class DealingAdapter extends BaseRecyclerAdapter<DealRecord> {
     public void convert(BaseRecyclerHolder holder, DealRecord item, int position) {
         holder.setText(R.id.iv_type, item.getTypeitem());
 
-        if (item.getTypeitem().equals("申购")) {
+        if (TextUtils.equals(item.getTypeitem(),"申购")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_blue);
-        } else if (item.getTypeitem().equals("赎回")) {
+        } else if (TextUtils.equals(item.getTypeitem(),"赎回")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_green);
-        } else if (item.getTypeitem().equals("分红")) {
+        } else if (TextUtils.equals(item.getTypeitem(),"分红")) {
             holder.setBackgroundRes(R.id.iv_type, R.drawable.bg_text_circle_orange);
             holder.getView(R.id.iv_next).setVisibility(View.INVISIBLE);
         }

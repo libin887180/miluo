@@ -245,16 +245,16 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
         }
 //        按钮状态（状态(101:份额确认中 如有一位数字的就为 [还剩4天收益] 103兑换话费 104邀请好友)
 
-        if (body.getActivity_status().length() > 1) {
-            if (body.getActivity_status().equals("101")) {
+        if (body.getActivity_status()!=null&&body.getActivity_status().length() > 1) {
+            if (TextUtils.equals(body.getActivity_status(),"101")) {
                 btnExchange.setText("份额确认中");
                 btnExchange.setEnabled(false);
                 tvTips.setVisibility(View.VISIBLE);
-            } else if (body.getActivity_status().equals("103")) {
+            } else if (TextUtils.equals(body.getActivity_status(),"103")) {
                 btnExchange.setText("兑换话费");
                 btnExchange.setEnabled(true);
                 tvTips.setVisibility(View.GONE);
-            } else if (body.getActivity_status().equals("104")) {
+            } else if (TextUtils.equals(body.getActivity_status(),"104")) {
                 btnExchange.setText("邀请好友");
                 tvTips.setVisibility(View.GONE);
                 btnExchange.setEnabled(true);

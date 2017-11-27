@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.constants.MiluoConfig;
@@ -82,7 +83,7 @@ public class CurAssetAdapter extends BaseRecyclerAdapter<HomeAssetBean> {
             holder.setText(R.id.tv_profit,  "****");
             holder.setTextColor(R.id.tv_profit,mContext.getResources().getColor(R.color.red));
         }
-        if(item.getStatus().equals("申购中")){
+        if(TextUtils.equals(item.getStatus(),"申购中")){
             holder.setImageResource(R.id.iv_status,R.drawable.bg_buying);
         }else {
             holder.setImageResource(R.id.iv_status,R.drawable.bg_income);

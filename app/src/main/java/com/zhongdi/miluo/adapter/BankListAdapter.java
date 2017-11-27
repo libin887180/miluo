@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class BankListAdapter extends BaseRecyclerAdapter<BankInfo> {
 
 
         bankName.setText(item.getBankname());
-        if(item.getBankname().equals(selectBankName)){
+        if(TextUtils.equals(item.getBankname(),selectBankName)){
             holder.getView(R.id.iv_check).setVisibility(View.VISIBLE);
         } else {
             holder.getView(R.id.iv_check).setVisibility(View.GONE);

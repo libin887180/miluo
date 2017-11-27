@@ -147,11 +147,11 @@ public class MainActivity extends BaseActivity2 {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (!TextUtils.isEmpty(intent.getStringExtra("to"))) {
-            if (intent.getStringExtra("to").equals("mine")) {
+            if (TextUtils.equals(intent.getStringExtra("to"),"mine")) {
                 navigation.getMenu().getItem(3).setChecked(true);
                 viewPager.setCurrentItem(3);
                 ((MineFragment) adapter.getItem(3)).fetchData();
-            } else if (intent.getStringExtra("to").equals("home")) {
+            } else if (TextUtils.equals(intent.getStringExtra("to"),"home")) {
                 navigation.getMenu().getItem(0).setChecked(true);
                 viewPager.setCurrentItem(0);
             }

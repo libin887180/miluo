@@ -2,6 +2,7 @@ package com.zhongdi.miluo.adapter.mine;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -70,10 +71,10 @@ public class TransInfoAdapter extends BaseAdapter {
 
         holder.cpxx.setText(dataList.get(position).getKey1());
         if (dataList != null) {
-            if (dataList.get(position).getKey1().equals("产品信息")) {
+            if (TextUtils.equals(dataList.get(position).getKey1(),"产品信息")) {
                 holder.ivNext.setVisibility(View.VISIBLE);
             } else {
-                if (dataList.get(position).getKey1().equals("支付方式")) {
+                if (TextUtils.equals(dataList.get(position).getKey1(),"支付方式")) {
                     holder.ivBankIcon.setVisibility(View.VISIBLE);
                     xUtilsImageUtils.display(holder.ivBankIcon, dataList.get(position).getKey2(), R.drawable.icon_bank_default, R.drawable.icon_bank_default);
                 } else {
@@ -81,7 +82,7 @@ public class TransInfoAdapter extends BaseAdapter {
                 }
                 holder.ivNext.setVisibility(View.GONE);
             }
-            if (dataList.get(position).getKey1().equals("支付方式")) {
+            if (TextUtils.equals(dataList.get(position).getKey1(),"支付方式")) {
                 holder.tvName.setText(dataList.get(position).getKey3());
             } else {
                 holder.tvName.setText(dataList.get(position).getKey2());

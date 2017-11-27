@@ -26,7 +26,6 @@ public class FundDetail implements Serializable{
     private String riskLevel ;
     private String  yearyld ;
     private String  tenthouunitincm ;
-
     public String getYearyld() {
         return yearyld;
     }
