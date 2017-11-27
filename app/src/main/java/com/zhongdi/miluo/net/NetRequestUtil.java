@@ -8,11 +8,9 @@ import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.model.MResponse;
-import com.zhongdi.miluo.util.AES;
 import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
 import com.zhongdi.miluo.util.CommonUtils;
-import com.zhongdi.miluo.util.StringUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -232,41 +230,47 @@ public class NetRequestUtil {
 //            for (Map.Entry<String, String> entry : maps.entrySet()) {
 //                params.addParameter("requestParameter", entry.getValue());
 //            }
-            String requestParameter = AES.encrypt(gson.toJson(maps));
-//            String requestParameter = gson.toJson(maps);
+//            String requestParameter = AES.encrypt(gson.toJson(maps));
+            String requestParameter = gson.toJson(maps);
 //            ViseLog.e(requestParameter);
             params.setBodyContent(requestParameter);//加入参数
         }
 
         ViseLog.setTag("Url").i(url);
 //        ViseLog.setTag("Headers").w(params.getHeaders());
-        ViseLog.setTag("params").v(url+"params["+params.getBodyContent()+"]");
+        ViseLog.setTag("params").v(url+"===params["+params.getBodyContent()+"]");
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 if (response != null) {
-                    ViseLog.setTag("response_encrypt").v(response);
-                    String result = AES.decrypt(response);
-                    if (!StringUtil.isEmpty(result)) {
-                        ViseLog.setTag("response").v(url+result);
-                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
-                        if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
-                            listener.onSuccess(mResponse, requestCode);
-                        } else {
-                            listener.onFailed(mResponse, requestCode);
-                        }
-                    }else{
-                        listener.onError(new Throwable("aes decrypt error!"));
-                    }
+//                    ViseLog.setTag("response_encrypt").v(response);
+//                    String result = AES.decrypt(response);
+//                    if (!StringUtil.isEmpty(result)) {
+//                        ViseLog.setTag("response").v(url+result);
+//                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
+//                        if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
+//                            listener.onSuccess(mResponse, requestCode);
+//                        } else {
+//                            listener.onFailed(mResponse, requestCode);
+//                        }
+//                    }else{
+//                        listener.onError(new Throwable("aes decrypt error!"));
+//                    }
 
                     /**不加密*/
-//                    ViseLog.setTag("response").v(url+response);
-//                    MResponse mResponse = gson.fromJson(response, getType(listener));//按正常响应解析
-//                    if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
-//                        listener.onSuccess(mResponse, requestCode);
-//                    } else {
-//                        listener.onFailed(mResponse, requestCode);
-//                    }
+                    ViseLog.setTag("response").v(url+response);
+                    MResponse mResponse = gson.fromJson(response, MResponse.class);//按正常响应解析
+                    if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
+                        mResponse = gson.fromJson(response, getType(listener));
+                        listener.onSuccess(mResponse, requestCode);
+                    }
+                    else if(TextUtils.equals(mResponse.getCode(), ErrorCode.LOGIN_TIME_OUT) ){
+
+                        listener.onFailed(mResponse, requestCode);
+                    }else {
+                        mResponse = gson.fromJson(response, getType(listener));
+                        listener.onFailed(mResponse, requestCode);
+                    }
 
                 }
             }

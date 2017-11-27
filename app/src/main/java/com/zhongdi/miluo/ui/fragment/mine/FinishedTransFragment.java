@@ -166,7 +166,7 @@ public class FinishedTransFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ViseLog.e(e);
                     }
 
                     @Override
@@ -186,7 +186,7 @@ public class FinishedTransFragment extends Fragment {
     }
 
     private void reLogin() {
-        Intent intent  = new Intent(getActivity(), QuickLoginActivity.class);
+        Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
         startActivityForResult(intent, 301);
     }
 

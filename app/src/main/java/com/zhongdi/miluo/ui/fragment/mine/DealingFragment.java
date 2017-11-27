@@ -179,7 +179,7 @@ public class DealingFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ViseLog.e("请求失败");
                     }
 
                     @Override
@@ -191,7 +191,7 @@ public class DealingFragment extends Fragment {
     }
 
     private void reLogin() {
-        Intent intent  = new Intent(getActivity(), QuickLoginActivity.class);
+        Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
         startActivityForResult(intent, 301);
     }
 

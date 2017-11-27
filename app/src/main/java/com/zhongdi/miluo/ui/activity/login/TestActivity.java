@@ -94,6 +94,8 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestVie
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
             presenter.getQuestions();
+        }else if(requestCode == 302 && resultCode == Activity.RESULT_OK){
+            sendSelections();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -419,9 +418,9 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
         if (requestCode == 101 && resultCode == 1001) {
             refreshData();
         }
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            refreshData();
-        }
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            refreshData();
+//        }
     }
 
     @Override

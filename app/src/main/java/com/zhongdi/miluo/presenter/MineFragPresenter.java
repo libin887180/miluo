@@ -38,7 +38,12 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     @Override
                     public void onFailed(MResponse<MyProperty> response, int requestCode) {
                         ViseLog.e("请求失败");
-                        view.showToast(response.getMsg());
+                        if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
+                            MyApplication.getInstance().isLogined =false;
+                            view.reLogin();
+                        } else {
+                            view.showToast(response.getMsg());
+                        }
                     }
 
                     @Override
