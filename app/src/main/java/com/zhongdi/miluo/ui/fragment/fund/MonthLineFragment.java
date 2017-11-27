@@ -140,6 +140,14 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        if (lineChart == null || lineChart.isEmpty()) {
+            prepareFetchData(true);
+        }
+    }
+
+    @Override
     public void fetchData() {
         sellFundId = getArguments().getString("sellFundId");
         presenter.getFundVal(sellFundId);
@@ -249,14 +257,14 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
             public void onValueSelected(Entry e, Highlight h) {
                 float index = e.getX();
                 mIndex = index;
-                    if (fundData.size()-1>=(int)index&&fundData.get((int) index) != null) {
-                        tvFundValue.setText(fundData.get((int)index).getY() + "%");
-                    } else {
-                        tvFundValue.setText("--");
-                    }
-                if(HS300.size()-1>=(int)index&&HS300.get((int) index)!=null) {
+                if (fundData.size() - 1 >= (int) index && fundData.get((int) index) != null) {
+                    tvFundValue.setText(fundData.get((int) index).getY() + "%");
+                } else {
+                    tvFundValue.setText("--");
+                }
+                if (HS300.size() - 1 >= (int) index && HS300.get((int) index) != null) {
                     tvHs300Value.setText(HS300.get((int) index).getY() + "%");
-                }else{
+                } else {
                     tvHs300Value.setText("--");
                 }
             }
@@ -282,7 +290,7 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
     private void setMarkerView(ArrayList<String> dateList) {
         MiMarkerView myMarkerView = new MiMarkerView(getActivity(), R.layout.mymarkerview, dateList);
 //        lineChart.setMarkerView(myMarkerView);
-        myMarkerView.setOffset(30,-200);
+        myMarkerView.setOffset(30, -200);
         lineChart.setMarker(myMarkerView);
     }
 

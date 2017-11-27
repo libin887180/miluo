@@ -23,7 +23,9 @@ public class URLConfig {
     //正式测试
     public static final String BASE_URL = "http://47.96.177.50:8085";
 //    public static final String HTML5 = "http://192.168.64.212:8371";
-    public static final String HTML5 = "http://192.168.151.13:8371";
+//    public static final String HTML5 = "http://192.168.151.13:8371";
+    //正式H5地址
+    public static final String HTML5 = "http://47.96.177.50:8371";
 
     /**
      * 测试接口

@@ -63,6 +63,13 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
         return fragment;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        if(lineChart==null||lineChart.isEmpty()){
+            prepareFetchData(true);
+        }
+    }
 
     @Override
     protected SeasonFragPresenter initPresenter() {

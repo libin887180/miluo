@@ -63,7 +63,13 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
         return fragment;
     }
 
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        if(lineChart==null||lineChart.isEmpty()){
+            prepareFetchData(true);
+        }
+    }
     @Override
     protected HalfYearFragPresenter initPresenter() {
         return new HalfYearFragPresenter(this);

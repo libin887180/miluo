@@ -83,10 +83,13 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:visibility="gone" />
-
-    <com.zhongdi.miluo.widget.BaseWebView
-        android:id="@+id/webView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <com.zhongdi.miluo.widget.BaseWebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>

@@ -61,7 +61,14 @@ public class YearLineFragment extends BaseFragment<YearFragPresenter> implements
         fragment.setArguments(args);
         return fragment;
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        if(lineChart==null||lineChart.isEmpty()){
+            prepareFetchData(true);
+        }
 
+    }
 
     @Override
     protected YearFragPresenter initPresenter() {
