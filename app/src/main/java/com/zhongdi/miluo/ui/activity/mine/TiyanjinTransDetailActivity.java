@@ -22,6 +22,8 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
@@ -282,8 +284,14 @@ public class TiyanjinTransDetailActivity extends BaseActivity<TiyanjinTransDetai
 
     @Override
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivityForResult(intent,301);
+            ViseLog.e("登录未显示");
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.zhongdi.miluo.util.AndroidUtil;
 import com.zhongdi.miluo.util.AppUtil;
 import com.zhongdi.miluo.util.CommonUtils;
 import com.zhongdi.miluo.util.StringUtil;
+import com.zhongdi.miluo.util.view.ToastUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -208,7 +209,8 @@ public class NetRequestUtil {
      */
     public Callback.Cancelable post(final String url, Map<String, String> maps, final int requestCode, final NetResponseListener listener) {
         if (!CommonUtils.checkNetWorkStatus(MyApplication.getInstance())) {
-            Toast.makeText(MyApplication.getInstance(), "请检查网络", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast(MyApplication.getInstance(), "请检查网络", Toast.LENGTH_SHORT);
+//            Toast.makeText(MyApplication.getInstance(), "请检查网络", Toast.LENGTH_SHORT).show();
             return null;
         }
         RequestParams params = new RequestParams(url);
