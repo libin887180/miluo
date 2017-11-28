@@ -1,5 +1,6 @@
 package com.zhongdi.miluo.ui.activity.market;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
@@ -23,6 +26,7 @@ import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.model.BuyResponse;
 import com.zhongdi.miluo.model.SellResponse;
 import com.zhongdi.miluo.presenter.SellFundPresenter;
+import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.mine.SendCodeActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.SellFundView;
@@ -63,6 +67,8 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
     private String fundCode;
     private SellResponse.Fund fundinfo;
     private int  MAIDIAN;
+    private SellResponse beforeSellInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,15 +139,34 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
 
     @Override
     public void reLogin() {
-
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivityForResult(intent,301);
+            ViseLog.e("登录未显示");
+        }
     }
 
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(MessageEvent messageEvent) {
+//        ViseLog.i("******");
+//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==301){
-            presenter.beforeSellInit(fundCode);
+            if (resultCode == Activity.RESULT_OK) {
+                initialize();
+            } else {
+                if(beforeSellInfo==null) {
+                    finish();
+                }
+            }
         }
+
+
     }
 
     @Override
@@ -200,6 +225,7 @@ public class SellFundActivity extends BaseActivity<SellFundPresenter> implements
 
     @Override
     public void onDataSuccess(SellResponse body) {
+        beforeSellInfo = body;
         fundinfo = body.getFund();
         etMoney.setHint("最低可赎回"+body.getFund().getMinredemptionvol()+"份");
         tvFundName.setText(body.getFund().getFundname());

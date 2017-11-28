@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +28,7 @@ import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.market.CollectIncreaseAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.OptionalFund;
 import com.zhongdi.miluo.presenter.CollectionPresenter;
 import com.zhongdi.miluo.ui.activity.SearchActivity;
@@ -37,6 +37,10 @@ import com.zhongdi.miluo.ui.activity.market.FundCurrencyDetailActivity;
 import com.zhongdi.miluo.ui.activity.market.FundDetailActivity;
 import com.zhongdi.miluo.view.CollectionView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +80,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     CollectionAdapter fundAdapter;
     private String rateType = "";//默认日涨幅
     View emptyView;
+
     public static CollectionFragment newInstance(String info) {
         Bundle args = new Bundle();
         CollectionFragment fragment = new CollectionFragment();
@@ -95,6 +100,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            EventBus.getDefault().register(this);
             initView(rootView);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -108,10 +114,16 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         return rootView;
     }
 
-//    @Override
+    //    @Override
 //    public boolean prepareFetchData(boolean forceUpdate) {
 //        return super.prepareFetchData(true);
 //    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+        pageNum=1;
+        presenter.getOptionalFund(rateType, pageNum);
+    }
 
     @Override
     protected void initListener() {
@@ -187,7 +199,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, OptionalFund searchFund, int position) {
                 Intent intent;
-                if (searchFund.getFundType().equals(MiluoConfig.HUOBI)||searchFund.getFundType().equals(MiluoConfig.DUANQI)) {
+                if (searchFund.getFundType().equals(MiluoConfig.HUOBI) || searchFund.getFundType().equals(MiluoConfig.DUANQI)) {
                     intent = new Intent(mContext, FundCurrencyDetailActivity.class);
                 } else {
                     intent = new Intent(mContext, FundDetailActivity.class);
@@ -228,7 +240,11 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 //        stateLayout.setViewSwitchAnimProvider(new FadeScaleViewAnimProvider());
 
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 //    @Override
 //    public void onResume() {
 //        super.onResume();
@@ -257,13 +273,12 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void fetchData() {
         if (MyApplication.getInstance().isLogined) {//登录了,查询数据
             pageNum = 1;
-            if(presenter==null){
+            if (presenter == null) {
                 presenter = initPresenter();
             }
             presenter.getOptionalFund(rateType, pageNum);
         }
     }
-
 
 
     @Override
@@ -287,7 +302,7 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
 
     @Override
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
+        Intent intent = new Intent(mContext, QuickLoginActivity.class);
         startActivityForResult(intent, 301);
     }
 
@@ -295,9 +310,9 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            presenter.getOptionalFund(rateType, pageNum);
-        }
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            presenter.getOptionalFund(rateType, pageNum);
+//        }
     }
 
     public void scrollToFirst(boolean isSmooth) {

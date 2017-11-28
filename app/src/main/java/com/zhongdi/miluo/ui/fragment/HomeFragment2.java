@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -44,6 +43,7 @@ import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.HomeActiv;
 import com.zhongdi.miluo.model.HomeFund;
 import com.zhongdi.miluo.model.HomeNews;
@@ -76,6 +76,9 @@ import com.zhongdi.miluo.widget.ObservableScrollView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
 import com.zhongdi.miluo.widget.reddot.IconDotTextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 
 import java.util.ArrayList;
@@ -186,6 +189,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             rootView = inflater.inflate(R.layout.fragment_home_2, null);
             paraentActivity = (MainActivity) getActivity();
             unbinder = ButterKnife.bind(this, rootView);
+            EventBus.getDefault().register(this);
 //            initData();
             initView();
 
@@ -235,7 +239,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                         ViseLog.e("请求失败");
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
                             MyApplication.getInstance().isLogined =false;
-                            reLogin();
+//                            reLogin();
                         } else {
                             Toast.makeText(paraentActivity, response.getMsg() + "", Toast.LENGTH_SHORT).show();
                         }
@@ -470,8 +474,14 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
     }
 
     private void reLogin() {
-        Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if(MyApplication.getInstance().islogignShow){
+            ViseLog.i("登录已显示");
+        }else{
+            MyApplication.getInstance().islogignShow=true;
+            Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
+        }
     }
 
     private void showHuodongDialog() {
@@ -867,6 +877,7 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
             }
         } else {
             MyApplication.getInstance().assetVisable = false;
+            MyApplication.getInstance().hasNewMsg =false;
             cbVisable.setEnabled(false);
             cbVisable.setChecked(MyApplication.getInstance().assetVisable);
             rlLoginState.setVisibility(View.VISIBLE);
@@ -908,12 +919,12 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
 //                btnLogin.setText("立即登录");
 //            }
 //        }
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            if (MyApplication.getInstance().isLogined) {
-                getProperty();
-            }
-            getAwardFunds();
-        }
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            if (MyApplication.getInstance().isLogined) {
+//                getProperty();
+//            }
+//            getAwardFunds();
+//        }
 
     }
 
@@ -962,4 +973,20 @@ public class HomeFragment2 extends Fragment implements ObservableScrollView.OnOb
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+//        if (MyApplication.getInstance().isLogined) {
+//                getProperty();
+//            }
+//            getAwardFunds();
+    }
+
 }

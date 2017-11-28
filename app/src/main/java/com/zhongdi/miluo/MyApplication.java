@@ -18,7 +18,7 @@ public class MyApplication extends Application {
     public boolean assetVisable = true;
     public boolean hasNewMsg;
     public boolean netState = true;
-
+    public boolean islogignShow;
     @Override
 
     public void onCreate() {

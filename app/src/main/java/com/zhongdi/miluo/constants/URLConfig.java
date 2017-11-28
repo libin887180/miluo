@@ -22,14 +22,14 @@ public class URLConfig {
 //    public static final String HTML5 = "http://192.168.64.212:8371";
 ////    外网测试
 //    public static final String BASE_URL = "http://218.94.82.38:8085";
-    //测试H5
-//    public static final String HTML5 = "http://192.168.151.13:8371";
-////    赵炎
-//    public static final String BASE_URL = "http://192.168.64.120:8085";
-    //正式测试
-    public static final String BASE_URL = "http://47.96.177.50:8085";
-    //正式H5地址
-    public static final String HTML5 = "http://47.96.177.50:8371";
+//    测试H5
+    public static final String HTML5 = "http://192.168.151.13:8371";
+//    赵炎
+    public static final String BASE_URL = "http://192.168.64.120:8085";
+////    正式测试
+//    public static final String BASE_URL = "http://47.96.177.50:8085";
+//    //正式H5地址
+//    public static final String HTML5 = "http://47.96.177.50:8371";
 
     /**
      * 测试接口
@@ -39,7 +39,7 @@ public class URLConfig {
      * 登录
      */
     public static final String LOGIN = BASE_URL + "/lead/v1/login";
-//    public static final St                                                                                       ring LOGIN = BASE_URL + "/lead/v1/user/login";
+//    public static final String LOGIN = BASE_URL + "/lead/v1/user/login";
     /**
      * 验证码(0：单独注册 1:免注册登录 3：重置登录密码 5：重置交易密码)
      */

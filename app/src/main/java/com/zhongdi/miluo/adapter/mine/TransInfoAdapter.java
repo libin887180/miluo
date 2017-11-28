@@ -69,8 +69,8 @@ public class TransInfoAdapter extends BaseAdapter {
             holder.contentView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.cpxx.setText(dataList.get(position).getKey1());
-        if (dataList != null) {
+
+        if (dataList != null&&dataList.get(position)!=null) {
             if (TextUtils.equals(dataList.get(position).getKey1(),"产品信息")) {
                 holder.ivNext.setVisibility(View.VISIBLE);
             } else {
@@ -82,6 +82,7 @@ public class TransInfoAdapter extends BaseAdapter {
                 }
                 holder.ivNext.setVisibility(View.GONE);
             }
+            holder.cpxx.setText(dataList.get(position).getKey1());
             if (TextUtils.equals(dataList.get(position).getKey1(),"支付方式")) {
                 holder.tvName.setText(dataList.get(position).getKey3());
             } else {

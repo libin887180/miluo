@@ -71,7 +71,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<HomeAssetBean>> response, int requestCode) {
+                    public void onFailed(MResponse response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
                             MyApplication.getInstance().isLogined =false;
@@ -106,7 +106,7 @@ public class MineFragPresenter extends BasePresenter<MineFragmentView> {
                     }
 
                     @Override
-                    public void onFailed(MResponse<List<HomeAssetBean>> response, int requestCode) {
+                    public void onFailed(MResponse response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
                             MyApplication.getInstance().isLogined =false;

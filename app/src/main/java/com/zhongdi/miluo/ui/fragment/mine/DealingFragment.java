@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment.mine;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import com.zhongdi.miluo.adapter.market.DealingAdapter;
 import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.net.NetRequestUtil;
@@ -31,6 +31,9 @@ import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 
 import java.util.ArrayList;
@@ -76,6 +79,7 @@ public class DealingFragment extends Fragment {
             rootView = inflater.inflate(R.layout.layout_refresh_list, null);
             unbinder = ButterKnife.bind(this, rootView);
             initialize();
+            EventBus.getDefault().register(this);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
             // 要不然会发生这个rootview已经有parent的错误。
@@ -96,10 +100,10 @@ public class DealingFragment extends Fragment {
         adapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<DealRecord>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, DealRecord dealRecord, int position) {
-                if (TextUtils.equals(dealRecord.getTypeitem(),"申购") || TextUtils.equals(dealRecord.getTypeitem(),"赎回")) {
+                if (TextUtils.equals(dealRecord.getTypeitem(), "申购") || TextUtils.equals(dealRecord.getTypeitem(), "赎回")) {
                     Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);
                     intent.putExtra("tradeid", dealRecord.getTradeid() + "");
-                    if (TextUtils.equals(dealRecord.getTypeitem(),"申购")) {
+                    if (TextUtils.equals(dealRecord.getTypeitem(), "申购")) {
                         intent.putExtra("tradType", "0");//type (integer): 交易类型0申购，1赎回
                     } else {
                         intent.putExtra("tradType", "1");//type (integer): 交易类型0申购，1赎回
@@ -132,6 +136,18 @@ public class DealingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+        pageIndex=1;
+        getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+    }
     /**
      * 获取交易记录
      *
@@ -142,7 +158,7 @@ public class DealingFragment extends Fragment {
         Map<String, String> map = new HashMap<>();
         map.put("pageIndex", pageindex + "");
         map.put("pageSize", pageSize + "");
-        map.put("type", "1");//1 进行中2 已完成
+        map.put("type", "1");// 1 进行中 2 已完成
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.TRADE_RECORD_LIST, map, 101,
                 new NetRequestUtil.NetResponseListener<MResponse<List<DealRecord>>>() {
                     @Override
@@ -170,8 +186,8 @@ public class DealingFragment extends Fragment {
                     public void onFailed(MResponse<List<DealRecord>> response, int requestCode) {
                         ViseLog.e("请求失败");
                         if (response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)) {
-                            MyApplication.getInstance().isLogined =false;
-                        reLogin();
+                            MyApplication.getInstance().isLogined = false;
+                            reLogin();
                         } else {
                             Toast.makeText(getActivity(), response.getMsg(), Toast.LENGTH_SHORT).show();
                         }
@@ -191,15 +207,23 @@ public class DealingFragment extends Fragment {
     }
 
     private void reLogin() {
-        Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+        if(MyApplication.getInstance().islogignShow){
+            ViseLog.i("登录已显示");
+        }else{
+            MyApplication.getInstance().islogignShow=true;
+            Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
+
         }
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            getDealingRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE);
+//        }
+//    }
 }

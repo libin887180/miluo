@@ -150,7 +150,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignLeft="@+id/tv_year_rate"
                                     android:layout_below="@+id/tv_year_rate"
-                                    android:text="年度涨幅"
+                                    android:text="近一年涨幅"
                                     android:textColor="@color/text_color_normal"
                                     android:textSize="12sp" />
 

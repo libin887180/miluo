@@ -73,7 +73,6 @@ public class TransactionRecordPresenter extends BasePresenter<TransactionRecordV
                     @Override
                     public void onSuccess(MResponse<Object> response, int requestCode) {
                         view.OnChedanSuccess();
-
                     }
 
                     @Override

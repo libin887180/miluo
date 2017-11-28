@@ -13,14 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.UserInfo;
 import com.zhongdi.miluo.presenter.QuickLoginPresenter;
 import com.zhongdi.miluo.util.StringUtil;
 import com.zhongdi.miluo.view.QuickLoginView;
 import com.zhongdi.miluo.widget.ClearEditText;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,6 +99,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            EventBus.getDefault().post(new MessageEvent("**"));
             setResult(RESULT_OK);
             finish();
         }
@@ -106,6 +111,7 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
             intent.putExtra(IntentConfig.SOURCE, source);
             startActivity(intent);
         }
+        EventBus.getDefault().post(new MessageEvent("**"));
         setResult(RESULT_OK);
         finish();
     }
@@ -172,6 +178,12 @@ public class QuickLoginActivity extends BaseActivity<QuickLoginPresenter> implem
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance().islogignShow=false;
     }
 }
 

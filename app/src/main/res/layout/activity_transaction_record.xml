@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/step3_2" />
+                    />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"

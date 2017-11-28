@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.activity.mine;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -27,6 +26,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.DefaultAdapter;
 import com.zhongdi.miluo.adapter.FenhongTypeAdapter;
@@ -34,6 +35,7 @@ import com.zhongdi.miluo.adapter.mine.TransAdapter;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
@@ -47,6 +49,10 @@ import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
 import com.zhongdi.miluo.widget.mpchart.MyLineChart;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +123,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         super.onCreate(savedInstanceState);
         fundcode = getIntent().getStringExtra("fundcode");
         binding(R.layout.activity_transaction_detail);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -199,20 +206,42 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     }
 
     @Override
-    public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            presenter.getPropertyDetail(fundcode);
-            presenter.getLines(fundcode);
-            presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
+    public void reLogin() {
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
         }
+    }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            presenter.getPropertyDetail(fundcode);
+//            presenter.getLines(fundcode);
+//            presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
+//        }
+//    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+        presenter.getPropertyDetail(fundcode);
+        if(mChart.isEmpty()){
+            presenter.getLines(fundcode);
+        }
+        pageIndex=1;
+        presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
     @Override

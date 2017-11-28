@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.TradeStepAdapter;
 import com.zhongdi.miluo.adapter.mine.TransInfoAdapter;
@@ -89,7 +91,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         tradeid = getIntent().getStringExtra("tradeid");
         tradeType = getIntent().getStringExtra("tradType");
         SOURCE = getIntent().getStringExtra(IntentConfig.SOURCE);
-        showRisk = getIntent().getBooleanExtra("showriskDialog",false);
+        showRisk = getIntent().getBooleanExtra("showriskDialog", false);
         binding(R.layout.activity_transaction_record);
     }
 
@@ -127,15 +129,28 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
 
     @Override
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivityForResult(intent, 301);
+            ViseLog.e("登录未显示");
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==301&&resultCode==RESULT_OK) {
-            presenter.getTransRecord(tradeid, tradeType);
+        if (requestCode == 301) {
+            if (resultCode == RESULT_OK) {
+                presenter.getTransRecord(tradeid, tradeType);
+            } else {
+                if (tradeRecord == null) {
+                    finish();
+                }
+            }
+
         }
     }
 
@@ -145,7 +160,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             btn_back.setVisibility(View.VISIBLE);
             tvTitleRight.setVisibility(View.GONE);
         } else {
-            if (TextUtils.equals(SOURCE,"sell") ||TextUtils.equals(SOURCE,"buy")) {
+            if (TextUtils.equals(SOURCE, "sell") || TextUtils.equals(SOURCE, "buy")) {
                 btn_back.setVisibility(View.GONE);
                 tvTitleRight.setVisibility(View.VISIBLE);
             } else {
@@ -192,7 +207,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
         tvTradeName.setText(title);
         tvReqtime.setText(body.getPart1().getReqtime());
 
-        if (TextUtils.equals(tradeType,"1")) {
+        if (TextUtils.equals(tradeType, "1")) {
             tvAmount.setText("-" + StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));
         } else {
             tvAmount.setText(StringUtil.parseStr2Num(body.getPart1().getAmount() + ""));
@@ -250,6 +265,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             return;
         }
     }
+
     public void showTestDialog() {
         new AlertDialog(mContext).builder().setTitle("风险测评邀请").setMsg("国家证监会发《130号文》邀请您参与基金投资者风险评测，完成后可以参与更多优惠活动哦！")
                 .setNegativeButton("残忍拒绝", new View.OnClickListener() {
@@ -272,6 +288,7 @@ public class TransationsRecordActivity extends BaseActivity<TransactionRecordPre
             }
         }).show();
     }
+
     private void showPswPopupWindow() {
         setupPswPopupWindow();
         mPopupWindow.showAtLocation(findViewById(R.id.main_view), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);

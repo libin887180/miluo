@@ -1,6 +1,5 @@
 package com.zhongdi.miluo.ui.fragment.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,12 +23,16 @@ import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.constants.URLConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.MResponse;
 import com.zhongdi.miluo.model.MessageBean;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.ui.activity.login.NewsDetailActivity;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 
 import java.util.ArrayList;
@@ -74,6 +77,7 @@ public class FundMessageFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.layout_refresh_list_wihte, null);
             unbinder = ButterKnife.bind(this, rootView);
+            EventBus.getDefault().register(this);
             initialize();
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -102,9 +106,8 @@ public class FundMessageFragment extends Fragment {
                 new NetRequestUtil.NetResponseListener<MResponse<List<MessageBean>>>() {
                     @Override
                     public void onSuccess(MResponse<List<MessageBean>> response, int requestCode) {
-
                         OnDataSuccess(response.getBody());
-
+                        MyApplication.getInstance().hasNewMsg =false;
                     }
 
                     @Override
@@ -130,19 +133,36 @@ public class FundMessageFragment extends Fragment {
     }
 
     public void reLogin() {
-        Intent intent  = new Intent(getActivity(), QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(getActivity(), QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
+        }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-            getMessages(pageNum);
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
 
     }
-
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
+//            getMessages(pageNum);
+//        }
+//
+//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+        pageNum=1;
+        getMessages(pageNum);
+    }
     private void OnDataSuccess(List<MessageBean> list) {
         if (pageNum == 1) {
             datas.clear();

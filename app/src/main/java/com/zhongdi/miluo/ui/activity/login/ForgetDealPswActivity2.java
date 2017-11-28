@@ -7,11 +7,17 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.vise.log.ViseLog;
+import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.base.BaseActivity;
 import com.zhongdi.miluo.cache.SpCacheUtil;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.presenter.ForgetDealPsw2Presenter;
 import com.zhongdi.miluo.view.ForgetDealPsw2View;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -97,14 +103,25 @@ public class ForgetDealPswActivity2 extends BaseActivity<ForgetDealPsw2Presenter
 
     @Override
     public void reLogin() {
-        Intent intent  = new Intent(mContext, QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if (MyApplication.getInstance().islogignShow) {
+            ViseLog.i("登录已显示");
+        } else {
+            MyApplication.getInstance().islogignShow = true;
+            Intent intent = new Intent(mContext, QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
     }
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
 //重置交易 密码
         presenter.modifyDealPsw(SpCacheUtil.getInstance().getLoginAccount(),
-                etPassword1.getText().toString(), etPassword2.getText().toString());
+        etPassword1.getText().toString(), etPassword2.getText().toString());
     }
 }

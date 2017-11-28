@@ -83,8 +83,7 @@ public class FundNoticeActivity extends BaseActivity<FundNoticePresenter> implem
         noticeAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<FundNotice>() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, FundNotice notice, int position) {
-                Intent intent
-                         = new Intent(mContext,FundNoticeDetailActivity.class);
+                Intent intent= new Intent(mContext,FundNoticeDetailActivity.class);
                 intent.putExtra("url",notice.getAttachment());
                 startActivity(intent);
             }

@@ -248,12 +248,26 @@ public class NetRequestUtil {
                     String result = AES.decrypt(response);
                     if (!StringUtil.isEmpty(result)) {
                         ViseLog.setTag("response").v(url+result);
-                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
+//                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
+//                        if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
+//                            listener.onSuccess(mResponse, requestCode);
+//                        } else {
+//                            listener.onFailed(mResponse, requestCode);
+//                        }
+
+                        MResponse mResponse = gson.fromJson(result, MResponse.class);//按正常响应解析
                         if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
-                            listener.onSuccess(mResponse, requestCode);
-                        } else {
-                            listener.onFailed(mResponse, requestCode);
-                        }
+                        mResponse = gson.fromJson(result, getType(listener));
+                        listener.onSuccess(mResponse, requestCode);
+                    }
+                    else if(TextUtils.equals(mResponse.getCode(), ErrorCode.LOGIN_TIME_OUT) ){
+                        listener.onFailed(mResponse, requestCode);
+                    }else {
+                        mResponse = gson.fromJson(result, getType(listener));
+                        listener.onFailed(mResponse, requestCode);
+                    }
+
+
                     }else{
                         listener.onError(new Throwable("aes decrypt error!"));
                     }

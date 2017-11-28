@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.vise.log.ViseLog;
 import com.zhongdi.miluo.MyApplication;
 import com.zhongdi.miluo.R;
 import com.zhongdi.miluo.adapter.CurAssetAdapter2;
@@ -27,6 +28,7 @@ import com.zhongdi.miluo.adapter.MyFragmentPagerAdapter;
 import com.zhongdi.miluo.base.BaseFragment;
 import com.zhongdi.miluo.cache.SpCacheUtil;
 import com.zhongdi.miluo.constants.MiluoConfig;
+import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.HomeAssetBean;
 import com.zhongdi.miluo.model.MyProperty;
 import com.zhongdi.miluo.presenter.MineFragPresenter;
@@ -42,6 +44,10 @@ import com.zhongdi.miluo.ui.activity.mine.TransationsDetailActivity;
 import com.zhongdi.miluo.ui.activity.mine.TransationsRecordActivity;
 import com.zhongdi.miluo.view.MineFragmentView;
 import com.zhongdi.miluo.widget.RiseNumberTextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -363,16 +369,27 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
 
     @Override
     public void reLogin() {
-        Intent intent = new Intent(mContext, QuickLoginActivity.class);
-        startActivityForResult(intent, 301);
+        if(MyApplication.getInstance().islogignShow){
+            ViseLog.i("登录已显示");
+        }else{
+            MyApplication.getInstance().islogignShow=true;
+            Intent intent  = new Intent(getActivity() ,QuickLoginActivity.class);
+            startActivity(intent);
+            ViseLog.e("登录未显示");
+        }
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, rootView);//同样把 ButterKnife 抽出来
+            EventBus.getDefault().register(this);
             initView(rootView);
         } else {
             // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，
@@ -410,6 +427,11 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 startActivity(new Intent(mContext, GiftListActivity.class));
                 break;
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        ViseLog.i("******");
+        refreshData();
     }
 
     @Override

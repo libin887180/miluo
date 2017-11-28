@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:minWidth="80dp"
         android:layout_centerVertical="true"
-        android:text="产品信息"
         android:textColor="@color/text_color_normal"
         android:textSize="16sp" />
 
@@ -26,7 +25,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/cpxx"
-        android:src="@drawable/icon_bank_default" />
+        />
 
     <TextView
         android:id="@+id/tv_name"
@@ -39,11 +38,11 @@
         android:textSize="16sp" />
 
     <ImageView
-
         android:id="@id/iv_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:src="@drawable/icon_right" />
 </RelativeLayout>
