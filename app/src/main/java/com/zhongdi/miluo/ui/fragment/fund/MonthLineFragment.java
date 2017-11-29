@@ -46,6 +46,7 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
     @BindView(R.id.line_chart)
     MiLuoLineChart lineChart;
     String sellFundId;
+    String fundCode;
     @BindView(R.id.tv_fund_value)
     TextView tvFundValue;
     @BindView(R.id.tv_hs300_value)
@@ -58,10 +59,11 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
     MyXAxis xAxisLine;
     private float mIndex;
 
-    public static MonthLineFragment newInstance(String sellFundId) {
+    public static MonthLineFragment newInstance(String sellFundId,String  fundCode) {
         Bundle args = new Bundle();
         MonthLineFragment fragment = new MonthLineFragment();
         args.putString("sellFundId", sellFundId);
+        args.putString("fundCode", fundCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -156,7 +158,8 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
     @Override
     public void fetchData() {
         sellFundId = getArguments().getString("sellFundId");
-        presenter.getFundVal(sellFundId);
+        fundCode = getArguments().getString("fundCode");
+        presenter.getFundVal(sellFundId,fundCode);
     }
 
 
@@ -233,7 +236,7 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
 
         if (mData.getDatas().getFundValuation().size() > 0) {
             for (int i = 0; i < mData.getDatas().getFundValuation().size(); i++) {
-                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getDayrate())));
+                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getTotalrate())));
                 fundMarkViews.add(mData.getDatas().getFundValuation().get(i).getValuedate());
             }
         }

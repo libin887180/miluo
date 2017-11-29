@@ -43,8 +43,8 @@ public class FundGeneralFragment extends Fragment {
     TextView tvFundType;
     @BindView(R.id.tv_estab_date)
     TextView tvEstabDate;
-    @BindView(R.id.tv_min_fene)
-    TextView tvMinFene;
+//    @BindView(R.id.tv_min_fene)
+//    TextView tvMinFene;
     @BindView(R.id.tv_fund_size)
     TextView tvFundSize;
     @BindView(R.id.tv_manager_name)
@@ -99,7 +99,7 @@ public class FundGeneralFragment extends Fragment {
                         tvFundName.setText(response.getBody().getFundName());
                         tvFundCode.setText(response.getBody().getFundCode());
                         tvEstabDate.setText(response.getBody().getEstabDate());
-                        tvMinFene.setText(response.getBody().getMinredemptionvol()+"份");
+//                        tvMinFene.setText(response.getBody().getMinredemptionvol()+"份");
                         tvFundSize.setText("(截止至:"+response.getBody().getLastTime()+")");
                         tvManagerName.setText(response.getBody().getFundManagerName());
                         tvFundCustodian.setText(response.getBody().getCustodian());

@@ -22,10 +22,12 @@ public class YearFragPresenter extends BasePresenter<YearFragmentView> {
         super.attachView(view);
     }
 
-    public void getFundVal(String fundcode) {
+    public void getFundVal(String sellFundId,String fundCode) {
         Map<String, String> map = new HashMap<>();
-        map.put("sellFundId", fundcode);
+        map.put("sellFundId", sellFundId);
         map.put("flag", "6");//（3月、4季、5半年、6一年）
+        map.put("fundFlag", "06");//（3月、4季、5半年、6一年）
+        map.put("fundCode", fundCode );
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.FUND_VALUATION, map, 110,
                 new NetRequestUtil.NetResponseListener<MResponse<FundValuationResponse>>() {
                     @Override

@@ -96,6 +96,7 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sellFundId = getIntent().getStringExtra("fundId");
+        fundCode = getIntent().getStringExtra("fundcode");
         binding(R.layout.activity_fund_detail);
     }
 
@@ -124,10 +125,10 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
 //        adapter.addFragment(MonthLineFragment.newInstance(sellFundId));
 //        adapter.addFragment(SeasonLineFragment.newInstance(sellFundId));
 //        adapter.addFragment(HalfYearLineFragment.newInstance(sellFundId));
-        adapter.addFragment(MonthLineFragment.newInstance(sellFundId));
-        adapter.addFragment(SeasonLineFragment.newInstance(sellFundId));
-        adapter.addFragment(HalfYearLineFragment.newInstance(sellFundId));
-        adapter.addFragment(YearLineFragment.newInstance(sellFundId));
+        adapter.addFragment(MonthLineFragment.newInstance(sellFundId,fundCode));
+        adapter.addFragment(SeasonLineFragment.newInstance(sellFundId,fundCode));
+        adapter.addFragment(HalfYearLineFragment.newInstance(sellFundId,fundCode));
+        adapter.addFragment(YearLineFragment.newInstance(sellFundId,fundCode));
         mViewPager.setAdapter(adapter);
         setListener();
 
@@ -360,7 +361,6 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
                 double value = Double.parseDouble(rate);
                 DecimalFormat mFormat = new DecimalFormat("#0.00");
 
-
                 tvCurrentRate.setText(mFormat.format(value*discount)+"%");
 //                tvCurrentRate.setText(CommonUtils.mul(value,discount)+"%");
             }else{
@@ -369,7 +369,12 @@ public class FundDetailActivity extends BaseActivity<FundDetailPresenter> implem
             tvDepRate.setText(fundDetail.getRateValue());
         } else {
             tvDepRate.setVisibility(View.GONE);
-            tvCurrentRate.setText(fundDetail.getRateValue());
+            if(!TextUtils.isEmpty(fundDetail.getRateValue())){
+                tvCurrentRate.setText(fundDetail.getRateValue());
+            }else{
+                tvCurrentRate.setText(0+"");
+            }
+
         }
 
         if (TextUtils.equals(fundDetail.getBuyStatus(),"0")) {//（0-不能购买，1-可以购买）

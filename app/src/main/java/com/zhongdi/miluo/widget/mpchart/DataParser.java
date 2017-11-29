@@ -19,11 +19,11 @@ public class DataParser {
         if (datas.getFundValuation() != null && datas.getFundValuation().size() > 0) {
             for (int i = 0; i < datas.getFundValuation().size(); i++) {
                 if(i==0) {
-                    min = Float.parseFloat(datas.getFundValuation().get(i).getDayrate());
-                    max = Float.parseFloat(datas.getFundValuation().get(i).getDayrate());
+                    min = Float.parseFloat(datas.getFundValuation().get(i).getTotalrate());
+                    max = Float.parseFloat(datas.getFundValuation().get(i).getTotalrate());
                 }else{
-                    min  = Math.min(min, Float.parseFloat(datas.getFundValuation().get(i).getDayrate()));
-                    max  = Math.max(max, Float.parseFloat(datas.getFundValuation().get(i).getDayrate()));
+                    min  = Math.min(min, Float.parseFloat(datas.getFundValuation().get(i).getTotalrate()));
+                    max  = Math.max(max, Float.parseFloat(datas.getFundValuation().get(i).getTotalrate()));
                 }
             }
         }

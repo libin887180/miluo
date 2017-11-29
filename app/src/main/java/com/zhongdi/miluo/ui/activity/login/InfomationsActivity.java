@@ -46,9 +46,9 @@ public class InfomationsActivity extends BaseActivity<InfomationssPresenter> imp
     @Override
     public void initTabLayout() {
         List<String> tabs = new ArrayList<>();
-        tabs.add("基金研报");
-        tabs.add("基金导读");
-        tabs.add("基金观点");
+        tabs.add("要闻推荐");//01
+        tabs.add("基金推荐");//03
+        tabs.add("基金研报");//04
         tablayout.removeAllTabs();
         for (int i = 0; i < tabs.size(); i++) {
             String itemName = tabs.get(i);
@@ -59,9 +59,9 @@ public class InfomationsActivity extends BaseActivity<InfomationssPresenter> imp
             }
         }
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), tabs);
-        adapter.addFragment(BeginnerFragment.newInstance("基金研报"));
-        adapter.addFragment(ImportantInfoFragment.newInstance("基金导读"));
-        adapter.addFragment(ResearchFragment.newInstance("基金观点"));
+        adapter.addFragment(BeginnerFragment.newInstance("要闻推荐"));
+        adapter.addFragment(ImportantInfoFragment.newInstance("基金推荐"));
+        adapter.addFragment(ResearchFragment.newInstance("基金研报"));
         viewPager.setAdapter(adapter);
 
         tablayout.setupWithViewPager(viewPager);

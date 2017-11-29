@@ -52,7 +52,7 @@ public class BeginnerFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
-    private String ARTICLETAG = "04";//04基金研报 05基金导读 06基金观点
+    private String ARTICLETAG = "01";//01要闻推荐 03基金推荐 04基金研报
     public static BeginnerFragment newInstance(String info) {
         Bundle args = new Bundle();
         BeginnerFragment fragment = new BeginnerFragment();
@@ -165,7 +165,7 @@ public class BeginnerFragment extends Fragment {
                 });
     }
     /**
-     * @param articletag 01首页推荐 02利得原创 03基金资讯 04基金研报 05基金导读 06基金观点 07理财热点 08新手秘籍
+     * @param articletag ---后面类型已作废  01首页推荐 02利得原创 03基金资讯 04基金研报 05基金导读 06基金观点 07理财热点 08新手秘籍
      *                   09其他 10要问(推荐,资讯,基金导读,理财热点) 11投研(原创,研报,基金观点)
      * @param pageNumber 页码
      */

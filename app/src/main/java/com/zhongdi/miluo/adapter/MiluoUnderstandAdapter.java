@@ -25,18 +25,25 @@ private Context mContext;
     @Override
     public void convert(BaseRecyclerHolder holder, HomeFund item, int position) {
         ImageView photo = (ImageView)holder.getView(R.id.iv_photo);
-        switch (position){
-            case 0:
-                Glide.with(mContext).load(R.drawable.understand_1).into(photo);
-                break;
-            case 1:
-                Glide.with(mContext).load(R.drawable.understand_2).into(photo);
-                break;
-            case 2:
-                Glide.with(mContext).load(R.drawable.understand_3).into(photo);
-                break;
-        }
+//        switch (position){
+//            case 0:
+//                Glide.with(mContext).load(R.drawable.understand_car).into(photo);
+//                break;
+//            case 1:
+//                Glide.with(mContext).load(R.drawable.understand_baby).into(photo);
+//                break;
+//            case 2:
+//                Glide.with(mContext).load(R.drawable.understand_tuixiu).into(photo);
+//                break;
+//        }
 
+        if(item.getTitle().contains("宝贝")){
+            Glide.with(mContext).load(R.drawable.understand_baby).into(photo);
+        }else if(item.getTitle().contains("买车")){
+            Glide.with(mContext).load(R.drawable.understand_car).into(photo);
+        }else{
+            Glide.with(mContext).load(R.drawable.understand_tuixiu).into(photo);
+        }
     holder.setText(R.id.tv_title,item.getTitle());
     holder.setText(R.id.tv_content,item.getContent());
     holder.setText(R.id.tv_rate,item.getYearrate());

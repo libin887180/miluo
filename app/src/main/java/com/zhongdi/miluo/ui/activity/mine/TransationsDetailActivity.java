@@ -181,6 +181,8 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     @Override
     public void modifyBonusSuccess() {
         presenter.getPropertyDetail(fundcode);
+        pageIndex=1;
+        presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
     @Override

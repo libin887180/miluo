@@ -44,6 +44,7 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
     @BindView(R.id.line_chart)
     MiLuoLineChart lineChart;
     String sellFundId;
+    String fundCode;
     private YAxis axisLeft;
     private DataParser mData1;
     private LineDataSet d1;
@@ -55,10 +56,11 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
     TextView tvHs300Value;
     private float mIndex;
 
-    public static HalfYearLineFragment newInstance(String sellFundId) {
+    public static HalfYearLineFragment newInstance(String sellFundId,String fundCode) {
         Bundle args = new Bundle();
         HalfYearLineFragment fragment = new HalfYearLineFragment();
         args.putString("sellFundId", sellFundId);
+        args.putString("fundCode", fundCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -145,7 +147,8 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
     @Override
     public void fetchData() {
         sellFundId = getArguments().getString("sellFundId");
-        presenter.getFundVal(sellFundId);
+        fundCode = getArguments().getString("fundCode");
+        presenter.getFundVal(sellFundId,fundCode);
     }
 
 
@@ -221,7 +224,7 @@ public class HalfYearLineFragment extends BaseFragment<HalfYearFragPresenter> im
 
         if (mData.getDatas().getFundValuation().size() > 0) {
             for (int i = 0; i < mData.getDatas().getFundValuation().size(); i++) {
-                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getDayrate())));
+                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getTotalrate())));
                 fundMarkViews.add(mData.getDatas().getFundValuation().get(i).getValuedate());
             }
         }

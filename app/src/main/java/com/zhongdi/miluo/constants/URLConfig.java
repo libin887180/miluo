@@ -12,7 +12,7 @@ public class URLConfig {
      */
 
     //翟万鹏
-//    public static final String BASE_URL = "http://192.168.64.154:8085";
+//    public static final String BASE_URL = "http://192.168.64.252:8085";
     //秦松
 //    public static final String BASE_URL = "http://192.168.64.13:8085";
     //测试环境

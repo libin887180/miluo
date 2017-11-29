@@ -157,11 +157,11 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
                         break;
                     case 5:
                         rateType = "semesterrate";
-                        tvIncrease.setText("一年涨幅");
+                        tvIncrease.setText("半年涨幅");
                         break;
                     case 6:
                         rateType = "yearrate";
-                        tvIncrease.setText("半年涨幅");
+                        tvIncrease.setText("一年涨幅");
                         break;
                 }
                 pageNum = 1;
@@ -245,11 +245,11 @@ public class CollectionFragment extends BaseFragment<CollectionPresenter> implem
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        refreshData();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     private void refreshData() {
         if (MyApplication.getInstance().isLogined) {

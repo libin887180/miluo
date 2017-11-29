@@ -52,7 +52,7 @@ public class ResearchFragment extends Fragment {
     @BindView(R.id.refreshLayout)
     TwinklingRefreshLayout refreshLayout;
     private int pageNumber = 1;
-    private String ARTICLETAG = "06";//04基金研报 05基金导读 06基金观点
+    private String ARTICLETAG = "04";//01要闻推荐 03基金推荐 04基金研报
 
 
     public static ResearchFragment newInstance(String info) {

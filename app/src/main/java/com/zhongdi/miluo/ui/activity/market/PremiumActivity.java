@@ -22,14 +22,14 @@ import java.util.List;
 import butterknife.BindView;
 
 public class PremiumActivity extends BaseActivity<PremiumPresenter> implements PremiumView {
-    @BindView(R.id.tv_manage_dep_rate)
-    TextView tvManageDepRate;
-    @BindView(R.id.tv_manage_rate)
-    TextView tvManageRate;
-    @BindView(R.id.tv_tuoguan_dep_rate)
-    TextView tvTuoguanDepRate;
-    @BindView(R.id.tv_tuoguan_rate)
-    TextView tvTuoguanRate;
+//    @BindView(R.id.tv_manage_dep_rate)
+//    TextView tvManageDepRate;
+//    @BindView(R.id.tv_manage_rate)
+//    TextView tvManageRate;
+//    @BindView(R.id.tv_tuoguan_dep_rate)
+//    TextView tvTuoguanDepRate;
+//    @BindView(R.id.tv_tuoguan_rate)
+//    TextView tvTuoguanRate;
     @BindView(R.id.tv_buy_t1_day)
     TextView tvBuyT1Day;
     @BindView(R.id.tv_buy_check_day)
@@ -90,12 +90,12 @@ public class PremiumActivity extends BaseActivity<PremiumPresenter> implements P
 
     @Override
     public void onDateSuccess(RateResponse body) {
-        if (!TextUtils.isEmpty(body.getManageRate())) {
-            tvManageRate.setText(body.getManageRate());
-        }
-        if (!TextUtils.isEmpty(body.getCustodyRate())) {
-            tvTuoguanRate.setText(body.getCustodyRate());
-        }
+//        if (!TextUtils.isEmpty(body.getManageRate())) {
+//            tvManageRate.setText(body.getManageRate());
+//        }
+//        if (!TextUtils.isEmpty(body.getCustodyRate())) {
+//            tvTuoguanRate.setText(body.getCustodyRate());
+//        }
         List<RateTypeDetail> rateTypes = body.getList();
         if(rateTypes!=null&&rateTypes.size()>0) {
             for (int i = 0; i < rateTypes.size(); i++) {

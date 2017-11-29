@@ -44,6 +44,7 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
     @BindView(R.id.line_chart)
     MiLuoLineChart lineChart;
     String sellFundId;
+    String fundCode;
     private YAxis axisLeft;
     private DataParser mData1;
     private LineDataSet d1;
@@ -55,10 +56,11 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
     TextView tvHs300Value;
     private float mIndex;
 
-    public static SeasonLineFragment newInstance(String sellFundId) {
+    public static SeasonLineFragment newInstance(String sellFundId,String  fundCode) {
         Bundle args = new Bundle();
         SeasonLineFragment fragment = new SeasonLineFragment();
         args.putString("sellFundId", sellFundId);
+        args.putString("fundCode", fundCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -146,7 +148,8 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
     @Override
     public void fetchData() {
         sellFundId = getArguments().getString("sellFundId");
-        presenter.getFundVal(sellFundId);
+        fundCode = getArguments().getString("fundCode");
+        presenter.getFundVal(sellFundId,fundCode);
     }
 
 
@@ -222,7 +225,7 @@ public class SeasonLineFragment extends BaseFragment<SeasonFragPresenter> implem
 
         if (mData.getDatas().getFundValuation().size() > 0) {
             for (int i = 0; i < mData.getDatas().getFundValuation().size(); i++) {
-                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getDayrate())));
+                fundData.add(new Entry(i, Float.parseFloat(mData.getDatas().getFundValuation().get(i).getTotalrate())));
                 fundMarkViews.add(mData.getDatas().getFundValuation().get(i).getValuedate());
             }
         }

@@ -6,22 +6,47 @@ package com.zhongdi.miluo.model;
 
 public class FundValuation {
 
+
     /**
-     * sellFundId : 2215
-     * valuedate : 2017-01-06 00:09:00
-     * dayrate : 0.00
+     * fundcode :
+     * fundname :
+     * fundtype :
+     * valuedate : 20170307
+     * netvalue : 1.036
+     * cumvalue : 1.176
+     * totalrate : 0
      */
 
-    private String sellFundId;
+    private String fundcode;
+    private String fundname;
+    private String fundtype;
     private String valuedate;
-    private String dayrate;
+    private double netvalue;
+    private double cumvalue;
+    private String totalrate;
 
-    public String getSellFundId() {
-        return sellFundId;
+    public String getFundcode() {
+        return fundcode;
     }
 
-    public void setSellFundId(String sellFundId) {
-        this.sellFundId = sellFundId;
+    public void setFundcode(String fundcode) {
+        this.fundcode = fundcode;
+    }
+
+    public String getFundname() {
+        return fundname;
+    }
+
+    public void setFundname(String fundname) {
+        this.fundname = fundname;
+    }
+
+    public String getFundtype() {
+        return fundtype;
+    }
+
+    public void setFundtype(String fundtype) {
+        this.fundtype = fundtype;
     }
 
     public String getValuedate() {
@@ -32,11 +57,27 @@ public class FundValuation {
         this.valuedate = valuedate;
     }
 
-    public String getDayrate() {
-        return dayrate;
+    public double getNetvalue() {
+        return netvalue;
     }
 
-    public void setDayrate(String dayrate) {
-        this.dayrate = dayrate;
+    public void setNetvalue(double netvalue) {
+        this.netvalue = netvalue;
+    }
+
+    public double getCumvalue() {
+        return cumvalue;
+    }
+
+    public void setCumvalue(double cumvalue) {
+        this.cumvalue = cumvalue;
+    }
+
+    public String getTotalrate() {
+        return totalrate;
+    }
+
+    public void setTotalrate(String totalrate) {
+        this.totalrate = totalrate;
     }
 }

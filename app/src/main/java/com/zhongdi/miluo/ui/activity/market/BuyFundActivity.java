@@ -237,7 +237,7 @@ private int  MAIDIAN;
                                         tvSxf.setText(fees.get(i).getRatevalue() + "元");
                                     } else {//需要乘以费率
                                         tvRate.setText(StringUtil.parseStr2Num(Double.parseDouble(fees.get(i).getRatevalue()) * 100 + "") + "%");
-                                        tvSxf.setText(StringUtil.parseStr2Num(amount * Double.parseDouble(fees.get(i).getRatevalue()) + "") + "元");
+                                        tvSxf.setText(StringUtil.parseStr2Num(amount *  getRealRate(Double.parseDouble(fees.get(i).getRatevalue() )) + "") + "元");
                                     }
                                     break;
                                 } else {//有优惠折扣
@@ -251,8 +251,8 @@ private int  MAIDIAN;
                                     } else {
                                         tvDepRate.setText(rate * 100 + "%");
                                         tvRate.setText(StringUtil.parseStr2Num(rate * discount * 100 + "") + "%");//费率*折扣转成%
-                                        tvDepSxf.setText(StringUtil.parseStr2Num(amount * rate + "") + "元");
-                                        tvSxf.setText(StringUtil.parseStr2Num(amount * rate * discount + "") + "元");//金额 *费率*折扣
+                                        tvDepSxf.setText(StringUtil.parseStr2Num(amount *  getRealRate(rate ) + "") + "元");
+                                        tvSxf.setText(StringUtil.parseStr2Num(amount * getRealRate(rate * discount) + "") + "元");//金额 *费率*折扣
                                     }
                                     break;
                                 }
@@ -283,6 +283,11 @@ private int  MAIDIAN;
                 }
             }
         });
+    }
+
+    private double getRealRate(double v) {
+//        申购费用（元）=申购金额*【1-1/(1+费率）】
+        return 1-1/(1+v);
     }
 
     @Override
