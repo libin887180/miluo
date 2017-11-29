@@ -123,6 +123,8 @@
 
             <com.zhongdi.miluo.widget.NOScollListView
                 android:id="@+id/lv_apply"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -159,8 +161,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingBottom="30dp"
-                android:paddingTop="30dp">
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -332,6 +334,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:divider="@null" />
 
             <LinearLayout
@@ -365,8 +369,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingBottom="30dp"
-                android:paddingTop="30dp">
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

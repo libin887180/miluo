@@ -79,6 +79,7 @@
         app:tabBackground="@color/white"
         app:tabIndicatorHeight="2dp"
         app:tabPaddingEnd="0dp"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabPaddingStart="0dp"
         app:tabIndicatorColor="@color/tab_text_selected"
         app:tabSelectedTextColor="@color/tab_text_selected"

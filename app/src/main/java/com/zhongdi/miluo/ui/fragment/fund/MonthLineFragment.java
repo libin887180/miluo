@@ -126,9 +126,14 @@ public class MonthLineFragment extends BaseFragment<MonthFragPresenter> implemen
 
         //背景线
         this.xAxisLine.setGridColor(getResources().getColor(R.color.divider_list));
-        this.xAxisLine.setGridLineWidth(1);
+        this.xAxisLine.setGridLineWidth(0.5f);
         this.xAxisLine.setAxisLineColor(getResources().getColor(R.color.divider_list));
-        this.xAxisLine.setAxisLineWidth(1);
+        this.xAxisLine.setAxisLineWidth(0.5f);
+
+        this.axisLeft.setGridColor(getResources().getColor(R.color.divider_list));
+        this.axisLeft.setGridLineWidth(0.5f);
+        this.axisLeft.setAxisLineColor(getResources().getColor(R.color.divider_list));
+        this.axisLeft.setAxisLineWidth(0.5f);
 //        this.axisLeft.setGridColor(getResources().getColor(R.color.minute_zhoutv));
 //        this.axisRight.setAxisLineColor(getResources().getColor(R.color.minute_zhoutv));
 

@@ -214,8 +214,8 @@ public class NetRequestUtil {
             return null;
         }
         RequestParams params = new RequestParams(url);
-        params.setConnectTimeout(60*1000);//设置连接超时时间
-        params.setReadTimeout(30*1000);//设置读取超时时间
+        params.setConnectTimeout(60 * 1000);//设置连接超时时间
+        params.setReadTimeout(30 * 1000);//设置读取超时时间
 //        params.addHeader("Content-Type", "application/json");
 //        params.setAsJsonContent(true);
         params.setHeader("plam", "andorid");//平台
@@ -241,7 +241,7 @@ public class NetRequestUtil {
 
         ViseLog.setTag("Url").i(url);
 //        ViseLog.setTag("Headers").w(params.getHeaders());
-        ViseLog.setTag("params").v(url+"===params["+params.getBodyContent()+"]");
+        ViseLog.setTag("params").v(url + "===params[" + params.getBodyContent() + "]");
         Callback.Cancelable post = x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String response) {
@@ -249,28 +249,19 @@ public class NetRequestUtil {
                     ViseLog.setTag("response_encrypt").v(response);
                     String result = AES.decrypt(response);
                     if (!StringUtil.isEmpty(result)) {
-                        ViseLog.setTag("response").v(url+result);
-//                        MResponse mResponse = gson.fromJson(result, getType(listener));//按正常响应解析
-//                        if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
-//                            listener.onSuccess(mResponse, requestCode);
-//                        } else {
-//                            listener.onFailed(mResponse, requestCode);
-//                        }
-
+                        ViseLog.setTag("response").v(url + result);
                         MResponse mResponse = gson.fromJson(result, MResponse.class);//按正常响应解析
                         if (TextUtils.equals(mResponse.getCode(), ErrorCode.SUCCESS)) {
-                        mResponse = gson.fromJson(result, getType(listener));
-                        listener.onSuccess(mResponse, requestCode);
-                    }
-                    else if(TextUtils.equals(mResponse.getCode(), ErrorCode.LOGIN_TIME_OUT) ){
-                        listener.onFailed(mResponse, requestCode);
-                    }else {
-                        mResponse = gson.fromJson(result, getType(listener));
-                        listener.onFailed(mResponse, requestCode);
-                    }
+                            mResponse = gson.fromJson(result, getType(listener));
+                            listener.onSuccess(mResponse, requestCode);
+                        } else if (TextUtils.equals(mResponse.getCode(), ErrorCode.LOGIN_TIME_OUT)) {
+                            listener.onFailed(mResponse, requestCode);
+                        } else {
+                            mResponse = gson.fromJson(result, getType(listener));
+                            listener.onFailed(mResponse, requestCode);
+                        }
 
-
-                    }else{
+                    } else {
                         listener.onError(new Throwable("aes decrypt error!"));
                     }
 

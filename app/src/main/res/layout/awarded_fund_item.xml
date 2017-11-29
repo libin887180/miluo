@@ -41,7 +41,6 @@
             android:id="@+id/tv_fund_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:textColor="@color/text_color_normal"
             android:textSize="13sp" />
     </LinearLayout>
@@ -88,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
             android:text="近一年收益率"
             android:textColor="@color/text_color_normal"
             android:textSize="12sp" />

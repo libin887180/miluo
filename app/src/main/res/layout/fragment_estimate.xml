@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
@@ -15,9 +15,8 @@
     <LinearLayout
         android:layout_below="@+id/line_chart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center"
-        android:padding="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -51,4 +50,4 @@
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -184,7 +184,9 @@ public class FundFragment extends Fragment {
                 getFunds(fundType.getDicno(), parentFragment.getRateType(), parentFragment.getSortType(), pageNum);
             }
         });
-        rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
+        rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.divider_list)));
+
+//        rvFunds.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         fundAdapter = new FundAdapter(getActivity(), funds);
         fundAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener<Fund>() {
             @Override
