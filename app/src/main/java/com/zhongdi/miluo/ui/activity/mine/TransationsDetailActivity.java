@@ -381,25 +381,25 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             //set1.setVisible(false);
             //set1.setCircleHoleColor(Color.WHITE);
             set2 = new LineDataSet(buy, "DataSet 2");
-            set2.setColor(Color.parseColor("#6BAEE9"));
+            set2.setColor(Color.TRANSPARENT);
             set2.setLineWidth(2f);
             set2.setHighlightEnabled(true);
             set2.setDrawCircleHole(false);
             set2.setDrawIcons(false);
             set2.setDrawCircles(true);
-            set2.setCircleColor(Color.parseColor("#6BAEE9"));
+            set2.setCircleColor(Color.parseColor("#FF2C40"));
             set2.setDrawValues(false);
             set2.setDrawFilled(false);
 
 
             set3 = new LineDataSet(sell, "DataSet 3");
-            set3.setColor(Color.parseColor("#6BAEE9"));
+            set3.setColor(Color.TRANSPARENT);
             set3.setLineWidth(2f);
             set3.setHighlightEnabled(true);
             set3.setDrawCircleHole(false);
             set3.setDrawIcons(false);
             set3.setDrawCircles(true);
-            set3.setCircleColor(Color.parseColor("#FF2C40"));
+            set3.setCircleColor(Color.parseColor("#6BAEE9"));
             set3.setDrawValues(false);
             set3.setDrawFilled(false);
             if (Utils.getSDKInt() >= 18) {
