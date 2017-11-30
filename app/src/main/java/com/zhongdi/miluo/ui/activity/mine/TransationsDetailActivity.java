@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.zhongdi.miluo.constants.IntentConfig;
 import com.zhongdi.miluo.constants.MiluoConfig;
 import com.zhongdi.miluo.eventbus.MessageEvent;
 import com.zhongdi.miluo.model.DealRecord;
+import com.zhongdi.miluo.model.ProfitLineBean;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.presenter.TransactionDetailPresenter;
 import com.zhongdi.miluo.ui.activity.login.QuickLoginActivity;
@@ -48,7 +50,9 @@ import com.zhongdi.miluo.view.TransactionDetailView;
 import com.zhongdi.miluo.widget.OnPasswordInputFinish;
 import com.zhongdi.miluo.widget.PayView;
 import com.zhongdi.miluo.widget.RecycleViewDivider;
+import com.zhongdi.miluo.widget.mpchart.MyCustomFormatter;
 import com.zhongdi.miluo.widget.mpchart.MyLineChart;
+import com.zhongdi.miluo.widget.mpchart.MyXAxis;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -102,6 +106,8 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     TextView tvSell;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    MyXAxis xAxis;
+    private YAxis leftAxis;
     private TransAdapter adapter;
     private RecyclerView fenhongRv;
     private FenhongTypeAdapter listAdapter;
@@ -111,7 +117,6 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     private int pageIndex = 1;
     List<DealRecord> dealRecords = new ArrayList<>();
     private String fundId;
-
     private PopupWindow mPopupWindow;
     private View popView;
     private PayView mPayView;
@@ -122,6 +127,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fundcode = getIntent().getStringExtra("fundcode");
+        fundtype = getIntent().getIntExtra("fundType", -1);
         binding(R.layout.activity_transaction_detail);
         EventBus.getDefault().register(this);
     }
@@ -181,7 +187,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
     @Override
     public void modifyBonusSuccess() {
         presenter.getPropertyDetail(fundcode);
-        pageIndex=1;
+        pageIndex = 1;
         presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
@@ -225,24 +231,26 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 301 && resultCode == Activity.RESULT_OK) {
-//            presenter.getPropertyDetail(fundcode);
-//            presenter.getLines(fundcode);
-//            presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
-//        }
-//    }
+    @Override
+    public void setLineData(List<ProfitLineBean> profitLineBeans) {
+        setChartData(profitLineBeans);
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
         ViseLog.i("******");
         presenter.getPropertyDetail(fundcode);
-        if(mChart.isEmpty()){
-            presenter.getLines(fundcode);
+        if ((fundtype + "").equals(MiluoConfig.HUOBI) || (fundtype + "").equals(MiluoConfig.DUANQI)) {
+
+        } else {
+            if (mChart.isEmpty()) {
+                presenter.getLines(fundcode);
+            }
         }
-        pageIndex=1;
+
+
+        pageIndex = 1;
         presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
@@ -265,7 +273,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
                 presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
             }
         });
-        setUpChart();
+
         adapter = new TransAdapter(mContext, dealRecords);
         recyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayoutManager.VERTICAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
@@ -293,7 +301,12 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         });
 
         presenter.getPropertyDetail(fundcode);
-        presenter.getLines(fundcode);
+        if ((fundtype + "").equals(MiluoConfig.HUOBI) || (fundtype + "").equals(MiluoConfig.DUANQI)) {
+            mChart.setVisibility(View.GONE);
+        } else {
+            setUpChart();
+
+        }
         presenter.getTradRecords(pageIndex, MiluoConfig.DEFAULT_PAGESIZE, fundcode);
     }
 
@@ -307,36 +320,53 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         getLoadingProgressDialog().show();
     }
 
-    public void setChartData() {
-        ArrayList<Entry> values = new ArrayList<Entry>();
-        ArrayList<Entry> values2 = new ArrayList<Entry>();
-        ArrayList<Entry> values3 = new ArrayList<Entry>();
-        for (int i = 0; i < 40; i++) {
-
-            float val = (float) (Math.random() * 100) + 3;
-            values.add(new Entry(i, val));
-            if (i == 30) {
-                values2.add(new Entry(i, val));
-            }
-            if (i == 20) {
-                values3.add(new Entry(i, val));
+    public void setChartData(List<ProfitLineBean> profitLineBeans) {
+        ArrayList<Entry> lines = new ArrayList<Entry>();
+        ArrayList<Entry> buy = new ArrayList<Entry>();
+        ArrayList<Entry> sell = new ArrayList<Entry>();
+//        for (int i = 0; i < 40; i++) {
+//
+//            float val = (float) (Math.random() * 100) + 3;
+//            values.add(new Entry(i, val));
+//            if (i == 30) {
+//                values2.add(new Entry(i, val));
+//            }
+//            if (i == 20) {
+//                values3.add(new Entry(i, val));
+//            }
+//        }
+        for (int i = 0; i < profitLineBeans.size(); i++) {
+            lines.add(new Entry(i, (float) profitLineBeans.get(i).getNetvalue()));
+            if (profitLineBeans.get(i).getType().equals("1")) {
+                buy.add((new Entry(i, (float) profitLineBeans.get(i).getNetvalue())));
+            } else if (profitLineBeans.get(i).getType().equals("2")) {
+                sell.add((new Entry(i, (float) profitLineBeans.get(i).getNetvalue())));
             }
         }
         LineDataSet set1;
         LineDataSet set2;
         LineDataSet set3;
+
+
+        xAxis = mChart.getXAxis();
+        SparseArray<String> xLabels = new SparseArray<>();
+        xLabels.put(0, profitLineBeans.get(0).getValuedate());
+        xLabels.put(profitLineBeans.size() - 1, profitLineBeans.get(profitLineBeans.size() - 1).getValuedate());
+        xAxis.setXLabels(xLabels);
+        xAxis.setValueFormatter(new MyCustomFormatter(profitLineBeans));
+
         if (mChart.getData() != null &&
                 mChart.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            set1.setValues(lines);
             set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
-            set2.setValues(values2);
+            set2.setValues(buy);
             set3 = (LineDataSet) mChart.getData().getDataSetByIndex(2);
-            set3.setValues(values3);
+            set3.setValues(sell);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
-            set1 = new LineDataSet(values, "DataSet 1");
+            set1 = new LineDataSet(lines, "DataSet 1");
             set1.setColor(Color.parseColor("#FF2C40"));
             set1.setLineWidth(2f);
             set1.setHighlightEnabled(true);
@@ -350,7 +380,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             //set1.setDrawHorizontalHighlightIndicator(false);
             //set1.setVisible(false);
             //set1.setCircleHoleColor(Color.WHITE);
-            set2 = new LineDataSet(values2, "DataSet 2");
+            set2 = new LineDataSet(buy, "DataSet 2");
             set2.setColor(Color.parseColor("#6BAEE9"));
             set2.setLineWidth(2f);
             set2.setHighlightEnabled(true);
@@ -362,7 +392,7 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             set2.setDrawFilled(false);
 
 
-            set3 = new LineDataSet(values3, "DataSet 3");
+            set3 = new LineDataSet(sell, "DataSet 3");
             set3.setColor(Color.parseColor("#6BAEE9"));
             set3.setLineWidth(2f);
             set3.setHighlightEnabled(true);
@@ -478,29 +508,44 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
         mChart.setExtraOffsets(5, 10, 5, 20);
         mChart.setDragEnabled(true);//不可拖拽，高亮线
         mChart.setScaleEnabled(false);//不可伸缩
-        XAxis xAxis = mChart.getXAxis();
+
+        xAxis = mChart.getXAxis();
         xAxis.setTextSize(11f);
         xAxis.setDrawGridLines(false);
-        xAxis.setAxisMaximum(45);
-        xAxis.setDrawAxisLine(false);
+        xAxis.setLabelCount(2);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setTextSize(15);
+        xAxis.setTextColor(getResources().getColor(R.color.text_color_normal));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        YAxis leftAxis = mChart.getAxisLeft();
+
+        leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setXOffset(10f);
-        leftAxis.setGranularityEnabled(true);
-        leftAxis.setGranularity(50);
+        leftAxis.setLabelCount(5);
+//        leftAxis.setDrawTopYLabelEntry(false);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.setDrawAxisLine(true);//Y轴坐标
-
+//        leftAxis.setDrawAxisLine(false);//Y轴坐标
+//        leftAxis.setGranularityEnabled(true);
         mChart.getAxisRight().setEnabled(false);
-        setChartData();
-        Legend legend = mChart.getLegend();
+        leftAxis.setTextSize(15);
+        leftAxis.setTextColor(getResources().getColor(R.color.text_color_normal));
 
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend.setYOffset(20f);
+
+        //背景线
+        xAxis.setGridColor(getResources().getColor(R.color.divider_list));
+        xAxis.setGridLineWidth(1);
+        leftAxis.setAxisLineColor(getResources().getColor(R.color.divider_list));
+        leftAxis.setAxisLineWidth(1);
+
+        Legend legend = mChart.getLegend();
+        legend.setEnabled(false);
+//        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+//        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+//        legend.setYOffset(20f);
+
         mChart.animateX(1000);
+        presenter.getLines(fundcode);
     }
 
     @Override
@@ -564,13 +609,13 @@ public class TransationsDetailActivity extends BaseActivity<TransactionDetailPre
             tvNetvalue.setText(body.getNetvalue() + "");
             tvDayrate.setText(body.getDayrate() + "%");
         }
-        if (TextUtils.equals(body.getDividendMethod(),"0")) {
+        if (TextUtils.equals(body.getDividendMethod(), "0")) {
             listAdapter.setCheck(0);
             tvFenhong.setText("红利再投");
-        } else if (TextUtils.equals(body.getDividendMethod(),"1")) {
+        } else if (TextUtils.equals(body.getDividendMethod(), "1")) {
             listAdapter.setCheck(1);
             tvFenhong.setText("现金分红");
-        } else if (TextUtils.equals(body.getDividendMethod(),"2")) {
+        } else if (TextUtils.equals(body.getDividendMethod(), "2")) {
             tvFenhong.setText("红利再投\n确认中");
         } else {
             tvFenhong.setText("现金分红\n确认中");

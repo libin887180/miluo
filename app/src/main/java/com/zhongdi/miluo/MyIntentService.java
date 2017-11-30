@@ -13,8 +13,6 @@ import com.vise.log.inner.LogcatTree;
 
 import org.xutils.x;
 
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * Created by kenn on 2017/9/17.
  */
@@ -46,7 +44,7 @@ public class MyIntentService extends IntentService {
     private void initLog() {
 
         ViseLog.getLogConfig()
-                .configAllowLog(true)//是否输出日志
+                .configAllowLog(false)//是否输出日志
                 .configShowBorders(true)//是否排版显示
                 .configTagPrefix("ViseLog")//设置标签前缀
                 .configFormatTag("%d{HH:mm:ss:SSS} %t %c{-5}")//个性化设置标签，默认显示包名

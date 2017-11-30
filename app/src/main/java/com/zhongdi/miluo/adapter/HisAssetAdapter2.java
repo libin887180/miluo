@@ -115,6 +115,7 @@ public class HisAssetAdapter2 extends BaseAdapter {
             holder.tvProfit.setText("****");
             holder.tvProfit.setTextColor( mContext.getResources().getColor(R.color.red));
         }
+        holder.ivStatus.setVisibility(View.INVISIBLE);
 //        if (item.getStatus().equals("申购中")) {
 //            holder.ivStatus.setImageResource( R.drawable.bg_buying);
 //        } else {

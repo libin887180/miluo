@@ -451,6 +451,33 @@
                         android:layout_height="0.5dp"
                         android:background="@color/divider_list" />
 
+
+                    <LinearLayout
+                        android:layout_below="@+id/line_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:drawableLeft="@drawable/dot_red"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="为购买份额确认"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/text_222"
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:drawableLeft="@drawable/dot_blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="为赎回份额确认"
+                            android:drawablePadding="5dp"
+                            android:layout_marginLeft="30dp"
+                            android:textColor="@color/text_222"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
                     <com.zhongdi.miluo.widget.mpchart.MyLineChart
                         android:id="@+id/line_chart"
                         android:layout_width="match_parent"

@@ -25,7 +25,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mInstance = this;
         JPushInterface.init(this); // 初始化 JPush
-        JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(false); // 设置开启日志,发布时请关闭日志
         MyIntentService.start(this);
 //        SystemClock.sleep(1000);
 
@@ -38,7 +38,7 @@ public class MyApplication extends Application {
 
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
         //设置是否对日志信息进行加密, 默认false(不加密).
-        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(false);
         UMConfigure.setEncryptEnabled (false);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         PlatformConfig.setWeixin("wx1e262f3b61a0b995", "09da9bf44c1f3ec5d0ded94e2de2c53a");

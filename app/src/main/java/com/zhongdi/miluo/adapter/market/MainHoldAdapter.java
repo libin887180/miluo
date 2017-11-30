@@ -1,6 +1,7 @@
 package com.zhongdi.miluo.adapter.market;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -59,7 +60,11 @@ public class MainHoldAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvStockName.setText(mainHold.getStockName() + "(" + mainHold.getStockCode() + ")");
+        if(TextUtils.isEmpty(mainHold.getStockCode())){
+            holder.tvStockName.setText(mainHold.getStockName() );
+        }else {
+            holder.tvStockName.setText(mainHold.getStockName() + "(" + mainHold.getStockCode() + ")");
+        }
         if(mainHold.getStockChangePercent().contains("-")){
             holder.tvIncrease.setTextColor(mContext.getResources().getColor(R.color.increase_green));
         }else{

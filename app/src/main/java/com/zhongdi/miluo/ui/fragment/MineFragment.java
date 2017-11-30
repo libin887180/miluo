@@ -221,6 +221,7 @@ public class MineFragment extends BaseFragment<MineFragPresenter> implements Min
                 if (TextUtils.equals(assetBean.getStatus(),"收益中")) {
                     Intent intent = new Intent(getActivity(), TransationsDetailActivity.class);
                     intent.putExtra("fundcode", assetBean.getFundcode());
+                    intent.putExtra("fundType", assetBean.getFundtype());
                     startActivityForResult(intent, 101);
                 } else {
                     Intent intent = new Intent(getActivity(), TransationsRecordActivity.class);

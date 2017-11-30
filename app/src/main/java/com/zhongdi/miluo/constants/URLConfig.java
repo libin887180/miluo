@@ -22,11 +22,11 @@ public class URLConfig {
 //    public static final String HTML5 = "http://192.168.64.212:8371";
 ////    外网测试
 //    public static final String BASE_URL = "http://218.94.82.38:8085";
-////    测试H5
+//    测试H5
 //    public static final String HTML5 = "http://192.168.151.13:8371";
 ////    赵炎
 //    public static final String BASE_URL = "http://192.168.64.120:8085";
-//    正式测试
+//    正式地址
     public static final String BASE_URL = "http://47.96.177.50:8085";
     //正式H5地址
     public static final String HTML5 = "http://47.96.177.50:8371";

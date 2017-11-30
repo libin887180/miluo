@@ -2,6 +2,7 @@ package com.zhongdi.miluo.view;
 
 import com.zhongdi.miluo.base.BaseView;
 import com.zhongdi.miluo.model.DealRecord;
+import com.zhongdi.miluo.model.ProfitLineBean;
 import com.zhongdi.miluo.model.PropertyDetail;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface TransactionDetailView extends BaseView {
     void showPswLocked();
 
     void reLogin();
+
+    void setLineData(List<ProfitLineBean> profitLineBeans);
 }

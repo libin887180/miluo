@@ -29,10 +29,23 @@ public class MyLineChart extends BarLineChartBase<LineData> implements LineDataP
     @Override
     protected void init() {
         super.init();
-
+        mXAxis = new MyXAxis();
+//        mAxisLeft = new MyYAxis(YAxis.AxisDependency.LEFT);
+        mXAxisRenderer = new MyXAxisRenderer(mViewPortHandler, (MyXAxis) mXAxis, mLeftAxisTransformer, this);
+//        mAxisRendererLeft = new MyYAxisRenderer(mViewPortHandler, (MyYAxis) mAxisLeft, mLeftAxisTransformer);
         mRenderer = new MyLineChartRenderer(this, mAnimator, mViewPortHandler);
     }
 
+//    /*返回转型后的左右轴*/
+//    @Override
+//    public MyYAxis getAxisLeft() {
+//        return (MyYAxis) super.getAxisLeft();
+//    }
+
+    @Override
+    public MyXAxis getXAxis() {
+        return (MyXAxis) super.getXAxis();
+    }
     @Override
     public LineData getLineData() {
         return mData;

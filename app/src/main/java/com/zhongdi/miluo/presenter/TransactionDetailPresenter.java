@@ -7,6 +7,7 @@ import com.zhongdi.miluo.constants.ErrorCode;
 import com.zhongdi.miluo.constants.URLConfig;
 import com.zhongdi.miluo.model.DealRecord;
 import com.zhongdi.miluo.model.MResponse;
+import com.zhongdi.miluo.model.ProfitLineBean;
 import com.zhongdi.miluo.model.PropertyDetail;
 import com.zhongdi.miluo.net.NetRequestUtil;
 import com.zhongdi.miluo.view.TransactionDetailView;
@@ -150,14 +151,14 @@ public class TransactionDetailPresenter extends BasePresenter<TransactionDetailV
         Map<String, String> map = new HashMap<>();
         map.put("fundcode", fundcode);//基金代码
         Callback.Cancelable post = NetRequestUtil.getInstance().post(URLConfig.NET_VALUE_LINE, map, 101,
-                new NetRequestUtil.NetResponseListener<MResponse<Object>>() {
+                new NetRequestUtil.NetResponseListener<MResponse<List<ProfitLineBean>>>() {
                     @Override
-                    public void onSuccess(MResponse<Object> response, int requestCode) {
-//                        view.onTradRecordsSuccess(response.getBody());
+                    public void onSuccess(MResponse<List<ProfitLineBean>> response, int requestCode) {
+                        view.setLineData(response.getBody());
                     }
 
                     @Override
-                    public void onFailed(MResponse<Object> response, int requestCode) {
+                    public void onFailed(MResponse response, int requestCode) {
                         ViseLog.e("请求失败");
                         if(response.getCode().equals(ErrorCode.LOGIN_TIME_OUT)){
                             MyApplication.getInstance().isLogined =false;
