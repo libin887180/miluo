@@ -27,7 +27,13 @@ android {
     }
     buildTypes {
         release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
             minifyEnabled false
+//            zipAlignEnabled true
+            // 移除无用的resource文件
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 //        debug {
@@ -37,6 +43,33 @@ android {
 //        }
         debug {
             signingConfig signingConfigs.debug
+        }
+    }
+
+    productFlavors {
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        c360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        oppo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+        }
+        meizu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+        }
+        lenovo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "lenovo"]
+        }
+        vivo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
         }
     }
 //    signingConfigs {
