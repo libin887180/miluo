@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ad_logo"
         android:layout_above="@+id/center"
+        android:visibility="gone"
         android:layout_marginBottom="80dp"
         android:layout_centerHorizontal="true"/>
     <View
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ad_huawei"
+        android:src="@drawable/welcome_icon"
         android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"/>
 

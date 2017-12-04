@@ -156,7 +156,7 @@
             android:value="59f17c31a40fa3309500005b"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="huawei" />
+            android:value="sanliu" />
             <!--android:value="360" />-->
 
         <activity
